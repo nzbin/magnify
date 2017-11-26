@@ -97,26 +97,6 @@ var checkImgSize = function(el, parent) {
 
 }
 
-
-var checkImgPos = function(el, parent) {
-
-    var imgPinned = {
-        top: false, //can vertical moving
-        left: false //can horizontal moving
-    }
-
-    var elLeft = $(el).offset().left,
-        elTop = $(el).offset().top,
-        parentLeft = $(parent).offset().left,
-        parentTop = $(parent).offset().top;
-
-    imgPinned.left = (elLeft - parentLeft) > 0 ? true : false;
-    imgPinned.top = (elTop - parentTop) > 0 ? true : false;
-
-    return imgPinned;
-
-}
-
 var imgDraggable = function(el, parent) {
 
     var isDragging = false;
@@ -154,7 +134,7 @@ var imgDraggable = function(el, parent) {
         heightDiff = $(el).height() - $(parent).height();
 
         imgLimits = checkImgSize(el, parent);
-
+        // console.log(imgLimits);
     }
 
     var dragMove = function(e) {
@@ -171,44 +151,40 @@ var imgDraggable = function(el, parent) {
                 relativeX = endX - startX,
                 relativeY = endY - startY,
 
-                newLeft = left,
-                newTop = top;
-
-            // limit image dragging & limit image position
-            if (imgLimits.vertical && imgLimits.horizontal) {
-
-                newLeft = relativeX + left;
+                newLeft = relativeX + left,
                 newTop = relativeY + top;
 
-            } else if (imgLimits.vertical && !imgLimits.horizontal) {
+            // vertical limit
+            if (imgLimits.vertical) {
 
                 if ((relativeY + top) > 0) {
                     newTop = 0;
                 } else if ((relativeY + top) < -heightDiff) {
                     newTop = -heightDiff;
-                } else {
-                    newTop = relativeY + top;
                 }
 
-            } else if (!imgLimits.vertical && imgLimits.horizontal) {
+            } else {
+                newTop = top;
+            }
+
+            // horizontal limit
+            if (imgLimits.horizontal) {
 
                 if ((relativeX + left) > 0) {
                     newLeft = 0;
                 } else if ((relativeX + left) < -widthDiff) {
                     newLeft = -widthDiff;
-                } else {
-                    newLeft = relativeX + left;
                 }
 
             } else {
-                // no moving
+                newLeft = left;
             }
 
             $(el).css({
                 left: newLeft + 'px',
                 top: newTop + 'px',
             })
-            console.log(relativeY + top)
+            // console.log(relativeY + top)
         }
     }
 
