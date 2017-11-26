@@ -1,8 +1,6 @@
 /**
- * Private static constants
- *
+ * Private vars
  */
-
 var $W = $(window),
     $D = $(document);
 
@@ -233,6 +231,9 @@ Magnify.prototype = {
         });
 
     },
+    zoomHandler: function() {
+
+    },
     fixedPopupPos: function() {
         var self = this;
 
@@ -266,6 +267,9 @@ Magnify.prototype = {
         var minWidth = Math.max(img.width * scale, self.options.popupWidth),
             minHeight = Math.max(img.height * scale, self.options.popupHeight);
 
+        minWidth = Math.ceil(minWidth);
+        minHeight = Math.ceil(minHeight);
+
         this.$magnify.css({
             width: minWidth + "px",
             height: minHeight + "px",
@@ -295,7 +299,7 @@ Magnify.prototype = {
         });
 
     },
-    resize:function(){
+    resize: function() {
 
     },
     addEvent: function() {
@@ -329,7 +333,7 @@ $.magnify = {
     isDragging: false,
     isImgDragging: false,
     isResizing: false,
-    window: {
+    win: {
         width: 0,
         height: 0
     },

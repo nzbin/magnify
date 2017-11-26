@@ -3,8 +3,8 @@
  *
  */
 
-var isImgDragging = false;
-var isResizing = false;
+var isImgDragging = false,
+    isResizing = false;
 
 // popup draggable
 var draggable = function(el) {
@@ -70,7 +70,51 @@ var draggable = function(el) {
     $D.on('mouseup', dragEnd);
 }
 
-// 图片拖拽
+// image draggable
+// --------------------------------------
+// 1.no dragging
+// 2.vertical dragging
+// 3.horizontal dragging
+// 4.vertical & horizontal dragging
+// --------------------------------------
+
+var checkImgSize = function(el, parent) {
+
+    var imgLimits = {
+        vertical: false, // no vertical moving
+        horizontal: false // no horizontal moving
+    }
+
+    var elWidth = $(el).width(),
+        elHeight = $(el).height(),
+        parentWidth = $(parent).width(),
+        parentHeight = $(parent).height();
+
+    imgLimits.horizontal = elWidth > parentWidth ? true : false;
+    imgLimits.vertical = elHeight > parentHeight ? true : false;
+
+    return imgLimits;
+
+}
+
+
+var checkImgPos = function(el, parent) {
+
+    var imgPinned = {
+        top: false, //can vertical moving
+        left: false //can horizontal moving
+    }
+
+    var elLeft = $(el).offset().left,
+        elTop = $(el).offset().top;
+
+    imgPinned.left = elLeft > 0 ? true : false;
+    imgPinned.top = elTop > 0 ? true : false;
+
+    return imgPinned;
+
+}
+
 var imgDraggable = function(el, parent) {
 
     var isDragging = false;
@@ -81,7 +125,8 @@ var imgDraggable = function(el, parent) {
         left = 0,
         top = 0;
 
-    // console.log($(el))
+    // image limit vars
+    var imgLimits = {};
 
     var dragStart = function(e) {
 
@@ -97,6 +142,8 @@ var imgDraggable = function(el, parent) {
         // we should reclac the element position when mousedown
         left = $(el).offset().left - $(parent).offset().left;
         top = $(el).offset().top - $(parent).offset().top;
+
+        imgLimits = checkImgSize(el, parent);
 
     }
 
@@ -114,12 +161,24 @@ var imgDraggable = function(el, parent) {
                 relativeX = endX - startX,
                 relativeY = endY - startY;
 
-            $(el).css({
-                left: relativeX + left + 'px',
-                top: relativeY + top + 'px'
-            });
+            // limit image dragging
+            if (imgLimits.vertical && imgLimits.horizontal) {
+                $(el).css({
+                    left: relativeX + left + 'px',
+                    top: relativeY + top + 'px'
+                });
+            } else if (imgLimits.vertical && !imgLimits.horizontal) {
+                $(el).css({
+                    top: relativeY + top + 'px'
+                });
+            } else if (!imgLimits.vertical && imgLimits.horizontal) {
+                $(el).css({
+                    left: relativeX + left + 'px',
+                });
+            } else {
+                // no moving
+            }
 
-            return false;
         }
     }
 
