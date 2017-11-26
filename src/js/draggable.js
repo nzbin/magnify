@@ -106,10 +106,12 @@ var checkImgPos = function(el, parent) {
     }
 
     var elLeft = $(el).offset().left,
-        elTop = $(el).offset().top;
+        elTop = $(el).offset().top,
+        parentLeft = $(parent).offset().left,
+        parentTop = $(parent).offset().top;
 
-    imgPinned.left = elLeft > 0 ? true : false;
-    imgPinned.top = elTop > 0 ? true : false;
+    imgPinned.left = (elLeft - parentLeft) > 0 ? true : false;
+    imgPinned.top = (elTop - parentTop) > 0 ? true : false;
 
     return imgPinned;
 
@@ -123,10 +125,13 @@ var imgDraggable = function(el, parent) {
         startY = 0,
 
         left = 0,
-        top = 0;
+        top = 0,
 
-    // image limit vars
-    var imgLimits = {};
+        widthDiff = 0,
+        heightDiff = 0,
+
+        // image limit vars
+        imgLimits = {};
 
     var dragStart = function(e) {
 
@@ -139,9 +144,14 @@ var imgDraggable = function(el, parent) {
 
         startX = e.clientX;
         startY = e.clientY;
+
         // we should reclac the element position when mousedown
         left = $(el).offset().left - $(parent).offset().left;
         top = $(el).offset().top - $(parent).offset().top;
+
+        // width & height difference to limit image right & top position
+        widthDiff = $(el).width() - $(parent).width();
+        heightDiff = $(el).height() - $(parent).height();
 
         imgLimits = checkImgSize(el, parent);
 
@@ -159,26 +169,46 @@ var imgDraggable = function(el, parent) {
                 endY = e.clientY,
 
                 relativeX = endX - startX,
-                relativeY = endY - startY;
+                relativeY = endY - startY,
 
-            // limit image dragging
+                newLeft = left,
+                newTop = top;
+
+            // limit image dragging & limit image position
             if (imgLimits.vertical && imgLimits.horizontal) {
-                $(el).css({
-                    left: relativeX + left + 'px',
-                    top: relativeY + top + 'px'
-                });
+
+                newLeft = relativeX + left;
+                newTop = relativeY + top;
+
             } else if (imgLimits.vertical && !imgLimits.horizontal) {
-                $(el).css({
-                    top: relativeY + top + 'px'
-                });
+
+                if ((relativeY + top) > 0) {
+                    newTop = 0;
+                } else if ((relativeY + top) < -heightDiff) {
+                    newTop = -heightDiff;
+                } else {
+                    newTop = relativeY + top;
+                }
+
             } else if (!imgLimits.vertical && imgLimits.horizontal) {
-                $(el).css({
-                    left: relativeX + left + 'px',
-                });
+
+                if ((relativeX + left) > 0) {
+                    newLeft = 0;
+                } else if ((relativeX + left) < -widthDiff) {
+                    newLeft = -widthDiff;
+                } else {
+                    newLeft = relativeX + left;
+                }
+
             } else {
                 // no moving
             }
 
+            $(el).css({
+                left: newLeft + 'px',
+                top: newTop + 'px',
+            })
+            console.log(relativeY + top)
         }
     }
 
