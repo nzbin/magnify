@@ -1,1 +1,1 @@
-# magnify
+# Magnify

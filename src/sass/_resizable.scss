@@ -1,0 +1,96 @@
+// -----------------------
+// Resizable
+// -----------------------
+.resizable-handle {}
+
+.resizable-handle-e {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: -5px;
+    left: auto;
+    width: 10px;
+    z-index: 10;
+    cursor: e-resize;
+}
+
+.resizable-handle-s {
+    position: absolute;
+    top: auto;
+    bottom: -5px;
+    right: 0;
+    left: 0;
+    height: 10px;
+    z-index: 10;
+    cursor: s-resize;
+}
+
+.resizable-handle-w {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -5px;
+    right: auto;
+    width: 10px;
+    z-index: 10;
+    cursor: w-resize;
+}
+
+.resizable-handle-n {
+    position: absolute;
+    top: -5px;
+    bottom: auto;
+    right: 0;
+    left: 0;
+    height: 10px;
+    z-index: 10;
+    cursor: n-resize;
+}
+
+.resizable-handle-se {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    bottom: -5px;
+    right: -5px;
+    top: auto;
+    left: auto;
+    z-index: 11;
+    cursor: se-resize;
+}
+
+.resizable-handle-sw {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    bottom: -5px;
+    right: auto;
+    top: auto;
+    left: -5px;
+    z-index: 11;
+    cursor: sw-resize;
+}
+
+.resizable-handle-nw {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    bottom: auto;
+    right: auto;
+    top: -5px;
+    left: -5px;
+    z-index: 11;
+    cursor: nw-resize;
+}
+
+.resizable-handle-ne {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    bottom: auto;
+    right: -5px;
+    top: -5px;
+    left: auto;
+    z-index: 11;
+    cursor: ne-resize;
+}

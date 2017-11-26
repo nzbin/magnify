@@ -1,0 +1,33 @@
+/**
+ *  ___    ___  _____   ______  __   __ _____ ______ __    __
+ * |   \  /   |/  _  \ /  __  \|  \ |  |_   _|   ___|  \  /  |
+ * |    \/    |  / \  |  |  \__|   \|  | | | |  |___ \  \/  /
+ * |  |\  /|  |  |_|  |  |  ___        | | | |   ___| \    /
+ * |  | \/ |  |   _   |  \_/   |  |\   |_| |_|  |      |  |
+ * |__|    |__|__| |__|\____/|_|__| \__|_____|__|      |__|
+ *
+ * jquery.Magnify.js
+ *
+ * 2017-11-20
+ *
+ * A jQuery plugin to view images just like in windows
+ *
+ *
+ *
+ */
+;
+(function(factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof exports === 'object') {
+        // Node / CommonJS
+        factory(require('jquery'));
+    } else {
+        // Browser globals.
+        factory(jQuery);
+    }
+})(function($) {
+
+    'use strict';
+
