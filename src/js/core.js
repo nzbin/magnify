@@ -11,12 +11,12 @@ var defaults = {
     keyboard: true,
     header: [],
     toolbar: [],
-    lang: 'en',
-    i18n: {},
     popupWidth: '320',
     popupHeight: '320',
-    popupMaximize: false,
-    gapThreshold: 0.02
+    initMaximize: false,
+    gapThreshold: 0.02,
+    lang: 'en',
+    i18n: {}
 }
 
 // magnify base HTML
@@ -56,14 +56,64 @@ var magnifyHTML = '<div class="magnify-container">\
                         <div class="magnify-button-next"></div>\
                     </div>\
                 </div>';
+/**
+ * Private functions
+ */
 
+/**
+ * [checkImgSize description]
+ * @param  {[Object]} el     [description]
+ * @param  {[Object]} parent [description]
+ * @return {[Object]}        [description]
+ */
+var checkImgSize = function (el, parent) {
+
+    var imgSize = {
+        overflowX: false, // no horizontal moving
+        overflowY: false // no vertical moving
+    }
+
+    var elWidth = $(el).width(),
+        elHeight = $(el).height(),
+        parentWidth = $(parent).width(),
+        parentHeight = $(parent).height();
+
+    imgSize.overflowX = elWidth > parentWidth ? true : false;
+    imgSize.overflowY = elHeight > parentHeight ? true : false;
+
+    return imgSize;
+
+}
+/**
+ * [checkImgPos description]
+ * @param  {[Object]} el     [description]
+ * @param  {[Object]} parent [description]
+ * @return {[Object]}        [description]
+ */
+var checkImgPos = function (el, parent) {
+
+    var leftDiff = $(el).offset().left - $(parent).offset().left,
+        topDiff = $(el).offset().top - $(parent).offset().top,
+        widthDiff = $(parent).width() - $(el).width(),
+        heightDiff = $(parent).height() - $(el).height();
+
+    var imgPos = {
+        top: topDiff,
+        bottom: heightDiff -topDiff,
+        left: leftDiff,
+        right: widthDiff - leftDiff
+    }
+
+    return imgPos;
+
+}
 
 /**
  * Magnify Class
  * @param {[Object]} el      [jquery element]
  * @param {[Object]} options [plugin options]
  */
-var Magnify = function(el, options) {
+var Magnify = function (el, options) {
 
     var self = this;
 
@@ -74,17 +124,16 @@ var Magnify = function(el, options) {
 
 
 /**
- * [prototype Mangify]
- * @type {Object}
+ * Mangify prototype
  */
 Magnify.prototype = {
 
-    init: function(el, options) {
+    init: function (el, options) {
 
         var self = this;
 
         // add thumbnails click event
-        $(el).on('click', function(e) {
+        $(el).on('click', function (e) {
 
             e.preventDefault();
 
@@ -94,7 +143,7 @@ Magnify.prototype = {
 
             self.$image.attr('src', imgSrc);
 
-            self.preloadImg(imgSrc, function(img) {
+            self.preloadImg(imgSrc, function (img) {
                 // console.log(img)
                 self.fixedPopupSize(img);
             });
@@ -102,7 +151,7 @@ Magnify.prototype = {
         });
 
     },
-    open: function() {
+    open: function () {
 
         var self = this;
 
@@ -111,7 +160,7 @@ Magnify.prototype = {
         self.addEvent();
 
     },
-    build: function() {
+    build: function () {
 
         var self = this;
 
@@ -122,7 +171,7 @@ Magnify.prototype = {
         this.$image = $magnify.find('.magnify-stage img');
         this.$close = $magnify.find('.magnify-button-close');
         this.$zoomIn = $magnify.find('.magnify-button-zoom-in');
-        this.$zoomOut = $magnify.find('.magnify-button-zoomOut');
+        this.$zoomOut = $magnify.find('.magnify-button-zoom-out');
         this.$rotate = $magnify.find('.magnify-button-rotate');
         this.$actualSize = $magnify.find('.magnify-button-actual-size');
         this.$fullscreen = $magnify.find('.magnify-button-fullscreen');
@@ -135,46 +184,46 @@ Magnify.prototype = {
         draggable($magnify);
         resizable($magnify);
 
-        imgDraggable(self.$image, $magnify);
+        imgDraggable(self.$image, self.$stage);
 
     },
-    close: function(el) {
+    close: function (el) {
         // remove instance
         $(el).parents('.magnify-container').remove();
 
         // off events
 
     },
-    preloadImg: function(src, fn) {
+    preloadImg: function (src, fn) {
 
         var img = new Image();
 
         if (!!window.ActiveXObject) {
-            img.onreadystatechange = function() {
+            img.onreadystatechange = function () {
                 if (this.readyState == 'complete') {
                     fn();
                 }
             }
         } else {
-            img.onload = function() {
+            img.onload = function () {
                 fn(img);
             }
         }
 
         img.src = src;
     },
-    zoom: function(el, e) {
+    zoom: function (el, e) {
 
         e.preventDefault();
 
         var delta = 1;
 
-        if (e.deltaY) {
-            delta = e.deltaY > 0 ? 1 : -1;
-        } else if (e.wheelDelta) {
-            delta = -e.wheelDelta / 120;
-        } else if (e.detail) {
-            delta = e.detail > 0 ? 1 : -1;
+        if (e.originalEvent.deltaY) {
+            delta = e.originalEvent.deltaY > 0 ? 1 : -1;
+        } else if (e.originalEvent.wheelDelta) {
+            delta = -e.originalEvent.wheelDelta / 120;
+        } else if (e.originalEvent.detail) {
+            delta = e.originalEvent.detail > 0 ? 1 : -1;
         }
 
         // ratio threshold
@@ -195,8 +244,8 @@ Magnify.prototype = {
 
         // mouse point position
         var centerPos = {
-            x: e.clientX - $imageWrap.offset().left,
-            y: e.clientY - $imageWrap.offset().top
+            x: e.originalEvent.clientX - $imageWrap.offset().left,
+            y: e.originalEvent.clientY - $imageWrap.offset().top
         }
 
         // original image data
@@ -209,7 +258,6 @@ Magnify.prototype = {
 
         // image wrap position
         // we will use it to calc the relative position of image
-        // we can also use image.offsetLeft
         var imgWrapPos = {
             x: $imageWrap.offset().left,
             y: $imageWrap.offset().top
@@ -231,14 +279,14 @@ Magnify.prototype = {
         });
 
     },
-    zoomHandler: function() {
+    zoomHandler: function (center) {
 
     },
-    fixedPopupPos: function() {
+    fixedPopupPos: function () {
         var self = this;
 
-        var winWidth = $W.width();
-        var winHeight = $W.height();
+        var winWidth = $W.width(),
+            winHeight = $W.height();
 
         var popupWidth = this.$magnify.width();
         var popupHeight = this.$magnify.height();
@@ -253,12 +301,12 @@ Magnify.prototype = {
      * [fixedPopupSize]
      * @param  {[Object]} img [image object]
      */
-    fixedPopupSize: function(img) {
+    fixedPopupSize: function (img) {
 
         var self = this;
 
-        var winWidth = $W.width();
-        var winHeight = $W.height();
+        var winWidth = $W.width(),
+            winHeight = $W.height();
 
         var gapThreshold = (self.options.gapThreshold > 0 ? self.options.gapThreshold : 0) + 1;
         // popup scale to window
@@ -284,7 +332,7 @@ Magnify.prototype = {
         self.fixedImgPos(img)
 
     },
-    fixedImgPos: function(img) {
+    fixedImgPos: function (img) {
 
         var self = this;
 
@@ -299,28 +347,36 @@ Magnify.prototype = {
         });
 
     },
-    resize: function() {
+    resize: function () {
 
     },
-    addEvent: function() {
+    addEvent: function () {
 
         var self = this;
 
-        this.$close.on('click', function() {
+        this.$close.on('click', function () {
             self.close(this);
         });
 
-        this.$image.on('wheel mousewheel DOMMouseScroll', function(e) {
-            self.zoom(this, e.originalEvent);
+        this.$image.on('wheel mousewheel DOMMouseScroll', function (e) {
+            self.zoom(this, e);
         });
 
-        this.$actualSize.on('click', function() {
+        this.$zoomIn.on('click', function (e) {
+            var imgSize = checkImgSize(self.$image, self.$stage);
+            var imgPos = checkImgPos(self.$image, self.$stage);
+            var origin = getOrigin(imgSize,imgPos,self.$stage,e);
+            console.log(imgPos,origin)
+        });
+
+        this.$zoomOut.on('click', function () {
             alert(1)
         });
 
-        this.$zoomIn.on('click', function() {
+        this.$actualSize.on('click', function () {
             alert(2)
         });
+
     }
 
 }
@@ -343,9 +399,9 @@ $.magnify = {
     }
 }
 
-$.fn.magnify = function(options) {
+$.fn.magnify = function (options) {
 
-    return this.each(function() {
+    return this.each(function () {
         var instance = new Magnify(this, options);
         // console.log(instance)
     });

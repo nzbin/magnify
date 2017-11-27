@@ -7,7 +7,7 @@ var isImgDragging = false,
     isResizing = false;
 
 // popup draggable
-var draggable = function(el) {
+var draggable = function (el) {
 
     var isDragging = false;
 
@@ -18,7 +18,7 @@ var draggable = function(el) {
         top = 0;
 
 
-    var dragStart = function(e) {
+    var dragStart = function (e) {
 
         var e = e || window.event;
 
@@ -34,7 +34,7 @@ var draggable = function(el) {
 
     }
 
-    var dragMove = function(e) {
+    var dragMove = function (e) {
 
         var e = e || window.event;
 
@@ -57,7 +57,7 @@ var draggable = function(el) {
         }
     }
 
-    var dragEnd = function() {
+    var dragEnd = function () {
 
         isDragging = false;
 
@@ -78,26 +78,7 @@ var draggable = function(el) {
 // 4.vertical & horizontal dragging
 // --------------------------------------
 
-var checkImgSize = function(el, parent) {
-
-    var imgLimits = {
-        vertical: false, // no vertical moving
-        horizontal: false // no horizontal moving
-    }
-
-    var elWidth = $(el).width(),
-        elHeight = $(el).height(),
-        parentWidth = $(parent).width(),
-        parentHeight = $(parent).height();
-
-    imgLimits.horizontal = elWidth > parentWidth ? true : false;
-    imgLimits.vertical = elHeight > parentHeight ? true : false;
-
-    return imgLimits;
-
-}
-
-var imgDraggable = function(el, parent) {
+var imgDraggable = function (el, parent) {
 
     var isDragging = false;
 
@@ -111,9 +92,9 @@ var imgDraggable = function(el, parent) {
         heightDiff = 0,
 
         // image limit vars
-        imgLimits = {};
+        imgSize = {};
 
-    var dragStart = function(e) {
+    var dragStart = function (e) {
 
         var e = e || window.event;
 
@@ -125,7 +106,7 @@ var imgDraggable = function(el, parent) {
         startX = e.clientX;
         startY = e.clientY;
 
-        // we should reclac the element position when mousedown
+        // reclac the element position when mousedown
         left = $(el).offset().left - $(parent).offset().left;
         top = $(el).offset().top - $(parent).offset().top;
 
@@ -133,11 +114,11 @@ var imgDraggable = function(el, parent) {
         widthDiff = $(el).width() - $(parent).width();
         heightDiff = $(el).height() - $(parent).height();
 
-        imgLimits = checkImgSize(el, parent);
-        // console.log(imgLimits);
+        imgSize = checkImgSize(el, parent);
+        // console.log(imgSize);
     }
 
-    var dragMove = function(e) {
+    var dragMove = function (e) {
 
         var e = e || window.event;
 
@@ -155,7 +136,7 @@ var imgDraggable = function(el, parent) {
                 newTop = relativeY + top;
 
             // vertical limit
-            if (imgLimits.vertical) {
+            if (imgSize.overflowY) {
 
                 if ((relativeY + top) > 0) {
                     newTop = 0;
@@ -168,7 +149,7 @@ var imgDraggable = function(el, parent) {
             }
 
             // horizontal limit
-            if (imgLimits.horizontal) {
+            if (imgSize.overflowX) {
 
                 if ((relativeX + left) > 0) {
                     newLeft = 0;
@@ -188,7 +169,7 @@ var imgDraggable = function(el, parent) {
         }
     }
 
-    var dragEnd = function() {
+    var dragEnd = function () {
 
         isDragging = false;
         isImgDragging = false;

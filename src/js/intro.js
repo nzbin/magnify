@@ -8,9 +8,13 @@
  *
  * jquery.Magnify.js
  *
- * 2017-11-20
- *
  * A jQuery plugin to view images just like in windows
+ * 
+ * Copyright (c) 2017 nzbin
+ * 
+ * Released under the MIT License
+ *
+ * Released on: 2017-11-27
  *
  *
  *

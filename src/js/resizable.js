@@ -97,7 +97,7 @@ var resizable = function(el) {
         startX = e.clientX;
         startY = e.clientY;
 
-        // 鼠标按下时需要重新计算图片的相对位置
+        // reclac the element position when mousedown
         width = $(el).width();
         height = $(el).height();
         left = $(el).offset().left;

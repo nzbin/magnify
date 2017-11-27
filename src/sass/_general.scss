@@ -5,7 +5,9 @@
     position: fixed;
     width: 320px;
     height: 320px;
+    // border: 1px solid #333;
     background-color: rgba(0, 0, 0, .85);
+    box-shadow: 0 0 3px 1px rgba(0,0,0,.3);
 }
 
 .magnify-header {
