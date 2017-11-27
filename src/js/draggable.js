@@ -1,6 +1,5 @@
 /**
  * draggable
- *
  */
 
 var isImgDragging = false,
@@ -70,13 +69,15 @@ var draggable = function (el) {
     $D.on('mouseup', dragEnd);
 }
 
-// image draggable
-// --------------------------------------
-// 1.no dragging
-// 2.vertical dragging
-// 3.horizontal dragging
-// 4.vertical & horizontal dragging
-// --------------------------------------
+/**
+ * image draggable
+ * --------------------------------------
+ * 1.no dragging
+ * 2.vertical dragging
+ * 3.horizontal dragging
+ * 4.vertical & horizontal dragging
+ * --------------------------------------
+ */
 
 var imgDraggable = function (el, parent) {
 

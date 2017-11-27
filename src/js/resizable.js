@@ -1,8 +1,7 @@
 /**
- * [resizable description]
- * @param  {[type]} el [description]
- * @return {[type]}    [description]
+ * resizable
  */
+
 var resizable = function(el) {
 
     var resizableHandleE = $('<div class="resizable-handle resizable-handle-e"></div>'),
