@@ -5,7 +5,7 @@
 var isImgDragging = false,
     isResizing = false;
 
-// popup draggable
+// modal draggable
 var draggable = function (el) {
 
     var isDragging = false;

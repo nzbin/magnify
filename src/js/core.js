@@ -10,10 +10,10 @@ var defaults = {
     draggable: true,
     resizable: true,
     keyboard: true,
-    header: [],
+    title: true,
     toolbar: [],
-    popupWidth: '320',
-    popupHeight: '320',
+    modalWidth: '320',
+    modalHeight: '320',
     initMaximize: false,
     gapThreshold: 0.02,
     lang: 'en',
@@ -21,7 +21,7 @@ var defaults = {
 }
 
 // magnify base HTML
-var magnifyHTML = '<div class="magnify-container">\
+var magnifyHTML = '<div class="magnify-modal">\
                     <div class="magnify-header">\
                         <div class="magnify-title">test</div>\
                         <div class="magnify-toolbar">\
@@ -61,10 +61,8 @@ var magnifyHTML = '<div class="magnify-container">\
 
 /**
  * Magnify Class
- * @param {[Object]} el      [jquery element]
- * @param {[Object]} options [plugin options]
  */
-var Magnify = function(el, options) {
+var Magnify = function (el, options) {
 
     var self = this;
 
@@ -79,12 +77,12 @@ var Magnify = function(el, options) {
  */
 Magnify.prototype = {
 
-    init: function(el, options) {
+    init: function (el, options) {
 
         var self = this;
 
         // add thumbnails click event
-        $(el).on('click', function(e) {
+        $(el).on('click', function (e) {
 
             e.preventDefault();
 
@@ -94,15 +92,15 @@ Magnify.prototype = {
 
             self.$image.attr('src', imgSrc);
 
-            self.preloadImg(imgSrc, function(img) {
+            self.preloadImg(imgSrc, function (img) {
                 // console.log(img)
-                self.fixedPopupSize(img);
+                self.fixedModalSize(img);
             });
 
         });
 
     },
-    open: function() {
+    open: function () {
 
         var self = this;
 
@@ -111,7 +109,7 @@ Magnify.prototype = {
         self.addEvent();
 
     },
-    build: function() {
+    build: function () {
 
         var self = this;
 
@@ -129,7 +127,7 @@ Magnify.prototype = {
 
         $('body').append($magnify);
 
-        self.fixedPopupPos();
+        self.fixedModalPos();
 
         // draggable & resizable
         draggable($magnify);
@@ -138,32 +136,32 @@ Magnify.prototype = {
         imgDraggable(self.$image, self.$stage);
 
     },
-    close: function(el) {
+    close: function (el) {
         // remove instance
-        $(el).parents('.magnify-container').remove();
+        $(el).parents('.magnify-modal').remove();
 
         // off events
 
     },
-    preloadImg: function(src, fn) {
+    preloadImg: function (src, fn) {
 
         var img = new Image();
 
         if (!!window.ActiveXObject) {
-            img.onreadystatechange = function() {
+            img.onreadystatechange = function () {
                 if (this.readyState == 'complete') {
-                    fn();
+                    fn(img);
                 }
             }
         } else {
-            img.onload = function() {
+            img.onload = function () {
                 fn(img);
             }
         }
 
         img.src = src;
     },
-    zoom: function(el, e) {
+    zoom: function (el, e) {
 
         e.preventDefault();
 
@@ -181,9 +179,9 @@ Magnify.prototype = {
         var ratio = -delta * 0.1;
 
         if (ratio < 0) {
-            ratio = 1 / (1 - ratio);
+            ratio = 1 / (1 - ratio);// zoom out
         } else {
-            ratio = 1 + ratio;
+            ratio = 1 + ratio;// zoom in
         }
 
         if (ratio > 0.95 && ratio < 1.05) {
@@ -191,7 +189,7 @@ Magnify.prototype = {
         }
 
         var $image = $(el),
-            $imageWrap = $image.parents('.magnify-container');
+            $imageWrap = $image.parents('.magnify-modal');
 
         // mouse point position
         var centerPos = {
@@ -209,7 +207,9 @@ Magnify.prototype = {
 
         // image wrap position
         // we will use it to calc the relative position of image
-        var imgWrapPos = {
+        var imgWrapData = {
+            w: $imageWrap.width(),
+            h: $imageWrap.height(),
             x: $imageWrap.offset().left,
             y: $imageWrap.offset().top
         }
@@ -217,11 +217,26 @@ Magnify.prototype = {
         var newWidth = imgData.w * ratio,
             newHeight = imgData.h * ratio,
             // think about it for a while ~~~
-            newLeft = centerPos.x - (centerPos.x - (imgData.x - imgWrapPos.x)) / imgData.w * newWidth,
-            newTop = centerPos.y - (centerPos.y - (imgData.y - imgWrapPos.y)) / imgData.h * newHeight;
+            newLeft = centerPos.x - (centerPos.x - (imgData.x - imgWrapData.x)) / imgData.w * newWidth,
+            newTop = centerPos.y - (centerPos.y - (imgData.y - imgWrapData.y)) / imgData.h * newHeight;
 
-        // console.log(w / h)
+        var offsetX = imgWrapData.w - newWidth,
+            offsetY = imgWrapData.h - newHeight;
+        // console.log(offsetX, offsetY)
 
+        // zoom out & zoom in condition
+        if (newHeight <= imgWrapData.h) {
+            newTop = (imgWrapData.h - newHeight) / 2;
+        } else {
+            newTop = newTop > 0 ? 0 : (newTop < offsetY ? offsetY : newTop);
+        }
+
+        if (newWidth <= imgWrapData.w) {
+            newLeft = (imgWrapData.w - newWidth) / 2;
+        } else {
+            newLeft = newLeft > 0 ? 0 : (newLeft < offsetX ? offsetX : newLeft);
+        }
+        
         $image.css({
             width: newWidth + 'px',
             height: newHeight + 'px',
@@ -230,29 +245,25 @@ Magnify.prototype = {
         });
 
     },
-    zoomHandler: function(center) {
+    zoomHandler: function (center) {
 
     },
-    fixedPopupPos: function() {
+    fixedModalPos: function () {
         var self = this;
 
         var winWidth = $W.width(),
             winHeight = $W.height();
 
-        var popupWidth = this.$magnify.width();
-        var popupHeight = this.$magnify.height();
+        var modalWidth = this.$magnify.width();
+        var modalHeight = this.$magnify.height();
 
-        // make the popup in center
+        // make the modal in center
         this.$magnify.css({
-            left: (winWidth - popupWidth) / 2 + 'px',
-            top: (winHeight - popupHeight) / 2 + 'px'
+            left: (winWidth - modalWidth) / 2 + 'px',
+            top: (winHeight - modalHeight) / 2 + 'px'
         });
     },
-    /**
-     * [fixedPopupSize]
-     * @param  {[Object]} img [image object]
-     */
-    fixedPopupSize: function(img) {
+    fixedModalSize: function (img) {
 
         var self = this;
 
@@ -260,11 +271,11 @@ Magnify.prototype = {
             winHeight = $W.height();
 
         var gapThreshold = (self.options.gapThreshold > 0 ? self.options.gapThreshold : 0) + 1;
-        // popup scale to window
+        // modal scale to window
         var scale = Math.min(winWidth / (img.width * gapThreshold), winHeight / (img.height * gapThreshold), 1);
 
-        var minWidth = Math.max(img.width * scale, self.options.popupWidth),
-            minHeight = Math.max(img.height * scale, self.options.popupHeight);
+        var minWidth = Math.max(img.width * scale, self.options.modalWidth),
+            minHeight = Math.max(img.height * scale, self.options.modalHeight);
 
         minWidth = Math.ceil(minWidth);
         minHeight = Math.ceil(minHeight);
@@ -277,54 +288,51 @@ Magnify.prototype = {
         });
 
         // add to static
-        $.magnify.popup.width = minWidth;
-        $.magnify.popup.height = minHeight;
+        $.magnify.modal.width = minWidth;
+        $.magnify.modal.height = minHeight;
 
         self.fixedImgPos(img)
 
     },
-    fixedImgPos: function(img) {
+    fixedImgPos: function (img) {
 
         var self = this;
 
-        // image scale to popup
-        var scale = Math.min($.magnify.popup.width / (img.width), $.magnify.popup.height / (img.height), 1);
+        // image scale to modal
+        var scale = Math.min($.magnify.modal.width / (img.width), $.magnify.modal.height / (img.height), 1);
 
         this.$image.css({
             width: img.width * scale + "px",
             height: img.height * scale + "px",
-            left: ($.magnify.popup.width - img.width * scale) / 2 + 'px',
-            top: ($.magnify.popup.height - img.height * scale) / 2 + 'px'
+            left: ($.magnify.modal.width - img.width * scale) / 2 + 'px',
+            top: ($.magnify.modal.height - img.height * scale) / 2 + 'px'
         });
 
     },
-    resize: function() {
+    resize: function () {
 
     },
-    addEvent: function() {
+    addEvent: function () {
 
         var self = this;
 
-        this.$close.on('click', function() {
+        this.$close.on('click', function () {
             self.close(this);
         });
 
-        this.$image.on('wheel mousewheel DOMMouseScroll', function(e) {
-            self.zoom(this, e);
+        this.$stage.on('wheel mousewheel DOMMouseScroll', function (e) {
+            self.zoom(self.$image, e);
         });
 
-        this.$zoomIn.on('click', function(e) {
-            var imgSize = checkImgSize(self.$image, self.$stage);
-            var imgPos = checkImgPos(self.$image, self.$stage);
-            var origin = getOrigin(imgSize, imgPos, self.$stage, e);
-            console.log(imgPos, origin)
+        this.$zoomIn.on('click', function (e) {
+            
         });
 
-        this.$zoomOut.on('click', function() {
+        this.$zoomOut.on('click', function () {
             alert(1)
         });
 
-        this.$actualSize.on('click', function() {
+        this.$actualSize.on('click', function () {
             alert(2)
         });
 
@@ -334,25 +342,21 @@ Magnify.prototype = {
 
 /**
  * Public static functions
- *
  */
 $.magnify = {
+    instance:null,
     isDragging: false,
     isImgDragging: false,
     isResizing: false,
-    win: {
-        width: 0,
-        height: 0
-    },
-    popup: {
+    modal: {
         width: 0,
         height: 0
     }
 }
 
-$.fn.magnify = function(options) {
+$.fn.magnify = function (options) {
 
-    return this.each(function() {
+    return this.each(function () {
         var instance = new Magnify(this, options);
         // console.log(instance)
     });
