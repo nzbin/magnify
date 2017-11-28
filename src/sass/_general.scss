@@ -20,20 +20,23 @@
         top: 0;
         right: 0;
         height: 40px;
-        width: 40px;
+        width: 120px;
+        text-align: right;
     }
 }
 
 .magnify-title {
-    margin-right: 40px;
-    line-height: 40px;
+    margin-right: 120px;
+    padding: 13px 10px;
+    font-size: 14px;
+    line-height: 1;
 }
 
 .magnify-button-close {
     cursor: pointer;
-    &:hover {
-        background-color: #ff4949;
-    }
+    // &:hover {
+    //     background-color: #ff4949;
+    // }
 }
 
 .magnify-footer {
