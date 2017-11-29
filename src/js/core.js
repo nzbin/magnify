@@ -147,7 +147,7 @@ Magnify.prototype = {
 
         // draggable & resizable
         draggable($magnify);
-        resizable($magnify);
+        resizable($magnify,self.$image);
 
         imgDraggable(self.$image, self.$stage);
 
@@ -376,6 +376,10 @@ Magnify.prototype = {
 
         this.$rotate.on('click', function() {
             alert(6)
+        });
+
+        this.$maximize.on('click',function(){
+            self.$magnify.toggleClass('magnify-maximize');
         });
 
     }

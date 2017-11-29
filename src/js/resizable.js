@@ -2,7 +2,7 @@
  * resizable
  */
 
-var resizable = function(el) {
+var resizable = function(modal, image) {
 
     var resizableHandleE = $('<div class="resizable-handle resizable-handle-e"></div>'),
         resizableHandleW = $('<div class="resizable-handle resizable-handle-w"></div>'),
@@ -13,7 +13,7 @@ var resizable = function(el) {
         resizableHandleNE = $('<div class="resizable-handle resizable-handle-ne"></div>'),
         resizableHandleNW = $('<div class="resizable-handle resizable-handle-nw"></div>');
 
-    var resizableHandle = {
+    var resizableHandles = {
         'e': resizableHandleE,
         's': resizableHandleS,
         'se': resizableHandleSE,
@@ -23,9 +23,9 @@ var resizable = function(el) {
         'ne': resizableHandleNE,
         'sw': resizableHandleSW,
     }
-    // console.log(resizableHandle)
+    // console.log(resizableHandles)
 
-    $(el).append(resizableHandleE, resizableHandleW, resizableHandleS, resizableHandleN,
+    $(modal).append(resizableHandleE, resizableHandleW, resizableHandleS, resizableHandleN,
         resizableHandleSE, resizableHandleSW, resizableHandleNE, resizableHandleNW);
 
     var isDragging = false;
@@ -33,58 +33,101 @@ var resizable = function(el) {
     var startX = 0,
         startY = 0,
 
-        width = 0,
-        height = 0,
-        left = 0,
-        top = 0;
+        modalData = {
+            w: 0,
+            h: 0,
+            l: 0,
+            t: 0
+        },
+        imageData = {
+            w: 0,
+            h: 0,
+            t: 0,
+            l: 0
+        };
 
     var direction = '';
 
-    var getOpts = function(direction, distanceX, distanceY) {
+    // modal CSS options
+    var getModalOpts = function(dir, offsetX, offsetY) {
 
         var opts = {
             'e': {
-                width: distanceX + width + 'px',
+                width: offsetX + modalData.w + 'px',
             },
             's': {
-                height: distanceY + height + 'px'
+                height: offsetY + modalData.h + 'px'
             },
             'se': {
-                width: distanceX + width + 'px',
-                height: distanceY + height + 'px'
+                width: offsetX + modalData.w + 'px',
+                height: offsetY + modalData.h + 'px'
             },
             'w': {
-                width: -distanceX + width + 'px',
-                left: distanceX + left + 'px'
+                width: -offsetX + modalData.w + 'px',
+                left: offsetX + modalData.l + 'px'
             },
             'n': {
-                height: -distanceY + height + 'px',
-                top: distanceY + top + 'px'
+                height: -offsetY + modalData.h + 'px',
+                top: offsetY + modalData.t + 'px'
             },
             'nw': {
-                width: -distanceX + width + 'px',
-                height: -distanceY + height + 'px',
-                top: distanceY + top + 'px',
-                left: distanceX + left + 'px'
+                width: -offsetX + modalData.w + 'px',
+                height: -offsetY + modalData.h + 'px',
+                top: offsetY + modalData.t + 'px',
+                left: offsetX + modalData.l + 'px'
             },
             'ne': {
-                width: distanceX + width + 'px',
-                height: -distanceY + height + 'px',
-                top: distanceY + top + 'px'
+                width: offsetX + modalData.w + 'px',
+                height: -offsetY + modalData.h + 'px',
+                top: offsetY + modalData.t + 'px'
             },
             'sw': {
-                width: -distanceX + width + 'px',
-                height: distanceY + height + 'px',
-                left: distanceX + left + 'px'
+                width: -offsetX + modalData.w + 'px',
+                height: offsetY + modalData.h + 'px',
+                left: offsetX + modalData.l + 'px'
             }
         };
 
-        return opts[direction]
+        return opts[dir]
+    }
+    // image CSS options
+    var getImageOpts = function(dir, offsetX, offsetY, widthDiff, heightDiff) {
+
+        var opts = {
+            'e': {
+                left: widthDiff < 0 ? (offsetX / 2 + imageData.l + 'px') : $(image).position().left
+            },
+            's': {
+                top: heightDiff < 0 ? (offsetY / 2 + imageData.t + 'px') : $(image).position().top
+            },
+            'se': {
+                top: heightDiff < 0 ? (offsetY / 2 + imageData.t + 'px') : $(image).position().top,
+                left: widthDiff < 0 ? (offsetX / 2 + imageData.l + 'px') : $(image).position().left
+            },
+            'w': {
+                left: widthDiff < 0 ? (-offsetX / 2 + imageData.l + 'px') : $(image).position().left
+            },
+            'n': {
+                top: heightDiff < 0 ? (-offsetY / 2 + imageData.t + 'px') : $(image).position().top
+            },
+            'nw': {
+                top: heightDiff < 0 ? (-offsetY / 2 + imageData.t + 'px') : $(image).position().top,
+                left: widthDiff < 0 ? (-offsetX / 2 + imageData.l + 'px') : $(image).position().left
+            },
+            'ne': {
+                top: heightDiff < 0 ? (-offsetY / 2 + imageData.t + 'px') : $(image).position().top,
+                left: widthDiff < 0 ? (offsetX / 2 + imageData.l + 'px') : $(image).position().left
+            },
+            'sw': {
+                top: heightDiff < 0 ? (offsetY / 2 + imageData.t + 'px') : $(image).position().top,
+                left: widthDiff < 0 ? (-offsetX / 2 + imageData.l + 'px') : $(image).position().left
+            }
+        };
+
+        return opts[dir]
     }
 
-
-
-    var dragStart = function(dir,e) {
+    var dragStart = function(dir, e) {
 
         var e = e || window.event;
 
@@ -96,11 +139,20 @@ var resizable = function(el) {
         startX = e.clientX;
         startY = e.clientY;
 
-        // reclac the element position when mousedown
-        width = $(el).width();
-        height = $(el).height();
-        left = $(el).offset().left;
-        top = $(el).offset().top;
+        // reclac the modal data when mousedown
+        modalData = {
+            w: $(modal).width(),
+            h: $(modal).height(),
+            l: $(modal).offset().left,
+            t: $(modal).offset().top
+        };
+
+        imageData = {
+            w: $(image).width(),
+            h: $(image).height(),
+            l: $(image).position().left,
+            t: $(image).position().top
+        };
 
         direction = dir;
     }
@@ -119,9 +171,13 @@ var resizable = function(el) {
                 relativeX = endX - startX,
                 relativeY = endY - startY;
 
-            var opts = getOpts(direction, relativeX, relativeY);
+            var modalOpts = getModalOpts(direction, relativeX, relativeY);
+            var imageOpts = getImageOpts(direction, relativeX, relativeY, (imageData.w - $(modal).width()), (imageData.h - $(modal).height()));
 
-            $(el).css(opts);
+            $(modal).css(modalOpts);
+
+            $(image).css(imageOpts);
+
 
             return false;
         }
@@ -133,10 +189,10 @@ var resizable = function(el) {
 
     }
 
-    // console.log($(el))
-    $.each(resizableHandle, function(dir, el) {
-        el.on('mousedown', function(e) {
-            dragStart(dir,e);
+    // console.log($(modal))
+    $.each(resizableHandles, function(dir, handle) {
+        handle.on('mousedown', function(e) {
+            dragStart(dir, e);
         });
     });
 
