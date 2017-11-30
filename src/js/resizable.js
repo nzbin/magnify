@@ -30,6 +30,8 @@ var resizable = function(modal, image) {
 
     var isDragging = false;
 
+    var draggingLimit = false;
+
     var startX = 0,
         startY = 0,
 
@@ -92,35 +94,35 @@ var resizable = function(modal, image) {
     }
     // image CSS options
     var getImageOpts = function(dir, offsetX, offsetY, widthDiff, heightDiff) {
-
+        // ($(image).position().left > -widthDiff ? $(image).position().left : -widthDiff)
         var opts = {
             'e': {
-                left: widthDiff < 0 ? (offsetX / 2 + imageData.l + 'px') : $(image).position().left
+                left: widthDiff < 0 ? (offsetX / 2 + imageData.l + 'px') : 0
             },
             's': {
-                top: heightDiff < 0 ? (offsetY / 2 + imageData.t + 'px') : $(image).position().top
+                top: heightDiff < 0 ? (offsetY / 2 + imageData.t + 'px') : 0
             },
             'se': {
-                top: heightDiff < 0 ? (offsetY / 2 + imageData.t + 'px') : $(image).position().top,
-                left: widthDiff < 0 ? (offsetX / 2 + imageData.l + 'px') : $(image).position().left
+                top: heightDiff < 0 ? (offsetY / 2 + imageData.t + 'px') : 0,
+                left: widthDiff < 0 ? (offsetX / 2 + imageData.l + 'px') : 0
             },
             'w': {
-                left: widthDiff < 0 ? (-offsetX / 2 + imageData.l + 'px') : $(image).position().left
+                left: widthDiff < 0 ? (-offsetX / 2 + imageData.l + 'px') : 0
             },
             'n': {
-                top: heightDiff < 0 ? (-offsetY / 2 + imageData.t + 'px') : $(image).position().top
+                top: heightDiff < 0 ? (-offsetY / 2 + imageData.t + 'px') : 0
             },
             'nw': {
-                top: heightDiff < 0 ? (-offsetY / 2 + imageData.t + 'px') : $(image).position().top,
-                left: widthDiff < 0 ? (-offsetX / 2 + imageData.l + 'px') : $(image).position().left
+                top: heightDiff < 0 ? (-offsetY / 2 + imageData.t + 'px') : 0,
+                left: widthDiff < 0 ? (-offsetX / 2 + imageData.l + 'px') : 0
             },
             'ne': {
-                top: heightDiff < 0 ? (-offsetY / 2 + imageData.t + 'px') : $(image).position().top,
-                left: widthDiff < 0 ? (offsetX / 2 + imageData.l + 'px') : $(image).position().left
+                top: heightDiff < 0 ? (-offsetY / 2 + imageData.t + 'px') : 0,
+                left: widthDiff < 0 ? (offsetX / 2 + imageData.l + 'px') : 0
             },
             'sw': {
-                top: heightDiff < 0 ? (offsetY / 2 + imageData.t + 'px') : $(image).position().top,
-                left: widthDiff < 0 ? (-offsetX / 2 + imageData.l + 'px') : $(image).position().left
+                top: heightDiff < 0 ? (offsetY / 2 + imageData.t + 'px') : 0,
+                left: widthDiff < 0 ? (-offsetX / 2 + imageData.l + 'px') : 0
             }
         };
 
@@ -165,6 +167,9 @@ var resizable = function(modal, image) {
 
         if (isDragging) {
 
+            // Limit dragging speed to prevent drag too fast
+            // ?
+
             var endX = e.clientX,
                 endY = e.clientY,
 
@@ -172,15 +177,27 @@ var resizable = function(modal, image) {
                 relativeY = endY - startY;
 
             var modalOpts = getModalOpts(direction, relativeX, relativeY);
-            var imageOpts = getImageOpts(direction, relativeX, relativeY, (imageData.w - $(modal).width()), (imageData.h - $(modal).height()));
 
             $(modal).css(modalOpts);
 
+            // if (draggingLimit) {
+            //     return;
+            // }
+
+            // draggingLimit = true;
+
+            // setTimeout(function() {
+            //     draggingLimit = false;
+            // }, 50);
+
+            var imageOpts = getImageOpts(direction, relativeX, relativeY, (imageData.w - modalData.w - relativeX), (imageData.h - modalData.h - relativeY));
+            // console.log($(image).position().left,imageData.w - modalData.w - relativeX,$(image).position().left > -(imageData.w - modalData.w - relativeX));
+
             $(image).css(imageOpts);
 
-
-            return false;
         }
+
+
     }
     var dragEnd = function() {
 

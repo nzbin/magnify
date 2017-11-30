@@ -351,11 +351,11 @@ Magnify.prototype = {
         });
 
         this.$zoomIn.on('click', function(e) {
-            self.zoom(0.2, { x: self.$stage.height() / 2, y: self.$stage.width() / 2 }, e);
+            self.zoom(0.2, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         });
 
         this.$zoomOut.on('click', function(e) {
-            self.zoom(-0.2, { x: self.$stage.height() / 2, y: self.$stage.width() / 2 }, e);
+            self.zoom(-0.2, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         });
 
         this.$actualSize.on('click', function(e) {
