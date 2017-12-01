@@ -93,36 +93,45 @@ var resizable = function(modal, image) {
         return opts[dir]
     }
     // image CSS options
-    var getImageOpts = function(dir, offsetX, offsetY, widthDiff, heightDiff) {
-        // ($(image).position().left > -widthDiff ? $(image).position().left : -widthDiff)
+    var getImageOpts = function(dir, offsetX, offsetY) {
+
+        var widthDiff = modalData.w - imageData.w + offsetX,
+            heightDiff = modalData.h - imageData.h + offsetY,
+
+            widthDiff2 = modalData.w - imageData.w - offsetX,
+            heightDiff2 = modalData.h - imageData.h - offsetY;
+
+        var imgLeft = $(image).position().left,
+            imgTop = $(image).position().top;
+
         var opts = {
             'e': {
-                left: widthDiff < 0 ? (offsetX / 2 + imageData.l + 'px') : 0
+                left: widthDiff >= 0 ? (widthDiff / 2 + 'px') : (imgLeft > widthDiff ? (imgLeft + 'px') : (widthDiff + 'px'))
             },
             's': {
-                top: heightDiff < 0 ? (offsetY / 2 + imageData.t + 'px') : 0
+                top: heightDiff >= 0 ? (heightDiff / 2 + 'px') : (imgTop > heightDiff ? (imgTop + 'px') : (heightDiff + 'px'))
             },
             'se': {
-                top: heightDiff < 0 ? (offsetY / 2 + imageData.t + 'px') : 0,
-                left: widthDiff < 0 ? (offsetX / 2 + imageData.l + 'px') : 0
+                top: heightDiff >= 0 ? (heightDiff / 2 + 'px') : (imgTop > heightDiff ? (imgTop + 'px') : (heightDiff + 'px')),
+                left: widthDiff >= 0 ? (widthDiff / 2 + 'px') : (imgLeft > widthDiff ? (imgLeft + 'px') : (widthDiff + 'px'))
             },
             'w': {
-                left: widthDiff < 0 ? (-offsetX / 2 + imageData.l + 'px') : 0
+                left: widthDiff2 >= 0 ? (widthDiff2 / 2 + 'px') : (imgLeft > widthDiff2 ? (imgLeft + 'px') : (widthDiff2 + 'px'))
             },
             'n': {
-                top: heightDiff < 0 ? (-offsetY / 2 + imageData.t + 'px') : 0
+                top: heightDiff2 >= 0 ? (heightDiff2 / 2 + 'px') : (imgTop > heightDiff2 ? (imgTop + 'px') : (heightDiff2 + 'px'))
             },
             'nw': {
-                top: heightDiff < 0 ? (-offsetY / 2 + imageData.t + 'px') : 0,
-                left: widthDiff < 0 ? (-offsetX / 2 + imageData.l + 'px') : 0
+                top: heightDiff2 >= 0 ? (heightDiff2 / 2 + 'px') : (imgTop > heightDiff2 ? (imgTop + 'px') : (heightDiff2 + 'px')),
+                left: widthDiff2 >= 0 ? (widthDiff2 / 2 + 'px') : (imgLeft > widthDiff2 ? (imgLeft + 'px') : (widthDiff2 + 'px'))
             },
             'ne': {
-                top: heightDiff < 0 ? (-offsetY / 2 + imageData.t + 'px') : 0,
-                left: widthDiff < 0 ? (offsetX / 2 + imageData.l + 'px') : 0
+                top: heightDiff2 >= 0 ? (heightDiff2 / 2 + 'px') : (imgTop > heightDiff2 ? (imgTop + 'px') : (heightDiff2 + 'px')),
+                left: widthDiff >= 0 ? (widthDiff / 2 + 'px') : (imgLeft > widthDiff ? (imgLeft + 'px') : (widthDiff + 'px'))
             },
             'sw': {
-                top: heightDiff < 0 ? (offsetY / 2 + imageData.t + 'px') : 0,
-                left: widthDiff < 0 ? (-offsetX / 2 + imageData.l + 'px') : 0
+                top: heightDiff >= 0 ? (heightDiff / 2 + 'px') : (imgTop > heightDiff ? (imgTop + 'px') : (heightDiff + 'px')),
+                left: widthDiff2 >= 0 ? (widthDiff2 / 2 + 'px') : (imgLeft > widthDiff2 ? (imgLeft + 'px') : (widthDiff2 + 'px'))
             }
         };
 
@@ -167,9 +176,6 @@ var resizable = function(modal, image) {
 
         if (isDragging) {
 
-            // Limit dragging speed to prevent drag too fast
-            // ?
-
             var endX = e.clientX,
                 endY = e.clientY,
 
@@ -180,8 +186,10 @@ var resizable = function(modal, image) {
 
             $(modal).css(modalOpts);
 
+            // Limit dragging speed to prevent drag too fast
+            // ?
             // if (draggingLimit) {
-            //     return;
+            //     return false;
             // }
 
             // draggingLimit = true;
@@ -190,8 +198,8 @@ var resizable = function(modal, image) {
             //     draggingLimit = false;
             // }, 50);
 
-            var imageOpts = getImageOpts(direction, relativeX, relativeY, (imageData.w - modalData.w - relativeX), (imageData.h - modalData.h - relativeY));
-            // console.log($(image).position().left,imageData.w - modalData.w - relativeX,$(image).position().left > -(imageData.w - modalData.w - relativeX));
+            var imageOpts = getImageOpts(direction, relativeX, relativeY);
+            // console.log($(image).position().left,imageData.w - modalData.w - relativeX,$(image).position().left > -(imageData.w - modalData.w - relativeX),imageData.l,relativeX);
 
             $(image).css(imageOpts);
 
