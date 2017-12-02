@@ -2,7 +2,7 @@
  * resizable
  */
 
-var resizable = function(modal, image) {
+var resizable = function(modal, stage, image) {
 
     var resizableHandleE = $('<div class="resizable-handle resizable-handle-e"></div>'),
         resizableHandleW = $('<div class="resizable-handle resizable-handle-w"></div>'),
@@ -36,6 +36,12 @@ var resizable = function(modal, image) {
         startY = 0,
 
         modalData = {
+            w: 0,
+            h: 0,
+            l: 0,
+            t: 0
+        },
+        stageData = {
             w: 0,
             h: 0,
             l: 0,
@@ -95,11 +101,11 @@ var resizable = function(modal, image) {
     // image CSS options
     var getImageOpts = function(dir, offsetX, offsetY) {
 
-        var widthDiff = modalData.w - imageData.w + offsetX,
-            heightDiff = modalData.h - imageData.h + offsetY,
+        var widthDiff = stageData.w - imageData.w + offsetX,
+            heightDiff = stageData.h - imageData.h + offsetY,
 
-            widthDiff2 = modalData.w - imageData.w - offsetX,
-            heightDiff2 = modalData.h - imageData.h - offsetY;
+            widthDiff2 = stageData.w - imageData.w - offsetX,
+            heightDiff2 = stageData.h - imageData.h - offsetY;
 
         var imgLeft = $(image).position().left,
             imgTop = $(image).position().top;
@@ -158,6 +164,13 @@ var resizable = function(modal, image) {
             t: $(modal).offset().top
         };
 
+        stageData = {
+            w: $(stage).width(),
+            h: $(stage).height(),
+            l: $(stage).offset().left,
+            t: $(stage).offset().top
+        };
+
         imageData = {
             w: $(image).width(),
             h: $(image).height(),
@@ -199,7 +212,7 @@ var resizable = function(modal, image) {
             // }, 50);
 
             var imageOpts = getImageOpts(direction, relativeX, relativeY);
-            // console.log($(image).position().left,imageData.w - modalData.w - relativeX,$(image).position().left > -(imageData.w - modalData.w - relativeX),imageData.l,relativeX);
+            // console.log($(image).position().top,modalData,stageData);
 
             $(image).css(imageOpts);
 

@@ -147,7 +147,7 @@ Magnify.prototype = {
 
         // draggable & resizable
         draggable($magnify);
-        resizable($magnify,self.$image);
+        resizable($magnify,self.$stage,self.$image);
 
         imgDraggable(self.$image, self.$stage);
 
@@ -314,8 +314,8 @@ Magnify.prototype = {
         });
 
         // store modal size
-        $.magnify.modal.width = minWidth;
-        $.magnify.modal.height = minHeight;
+        // $.magnify.modal.width = minWidth;
+        // $.magnify.modal.height = minHeight;
 
         self.fixedImgPos(img)
 
@@ -324,14 +324,19 @@ Magnify.prototype = {
 
         var self = this;
 
+        var stageData = {
+            w:self.$stage.width(),
+            h:self.$stage.height()
+        }
+
         // image scale to modal
-        var scale = Math.min($.magnify.modal.width / (img.width), $.magnify.modal.height / (img.height), 1);
+        var scale = Math.min( stageData.w / (img.width),  stageData.h / (img.height), 1);
 
         this.$image.css({
             width: img.width * scale + "px",
             height: img.height * scale + "px",
-            left: ($.magnify.modal.width - img.width * scale) / 2 + 'px',
-            top: ($.magnify.modal.height - img.height * scale) / 2 + 'px'
+            left: (stageData.w - img.width * scale) / 2 + 'px',
+            top: (stageData.h - img.height * scale) / 2 + 'px'
         });
 
     },
@@ -351,11 +356,11 @@ Magnify.prototype = {
         });
 
         this.$zoomIn.on('click', function(e) {
-            self.zoom(0.2, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+            self.zoom(self.options.ratioThreshold, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         });
 
         this.$zoomOut.on('click', function(e) {
-            self.zoom(-0.2, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+            self.zoom(-self.options.ratioThreshold, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         });
 
         this.$actualSize.on('click', function(e) {
@@ -395,6 +400,10 @@ $.magnify = {
     isImgDragging: false,
     isResizing: false,
     modal: {
+        width: 0,
+        height: 0
+    },
+    stage:{
         width: 0,
         height: 0
     },
