@@ -3,6 +3,27 @@
  */
 
 /**
+ * [throttle  函数节流 impress.js]
+ * @param  {Function} fn      [description]
+ * @param  {[Number]}   delay [description]
+ * @return {Function}         [description]
+ */
+var throttle = function(fn, delay) {
+
+    var timer = null;
+
+    return function() {
+        var context = this,
+            args = arguments;
+
+        clearTimeout(timer);
+
+        timer = setTimeout(function() {
+            fn.apply(context, args);
+        }, delay);
+    };
+};
+/**
  * [checkImgSize description]
  * @param  {[Object]} el     [description]
  * @param  {[Object]} parent [description]

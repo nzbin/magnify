@@ -109,7 +109,10 @@ Magnify.prototype = {
 
             });
 
+            self.resize();
+
         });
+
 
     },
     open: function() {
@@ -143,11 +146,11 @@ Magnify.prototype = {
 
         $('body').append($magnify);
 
-        self.fixedModalPos();
+        self.fixedModalPos($magnify);
 
         // draggable & resizable
         draggable($magnify);
-        resizable($magnify,self.$stage,self.$image);
+        resizable($magnify, self.$stage, self.$image);
 
         imgDraggable(self.$image, self.$stage);
 
@@ -159,7 +162,7 @@ Magnify.prototype = {
         // off events
 
     },
-    loadImg:function(){
+    loadImg: function() {
 
     },
     preloadImg: function(src, fn) {
@@ -274,20 +277,21 @@ Magnify.prototype = {
     rotate: function() {
 
     },
-    fixedModalPos: function() {
+    fixedModalPos: function(modal) {
         var self = this;
 
         var winWidth = $W.width(),
             winHeight = $W.height();
 
-        var modalWidth = this.$magnify.width();
-        var modalHeight = this.$magnify.height();
+        var modalWidth = modal.width(),
+            modalHeight = modal.height();
 
-        // make the modal in center
-        this.$magnify.css({
+        // make the modal in windows center
+        modal.css({
             left: (winWidth - modalWidth) / 2 + 'px',
             top: (winHeight - modalHeight) / 2 + 'px'
         });
+        // console.log(modal)
     },
     fixedModalSize: function(img) {
 
@@ -317,20 +321,20 @@ Magnify.prototype = {
         // $.magnify.modal.width = minWidth;
         // $.magnify.modal.height = minHeight;
 
-        self.fixedImgPos(img)
+        self.fixedImagePos(img)
 
     },
-    fixedImgPos: function(img) {
+    fixedImagePos: function(img) {
 
         var self = this;
 
         var stageData = {
-            w:self.$stage.width(),
-            h:self.$stage.height()
+            w: self.$stage.width(),
+            h: self.$stage.height()
         }
 
         // image scale to modal
-        var scale = Math.min( stageData.w / (img.width),  stageData.h / (img.height), 1);
+        var scale = Math.min(stageData.w / (img.width), stageData.h / (img.height), 1);
 
         this.$image.css({
             width: img.width * scale + "px",
@@ -341,6 +345,12 @@ Magnify.prototype = {
 
     },
     resize: function() {
+
+        var self = this;
+
+        window.onresize = throttle(function() {
+            self.fixedModalPos(self.$magnify);
+        }, 500);
 
     },
     addEvent: function() {
@@ -383,7 +393,7 @@ Magnify.prototype = {
             alert(6)
         });
 
-        this.$maximize.on('click',function(){
+        this.$maximize.on('click', function() {
             self.$magnify.toggleClass('magnify-maximize');
         });
 
@@ -403,7 +413,7 @@ $.magnify = {
         width: 0,
         height: 0
     },
-    stage:{
+    stage: {
         width: 0,
         height: 0
     },
