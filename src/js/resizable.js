@@ -58,8 +58,8 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
     // modal CSS options
     var getModalOpts = function(dir, offsetX, offsetY) {
         // modal should not move when its width to the minwidth
-        var newLeft = (-offsetX + modalData.w) > minWidth ? (offsetX + modalData.l) : modalData.l,
-            newTop = (-offsetY + modalData.h) > minHeight ? (offsetY + modalData.t) : modalData.t;
+        var newLeft = (-offsetX + modalData.w) > minWidth ? (offsetX + modalData.l) : (modalData.l + modalData.w - minWidth),
+            newTop = (-offsetY + modalData.h) > minHeight ? (offsetY + modalData.t) : (modalData.t + modalData.h - minHeight);
 
         var opts = {
             'e': {
