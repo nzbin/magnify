@@ -116,7 +116,7 @@ var imgDraggable = function (el, parent) {
         heightDiff = $(el).height() - $(parent).height();
 
         imgSize = checkImgSize(el, parent);
-        // console.log(imgSize);
+
     }
 
     var dragMove = function (e) {
@@ -165,8 +165,8 @@ var imgDraggable = function (el, parent) {
             $(el).css({
                 left: newLeft + 'px',
                 top: newTop + 'px',
-            })
-            // console.log(relativeY + top)
+            });
+
         }
     }
 

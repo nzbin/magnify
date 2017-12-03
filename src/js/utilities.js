@@ -4,9 +4,9 @@
 
 /**
  * [throttle  函数节流 impress.js]
- * @param  {Function} fn      [description]
- * @param  {[Number]}   delay [description]
- * @return {Function}         [description]
+ * @param  {Function} fn    [description]
+ * @param  {[Number]} delay [description]
+ * @return {Function}       [description]
  */
 var throttle = function(fn, delay) {
 
@@ -23,6 +23,29 @@ var throttle = function(fn, delay) {
         }, delay);
     };
 };
+/**
+ * [preloadImg 预加载图片]
+ * @param  {[type]}   src [图片地址]
+ * @param  {Function} fn  [回调函数]
+ */
+var preloadImg = function(src, fn) {
+
+    var img = new Image();
+
+    if (!!window.ActiveXObject) {
+        img.onreadystatechange = function() {
+            if (this.readyState == 'complete') {
+                fn(img);
+            }
+        }
+    } else {
+        img.onload = function() {
+            fn(img);
+        }
+    }
+
+    img.src = src;
+}
 /**
  * [checkImgSize description]
  * @param  {[Object]} el     [description]

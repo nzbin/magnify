@@ -2,7 +2,7 @@
  * resizable
  */
 
-var resizable = function(modal, stage, image) {
+var resizable = function(modal, stage, image, minWidth, minHeight) {
 
     var resizableHandleE = $('<div class="resizable-handle resizable-handle-e"></div>'),
         resizableHandleW = $('<div class="resizable-handle resizable-handle-w"></div>'),
@@ -23,7 +23,6 @@ var resizable = function(modal, stage, image) {
         'ne': resizableHandleNE,
         'sw': resizableHandleSW,
     }
-    // console.log(resizableHandles)
 
     $(modal).append(resizableHandleE, resizableHandleW, resizableHandleS, resizableHandleN,
         resizableHandleSE, resizableHandleSW, resizableHandleNE, resizableHandleNW);
@@ -58,54 +57,58 @@ var resizable = function(modal, stage, image) {
 
     // modal CSS options
     var getModalOpts = function(dir, offsetX, offsetY) {
+        // modal should not move when its width to the minwidth
+        var newLeft = (-offsetX + modalData.w) > minWidth ? (offsetX + modalData.l) : modalData.l,
+            newTop = (-offsetY + modalData.h) > minHeight ? (offsetY + modalData.t) : modalData.t;
 
         var opts = {
             'e': {
-                width: offsetX + modalData.w + 'px',
+                width: Math.max((offsetX + modalData.w), minWidth) + 'px',
             },
             's': {
-                height: offsetY + modalData.h + 'px'
+                height: Math.max((offsetY + modalData.h), minHeight) + 'px'
             },
             'se': {
-                width: offsetX + modalData.w + 'px',
-                height: offsetY + modalData.h + 'px'
+                width: Math.max((offsetX + modalData.w), minWidth) + 'px',
+                height: Math.max((offsetY + modalData.h), minHeight) + 'px'
             },
             'w': {
-                width: -offsetX + modalData.w + 'px',
-                left: offsetX + modalData.l + 'px'
+                width: Math.max((-offsetX + modalData.w), minWidth) + 'px',
+                left: newLeft + 'px'
             },
             'n': {
-                height: -offsetY + modalData.h + 'px',
-                top: offsetY + modalData.t + 'px'
+                height: Math.max((-offsetY + modalData.h), minHeight) + 'px',
+                top: newTop + 'px'
             },
             'nw': {
-                width: -offsetX + modalData.w + 'px',
-                height: -offsetY + modalData.h + 'px',
-                top: offsetY + modalData.t + 'px',
-                left: offsetX + modalData.l + 'px'
+                width: Math.max((-offsetX + modalData.w), minWidth) + 'px',
+                height: Math.max((-offsetY + modalData.h), minHeight) + 'px',
+                top: newTop + 'px',
+                left: newLeft + 'px'
             },
             'ne': {
-                width: offsetX + modalData.w + 'px',
-                height: -offsetY + modalData.h + 'px',
-                top: offsetY + modalData.t + 'px'
+                width: Math.max((offsetX + modalData.w), minWidth) + 'px',
+                height: Math.max((-offsetY + modalData.h), minHeight) + 'px',
+                top: newTop + 'px'
             },
             'sw': {
-                width: -offsetX + modalData.w + 'px',
-                height: offsetY + modalData.h + 'px',
-                left: offsetX + modalData.l + 'px'
+                width: Math.max((-offsetX + modalData.w), minWidth) + 'px',
+                height: Math.max((offsetY + modalData.h), minHeight) + 'px',
+                left: newLeft + 'px'
             }
         };
 
         return opts[dir]
     }
+
     // image CSS options
     var getImageOpts = function(dir, offsetX, offsetY) {
+        // image should not move when modal width to the min width
+        var widthDiff = stageData.w - imageData.w + ((offsetX + modalData.w) > minWidth ? offsetX : 0),
+            heightDiff = stageData.h - imageData.h + ((offsetY + modalData.h) > minHeight ? offsetY : 0),
 
-        var widthDiff = stageData.w - imageData.w + offsetX,
-            heightDiff = stageData.h - imageData.h + offsetY,
-
-            widthDiff2 = stageData.w - imageData.w - offsetX,
-            heightDiff2 = stageData.h - imageData.h - offsetY;
+            widthDiff2 = stageData.w - imageData.w + ((-offsetX + modalData.w) > minWidth ? -offsetX : 0),
+            heightDiff2 = stageData.h - imageData.h + ((-offsetY + modalData.h) > minHeight ? -offsetY : 0);
 
         var imgLeft = $(image).position().left,
             imgTop = $(image).position().top;

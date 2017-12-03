@@ -97,17 +97,7 @@ Magnify.prototype = {
 
             self.open();
 
-            var imgSrc = $(this).attr('href');
-            self.$image.attr('src', imgSrc);
-
-            self.preloadImg(imgSrc, function(img) {
-                // console.log(img)
-                self.fixedModalSize(img);
-
-                $.magnify.image.width = img.width;
-                $.magnify.image.height = img.height;
-
-            });
+            self.loadImg(this);
 
             self.resize();
 
@@ -150,9 +140,10 @@ Magnify.prototype = {
 
         // draggable & resizable
         draggable($magnify);
-        resizable($magnify, self.$stage, self.$image);
 
         imgDraggable(self.$image, self.$stage);
+
+        resizable($magnify, self.$stage, self.$image, self.options.modalWidth, self.options.modalHeight);
 
     },
     close: function(el) {
@@ -162,32 +153,28 @@ Magnify.prototype = {
         // off events
 
     },
-    loadImg: function() {
-
-    },
-    preloadImg: function(src, fn) {
-
-        var img = new Image();
-
-        if (!!window.ActiveXObject) {
-            img.onreadystatechange = function() {
-                if (this.readyState == 'complete') {
-                    fn(img);
-                }
-            }
-        } else {
-            img.onload = function() {
-                fn(img);
-            }
-        }
-
-        img.src = src;
-    },
-    wheel: function(e) {
+    loadImg: function(el) {
 
         var self = this;
 
+        var imgSrc = $(el).attr('href');
+
+        self.$image.attr('src', imgSrc);
+
+        preloadImg(imgSrc, function(img) {
+
+            self.fixedModalSize(img);
+
+            $.magnify.image.width = img.width;
+            $.magnify.image.height = img.height;
+
+        });
+    },
+    wheel: function(e) {
+
         e.preventDefault();
+
+        var self = this;
 
         var delta = 1;
 
@@ -248,7 +235,6 @@ Magnify.prototype = {
 
         var offsetX = stageData.w - newWidth,
             offsetY = stageData.h - newHeight;
-        // console.log(offsetX, offsetY)
 
         // zoom out & zoom in condition
         if (newHeight <= stageData.h) {
@@ -291,7 +277,7 @@ Magnify.prototype = {
             left: (winWidth - modalWidth) / 2 + 'px',
             top: (winHeight - modalHeight) / 2 + 'px'
         });
-        // console.log(modal)
+
     },
     fixedModalSize: function(img) {
 
@@ -366,11 +352,11 @@ Magnify.prototype = {
         });
 
         this.$zoomIn.on('click', function(e) {
-            self.zoom(self.options.ratioThreshold, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+            self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         });
 
         this.$zoomOut.on('click', function(e) {
-            self.zoom(-self.options.ratioThreshold, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+            self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         });
 
         this.$actualSize.on('click', function(e) {
@@ -409,6 +395,7 @@ $.magnify = {
     isDragging: false,
     isImgDragging: false,
     isResizing: false,
+    maximize: false,
     modal: {
         width: 0,
         height: 0
