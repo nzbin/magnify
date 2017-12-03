@@ -78,6 +78,9 @@ var Magnify = function(el, options) {
     this.options = $.extend(true, {}, defaults, options);
 
     this.init(el, self.options);
+
+    // store image data in every instance
+    this.imageData = {};
 }
 
 
@@ -165,10 +168,11 @@ Magnify.prototype = {
 
             self.fixedModalSize(img);
 
-            $.magnify.image.width = img.width;
-            $.magnify.image.height = img.height;
-
         });
+
+    },
+    getImgGroup: function() {
+
     },
     wheel: function(e) {
 
@@ -200,6 +204,8 @@ Magnify.prototype = {
     },
     zoom: function(ratio, origin, e) {
 
+        var self = this;
+
         // zoom out & zoom in
         ratio = ratio < 0 ? (1 / (1 - ratio)) : (1 + ratio);
 
@@ -207,10 +213,17 @@ Magnify.prototype = {
             ratio = 1;
         }
 
+        ratio = self.$image.width() / self.imageData.originalWidth * ratio;
+
+        self.zoomHandler(ratio, origin, e);
+
+    },
+    zoomHandler: function(ratio, origin, e) {
+
         var $image = this.$image,
             $stage = this.$stage;
 
-        // original image data
+        // current image data
         var imgData = {
             w: $image.width(),
             h: $image.height(),
@@ -227,8 +240,8 @@ Magnify.prototype = {
             y: $stage.offset().top
         }
 
-        var newWidth = imgData.w * ratio,
-            newHeight = imgData.h * ratio,
+        var newWidth = this.imageData.originalWidth * ratio,
+            newHeight = this.imageData.originalHeight * ratio,
             // think about it for a while ~~~
             newLeft = origin.x - (origin.x - (imgData.x - stageData.x)) / imgData.w * newWidth,
             newTop = origin.y - (origin.y - (imgData.y - stageData.y)) / imgData.h * newHeight;
@@ -237,6 +250,7 @@ Magnify.prototype = {
             offsetY = stageData.h - newHeight;
 
         // zoom out & zoom in condition
+        // it's important and it take me a lot of time to get it
         if (newHeight <= stageData.h) {
             newTop = (stageData.h - newHeight) / 2;
         } else {
@@ -255,9 +269,6 @@ Magnify.prototype = {
             left: newLeft + 'px',
             top: newTop + 'px'
         });
-
-    },
-    zoomHandler: function() {
 
     },
     rotate: function() {
@@ -303,10 +314,6 @@ Magnify.prototype = {
             top: (winHeight - minHeight) / 2 + 'px'
         });
 
-        // store modal size
-        // $.magnify.modal.width = minWidth;
-        // $.magnify.modal.height = minHeight;
-
         self.fixedImagePos(img)
 
     },
@@ -328,6 +335,14 @@ Magnify.prototype = {
             left: (stageData.w - img.width * scale) / 2 + 'px',
             top: (stageData.h - img.height * scale) / 2 + 'px'
         });
+
+        // store original & initial image data
+        self.imageData = {
+            originalWidth: img.width,
+            originalHeight: img.height,
+            initialWidth: img.width * scale,
+            initialHeight: img.height * scale
+        }
 
     },
     resize: function() {
@@ -360,7 +375,7 @@ Magnify.prototype = {
         });
 
         this.$actualSize.on('click', function(e) {
-
+            self.zoomHandler(1, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         });
 
         this.$prev.on('click', function() {
@@ -406,7 +421,9 @@ $.magnify = {
     },
     image: {
         width: 0,
-        height: 0
+        height: 0,
+        left: 0,
+        top: 0
     }
 }
 
