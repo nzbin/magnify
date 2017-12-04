@@ -232,7 +232,7 @@ Magnify.prototype = {
         }
 
         // image stage position
-        // we will use it to calc the relative position of image
+        // We will use it to calc the relative position of image
         var stageData = {
             w: $stage.width(),
             h: $stage.height(),
@@ -242,7 +242,7 @@ Magnify.prototype = {
 
         var newWidth = this.imageData.originalWidth * ratio,
             newHeight = this.imageData.originalHeight * ratio,
-            // think about it for a while ~~~
+            // Think about it for a while ~~~
             newLeft = origin.x - (origin.x - (imgData.x - stageData.x)) / imgData.w * newWidth,
             newTop = origin.y - (origin.y - (imgData.y - stageData.y)) / imgData.h * newHeight;
 
@@ -250,7 +250,7 @@ Magnify.prototype = {
             offsetY = stageData.h - newHeight;
 
         // zoom out & zoom in condition
-        // it's important and it take me a lot of time to get it
+        // It's important and it take me a lot of time to get it
         if (newHeight <= stageData.h) {
             newTop = (stageData.h - newHeight) / 2;
         } else {
@@ -283,7 +283,7 @@ Magnify.prototype = {
         var modalWidth = modal.width(),
             modalHeight = modal.height();
 
-        // make the modal in windows center
+        // Make the modal in windows center
         modal.css({
             left: (winWidth - modalWidth) / 2 + 'px',
             top: (winHeight - modalHeight) / 2 + 'px'
@@ -336,7 +336,7 @@ Magnify.prototype = {
             top: (stageData.h - img.height * scale) / 2 + 'px'
         });
 
-        // store original & initial image data
+        // Store original and initial image data
         self.imageData = {
             originalWidth: img.width,
             originalHeight: img.height,

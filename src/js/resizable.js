@@ -2,7 +2,7 @@
  * resizable
  */
 
-var resizable = function (modal, stage, image, minWidth, minHeight) {
+var resizable = function(modal, stage, image, minWidth, minHeight) {
 
     var resizableHandleE = $('<div class="resizable-handle resizable-handle-e"></div>'),
         resizableHandleW = $('<div class="resizable-handle resizable-handle-w"></div>'),
@@ -56,9 +56,9 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
     var direction = '';
 
     // modal CSS options
-    var getModalOpts = function (dir, offsetX, offsetY) {
+    var getModalOpts = function(dir, offsetX, offsetY) {
 
-        // modal should not move when its width to the minwidth
+        // Modal should not move when its width to the minwidth
         var modalLeft = (-offsetX + modalData.w) > minWidth ? (offsetX + modalData.l) : (modalData.l + modalData.w - minWidth),
             modalTop = (-offsetY + modalData.h) > minHeight ? (offsetY + modalData.t) : (modalData.t + modalData.h - minHeight);
 
@@ -103,16 +103,17 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
     }
 
     // image CSS options
-    var getImageOpts = function (dir, offsetX, offsetY) {
+    var getImageOpts = function(dir, offsetX, offsetY) {
 
-        // image should not move when modal width to the min width
-        var widthDiff = (offsetX + modalData.w) > minWidth ? (stageData.w - imageData.w + offsetX) : (minWidth - imageData.w),
-            heightDiff = (offsetY + modalData.h) > minHeight ? (stageData.h - imageData.h + offsetY) : (minHeight - imageData.h),
+        // Image should not move when modal width to the min width
+        // The minwidth is modal width, so we should clac the stage minwidth
+        var widthDiff = (offsetX + modalData.w) > minWidth ? (stageData.w - imageData.w + offsetX) : (minWidth - (modalData.w - stageData.w) - imageData.w),
+            heightDiff = (offsetY + modalData.h) > minHeight ? (stageData.h - imageData.h + offsetY) : (minHeight - (modalData.h - stageData.h) - imageData.h),
 
-            widthDiff2 = (-offsetX + modalData.w) > minWidth ? (stageData.w - imageData.w - offsetX) : (minWidth - imageData.w),
-            heightDiff2 = (-offsetY + modalData.h) > minHeight ? (stageData.h - imageData.h - offsetY) : (minHeight - imageData.h);
+            widthDiff2 = (-offsetX + modalData.w) > minWidth ? (stageData.w - imageData.w - offsetX) : (minWidth - (modalData.w - stageData.w) - imageData.w),
+            heightDiff2 = (-offsetY + modalData.h) > minHeight ? (stageData.h - imageData.h - offsetY) : (minHeight - (modalData.h - stageData.h) - imageData.h);
 
-        // get image position in dragging
+        // Get image position in dragging
         var imgLeft = $(image).position().left,
             imgTop = $(image).position().top;
 
@@ -150,7 +151,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
         return opts[dir];
     }
 
-    var dragStart = function (dir, e) {
+    var dragStart = function(dir, e) {
 
         var e = e || window.event;
 
@@ -162,7 +163,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
         startX = e.clientX;
         startY = e.clientY;
 
-        // reclac the modal data when mousedown
+        // Reclac the modal data when mousedown
         modalData = {
             w: $(modal).width(),
             h: $(modal).height(),
@@ -187,7 +188,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
         direction = dir;
     }
 
-    var dragMove = function (e) {
+    var dragMove = function(e) {
 
         var e = e || window.event;
 
@@ -226,7 +227,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
 
 
     }
-    var dragEnd = function () {
+    var dragEnd = function() {
 
         isDragging = false;
         isResizing = false;
@@ -234,8 +235,8 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
     }
 
     // console.log($(modal))
-    $.each(resizableHandles, function (dir, handle) {
-        handle.on('mousedown', function (e) {
+    $.each(resizableHandles, function(dir, handle) {
+        handle.on('mousedown', function(e) {
             dragStart(dir, e);
         });
     });

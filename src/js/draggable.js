@@ -107,11 +107,12 @@ var imgDraggable = function (el, parent) {
         startX = e.clientX;
         startY = e.clientY;
 
-        // reclac the element position when mousedown
-        left = $(el).offset().left - $(parent).offset().left;
-        top = $(el).offset().top - $(parent).offset().top;
+        // Reclac the element position when mousedown
+        // Fixed the issue of stage with a border
+        left = $(el).position().left;
+        top = $(el).position().top;
 
-        // width & height difference to limit image right & top position
+        // Width or height difference can be use to limit image right or top position
         widthDiff = $(el).width() - $(parent).width();
         heightDiff = $(el).height() - $(parent).height();
 
