@@ -2,7 +2,7 @@
  * resizable
  */
 
-var resizable = function(modal, stage, image, minWidth, minHeight) {
+var resizable = function (modal, stage, image, minWidth, minHeight) {
 
     var resizableHandleE = $('<div class="resizable-handle resizable-handle-e"></div>'),
         resizableHandleW = $('<div class="resizable-handle resizable-handle-w"></div>'),
@@ -56,10 +56,11 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
     var direction = '';
 
     // modal CSS options
-    var getModalOpts = function(dir, offsetX, offsetY) {
+    var getModalOpts = function (dir, offsetX, offsetY) {
+
         // modal should not move when its width to the minwidth
-        var newLeft = (-offsetX + modalData.w) > minWidth ? (offsetX + modalData.l) : (modalData.l + modalData.w - minWidth),
-            newTop = (-offsetY + modalData.h) > minHeight ? (offsetY + modalData.t) : (modalData.t + modalData.h - minHeight);
+        var modalLeft = (-offsetX + modalData.w) > minWidth ? (offsetX + modalData.l) : (modalData.l + modalData.w - minWidth),
+            modalTop = (-offsetY + modalData.h) > minHeight ? (offsetY + modalData.t) : (modalData.t + modalData.h - minHeight);
 
         var opts = {
             'e': {
@@ -74,42 +75,44 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
             },
             'w': {
                 width: Math.max((-offsetX + modalData.w), minWidth) + 'px',
-                left: newLeft + 'px'
+                left: modalLeft + 'px'
             },
             'n': {
                 height: Math.max((-offsetY + modalData.h), minHeight) + 'px',
-                top: newTop + 'px'
+                top: modalTop + 'px'
             },
             'nw': {
                 width: Math.max((-offsetX + modalData.w), minWidth) + 'px',
                 height: Math.max((-offsetY + modalData.h), minHeight) + 'px',
-                top: newTop + 'px',
-                left: newLeft + 'px'
+                top: modalTop + 'px',
+                left: modalLeft + 'px'
             },
             'ne': {
                 width: Math.max((offsetX + modalData.w), minWidth) + 'px',
                 height: Math.max((-offsetY + modalData.h), minHeight) + 'px',
-                top: newTop + 'px'
+                top: modalTop + 'px'
             },
             'sw': {
                 width: Math.max((-offsetX + modalData.w), minWidth) + 'px',
                 height: Math.max((offsetY + modalData.h), minHeight) + 'px',
-                left: newLeft + 'px'
+                left: modalLeft + 'px'
             }
         };
 
-        return opts[dir]
+        return opts[dir];
     }
 
     // image CSS options
-    var getImageOpts = function(dir, offsetX, offsetY) {
+    var getImageOpts = function (dir, offsetX, offsetY) {
+
         // image should not move when modal width to the min width
-        var widthDiff = stageData.w - imageData.w + ((offsetX + modalData.w) > minWidth ? offsetX : 0),
-            heightDiff = stageData.h - imageData.h + ((offsetY + modalData.h) > minHeight ? offsetY : 0),
+        var widthDiff = (offsetX + modalData.w) > minWidth ? (stageData.w - imageData.w + offsetX) : (minWidth - imageData.w),
+            heightDiff = (offsetY + modalData.h) > minHeight ? (stageData.h - imageData.h + offsetY) : (minHeight - imageData.h),
 
-            widthDiff2 = stageData.w - imageData.w + ((-offsetX + modalData.w) > minWidth ? -offsetX : 0),
-            heightDiff2 = stageData.h - imageData.h + ((-offsetY + modalData.h) > minHeight ? -offsetY : 0);
+            widthDiff2 = (-offsetX + modalData.w) > minWidth ? (stageData.w - imageData.w - offsetX) : (minWidth - imageData.w),
+            heightDiff2 = (-offsetY + modalData.h) > minHeight ? (stageData.h - imageData.h - offsetY) : (minHeight - imageData.h);
 
+        // get image position in dragging
         var imgLeft = $(image).position().left,
             imgTop = $(image).position().top;
 
@@ -144,10 +147,10 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
             }
         };
 
-        return opts[dir]
+        return opts[dir];
     }
 
-    var dragStart = function(dir, e) {
+    var dragStart = function (dir, e) {
 
         var e = e || window.event;
 
@@ -184,7 +187,7 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
         direction = dir;
     }
 
-    var dragMove = function(e) {
+    var dragMove = function (e) {
 
         var e = e || window.event;
 
@@ -215,7 +218,7 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
             // }, 50);
 
             var imageOpts = getImageOpts(direction, relativeX, relativeY);
-            // console.log($(image).position().top,modalData,stageData);
+            // console.log($(image).position().left,modalData,imageOpts);
 
             $(image).css(imageOpts);
 
@@ -223,7 +226,7 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
 
 
     }
-    var dragEnd = function() {
+    var dragEnd = function () {
 
         isDragging = false;
         isResizing = false;
@@ -231,8 +234,8 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
     }
 
     // console.log($(modal))
-    $.each(resizableHandles, function(dir, handle) {
-        handle.on('mousedown', function(e) {
+    $.each(resizableHandles, function (dir, handle) {
+        handle.on('mousedown', function (e) {
             dragStart(dir, e);
         });
     });
