@@ -1,5 +1,9 @@
 /**
  * resizable
+ * ------------------------------
+ * 1.modal resizable
+ * 2.keep image in stage center
+ * ------------------------------
  */
 
 var resizable = function(modal, stage, image, minWidth, minHeight) {
@@ -24,8 +28,9 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
         'sw': resizableHandleSW,
     }
 
-    $(modal).append(resizableHandleE, resizableHandleW, resizableHandleS, resizableHandleN,
-        resizableHandleSE, resizableHandleSW, resizableHandleNE, resizableHandleNW);
+    $(modal).append(
+        resizableHandleE, resizableHandleW, resizableHandleS, resizableHandleN, resizableHandleSE, resizableHandleSW, resizableHandleNE, resizableHandleNW
+    );
 
     var isDragging = false;
 
