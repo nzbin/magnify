@@ -141,10 +141,10 @@ Magnify.prototype = {
 
         self.fixedModalPos($magnify);
 
-        // draggable & resizable
+        // draggable & movable & resizable
         draggable($magnify);
 
-        imgDraggable(self.$image, self.$stage);
+        movable(self.$image, self.$stage);
 
         resizable($magnify, self.$stage, self.$image, self.options.modalWidth, self.options.modalHeight);
 
@@ -227,8 +227,8 @@ Magnify.prototype = {
         var imgData = {
             w: $image.width(),
             h: $image.height(),
-            x: $image.offset().left,
-            y: $image.offset().top
+            x: $image.position().left,
+            y: $image.position().top
         }
 
         // image stage position
@@ -243,8 +243,8 @@ Magnify.prototype = {
         var newWidth = this.imageData.originalWidth * ratio,
             newHeight = this.imageData.originalHeight * ratio,
             // Think about it for a while ~~~
-            newLeft = origin.x - (origin.x - (imgData.x - stageData.x)) / imgData.w * newWidth,
-            newTop = origin.y - (origin.y - (imgData.y - stageData.y)) / imgData.h * newHeight;
+            newLeft = origin.x - (origin.x - imgData.x) / imgData.w * newWidth,
+            newTop = origin.y - (origin.y - imgData.y) / imgData.h * newHeight;
 
         var offsetX = stageData.w - newWidth,
             offsetY = stageData.h - newHeight;
@@ -358,7 +358,8 @@ Magnify.prototype = {
 
         var self = this;
 
-        this.$close.on('click', function() {
+        this.$close.on('click', function(e) {
+            e.stopPropagation();
             self.close();
         });
 
@@ -408,7 +409,7 @@ Magnify.prototype = {
 $.magnify = {
     instance: Magnify.prototype,
     isDragging: false,
-    isImgDragging: false,
+    isMoving: false,
     isResizing: false,
     maximize: false,
     modal: {

@@ -25,7 +25,7 @@
   "scripts": {
     "build": "run-s build:css build:js",
     "build:css": "node-sass --output-style expanded src/sass/magnify.scss dist/jquery.magnify.css",
-    "build:js": "concat -o dist/jquery.magnify.js  src/js/intro.js src/js/core.js src/js/draggable.js src/js/resizable.js src/js/utilities.js src/js/outro.js",
+    "build:js": "concat -o dist/jquery.magnify.js  src/js/intro.js src/js/core.js src/js/draggable.js src/js/movable.js src/js/resizable.js src/js/utilities.js src/js/outro.js",
     "compress": "run-s compress:css compress:js",
     "compress:css": "node-sass --output-style compressed src/sass/magnify.scss dist/jquery.magnify.min.css",
     "compress:js": "uglifyjs dist/jquery.magnify.js -o dist/jquery.magnify.min.js -c -m --comments /^!/",
