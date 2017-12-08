@@ -14,7 +14,7 @@ var defaults = {
     toolbar: [],
     modalWidth: '320',
     modalHeight: '320',
-    initMaximize: false,
+    initMaximized: false,
     gapThreshold: 0.02,
     ratioThreshold: 0.1,
     lang: 'en',
@@ -79,6 +79,7 @@ var Magnify = function(el, options) {
 
     this.init(el, self.options);
 
+    this.maximized = false;
     // store image data in every instance
     // this.imageData = {};
 }
@@ -163,6 +164,8 @@ Magnify.prototype = {
         // remove instance
         this.$magnify.remove();
 
+        this.maximized = false;
+
         // off events
 
     },
@@ -174,7 +177,17 @@ Magnify.prototype = {
 
         preloadImg(imgSrc, function(img) {
 
-            self.fixedModalSize(img);
+            if (self.maximized) {
+                self.fixedImagePos(img);
+            } else {
+                self.fixedModalSize(img);
+            }
+
+            // Store original data
+            self.imageData = {
+                originalWidth: img.width,
+                originalHeight: img.height
+            }
 
         });
 
@@ -355,14 +368,6 @@ Magnify.prototype = {
             top: (stageData.h - img.height * scale) / 2 + 'px'
         });
 
-        // Store original and initial image data
-        this.imageData = {
-            originalWidth: img.width,
-            originalHeight: img.height,
-            initialWidth: img.width * scale,
-            initialHeight: img.height * scale
-        }
-
     },
     resize: function() {
 
@@ -370,7 +375,49 @@ Magnify.prototype = {
 
         window.onresize = throttle(function() {
             self.fixedModalPos(self.$magnify);
+            self.fixedImagePos(self.$image[0]);
         }, 500);
+
+    },
+    maximize: function() {
+
+        var self = this;
+
+        if (!this.maximized) {
+            // Store modal data before maximize
+            this.modalData = {
+                width: this.$magnify.width(),
+                height: this.$magnify.height(),
+                left: this.$magnify.offset().left,
+                top: this.$magnify.offset().top
+            }
+
+            this.$magnify.addClass('magnify-maximize');
+
+            this.$magnify.css({
+                width: '100%',
+                height: '100%',
+                left: '0',
+                top: '0'
+            });
+
+            this.maximized = true;
+
+        } else {
+
+            this.$magnify.removeClass('magnify-maximize');
+
+            this.$magnify.css({
+                width: this.modalData.width,
+                height: this.modalData.height,
+                left: this.modalData.left,
+                top: this.modalData.top
+            });
+
+            this.maximized = false;
+        }
+
+        this.fixedImagePos(this.$image[0]);
 
     },
     addEvent: function() {
@@ -417,7 +464,7 @@ Magnify.prototype = {
         });
 
         this.$maximize.on('click', function() {
-            self.$magnify.toggleClass('magnify-maximize');
+            self.maximize();
         });
 
     }
