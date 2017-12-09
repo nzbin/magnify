@@ -420,6 +420,11 @@ Magnify.prototype = {
         this.fixedImagePos(this.$image[0]);
 
     },
+    fullscreen: function(){
+
+        launchIntoFullscreen(this.$magnify[0]);
+
+    },
     addEvent: function() {
 
         var self = this;
@@ -451,7 +456,7 @@ Magnify.prototype = {
         });
 
         this.$fullscreen.on('click', function() {
-            alert(4)
+            self.fullscreen();
         });
 
         this.$next.on('click', function() {
