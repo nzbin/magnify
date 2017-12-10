@@ -79,7 +79,9 @@ var Magnify = function(el, options) {
 
     this.init(el, self.options);
 
-    this.maximized = false;
+    this.isMaximized = false;
+    this.isRotated = false;
+    this.angle = 0;
     // store image data in every instance
     // this.imageData = {};
 }
@@ -164,7 +166,7 @@ Magnify.prototype = {
         // remove instance
         this.$magnify.remove();
 
-        this.maximized = false;
+        this.isMaximized = false;
 
         // off events
 
@@ -177,16 +179,16 @@ Magnify.prototype = {
 
         preloadImg(imgSrc, function(img) {
 
-            if (self.maximized) {
-                self.fixedImagePos(img);
-            } else {
-                self.fixedModalSize(img);
-            }
-
             // Store original data
             self.imageData = {
                 originalWidth: img.width,
                 originalHeight: img.height
+            }
+
+            if (self.isMaximized) {
+                self.fixedImagePos(img);
+            } else {
+                self.fixedModalSize(img);
             }
 
         });
@@ -212,8 +214,7 @@ Magnify.prototype = {
             }
 
         });
-        // console.log(this.groupData)
-        // console.log(this.groupIndex)
+
     },
     wheel: function(e) {
 
@@ -258,15 +259,8 @@ Magnify.prototype = {
     zoomHandler: function(ratio, origin, e) {
 
         var $image = this.$image,
-            $stage = this.$stage;
-
-        // current image data
-        var imgData = {
-            w: $image.width(),
-            h: $image.height(),
-            x: $image.position().left,
-            y: $image.position().top
-        }
+            $stage = this.$stage,
+            imgData = this.imageData;
 
         // image stage position
         // We will use it to calc the relative position of image
@@ -307,8 +301,28 @@ Magnify.prototype = {
             top: newTop + 'px'
         });
 
+        // Update image initial data
+        $.extend(this.imageData, {
+            w: newWidth,
+            h: newHeight,
+            x: newLeft,
+            y: newTop
+        })
+
     },
-    rotate: function() {
+    rotate: function(angle) {
+
+        var self = this;
+
+        this.$image.css({
+            transform: 'rotate(' + angle + 'deg)'
+        });
+
+        if (this.angle === 90 || this.angle === 270) {
+            this.isRotated = true;
+        }else{
+            this.isRotated = false;
+        }
 
     },
     fixedModalPos: function(modal) {
@@ -342,8 +356,8 @@ Magnify.prototype = {
         minHeight = Math.ceil(minHeight);
 
         this.$magnify.css({
-            width: minWidth + "px",
-            height: minHeight + "px",
+            width: minWidth + 'px',
+            height: minHeight + 'px',
             left: (winWidth - minWidth) / 2 + 'px',
             top: (winHeight - minHeight) / 2 + 'px'
         });
@@ -362,10 +376,18 @@ Magnify.prototype = {
         var scale = Math.min(stageData.w / (img.width), stageData.h / (img.height), 1);
 
         this.$image.css({
-            width: img.width * scale + "px",
-            height: img.height * scale + "px",
+            width: img.width * scale + 'px',
+            height: img.height * scale + 'px',
             left: (stageData.w - img.width * scale) / 2 + 'px',
             top: (stageData.h - img.height * scale) / 2 + 'px'
+        });
+
+        // Store image initial data
+        $.extend(this.imageData, {
+            w: img.width * scale,
+            h: img.height * scale,
+            x: (stageData.w - img.width * scale) / 2,
+            y: (stageData.h - img.height * scale) / 2
         });
 
     },
@@ -383,7 +405,7 @@ Magnify.prototype = {
 
         var self = this;
 
-        if (!this.maximized) {
+        if (!this.isMaximized) {
             // Store modal data before maximize
             this.modalData = {
                 width: this.$magnify.width(),
@@ -401,7 +423,7 @@ Magnify.prototype = {
                 top: '0'
             });
 
-            this.maximized = true;
+            this.isMaximized = true;
 
         } else {
 
@@ -414,13 +436,13 @@ Magnify.prototype = {
                 top: this.modalData.top
             });
 
-            this.maximized = false;
+            this.isMaximized = false;
         }
 
         this.fixedImagePos(this.$image[0]);
 
     },
-    fullscreen: function(){
+    fullscreen: function() {
 
         launchIntoFullscreen(this.$magnify[0]);
 
@@ -431,6 +453,7 @@ Magnify.prototype = {
 
         this.$close.on('click', function(e) {
             e.stopPropagation();
+            e.preventDefault();
             self.close();
         });
 
@@ -465,7 +488,8 @@ Magnify.prototype = {
         });
 
         this.$rotate.on('click', function() {
-            alert(6)
+            self.angle = (self.angle + 90) % 360;
+            self.rotate(self.angle);
         });
 
         this.$maximize.on('click', function() {
