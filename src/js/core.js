@@ -278,20 +278,41 @@ Magnify.prototype = {
             newTop = origin.y - (origin.y - imgData.y) / imgData.h * newHeight;
 
         var offsetX = stageData.w - newWidth,
-            offsetY = stageData.h - newHeight;
+            offsetY = stageData.h - newHeight,
+            // Get the offsets when image rotate 90 deg
+            offsetX2 = stageData.w - (newWidth + newHeight) / 2,
+            offsetY2 = stageData.h - (newWidth + newHeight) / 2;
 
         // zoom out & zoom in condition
         // It's important and it take me a lot of time to get it
-        if (newHeight <= stageData.h) {
-            newTop = (stageData.h - newHeight) / 2;
-        } else {
-            newTop = newTop > 0 ? 0 : (newTop < offsetY ? offsetY : newTop);
-        }
+        if (!this.isRotated) {
 
-        if (newWidth <= stageData.w) {
-            newLeft = (stageData.w - newWidth) / 2;
+            if (newHeight <= stageData.h) {
+                newTop = (stageData.h - newHeight) / 2;
+            } else {
+                newTop = newTop > 0 ? 0 : (newTop < offsetY ? offsetY : newTop);
+            }
+
+            if (newWidth <= stageData.w) {
+                newLeft = (stageData.w - newWidth) / 2;
+            } else {
+                newLeft = newLeft > 0 ? 0 : (newLeft < offsetX ? offsetX : newLeft);
+            }
+
         } else {
-            newLeft = newLeft > 0 ? 0 : (newLeft < offsetX ? offsetX : newLeft);
+            // The conditions bellow drive me crazy alomst!
+            if (newWidth <= stageData.h) {
+                newTop = (stageData.h - newHeight) / 2;
+            } else {
+                newTop = newTop > (newWidth - newHeight) / 2 ? (newWidth - newHeight) / 2 : (newTop < offsetY2 ? offsetY2 : newTop);
+            }
+
+            if (newHeight <= stageData.w) {
+                newLeft = (stageData.w - newWidth) / 2;
+            } else {
+                newLeft = newLeft > (newHeight - newWidth) / 2 ? (newHeight - newWidth) / 2 : (newLeft < offsetX2 ? offsetX2 : newLeft);
+            }
+
         }
 
         $image.css({
@@ -320,7 +341,7 @@ Magnify.prototype = {
 
         if (this.angle === 90 || this.angle === 270) {
             this.isRotated = true;
-        }else{
+        } else {
             this.isRotated = false;
         }
 
