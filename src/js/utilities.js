@@ -92,10 +92,10 @@ var checkImgPos = function(el, parent) {
 
 }
 /**
- * [launchIntoFullscreen description]
+ * [requestFullscreen description]
  * @param  {[type]} element [description]
  */
-function launchIntoFullscreen(element) {
+function requestFullscreen(element) {
     if (element.requestFullscreen) {
         element.requestFullscreen();
     } else if (element.mozRequestFullScreen) {

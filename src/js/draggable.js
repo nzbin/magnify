@@ -2,11 +2,11 @@
  * draggable
  */
 
-var isMoving = false,// image moving
-    isResizing = false;// modal resizing
+var isMoving = false, // image moving
+    isResizing = false; // modal resizing
 
 // modal draggable
-var draggable = function (modal) {
+var draggable = function(modal) {
 
     var isDragging = false;
 
@@ -17,7 +17,7 @@ var draggable = function (modal) {
         top = 0;
 
 
-    var dragStart = function (e) {
+    var dragStart = function(e) {
 
         var e = e || window.event;
 
@@ -33,7 +33,7 @@ var draggable = function (modal) {
 
     }
 
-    var dragMove = function (e) {
+    var dragMove = function(e) {
 
         var e = e || window.event;
 
@@ -56,7 +56,7 @@ var draggable = function (modal) {
         }
     }
 
-    var dragEnd = function () {
+    var dragEnd = function() {
 
         isDragging = false;
 
@@ -68,3 +68,8 @@ var draggable = function (modal) {
 
     $D.on('mouseup', dragEnd);
 }
+
+// Add to Magnify Prototype
+$.extend(Magnify.prototype, {
+    draggable: draggable
+});

@@ -8,7 +8,9 @@
  * --------------------------------------
  */
 
-var movable = function (image, stage) {
+var movable = function(image, stage) {
+
+    var self = this;
 
     var isDragging = false;
 
@@ -19,9 +21,12 @@ var movable = function (image, stage) {
         top = 0,
 
         widthDiff = 0,
-        heightDiff = 0;
+        heightDiff = 0,
 
-    var dragStart = function (e) {
+        whHalf = 0,
+        hwHalf = 0;
+
+    var dragStart = function(e) {
 
         var e = e || window.event;
 
@@ -42,9 +47,19 @@ var movable = function (image, stage) {
         widthDiff = $(image).width() - $(stage).width();
         heightDiff = $(image).height() - $(stage).height();
 
+        whHalf = ($(image).width() - $(image).height()) / 2;
+        hwHalf = ($(image).height() - $(image).width()) / 2;
+
+        if (self.isRotated) {
+            left = $(image).position().left + hwHalf;
+            top = $(image).position().top + whHalf;
+            widthDiff = $(image).height() - $(stage).width();
+            heightDiff = $(image).width() - $(stage).height();
+        }
+
     }
 
-    var dragMove = function (e) {
+    var dragMove = function(e) {
 
         var e = e || window.event;
 
@@ -61,30 +76,58 @@ var movable = function (image, stage) {
                 newLeft = relativeX + left,
                 newTop = relativeY + top;
 
-            // vertical limit
-            if (heightDiff > 0) {
+            if (!self.isRotated) {
+                // vertical limit
+                if (heightDiff > 0) {
 
-                if ((relativeY + top) > 0) {
-                    newTop = 0;
-                } else if ((relativeY + top) < -heightDiff) {
-                    newTop = -heightDiff;
+                    if ((relativeY + top) > 0) {
+                        newTop = 0;
+                    } else if ((relativeY + top) < -heightDiff) {
+                        newTop = -heightDiff;
+                    }
+
+                } else {
+                    newTop = top;
+                }
+                // horizontal limit
+                if (widthDiff > 0) {
+
+                    if ((relativeX + left) > 0) {
+                        newLeft = 0;
+                    } else if ((relativeX + left) < -widthDiff) {
+                        newLeft = -widthDiff;
+                    }
+
+                } else {
+                    newLeft = left;
                 }
 
             } else {
-                newTop = top;
-            }
+                // vertical limit
+                if (heightDiff > 0) {
 
-            // horizontal limit
-            if (widthDiff > 0) {
+                    if ((relativeY + top) > whHalf) {
+                        newTop = whHalf;
+                    } else if ((relativeY + top) < -heightDiff + whHalf) {
+                        newTop = -heightDiff + whHalf;
+                    }
 
-                if ((relativeX + left) > 0) {
-                    newLeft = 0;
-                } else if ((relativeX + left) < -widthDiff) {
-                    newLeft = -widthDiff;
+                } else {
+                    newTop = top;
+                }
+                // horizontal limit
+                if (widthDiff > 0) {
+
+                    if ((relativeX + left) > hwHalf) {
+                        newLeft = hwHalf;
+                    } else if ((relativeX + left) < -widthDiff + hwHalf) {
+                        newLeft = -widthDiff + hwHalf;
+                    }
+
+                } else {
+                    newLeft = left;
                 }
 
-            } else {
-                newLeft = left;
             }
 
             $(image).css({
@@ -92,10 +135,16 @@ var movable = function (image, stage) {
                 top: newTop + 'px',
             });
 
+            // Update image initial data
+            $.extend(self.imageData, {
+                x: newLeft,
+                y: newTop
+            });
+
         }
     }
 
-    var dragEnd = function () {
+    var dragEnd = function() {
 
         isDragging = false;
         isMoving = false;
@@ -108,3 +157,8 @@ var movable = function (image, stage) {
 
     $D.on('mouseup', dragEnd);
 }
+
+// Add to Magnify Prototype
+$.extend(Magnify.prototype, {
+    movable: movable
+});

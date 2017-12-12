@@ -54,8 +54,8 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
         imageData = {
             w: 0,
             h: 0,
-            t: 0,
-            l: 0
+            l: 0,
+            t: 0
         };
 
     var direction = '';
@@ -239,7 +239,6 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
 
     }
 
-    // console.log($(modal))
     $.each(resizableHandles, function(dir, handle) {
         handle.on('mousedown', function(e) {
             dragStart(dir, e);
@@ -249,3 +248,8 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
     $D.on('mousemove', dragMove);
     $D.on('mouseup', dragEnd);
 }
+
+// Add to Magnify Prototype
+$.extend(Magnify.prototype, {
+    resizable: resizable
+});

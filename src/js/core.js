@@ -67,7 +67,6 @@ var magnifyHTML = '<div class="magnify-modal">\
                     </div>\
                 </div>';
 
-
 /**
  * Magnify Class
  */
@@ -155,11 +154,11 @@ Magnify.prototype = {
         this.fixedModalPos($magnify);
 
         // draggable & movable & resizable
-        draggable($magnify);
+        this.draggable($magnify);
 
-        movable(this.$image, this.$stage);
+        this.movable(this.$image, this.$stage);
 
-        resizable($magnify, this.$stage, this.$image, this.options.modalWidth, this.options.modalHeight);
+        this.resizable($magnify, this.$stage, this.$image, this.options.modalWidth, this.options.modalHeight);
 
     },
     close: function(el) {
@@ -284,7 +283,7 @@ Magnify.prototype = {
             offsetY2 = stageData.h - (newWidth + newHeight) / 2;
 
         // zoom out & zoom in condition
-        // It's important and it take me a lot of time to get it
+        // It's important and it takes me a lot of time to get it
         if (!this.isRotated) {
 
             if (newHeight <= stageData.h) {
@@ -328,7 +327,7 @@ Magnify.prototype = {
             h: newHeight,
             x: newLeft,
             y: newTop
-        })
+        });
 
     },
     rotate: function(angle) {
@@ -465,7 +464,7 @@ Magnify.prototype = {
     },
     fullscreen: function() {
 
-        launchIntoFullscreen(this.$magnify[0]);
+        requestFullscreen(this.$magnify[0]);
 
     },
     addEvent: function() {
