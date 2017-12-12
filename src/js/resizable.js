@@ -160,8 +160,6 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
 
         var e = e || window.event;
 
-        e.preventDefault();
-
         isDragging = true;
         isResizing = true;
 
@@ -197,8 +195,6 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
 
         var e = e || window.event;
 
-        e.preventDefault();
-
         if (isDragging) {
 
             var endX = e.clientX,
@@ -224,18 +220,20 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
             // }, 50);
 
             var imageOpts = getImageOpts(direction, relativeX, relativeY);
-            // console.log($(image).position().left,modalData,imageOpts);
 
             $(image).css(imageOpts);
 
         }
 
+        return false;
 
     }
-    var dragEnd = function() {
+    var dragEnd = function(e) {
 
         isDragging = false;
         isResizing = false;
+
+        return false;
 
     }
 

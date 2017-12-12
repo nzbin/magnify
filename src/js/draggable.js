@@ -21,8 +21,6 @@ var draggable = function(modal) {
 
         var e = e || window.event;
 
-        e.preventDefault();
-
         isDragging = true;
 
         startX = e.clientX;
@@ -37,8 +35,6 @@ var draggable = function(modal) {
 
         var e = e || window.event;
 
-        e.preventDefault();
-
         if (isDragging && !isMoving && !isResizing) {
 
             var endX = e.clientX,
@@ -52,13 +48,17 @@ var draggable = function(modal) {
                 top: relativeY + top + 'px'
             });
 
-            return false;
         }
+
+        return false;
+
     }
 
-    var dragEnd = function() {
+    var dragEnd = function(e) {
 
         isDragging = false;
+
+        return false;
 
     }
 

@@ -30,8 +30,6 @@ var movable = function(image, stage) {
 
         var e = e || window.event;
 
-        e.preventDefault();
-
         isDragging = true;
         isMoving = true;
 
@@ -62,8 +60,6 @@ var movable = function(image, stage) {
     var dragMove = function(e) {
 
         var e = e || window.event;
-
-        e.preventDefault();
 
         if (isDragging) {
 
@@ -142,12 +138,17 @@ var movable = function(image, stage) {
             });
 
         }
+
+        return false;
+
     }
 
-    var dragEnd = function() {
+    var dragEnd = function(e) {
 
         isDragging = false;
         isMoving = false;
+
+        return false;
 
     }
 

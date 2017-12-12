@@ -26,9 +26,6 @@ var magnifyHTML = '<div class="magnify-modal">\
                     <div class="magnify-header">\
                         <div class="magnify-title">test</div>\
                         <div class="magnify-toolbar">\
-                            <button class="magnify-button-minimize" title="minimize">\
-                                <i class="fa fa-window-minimize" aria-hidden="true"></i>\
-                            </button>\
                             <button class="magnify-button-maximize" title="maximize">\
                                 <i class="fa fa-window-maximize" aria-hidden="true"></i>\
                             </button>\
@@ -139,7 +136,6 @@ Magnify.prototype = {
         this.$stage = $magnify.find('.magnify-stage');
         this.$image = $magnify.find('.magnify-stage img');
         this.$close = $magnify.find('.magnify-button-close');
-        this.$minimize = $magnify.find('.magnify-button-minimize');
         this.$maximize = $magnify.find('.magnify-button-maximize');
         this.$zoomIn = $magnify.find('.magnify-button-zoom-in');
         this.$zoomOut = $magnify.find('.magnify-button-zoom-out');
@@ -472,8 +468,6 @@ Magnify.prototype = {
         var self = this;
 
         this.$close.on('click', function(e) {
-            e.stopPropagation();
-            e.preventDefault();
             self.close();
         });
 
