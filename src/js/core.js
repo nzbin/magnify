@@ -311,10 +311,10 @@ Magnify.prototype = {
         }
 
         $image.css({
-            width: newWidth + 'px',
-            height: newHeight + 'px',
-            left: newLeft + 'px',
-            top: newTop + 'px'
+            width: Math.ceil(newWidth) + 'px',
+            height: Math.ceil(newHeight) + 'px',
+            left: Math.ceil(newLeft) + 'px',
+            top: Math.ceil(newTop) + 'px'
         });
 
         // Update image initial data
