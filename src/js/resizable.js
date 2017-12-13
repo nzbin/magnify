@@ -8,6 +8,8 @@
 
 var resizable = function(modal, stage, image, minWidth, minHeight) {
 
+    var self = this;
+
     var resizableHandleE = $('<div class="resizable-handle resizable-handle-e"></div>'),
         resizableHandleW = $('<div class="resizable-handle resizable-handle-w"></div>'),
         resizableHandleS = $('<div class="resizable-handle resizable-handle-s"></div>'),
@@ -232,8 +234,6 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
 
         isDragging = false;
         isResizing = false;
-
-        return false;
 
     }
 

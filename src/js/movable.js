@@ -148,8 +148,6 @@ var movable = function(image, stage) {
         isDragging = false;
         isMoving = false;
 
-        return false;
-
     }
 
     $(image).on('mousedown', dragStart);

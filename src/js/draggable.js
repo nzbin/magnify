@@ -8,6 +8,8 @@ var isMoving = false, // image moving
 // modal draggable
 var draggable = function(modal) {
 
+    var self = this;
+
     var isDragging = false;
 
     var startX = 0,
@@ -20,6 +22,12 @@ var draggable = function(modal) {
     var dragStart = function(e) {
 
         var e = e || window.event;
+        // Get clicked button
+        var elemCancel = $(e.target).closest('.magnify-button');
+        // Stop modal moving when click buttons
+        if(elemCancel.length){
+            return true;
+        }
 
         isDragging = true;
 
@@ -57,8 +65,6 @@ var draggable = function(modal) {
     var dragEnd = function(e) {
 
         isDragging = false;
-
-        return false;
 
     }
 

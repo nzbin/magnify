@@ -26,10 +26,10 @@ var magnifyHTML = '<div class="magnify-modal">\
                     <div class="magnify-header">\
                         <div class="magnify-title">test</div>\
                         <div class="magnify-toolbar">\
-                            <button class="magnify-button-maximize" title="maximize">\
+                            <button class="magnify-button magnify-button-maximize" title="maximize">\
                                 <i class="fa fa-window-maximize" aria-hidden="true"></i>\
                             </button>\
-                            <button class="magnify-button-close" title="close">\
+                            <button class="magnify-button magnify-button-close" title="close">\
                                 <i class="fa fa-times" aria-hidden="true"></i>\
                             </button>\
                         </div>\
@@ -39,25 +39,25 @@ var magnifyHTML = '<div class="magnify-modal">\
                     </div>\
                     <div class="magnify-footer">\
                         <div class="magnify-toolbar">\
-                            <button class="magnify-button-zoom-in" title="zoom-in">\
+                            <button class="magnify-button magnify-button-zoom-in" title="zoom-in">\
                                 <i class="fa fa-search-plus" aria-hidden="true"></i>\
                             </button>\
-                            <button class="magnify-button-zoom-out" title="zoom-out">\
+                            <button class="magnify-button magnify-button-zoom-out" title="zoom-out">\
                                 <i class="fa fa-search-minus" aria-hidden="true"></i>\
                             </button>\
-                            <button class="magnify-button-prev" title="prev">\
+                            <button class="magnify-button magnify-button-prev" title="prev">\
                                 <i class="fa fa-arrow-left" aria-hidden="true"></i>\
                             </button>\
-                            <button class="magnify-button-fullscreen" title="fullscreen">\
+                            <button class="magnify-button magnify-button-fullscreen" title="fullscreen">\
                                 <i class="fa fa-photo" aria-hidden="true"></i>\
                             </button>\
-                            <button class="magnify-button-next" title="next">\
+                            <button class="magnify-button magnify-button-next" title="next">\
                                 <i class="fa fa-arrow-right" aria-hidden="true"></i>\
                             </button>\
-                            <button class="magnify-button-actual-size" title="actual-size">\
+                            <button class="magnify-button magnify-button-actual-size" title="actual-size">\
                                 <i class="fa fa-arrows-alt" aria-hidden="true"></i>\
                             </button>\
-                            <button class="magnify-button-rotate" title="rotate">\
+                            <button class="magnify-button magnify-button-rotate" title="rotate">\
                                 <i class="fa fa-repeat" aria-hidden="true"></i>\
                             </button>\
                         </div>\
