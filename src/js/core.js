@@ -168,6 +168,78 @@ Magnify.prototype = {
         // off events
 
     },
+    fixedModalPos: function(modal) {
+
+        var winWidth = $W.width(),
+            winHeight = $W.height();
+
+        var modalWidth = modal.width(),
+            modalHeight = modal.height();
+
+        // Make the modal in windows center
+        modal.css({
+            left: (winWidth - modalWidth) / 2 + 'px',
+            top: (winHeight - modalHeight) / 2 + 'px'
+        });
+
+    },
+    fixedModalSize: function(img) {
+
+        var winWidth = $W.width(),
+            winHeight = $W.height();
+
+        var gapThreshold = (this.options.gapThreshold > 0 ? this.options.gapThreshold : 0) + 1;
+        // modal scale to window
+        var scale = Math.min(winWidth / (img.width * gapThreshold), winHeight / (img.height * gapThreshold), 1);
+
+        var minWidth = Math.max(img.width * scale, this.options.modalWidth),
+            minHeight = Math.max(img.height * scale, this.options.modalHeight);
+
+        minWidth = Math.ceil(minWidth);
+        minHeight = Math.ceil(minHeight);
+
+        this.$magnify.css({
+            width: minWidth + 'px',
+            height: minHeight + 'px',
+            left: (winWidth - minWidth) / 2 + 'px',
+            top: (winHeight - minHeight) / 2 + 'px'
+        });
+
+        this.fixedImagePos(img)
+
+    },
+    fixedImagePos: function(img) {
+
+        var stageData = {
+            w: this.$stage.width(),
+            h: this.$stage.height()
+        }
+
+        // image scale to stage
+        var scale = 1;
+
+        if (!this.isRotated) {
+            scale = Math.min(stageData.w / (img.width), stageData.h / (img.height), 1);
+        } else {
+            scale = Math.min(stageData.w / (img.height), stageData.h / (img.width), 1);
+        }
+
+        this.$image.css({
+            width: Math.ceil(img.width * scale) + 'px',
+            height: Math.ceil(img.height * scale) + 'px',
+            left: Math.ceil((stageData.w - img.width * scale) / 2) + 'px',
+            top: Math.ceil((stageData.h - img.height * scale) / 2) + 'px'
+        });
+
+        // Store image initial data
+        $.extend(this.imageData, {
+            width: img.width * scale,
+            height: img.height * scale,
+            left: (stageData.w - img.width * scale) / 2,
+            top: (stageData.h - img.height * scale) / 2
+        });
+
+    },
     loadImg: function(imgSrc) {
 
         var self = this;
@@ -257,7 +329,12 @@ Magnify.prototype = {
 
         var $image = this.$image,
             $stage = this.$stage,
-            imgData = this.imageData;
+            imgData = {
+                w: this.imageData.width,
+                h: this.imageData.height,
+                x: this.imageData.left,
+                y: this.imageData.top,
+            };
 
         // image stage position
         // We will use it to calc the relative position of image
@@ -321,10 +398,10 @@ Magnify.prototype = {
 
         // Update image initial data
         $.extend(this.imageData, {
-            w: newWidth,
-            h: newHeight,
-            x: newLeft,
-            y: newTop
+            width: newWidth,
+            height: newHeight,
+            left: newLeft,
+            top: newTop
         });
 
     },
@@ -342,71 +419,7 @@ Magnify.prototype = {
             this.isRotated = false;
         }
 
-    },
-    fixedModalPos: function(modal) {
-
-        var winWidth = $W.width(),
-            winHeight = $W.height();
-
-        var modalWidth = modal.width(),
-            modalHeight = modal.height();
-
-        // Make the modal in windows center
-        modal.css({
-            left: (winWidth - modalWidth) / 2 + 'px',
-            top: (winHeight - modalHeight) / 2 + 'px'
-        });
-
-    },
-    fixedModalSize: function(img) {
-
-        var winWidth = $W.width(),
-            winHeight = $W.height();
-
-        var gapThreshold = (this.options.gapThreshold > 0 ? this.options.gapThreshold : 0) + 1;
-        // modal scale to window
-        var scale = Math.min(winWidth / (img.width * gapThreshold), winHeight / (img.height * gapThreshold), 1);
-
-        var minWidth = Math.max(img.width * scale, this.options.modalWidth),
-            minHeight = Math.max(img.height * scale, this.options.modalHeight);
-
-        minWidth = Math.ceil(minWidth);
-        minHeight = Math.ceil(minHeight);
-
-        this.$magnify.css({
-            width: minWidth + 'px',
-            height: minHeight + 'px',
-            left: (winWidth - minWidth) / 2 + 'px',
-            top: (winHeight - minHeight) / 2 + 'px'
-        });
-
-        this.fixedImagePos(img)
-
-    },
-    fixedImagePos: function(img) {
-
-        var stageData = {
-            w: this.$stage.width(),
-            h: this.$stage.height()
-        }
-
-        // image scale to modal
-        var scale = Math.min(stageData.w / (img.width), stageData.h / (img.height), 1);
-
-        this.$image.css({
-            width: Math.ceil(img.width * scale) + 'px',
-            height: Math.ceil(img.height * scale) + 'px',
-            left: Math.ceil((stageData.w - img.width * scale) / 2) + 'px',
-            top: Math.ceil((stageData.h - img.height * scale) / 2) + 'px'
-        });
-
-        // Store image initial data
-        $.extend(this.imageData, {
-            w: img.width * scale,
-            h: img.height * scale,
-            x: (stageData.w - img.width * scale) / 2,
-            y: (stageData.h - img.height * scale) / 2
-        });
+        this.fixedImagePos({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
 
     },
     resize: function() {

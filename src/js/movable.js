@@ -101,8 +101,8 @@ var movable = function(image, stage) {
 
             // Update image initial data
             $.extend(self.imageData, {
-                x: newLeft,
-                y: newTop
+                left: newLeft,
+                top: newTop
             });
 
         }
