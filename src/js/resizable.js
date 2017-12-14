@@ -111,47 +111,51 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
 
     // image CSS options
     var getImageOpts = function(dir, offsetX, offsetY) {
+        // δ is the difference between image width and height
+        var δ = !self.isRotated ? 0 : (imageData.w - imageData.h) / 2,
+            imgWidth = !self.isRotated ? imageData.w : imageData.h,
+            imgHeight = !self.isRotated ? imageData.h : imageData.w;
 
         // Image should not move when modal width to the min width
         // The minwidth is modal width, so we should clac the stage minwidth
-        var widthDiff = (offsetX + modalData.w) > minWidth ? (stageData.w - imageData.w + offsetX) : (minWidth - (modalData.w - stageData.w) - imageData.w),
-            heightDiff = (offsetY + modalData.h) > minHeight ? (stageData.h - imageData.h + offsetY) : (minHeight - (modalData.h - stageData.h) - imageData.h),
+        var widthDiff = (offsetX + modalData.w) > minWidth ? (stageData.w - imgWidth + offsetX - δ) : (minWidth - (modalData.w - stageData.w) - imgWidth - δ),
+            heightDiff = (offsetY + modalData.h) > minHeight ? (stageData.h - imgHeight + offsetY + δ) : (minHeight - (modalData.h - stageData.h) - imgHeight + δ),
 
-            widthDiff2 = (-offsetX + modalData.w) > minWidth ? (stageData.w - imageData.w - offsetX) : (minWidth - (modalData.w - stageData.w) - imageData.w),
-            heightDiff2 = (-offsetY + modalData.h) > minHeight ? (stageData.h - imageData.h - offsetY) : (minHeight - (modalData.h - stageData.h) - imageData.h);
+            widthDiff2 = (-offsetX + modalData.w) > minWidth ? (stageData.w - imgWidth - offsetX - δ) : (minWidth - (modalData.w - stageData.w) - imgWidth - δ),
+            heightDiff2 = (-offsetY + modalData.h) > minHeight ? (stageData.h - imgHeight - offsetY + δ) : (minHeight - (modalData.h - stageData.h) - imgHeight + δ);
 
         // Get image position in dragging
-        var imgLeft = $(image).position().left,
-            imgTop = $(image).position().top;
+        var imgLeft = $(image).position().left - δ,
+            imgTop = $(image).position().top + δ;
 
         var opts = {
             'e': {
-                left: widthDiff >= 0 ? (widthDiff / 2 + 'px') : (imgLeft > widthDiff ? (imgLeft + 'px') : (widthDiff + 'px'))
+                left: widthDiff >= -δ ? ((widthDiff - δ) / 2 + 'px') : (imgLeft > widthDiff ? (imgLeft + 'px') : (widthDiff + 'px'))
             },
             's': {
-                top: heightDiff >= 0 ? (heightDiff / 2 + 'px') : (imgTop > heightDiff ? (imgTop + 'px') : (heightDiff + 'px'))
+                top: heightDiff >= δ ? ((heightDiff + δ) / 2 + 'px') : (imgTop > heightDiff ? (imgTop + 'px') : (heightDiff + 'px'))
             },
             'se': {
-                top: heightDiff >= 0 ? (heightDiff / 2 + 'px') : (imgTop > heightDiff ? (imgTop + 'px') : (heightDiff + 'px')),
-                left: widthDiff >= 0 ? (widthDiff / 2 + 'px') : (imgLeft > widthDiff ? (imgLeft + 'px') : (widthDiff + 'px'))
+                top: heightDiff >= δ ? ((heightDiff + δ) / 2 + 'px') : (imgTop > heightDiff ? (imgTop + 'px') : (heightDiff + 'px')),
+                left: widthDiff >= -δ ? ((widthDiff - δ) / 2 + 'px') : (imgLeft > widthDiff ? (imgLeft + 'px') : (widthDiff + 'px'))
             },
             'w': {
-                left: widthDiff2 >= 0 ? (widthDiff2 / 2 + 'px') : (imgLeft > widthDiff2 ? (imgLeft + 'px') : (widthDiff2 + 'px'))
+                left: widthDiff2 >= -δ ? ((widthDiff2 - δ) / 2 + 'px') : (imgLeft > widthDiff2 ? (imgLeft + 'px') : (widthDiff2 + 'px'))
             },
             'n': {
-                top: heightDiff2 >= 0 ? (heightDiff2 / 2 + 'px') : (imgTop > heightDiff2 ? (imgTop + 'px') : (heightDiff2 + 'px'))
+                top: heightDiff2 >= δ ? ((heightDiff2 + δ) / 2 + 'px') : (imgTop > heightDiff2 ? (imgTop + 'px') : (heightDiff2 + 'px'))
             },
             'nw': {
-                top: heightDiff2 >= 0 ? (heightDiff2 / 2 + 'px') : (imgTop > heightDiff2 ? (imgTop + 'px') : (heightDiff2 + 'px')),
-                left: widthDiff2 >= 0 ? (widthDiff2 / 2 + 'px') : (imgLeft > widthDiff2 ? (imgLeft + 'px') : (widthDiff2 + 'px'))
+                top: heightDiff2 >= δ ? ((heightDiff2 + δ) / 2 + 'px') : (imgTop > heightDiff2 ? (imgTop + 'px') : (heightDiff2 + 'px')),
+                left: widthDiff2 >= -δ ? ((widthDiff2 - δ) / 2 + 'px') : (imgLeft > widthDiff2 ? (imgLeft + 'px') : (widthDiff2 + 'px'))
             },
             'ne': {
-                top: heightDiff2 >= 0 ? (heightDiff2 / 2 + 'px') : (imgTop > heightDiff2 ? (imgTop + 'px') : (heightDiff2 + 'px')),
-                left: widthDiff >= 0 ? (widthDiff / 2 + 'px') : (imgLeft > widthDiff ? (imgLeft + 'px') : (widthDiff + 'px'))
+                top: heightDiff2 >= δ ? ((heightDiff2 + δ) / 2 + 'px') : (imgTop > heightDiff2 ? (imgTop + 'px') : (heightDiff2 + 'px')),
+                left: widthDiff >= -δ ? ((widthDiff - δ) / 2 + 'px') : (imgLeft > widthDiff ? (imgLeft + 'px') : (widthDiff + 'px'))
             },
             'sw': {
-                top: heightDiff >= 0 ? (heightDiff / 2 + 'px') : (imgTop > heightDiff ? (imgTop + 'px') : (heightDiff + 'px')),
-                left: widthDiff2 >= 0 ? (widthDiff2 / 2 + 'px') : (imgLeft > widthDiff2 ? (imgLeft + 'px') : (widthDiff2 + 'px'))
+                top: heightDiff >= δ ? ((heightDiff + δ) / 2 + 'px') : (imgTop > heightDiff ? (imgTop + 'px') : (heightDiff + 'px')),
+                left: widthDiff2 >= -δ ? ((widthDiff2 - δ) / 2 + 'px') : (imgLeft > widthDiff2 ? (imgLeft + 'px') : (widthDiff2 + 'px'))
             }
         };
 

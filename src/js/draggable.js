@@ -18,7 +18,6 @@ var draggable = function(modal) {
         left = 0,
         top = 0;
 
-
     var dragStart = function(e) {
 
         var e = e || window.event;

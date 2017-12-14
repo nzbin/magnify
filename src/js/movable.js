@@ -23,12 +23,16 @@ var movable = function(image, stage) {
         widthDiff = 0,
         heightDiff = 0,
 
-        whHalf = 0,
-        hwHalf = 0;
+        δ = 0;
 
     var dragStart = function(e) {
 
         var e = e || window.event;
+
+        var imageWidth = $(image).width(),
+            imageHeight = $(image).height(),
+            stageWidth = $(stage).width(),
+            stageHeight = $(stage).height();
 
         isDragging = true;
         isMoving = true;
@@ -36,24 +40,17 @@ var movable = function(image, stage) {
         startX = e.clientX;
         startY = e.clientY;
 
-        // Reclac the element position when mousedown
-        // Fixed the issue of stage with a border
-        left = $(image).position().left;
-        top = $(image).position().top;
+        // δ is the difference between image width and height
+        δ = !self.isRotated ? 0 : (imageWidth - imageHeight) / 2;
 
         // Width or height difference can be use to limit image right or top position
-        widthDiff = $(image).width() - $(stage).width();
-        heightDiff = $(image).height() - $(stage).height();
+        widthDiff = !self.isRotated ? (imageWidth - stageWidth) : (imageHeight - stageWidth);
+        heightDiff = !self.isRotated ? (imageHeight - stageHeight) : (imageWidth - stageHeight);
 
-        whHalf = ($(image).width() - $(image).height()) / 2;
-        hwHalf = ($(image).height() - $(image).width()) / 2;
-
-        if (self.isRotated) {
-            left = $(image).position().left + hwHalf;
-            top = $(image).position().top + whHalf;
-            widthDiff = $(image).height() - $(stage).width();
-            heightDiff = $(image).width() - $(stage).height();
-        }
+        // Reclac the element position when mousedown
+        // Fixed the issue of stage with a border
+        left = $(image).position().left - δ;
+        top = $(image).position().top + δ;
 
     }
 
@@ -72,58 +69,29 @@ var movable = function(image, stage) {
                 newLeft = relativeX + left,
                 newTop = relativeY + top;
 
-            if (!self.isRotated) {
-                // vertical limit
-                if (heightDiff > 0) {
+            // vertical limit
+            if (heightDiff > 0) {
 
-                    if ((relativeY + top) > 0) {
-                        newTop = 0;
-                    } else if ((relativeY + top) < -heightDiff) {
-                        newTop = -heightDiff;
-                    }
-
-                } else {
-                    newTop = top;
-                }
-                // horizontal limit
-                if (widthDiff > 0) {
-
-                    if ((relativeX + left) > 0) {
-                        newLeft = 0;
-                    } else if ((relativeX + left) < -widthDiff) {
-                        newLeft = -widthDiff;
-                    }
-
-                } else {
-                    newLeft = left;
+                if ((relativeY + top) > δ) {
+                    newTop = δ;
+                } else if ((relativeY + top) < -heightDiff + δ) {
+                    newTop = -heightDiff + δ;
                 }
 
             } else {
-                // vertical limit
-                if (heightDiff > 0) {
+                newTop = top;
+            }
+            // horizontal limit
+            if (widthDiff > 0) {
 
-                    if ((relativeY + top) > whHalf) {
-                        newTop = whHalf;
-                    } else if ((relativeY + top) < -heightDiff + whHalf) {
-                        newTop = -heightDiff + whHalf;
-                    }
-
-                } else {
-                    newTop = top;
-                }
-                // horizontal limit
-                if (widthDiff > 0) {
-
-                    if ((relativeX + left) > hwHalf) {
-                        newLeft = hwHalf;
-                    } else if ((relativeX + left) < -widthDiff + hwHalf) {
-                        newLeft = -widthDiff + hwHalf;
-                    }
-
-                } else {
-                    newLeft = left;
+                if ((relativeX + left) > -δ) {
+                    newLeft = -δ;
+                } else if ((relativeX + left) < -widthDiff - δ) {
+                    newLeft = -widthDiff - δ;
                 }
 
+            } else {
+                newLeft = left;
             }
 
             $(image).css({

@@ -162,6 +162,8 @@ Magnify.prototype = {
         this.$magnify.remove();
 
         this.isMaximized = false;
+        this.isRotated = false;
+        this.angle = 0;
 
         // off events
 
@@ -392,10 +394,10 @@ Magnify.prototype = {
         var scale = Math.min(stageData.w / (img.width), stageData.h / (img.height), 1);
 
         this.$image.css({
-            width: img.width * scale + 'px',
-            height: img.height * scale + 'px',
-            left: (stageData.w - img.width * scale) / 2 + 'px',
-            top: (stageData.h - img.height * scale) / 2 + 'px'
+            width: Math.ceil(img.width * scale) + 'px',
+            height: Math.ceil(img.height * scale) + 'px',
+            left: Math.ceil((stageData.w - img.width * scale) / 2) + 'px',
+            top: Math.ceil((stageData.h - img.height * scale) / 2) + 'px'
         });
 
         // Store image initial data
