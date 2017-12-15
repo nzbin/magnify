@@ -3,66 +3,69 @@
  */
 
 var $W = $(window),
-    $D = $(document);
+    $D = $(document),
 
-// plugin default options
-var defaults = {
-    draggable: true,
-    resizable: true,
-    keyboard: true,
-    title: true,
-    toolbar: [],
-    modalWidth: '320',
-    modalHeight: '320',
-    initMaximized: false,
-    gapThreshold: 0.02,
-    ratioThreshold: 0.1,
-    lang: 'en',
-    i18n: {}
-}
+    // jquery element of calling plugin
+    jqEl = null,
 
-// magnify base HTML
-var magnifyHTML = '<div class="magnify-modal">\
-                    <div class="magnify-header">\
-                        <div class="magnify-title">test</div>\
-                        <div class="magnify-toolbar">\
-                            <button class="magnify-button magnify-button-maximize" title="maximize">\
-                                <i class="fa fa-window-maximize" aria-hidden="true"></i>\
-                            </button>\
-                            <button class="magnify-button magnify-button-close" title="close">\
-                                <i class="fa fa-times" aria-hidden="true"></i>\
-                            </button>\
+    // plugin default options
+    defaults = {
+        draggable: true,
+        resizable: true,
+        keyboard: true,
+        title: true,
+        toolbar: [],
+        modalWidth: '320',
+        modalHeight: '320',
+        initMaximized: false,
+        gapThreshold: 0.02,
+        ratioThreshold: 0.1,
+        lang: 'en',
+        i18n: {}
+    },
+
+    // magnify base HTML
+    magnifyHTML = '<div class="magnify-modal">\
+                        <div class="magnify-header">\
+                            <div class="magnify-title"></div>\
+                            <div class="magnify-toolbar">\
+                                <button class="magnify-button magnify-button-maximize" title="maximize">\
+                                    <i class="fa fa-window-maximize" aria-hidden="true"></i>\
+                                </button>\
+                                <button class="magnify-button magnify-button-close" title="close">\
+                                    <i class="fa fa-times" aria-hidden="true"></i>\
+                                </button>\
+                            </div>\
                         </div>\
-                    </div>\
-                    <div class="magnify-stage">\
-                        <img src="" alt="">\
-                    </div>\
-                    <div class="magnify-footer">\
-                        <div class="magnify-toolbar">\
-                            <button class="magnify-button magnify-button-zoom-in" title="zoom-in">\
-                                <i class="fa fa-search-plus" aria-hidden="true"></i>\
-                            </button>\
-                            <button class="magnify-button magnify-button-zoom-out" title="zoom-out">\
-                                <i class="fa fa-search-minus" aria-hidden="true"></i>\
-                            </button>\
-                            <button class="magnify-button magnify-button-prev" title="prev">\
-                                <i class="fa fa-arrow-left" aria-hidden="true"></i>\
-                            </button>\
-                            <button class="magnify-button magnify-button-fullscreen" title="fullscreen">\
-                                <i class="fa fa-photo" aria-hidden="true"></i>\
-                            </button>\
-                            <button class="magnify-button magnify-button-next" title="next">\
-                                <i class="fa fa-arrow-right" aria-hidden="true"></i>\
-                            </button>\
-                            <button class="magnify-button magnify-button-actual-size" title="actual-size">\
-                                <i class="fa fa-arrows-alt" aria-hidden="true"></i>\
-                            </button>\
-                            <button class="magnify-button magnify-button-rotate" title="rotate">\
-                                <i class="fa fa-repeat" aria-hidden="true"></i>\
-                            </button>\
+                        <div class="magnify-stage">\
+                            <img src="" alt="">\
                         </div>\
-                    </div>\
-                </div>';
+                        <div class="magnify-footer">\
+                            <div class="magnify-toolbar">\
+                                <button class="magnify-button magnify-button-zoom-in" title="zoom-in">\
+                                    <i class="fa fa-search-plus" aria-hidden="true"></i>\
+                                </button>\
+                                <button class="magnify-button magnify-button-zoom-out" title="zoom-out">\
+                                    <i class="fa fa-search-minus" aria-hidden="true"></i>\
+                                </button>\
+                                <button class="magnify-button magnify-button-prev" title="prev">\
+                                    <i class="fa fa-arrow-left" aria-hidden="true"></i>\
+                                </button>\
+                                <button class="magnify-button magnify-button-fullscreen" title="fullscreen">\
+                                    <i class="fa fa-photo" aria-hidden="true"></i>\
+                                </button>\
+                                <button class="magnify-button magnify-button-next" title="next">\
+                                    <i class="fa fa-arrow-right" aria-hidden="true"></i>\
+                                </button>\
+                                <button class="magnify-button magnify-button-actual-size" title="actual-size">\
+                                    <i class="fa fa-arrows-alt" aria-hidden="true"></i>\
+                                </button>\
+                                <button class="magnify-button magnify-button-rotate" title="rotate">\
+                                    <i class="fa fa-repeat" aria-hidden="true"></i>\
+                                </button>\
+                            </div>\
+                        </div>\
+                    </div>';
 
 /**
  * Magnify Class
@@ -110,11 +113,14 @@ Magnify.prototype = {
             // get image group
             self.groupName = null;
 
-            var currentGroupName = $(this).data('group');
+            var currentGroupName = $(this).attr('data-group'),
+                groupList = $D.find('[data-group=' + currentGroupName + ']');
 
             if (currentGroupName != self.groupName) {
                 self.groupName = currentGroupName;
-                self.getImgGroup(imgSrc);
+                self.getImgGroup(groupList, imgSrc);
+            } else {
+                self.getImgGroup(jqEl.not('[data-group]'), imgSrc);
             }
 
         });
@@ -263,15 +269,13 @@ Magnify.prototype = {
         });
 
     },
-    getImgGroup: function(imgSrc) {
+    getImgGroup: function($list, imgSrc) {
 
         var self = this;
 
-        var groupList = $D.find('*[data-group=' + this.groupName + ']');
-
         self.groupData = [];
 
-        groupList.each(function(i, k) {
+        $list.each(function(i, k) {
 
             self.groupData.push({
                 src: $(this).attr('href'),
@@ -537,7 +541,7 @@ $.magnify = {
     isDragging: false,
     isMoving: false,
     isResizing: false,
-    maximize: false,
+    isMaximized: false,
     modal: {
         width: 0,
         height: 0
@@ -554,9 +558,12 @@ $.magnify = {
     }
 }
 
+
 $.fn.magnify = function(options) {
 
-    return this.each(function() {
+    jqEl = $(this);
+
+    return jqEl.each(function() {
         var instance = new Magnify(this, options);
         // console.log(instance)
     });
