@@ -2,9 +2,6 @@
  * draggable
  */
 
-var isMoving = false, // image moving
-    isResizing = false; // modal resizing
-
 // modal draggable
 var draggable = function(modal) {
 

@@ -5,9 +5,6 @@
 var $W = $(window),
     $D = $(document),
 
-    // jquery element of calling plugin
-    jqEl = null,
-
     // plugin default options
     defaults = {
         draggable: true,
@@ -65,7 +62,19 @@ var $W = $(window),
                                 </button>\
                             </div>\
                         </div>\
-                    </div>';
+                    </div>',
+
+    // jquery element of calling plugin
+    jqEl = null,
+
+    // image rotate angle
+    rotateAngle = 0,
+
+    // image moving flag
+    isMoving = false,
+
+    // modal resizing flag
+    isResizing = false;
 
 /**
  * Magnify Class
@@ -80,7 +89,6 @@ var Magnify = function(el, options) {
 
     this.isMaximized = false;
     this.isRotated = false;
-    this.angle = 0;
     // store image data in every instance
     // this.imageData = {};
 }
@@ -157,11 +165,15 @@ Magnify.prototype = {
         this.fixedModalPos($magnify);
 
         // draggable & movable & resizable
-        this.draggable($magnify);
-
-        this.movable(this.$image, this.$stage);
-
-        this.resizable($magnify, this.$stage, this.$image, this.options.modalWidth, this.options.modalHeight);
+        if (this.options.draggable) {
+            this.draggable($magnify);
+        }
+        if (this.options.movable) {
+            this.movable(this.$image, this.$stage);
+        }
+        if (this.options.resizable) {
+            this.resizable($magnify, this.$stage, this.$image, this.options.modalWidth, this.options.modalHeight);
+        }
 
     },
     close: function(el) {
@@ -170,7 +182,8 @@ Magnify.prototype = {
 
         this.isMaximized = false;
         this.isRotated = false;
-        this.angle = 0;
+
+        rotateAngle = 0;
 
         // off events
 
@@ -270,7 +283,7 @@ Magnify.prototype = {
         });
 
         if (this.options.title) {
-            this.setImageTitle(imgSrc);
+            this.setImgTitle(imgSrc);
         }
 
     },
@@ -294,7 +307,7 @@ Magnify.prototype = {
         });
 
     },
-    setImageTitle: function(url) {
+    setImgTitle: function(url) {
 
         var index = this.groupIndex,
             caption = this.groupData[index].caption,
@@ -451,9 +464,15 @@ Magnify.prototype = {
     },
     rotate: function() {
 
-        this.angle = (this.angle + 90) % 360;
+        rotateAngle = (rotateAngle + 90) % 360;
 
-        this.rotateHandler(this.angle);
+        if (rotateAngle === 90 || rotateAngle === 270) {
+            this.isRotated = true;
+        } else {
+            this.isRotated = false;
+        }
+
+        this.rotateHandler(rotateAngle);
 
     },
     rotateHandler: function(angle) {
@@ -463,12 +482,6 @@ Magnify.prototype = {
         this.$image.css({
             transform: 'rotate(' + angle + 'deg)'
         });
-
-        if (this.angle === 90 || this.angle === 270) {
-            this.isRotated = true;
-        } else {
-            this.isRotated = false;
-        }
 
         this.fixedImagePos({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
 
