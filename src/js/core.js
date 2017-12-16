@@ -563,9 +563,20 @@ $.fn.magnify = function(options) {
 
     jqEl = $(this);
 
-    return jqEl.each(function() {
-        var instance = new Magnify(this, options);
-        // console.log(instance)
-    });
+    if (typeof options === 'string') {
+
+        // $(this).data('magnify')[options]();
+
+    } else {
+
+        jqEl.each(function(index, elem) {
+
+            $(this).data('magnify', new Magnify(this, options));
+
+        });
+
+    }
+
+    return jqEl;
 
 }
