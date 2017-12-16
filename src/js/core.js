@@ -273,7 +273,6 @@ Magnify.prototype = {
             this.setImageTitle(imgSrc);
         }
 
-
     },
     getImgGroup: function($list, imgSrc) {
 
@@ -303,6 +302,31 @@ Magnify.prototype = {
 
         this.$title.text(caption);
 
+    },
+    flip: function(index) {
+
+        if (index >= 0) {
+            this.groupIndex = this.groupIndex + index;
+        } else if (index < 0) {
+            this.groupIndex = this.groupIndex - index;
+        }
+
+        this.flipHandler(this.groupIndex);
+
+    },
+    flipHandler: function(index) {
+
+        index = index % this.groupData.length;
+
+        if (index >= 0) {
+            index = index % this.groupData.length;
+        } else if (index < 0) {
+            index = (this.groupData.length + index) % this.groupData.length;
+        }
+
+        this.groupIndex = index;
+
+        this.loadImg(this.groupData[index].src);
 
     },
     wheel: function(e) {
@@ -425,7 +449,14 @@ Magnify.prototype = {
         });
 
     },
-    rotate: function(angle) {
+    rotate: function() {
+
+        this.angle = (this.angle + 90) % 360;
+
+        this.rotateHandler(this.angle);
+
+    },
+    rotateHandler: function(angle) {
 
         var self = this;
 
@@ -523,8 +554,7 @@ Magnify.prototype = {
         });
 
         this.$prev.on('click', function() {
-            self.groupIndex = (self.groupData.length + self.groupIndex - 1) % self.groupData.length;
-            self.loadImg(self.groupData[self.groupIndex].src);
+            self.flip(-1);
         });
 
         this.$fullscreen.on('click', function() {
@@ -532,13 +562,11 @@ Magnify.prototype = {
         });
 
         this.$next.on('click', function() {
-            self.groupIndex = (self.groupIndex + 1) % self.groupData.length;
-            self.loadImg(self.groupData[self.groupIndex].src);
+            self.flip(1);
         });
 
         this.$rotate.on('click', function() {
-            self.angle = (self.angle + 90) % 360;
-            self.rotate(self.angle);
+            self.rotate();
         });
 
         this.$maximize.on('click', function() {
