@@ -21,6 +21,9 @@ var draggable = function(modal) {
     var dragStart = function(e) {
 
         var e = e || window.event;
+
+        e.preventDefault();
+
         // Get clicked button
         var elemCancel = $(e.target).closest('.magnify-button');
         // Stop modal moving when click buttons
@@ -41,6 +44,8 @@ var draggable = function(modal) {
     var dragMove = function(e) {
 
         var e = e || window.event;
+
+        e.preventDefault();
 
         if (isDragging && !isMoving && !isResizing) {
 

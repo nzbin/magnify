@@ -166,6 +166,8 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
 
         var e = e || window.event;
 
+        e.preventDefault();
+
         isDragging = true;
         isResizing = true;
 
@@ -200,6 +202,8 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
     var dragMove = function(e) {
 
         var e = e || window.event;
+
+        e.preventDefault();
 
         if (isDragging) {
 

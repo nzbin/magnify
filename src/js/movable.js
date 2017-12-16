@@ -29,6 +29,8 @@ var movable = function(image, stage) {
 
         var e = e || window.event;
 
+        e.preventDefault();
+
         var imageWidth = $(image).width(),
             imageHeight = $(image).height(),
             stageWidth = $(stage).width(),
@@ -57,6 +59,8 @@ var movable = function(image, stage) {
     var dragMove = function(e) {
 
         var e = e || window.event;
+
+        e.preventDefault();
 
         if (isDragging) {
 

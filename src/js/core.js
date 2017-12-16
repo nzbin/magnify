@@ -251,7 +251,7 @@ Magnify.prototype = {
 
         var self = this;
 
-        self.$image.attr('src', imgSrc);
+        this.$image.attr('src', imgSrc);
 
         preloadImg(imgSrc, function(img) {
 
@@ -269,7 +269,10 @@ Magnify.prototype = {
 
         });
 
-        self.setImageTitle(imgSrc);
+        if (this.options.title) {
+            this.setImageTitle(imgSrc);
+        }
+
 
     },
     getImgGroup: function($list, imgSrc) {

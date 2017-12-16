@@ -5,44 +5,65 @@
     position: fixed;
     width: 320px;
     height: 320px;
+    background-color: #111;
     background-color: rgba(0, 0, 0, .85);
     box-shadow: 0 0 3px 1px rgba(0, 0, 0, .3);
-    // &.magnify-maximize {
-    //     top: 0 !important;
-    //     left: 0 !important;
-    //     width: 100% !important;
-    //     height: 100% !important;
-    // }
 }
 
+// .magnify-maximize {
+//     top: 0 !important;
+//     left: 0 !important;
+//     width: 100% !important;
+//     height: 100% !important;
+// }
 .magnify-header {
     position: relative;
     height: 40px;
     color: #fff;
     z-index: 2;
-    background-color: rgba(0, 0, 0, .5);
     .magnify-toolbar {
         position: absolute;
         top: 0;
         right: 0;
+        width: 80px;
         height: 40px;
-        width: 120px;
-        text-align: right;
     }
 }
 
 .magnify-title {
-    margin-right: 120px;
+    margin-right: 80px;
     padding: 13px 10px;
     font-size: 14px;
     line-height: 1;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    user-select: none;
+    cursor: default;
 }
 
-.magnify-button-close {
+.magnify-toolbar {
+    font-size: 0;
+}
 
+.magnify-button {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    margin: 0;
+    padding: 10px;
+    border-width: 0;
+    border-radius: 0;
+    text-align: center;
+    font-size: 14px;
+    background: none;
+    color: #ccc;
+    cursor: pointer;
+    outline: none;
+    box-sizing: border-box;
+    &:hover {
+        color: #fff;
+    }
 }
 
 .magnify-stage {
@@ -51,7 +72,7 @@
     left: 10px;
     bottom: 40px;
     right: 10px;
-    border:1px solid #fff;
+    border: 1px solid #ccc;
     overflow: hidden;
     z-index: 1;
     img {
@@ -80,8 +101,6 @@
     z-index: 2;
     .magnify-toolbar {
         display: inline-block;
-        background-color: rgba(0, 0, 0, .5);
         height: 40px;
-        line-height: 40px;
     }
 }
