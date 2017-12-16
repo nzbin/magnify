@@ -26,8 +26,8 @@ function throttle(fn, delay) {
 
 /**
  * [preloadImg 预加载图片]
- * @param  {[type]}   src [图片地址]
- * @param  {Function} fn  [回调函数]
+ * @param  {[String]}  src [图片地址]
+ * @param  {Function}  fn  [回调函数]
  */
 function preloadImg(src, fn) {
 
@@ -68,11 +68,21 @@ function requestFullscreen(element) {
  * [exitFullscreen description]
  */
 function exitFullscreen() {
-  if(document.exitFullscreen) {
-    document.exitFullscreen();
-  } else if(document.mozCancelFullScreen) {
-    document.mozCancelFullScreen();
-  } else if(document.webkitExitFullscreen) {
-    document.webkitExitFullscreen();
-  }
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+    }
+}
+
+/**
+ * [getImageNameFromUrl 从URL中获取图片名]
+ * @param  {[String]} url [description]
+ * @return {[String]}     [description]
+ */
+function getImageNameFromUrl(url) {
+    var reg = /^.*?\/*([^/?]*)\.[a-z]+(\?.+|$)/ig;
+    return url.replace(reg, '$1');
 }

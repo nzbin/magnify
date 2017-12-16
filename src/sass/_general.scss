@@ -36,6 +36,9 @@
     padding: 13px 10px;
     font-size: 14px;
     line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .magnify-button-close {

@@ -95,22 +95,19 @@ Magnify.prototype = {
 
         var self = this;
 
-        // bind thumbnails click event
+        // Bind thumbnails click event
         $(el).on('click', function(e) {
 
             e.preventDefault();
             e.stopPropagation();
 
             self.open();
-
             self.resize();
 
-            // get image src
+            // Get image src
             var imgSrc = $(this).attr('href');
 
-            self.loadImg(imgSrc);
-
-            // get image group
+            // Get image group
             self.groupName = null;
 
             var currentGroupName = $(this).attr('data-group'),
@@ -122,6 +119,9 @@ Magnify.prototype = {
             } else {
                 self.getImgGroup(jqEl.not('[data-group]'), imgSrc);
             }
+
+            self.loadImg(imgSrc);
+
 
         });
 
@@ -140,6 +140,7 @@ Magnify.prototype = {
 
         this.$magnify = $magnify;
         this.$stage = $magnify.find('.magnify-stage');
+        this.$title = $magnify.find('.magnify-title');
         this.$image = $magnify.find('.magnify-stage img');
         this.$close = $magnify.find('.magnify-button-close');
         this.$maximize = $magnify.find('.magnify-button-maximize');
@@ -164,7 +165,7 @@ Magnify.prototype = {
 
     },
     close: function(el) {
-        // remove instance
+        // Remove instance
         this.$magnify.remove();
 
         this.isMaximized = false;
@@ -233,8 +234,8 @@ Magnify.prototype = {
         this.$image.css({
             width: Math.ceil(img.width * scale) + 'px',
             height: Math.ceil(img.height * scale) + 'px',
-            left: Math.ceil((stageData.w - img.width * scale) / 2) + 'px',
-            top: Math.ceil((stageData.h - img.height * scale) / 2) + 'px'
+            left: (stageData.w - img.width * scale) / 2 + 'px',
+            top: (stageData.h - img.height * scale) / 2 + 'px'
         });
 
         // Store image initial data
@@ -268,6 +269,8 @@ Magnify.prototype = {
 
         });
 
+        self.setImageTitle(imgSrc);
+
     },
     getImgGroup: function($list, imgSrc) {
 
@@ -281,12 +284,22 @@ Magnify.prototype = {
                 src: $(this).attr('href'),
                 caption: $(this).attr('data-caption')
             });
-            // get image index
+            // Get image index
             if (imgSrc === $(this).attr('href')) {
                 self.groupIndex = i
             }
 
         });
+
+    },
+    setImageTitle: function(url) {
+
+        var index = this.groupIndex,
+            caption = this.groupData[index].caption,
+            caption = caption ? caption : getImageNameFromUrl(url);
+
+        this.$title.text(caption);
+
 
     },
     wheel: function(e) {
