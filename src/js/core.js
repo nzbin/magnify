@@ -14,11 +14,16 @@ var $W = $(window),
         toolbar: [],
         modalWidth: '320',
         modalHeight: '320',
+        fixedModalSize: false,
         initMaximized: false,
         gapThreshold: 0.02,
         ratioThreshold: 0.1,
         lang: 'en',
-        i18n: {}
+        i18n: {},
+        // beforeOpen:$.noop,
+        // afterOpen:$.noop,
+        // beforeClose:$.noop,
+        // afterClose:$.noop
     },
 
     // magnify base HTML
@@ -35,7 +40,7 @@ var $W = $(window),
                             </div>\
                         </div>\
                         <div class="magnify-stage">\
-                            <img src="" alt="">\
+                            <img src="" alt="" title="">\
                         </div>\
                         <div class="magnify-footer">\
                             <div class="magnify-toolbar">\
@@ -160,7 +165,7 @@ Magnify.prototype = {
 
         $('body').append($magnify);
 
-        this.fixedModalPos($magnify);
+        this.setModalPos($magnify);
 
         // draggable & movable & resizable
         if (this.options.draggable) {
@@ -186,7 +191,7 @@ Magnify.prototype = {
         // off events
 
     },
-    fixedModalPos: function(modal) {
+    setModalPos: function(modal) {
 
         var winWidth = $W.width(),
             winHeight = $W.height();
@@ -201,7 +206,7 @@ Magnify.prototype = {
         });
 
     },
-    fixedModalSize: function(img) {
+    setModalSize: function(img) {
 
         var winWidth = $W.width(),
             winHeight = $W.height();
@@ -213,8 +218,8 @@ Magnify.prototype = {
         var minWidth = Math.max(img.width * scale, this.options.modalWidth),
             minHeight = Math.max(img.height * scale, this.options.modalHeight);
 
-        minWidth = Math.ceil(minWidth);
-        minHeight = Math.ceil(minHeight);
+        minWidth = this.options.fixedModalSize ? this.options.modalWidth : Math.ceil(minWidth);
+        minHeight = this.options.fixedModalSize ? this.options.modalHeight : Math.ceil(minHeight);
 
         this.$magnify.css({
             width: minWidth + 'px',
@@ -223,10 +228,10 @@ Magnify.prototype = {
             top: (winHeight - minHeight) / 2 + 'px'
         });
 
-        this.fixedImagePos(img)
+        this.setImagePos(img)
 
     },
-    fixedImagePos: function(img) {
+    setImagePos: function(img) {
 
         var stageData = {
             w: this.$stage.width(),
@@ -237,9 +242,9 @@ Magnify.prototype = {
         var scale = 1;
 
         if (!this.isRotated) {
-            scale = Math.min(stageData.w / (img.width), stageData.h / (img.height), 1);
+            scale = Math.min(stageData.w / img.width, stageData.h / img.height, 1);
         } else {
-            scale = Math.min(stageData.w / (img.height), stageData.h / (img.width), 1);
+            scale = Math.min(stageData.w / img.height, stageData.h / img.width, 1);
         }
 
         this.$image.css({
@@ -273,9 +278,9 @@ Magnify.prototype = {
             }
 
             if (self.isMaximized) {
-                self.fixedImagePos(img);
+                self.setImagePos(img);
             } else {
-                self.fixedModalSize(img);
+                self.setModalSize(img);
             }
 
         });
@@ -482,7 +487,7 @@ Magnify.prototype = {
             transform: 'rotate(' + angle + 'deg)'
         });
 
-        this.fixedImagePos({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
+        this.setImagePos({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
 
     },
     resize: function() {
@@ -490,8 +495,8 @@ Magnify.prototype = {
         var self = this;
 
         window.onresize = throttle(function() {
-            self.fixedModalPos(self.$magnify);
-            self.fixedImagePos(self.$image[0]);
+            self.setModalPos(self.$magnify);
+            self.setImagePos(self.$image[0]);
         }, 500);
 
     },
@@ -533,7 +538,7 @@ Magnify.prototype = {
             this.isMaximized = false;
         }
 
-        this.fixedImagePos(this.$image[0]);
+        this.setImagePos(this.$image[0]);
 
     },
     fullscreen: function() {
