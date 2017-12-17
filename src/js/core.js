@@ -373,6 +373,11 @@ Magnify.prototype = {
 
         ratio = this.$image.width() / this.imageData.originalWidth * ratio;
 
+        // min image size
+        ratio = Math.max(ratio, 0.1);
+        // max image size
+        ratio = Math.min(ratio, 16);
+
         this.zoomHandler(ratio, origin, e);
 
     },
@@ -384,7 +389,7 @@ Magnify.prototype = {
                 w: this.imageData.width,
                 h: this.imageData.height,
                 x: this.imageData.left,
-                y: this.imageData.top,
+                y: this.imageData.top
             };
 
         // image stage position
