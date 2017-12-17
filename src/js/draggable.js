@@ -44,7 +44,7 @@ var draggable = function(modal) {
 
         e.preventDefault();
 
-        if (isDragging && !isMoving && !isResizing) {
+        if (isDragging && !isMoving && !isResizing && !self.isMaximized) {
 
             var endX = e.clientX,
                 endY = e.clientY,
