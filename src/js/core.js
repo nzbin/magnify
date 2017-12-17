@@ -130,9 +130,7 @@ Magnify.prototype = {
 
             self.loadImg(imgSrc);
 
-
         });
-
 
     },
     open: function() {
@@ -318,11 +316,7 @@ Magnify.prototype = {
     },
     flip: function(index) {
 
-        if (index >= 0) {
-            this.groupIndex = this.groupIndex + index;
-        } else if (index < 0) {
-            this.groupIndex = this.groupIndex - index;
-        }
+        this.groupIndex = this.groupIndex + index;
 
         this.flipHandler(this.groupIndex);
 
@@ -421,13 +415,13 @@ Magnify.prototype = {
             if (newHeight <= stageData.h) {
                 newTop = (stageData.h - newHeight) / 2;
             } else {
-                newTop = newTop > 0 ? 0 : (newTop < offsetY ? offsetY : newTop);
+                newTop = newTop > 0 ? 0 : (newTop > offsetY ? newTop : offsetY);
             }
 
             if (newWidth <= stageData.w) {
                 newLeft = (stageData.w - newWidth) / 2;
             } else {
-                newLeft = newLeft > 0 ? 0 : (newLeft < offsetX ? offsetX : newLeft);
+                newLeft = newLeft > 0 ? 0 : (newLeft > offsetX ? newLeft : offsetX);
             }
 
         } else {
@@ -435,13 +429,13 @@ Magnify.prototype = {
             if (newWidth <= stageData.h) {
                 newTop = (stageData.h - newHeight) / 2;
             } else {
-                newTop = newTop > (newWidth - newHeight) / 2 ? (newWidth - newHeight) / 2 : (newTop < offsetY2 ? offsetY2 : newTop);
+                newTop = newTop > (newWidth - newHeight) / 2 ? (newWidth - newHeight) / 2 : (newTop > offsetY2 ? newTop : offsetY2);
             }
 
             if (newHeight <= stageData.w) {
                 newLeft = (stageData.w - newWidth) / 2;
             } else {
-                newLeft = newLeft > (newHeight - newWidth) / 2 ? (newHeight - newWidth) / 2 : (newLeft < offsetX2 ? offsetX2 : newLeft);
+                newLeft = newLeft > (newHeight - newWidth) / 2 ? (newHeight - newWidth) / 2 : (newLeft > offsetX2 ? newLeft : offsetX2);
             }
 
         }
@@ -449,8 +443,8 @@ Magnify.prototype = {
         $image.css({
             width: Math.ceil(newWidth) + 'px',
             height: Math.ceil(newHeight) + 'px',
-            left: Math.ceil(newLeft) + 'px',
-            top: Math.ceil(newTop) + 'px'
+            left: newLeft + 'px',
+            top: newTop + 'px'
         });
 
         // Update image initial data
