@@ -6,15 +6,13 @@
  * |  | \/ |  |   _   |  \_/   |  |\   |_| |_|  |      |  |
  * |__|    |__|__| |__|\____/|_|__| \__|_____|__|      |__|
  *
- * jquery.Magnify.js v0.1.0
+ * jquery.magnify.js v0.1.0
  *
  * A jQuery plugin to view images just like in windows
  *
  * Copyright (c) 2017 nzbin
  *
  * Released under the MIT License
- *
- * Released on: 2017-11-27
  *
  *
  */
