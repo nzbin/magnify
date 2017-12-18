@@ -56,16 +56,6 @@
         display: inline-block;
         position: relative;
     }
-    .img-move {
-        cursor: move;
-        cursor: -webkit-grab;
-        cursor: grab;
-    }
-    .img-moving {
-        cursor: move;
-        cursor: -webkit-grabbing;
-        cursor: grabbing;
-    }
 }
 
 .magnify-footer {
@@ -104,12 +94,23 @@
     &:hover {
         color: #fff;
     }
-    &.magnify-button-close:hover{
-        background-color:#ff4545;
+    &.magnify-button-close:hover {
+        background-color: #ff4545;
     }
 
-    &.magnify-button-maximize:hover{
-        background-color:#525252;
+    &.magnify-button-maximize:hover {
+        background-color: #525252;
     }
 }
 
+.is-grab {
+    cursor: move;
+    cursor: -webkit-grab;
+    cursor: grab;
+}
+
+.is-grabbing {
+    cursor: move;
+    cursor: -webkit-grabbing;
+    cursor: grabbing;
+}

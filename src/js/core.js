@@ -9,6 +9,7 @@ var $W = $(window),
     defaults = {
         draggable: true,
         resizable: true,
+        movable: true,
         keyboard: true,
         title: true,
         toolbar: [],
