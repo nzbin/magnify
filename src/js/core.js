@@ -211,12 +211,25 @@ Magnify.prototype = {
         var winWidth = $W.width(),
             winHeight = $W.height();
 
-        var gapThreshold = (this.options.gapThreshold > 0 ? this.options.gapThreshold : 0) + 1;
-        // modal scale to window
-        var scale = Math.min(winWidth / (img.width * gapThreshold), winHeight / (img.height * gapThreshold), 1);
+        // stage css value
+        var stageCSS = {
+            left: this.$stage.css('left'),
+            right: this.$stage.css('right'),
+            top: this.$stage.css('top'),
+            bottom: this.$stage.css('bottom'),
+            border: this.$stage.css('border-width')
+        };
 
-        var minWidth = Math.max(img.width * scale, this.options.modalWidth),
-            minHeight = Math.max(img.height * scale, this.options.modalHeight);
+        // modal size should calc with stage css value
+        var modalWidth = img.width + getNumFromCSSValue(stageCSS.left) + getNumFromCSSValue(stageCSS.right) + 2 * getNumFromCSSValue(stageCSS.border),
+            modalHeight = img.height + getNumFromCSSValue(stageCSS.top) + getNumFromCSSValue(stageCSS.bottom) + 2 * getNumFromCSSValue(stageCSS.border);
+
+        var gapThreshold = (this.options.gapThreshold > 0 ? this.options.gapThreshold : 0) + 1,
+            // modal scale to window
+            scale = Math.min(winWidth / (modalWidth * gapThreshold), winHeight / (modalHeight * gapThreshold), 1);
+
+        var minWidth = Math.max(modalWidth * scale, this.options.modalWidth),
+            minHeight = Math.max(modalHeight * scale, this.options.modalHeight);
 
         minWidth = this.options.fixedModalSize ? this.options.modalWidth : Math.ceil(minWidth);
         minHeight = this.options.fixedModalSize ? this.options.modalHeight : Math.ceil(minHeight);

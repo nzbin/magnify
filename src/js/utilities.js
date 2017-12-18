@@ -3,7 +3,7 @@
  */
 
 /**
- * [throttle  函数节流 impress.js]
+ * [throttle]
  * @param  {Function} fn    [description]
  * @param  {[Number]} delay [description]
  * @return {Function}       [description]
@@ -25,9 +25,9 @@ function throttle(fn, delay) {
 };
 
 /**
- * [preloadImg 预加载图片]
- * @param  {[String]}  src [图片地址]
- * @param  {Function}  fn  [回调函数]
+ * [preloadImg]
+ * @param  {[String]}  src [image src]
+ * @param  {Function}  fn  [callbacks]
  */
 function preloadImg(src, fn) {
 
@@ -78,11 +78,23 @@ function exitFullscreen() {
 }
 
 /**
- * [getImageNameFromUrl 从URL中获取图片名]
+ * [getImageNameFromUrl]
  * @param  {[String]} url [description]
  * @return {[String]}     [description]
  */
 function getImageNameFromUrl(url) {
     var reg = /^.*?\/*([^/?]*)\.[a-z]+(\?.+|$)/ig;
     return url.replace(reg, '$1');
+}
+
+/**
+ * [getNumFromCSSValue description]
+ * @param  {[type]} value [description]
+ * @return {[type]}       [description]
+ */
+function getNumFromCSSValue(value) {
+    var reg = /\d+/g,
+        arr = value.match(reg),
+        num = parseFloat(arr[0]);
+    return num;
 }
