@@ -524,9 +524,15 @@ Magnify.prototype = {
         var self = this;
 
         window.onresize = throttle(function() {
+
             self.setModalPos(self.$magnify);
-            self.setModalSize(self.$image[0]);
-            self.setImagePos(self.$image[0]);
+
+            if(!self.isMaximized){
+                self.setModalSize({ width: self.imageData.originalWidth, height: self.imageData.originalHeight });
+            }
+
+            self.setImagePos({ width: self.imageData.originalWidth, height: self.imageData.originalHeight });
+
         }, 500);
 
     },
@@ -568,7 +574,7 @@ Magnify.prototype = {
             this.isMaximized = false;
         }
 
-        this.setImagePos(this.$image[0]);
+        this.setImagePos({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
 
     },
     fullscreen: function() {
