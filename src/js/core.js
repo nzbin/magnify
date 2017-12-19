@@ -348,14 +348,14 @@ Magnify.prototype = {
         return src;
 
     },
-    flip: function(index) {
+    jump: function(index) {
 
         this.groupIndex = this.groupIndex + index;
 
-        this.flipHandler(this.groupIndex);
+        this.jumpTo(this.groupIndex);
 
     },
-    flipHandler: function(index) {
+    jumpTo: function(index) {
 
         index = index % this.groupData.length;
 
@@ -412,10 +412,10 @@ Magnify.prototype = {
         // max image size
         ratio = Math.min(ratio, 16);
 
-        this.zoomHandler(ratio, origin, e);
+        this.zoomTo(ratio, origin, e);
 
     },
-    zoomHandler: function(ratio, origin, e) {
+    zoomTo: function(ratio, origin, e) {
 
         var $image = this.$image,
             $stage = this.$stage,
@@ -505,10 +505,10 @@ Magnify.prototype = {
             this.isRotated = false;
         }
 
-        this.rotateHandler(rotateAngle);
+        this.rotateTo(rotateAngle);
 
     },
-    rotateHandler: function(angle) {
+    rotateTo: function(angle) {
 
         var self = this;
 
@@ -597,11 +597,11 @@ Magnify.prototype = {
         });
 
         this.$actualSize.on('click', function(e) {
-            self.zoomHandler(1, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+            self.zoomTo(1, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         });
 
         this.$prev.on('click', function() {
-            self.flip(-1);
+            self.jump(-1);
         });
 
         this.$fullscreen.on('click', function() {
@@ -609,7 +609,7 @@ Magnify.prototype = {
         });
 
         this.$next.on('click', function() {
-            self.flip(1);
+            self.jump(1);
         });
 
         this.$rotate.on('click', function() {
