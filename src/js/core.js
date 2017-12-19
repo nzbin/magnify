@@ -13,8 +13,8 @@ var $W = $(window),
         keyboard: true,
         title: true,
         toolbar: [],
-        modalWidth: '320',
-        modalHeight: '320',
+        modalWidth: 320,
+        modalHeight: 320,
         fixedModalSize: false,
         initMaximized: false,
         gapThreshold: 0.02,
@@ -119,15 +119,15 @@ Magnify.prototype = {
             self.resize();
 
             // Get image src
-            var imgSrc = $(this).attr('href');
+            var imgSrc = self.getImgSrc(this);
 
             // Get image group
             self.groupName = null;
 
             var currentGroupName = $(this).attr('data-group'),
-                groupList = $D.find('[data-group=' + currentGroupName + ']');
+                groupList = $D.find('[data-group="' + currentGroupName + '"]');
 
-            if (currentGroupName != self.groupName) {
+            if (currentGroupName !== self.groupName) {
                 self.groupName = currentGroupName;
                 self.getImgGroup(groupList, imgSrc);
             } else {
@@ -218,12 +218,17 @@ Magnify.prototype = {
             right: this.$stage.css('right'),
             top: this.$stage.css('top'),
             bottom: this.$stage.css('bottom'),
-            border: this.$stage.css('border-width')
+            borderLeft: this.$stage.css('border-left-width'),
+            borderRight: this.$stage.css('border-right-width'),
+            borderTop: this.$stage.css('border-top-width'),
+            borderBottom: this.$stage.css('border-bottom-width'),
         };
 
         // modal size should calc with stage css value
-        var modalWidth = img.width + getNumFromCSSValue(stageCSS.left) + getNumFromCSSValue(stageCSS.right) + 2 * getNumFromCSSValue(stageCSS.border),
-            modalHeight = img.height + getNumFromCSSValue(stageCSS.top) + getNumFromCSSValue(stageCSS.bottom) + 2 * getNumFromCSSValue(stageCSS.border);
+        var modalWidth = img.width + getNumFromCSSValue(stageCSS.left) + getNumFromCSSValue(stageCSS.right) +
+            getNumFromCSSValue(stageCSS.borderLeft) + getNumFromCSSValue(stageCSS.borderRight),
+            modalHeight = img.height + getNumFromCSSValue(stageCSS.top) + getNumFromCSSValue(stageCSS.bottom) +
+            getNumFromCSSValue(stageCSS.borderTop) + getNumFromCSSValue(stageCSS.borderBottom);
 
         var gapThreshold = (this.options.gapThreshold > 0 ? this.options.gapThreshold : 0) + 1,
             // modal scale to window
@@ -310,15 +315,17 @@ Magnify.prototype = {
 
         self.groupData = [];
 
-        $list.each(function(i, k) {
+        $list.each(function(index, item) {
+
+            var src = self.getImgSrc(this);
 
             self.groupData.push({
-                src: $(this).attr('href'),
+                src: src,
                 caption: $(this).attr('data-caption')
             });
             // Get image index
-            if (imgSrc === $(this).attr('href')) {
-                self.groupIndex = i
+            if (imgSrc === src) {
+                self.groupIndex = index
             }
 
         });
@@ -331,6 +338,14 @@ Magnify.prototype = {
             caption = caption ? caption : getImageNameFromUrl(url);
 
         this.$title.text(caption);
+
+    },
+    getImgSrc: function(el) {
+
+        // Get data-src as image src at first
+        var src = $(el).attr('data-src') ? $(el).attr('data-src') : $(el).attr('href');
+
+        return src;
 
     },
     flip: function(index) {
@@ -510,6 +525,7 @@ Magnify.prototype = {
 
         window.onresize = throttle(function() {
             self.setModalPos(self.$magnify);
+            self.setModalSize(self.$image[0]);
             self.setImagePos(self.$image[0]);
         }, 500);
 
