@@ -205,7 +205,7 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
 
         e.preventDefault();
 
-        if (isDragging) {
+        if (isDragging && !self.isMaximized) {
 
             var endX = e.clientX,
                 endY = e.clientY,

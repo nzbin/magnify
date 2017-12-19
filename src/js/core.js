@@ -247,10 +247,10 @@ Magnify.prototype = {
             top: (winHeight - minHeight) / 2 + 'px'
         });
 
-        this.setImagePos(img)
+        this.setImageSize(img);
 
     },
-    setImagePos: function(img) {
+    setImageSize: function(img) {
 
         var stageData = {
             w: this.$stage.width(),
@@ -297,7 +297,7 @@ Magnify.prototype = {
             }
 
             if (self.isMaximized) {
-                self.setImagePos(img);
+                self.setImageSize(img);
             } else {
                 self.setModalSize(img);
             }
@@ -516,7 +516,7 @@ Magnify.prototype = {
             transform: 'rotate(' + angle + 'deg)'
         });
 
-        this.setImagePos({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
+        this.setImageSize({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
 
     },
     resize: function() {
@@ -525,13 +525,11 @@ Magnify.prototype = {
 
         window.onresize = throttle(function() {
 
-            self.setModalPos(self.$magnify);
-
             if(!self.isMaximized){
                 self.setModalSize({ width: self.imageData.originalWidth, height: self.imageData.originalHeight });
             }
 
-            self.setImagePos({ width: self.imageData.originalWidth, height: self.imageData.originalHeight });
+            self.setImageSize({ width: self.imageData.originalWidth, height: self.imageData.originalHeight });
 
         }, 500);
 
@@ -574,7 +572,7 @@ Magnify.prototype = {
             this.isMaximized = false;
         }
 
-        this.setImagePos({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
+        this.setImageSize({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
 
     },
     fullscreen: function() {
