@@ -156,7 +156,7 @@ Magnify.prototype = {
             actualSize: '<button class="magnify-button magnify-button-actual-size" title="actual-size">\
                             <i class="' + this.options.icons.actualSize + '" aria-hidden="true"></i>\
                         </button>',
-            rotateLeft: '<button class="magnify-button magnify-button-rotate-right" title="rotate-right">\
+            rotateLeft: '<button class="magnify-button magnify-button-rotate-left" title="rotate-left">\
                             <i class="' + this.options.icons.rotateLeft + '" aria-hidden="true"></i>\
                         </button>',
             rotateRight: '<button class="magnify-button magnify-button-rotate-right" title="rotate-right">\
@@ -208,8 +208,9 @@ Magnify.prototype = {
         this.$zoomIn = $magnify.find('.magnify-button-zoom-in');
         this.$zoomOut = $magnify.find('.magnify-button-zoom-out');
         this.$actualSize = $magnify.find('.magnify-button-actual-size');
-        this.$rotate = $magnify.find('.magnify-button-rotate-right');
         this.$fullscreen = $magnify.find('.magnify-button-fullscreen');
+        this.$rotateLeft = $magnify.find('.magnify-button-rotate-left');
+        this.$rotateRight = $magnify.find('.magnify-button-rotate-right');
         this.$prev = $magnify.find('.magnify-button-prev');
         this.$next = $magnify.find('.magnify-button-next');
 
@@ -548,12 +549,12 @@ Magnify.prototype = {
     },
     rotate: function (angle) {
 
-        this.rotateAngle = rotateAngle = rotateAngle + 90;
+        this.rotateAngle = rotateAngle = rotateAngle + angle;
 
-        if ((rotateAngle / 90) % 2 !== 0) {
-            this.isRotated = true;
-        } else {
+        if ((rotateAngle / angle) % 2 === 0) {
             this.isRotated = false;
+        } else {
+            this.isRotated = true;
         }
 
         this.rotateTo(rotateAngle);
@@ -666,24 +667,33 @@ Magnify.prototype = {
             case 189:
                 self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
                 break;
+            // + Firefox
+            case 61:
+                self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+                break;
+            // - Firefox
+            case 173:
+                self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+                break;
             // ctrl + alt + 0
             case 48:
                 if (ctrlKey && altKey) {
                     self.zoomTo(1, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
                 }
                 break;
+            // ctrl + ,
+            case 188:
+                if (ctrlKey) {
+                    self.rotate(-90);
+                }
+                break;
             // ctrl + .
             case 190:
                 if (ctrlKey) {
-                    self.rotate();
+                    self.rotate(90);
                 }
                 break;
-            // ctrl + ,
-            // case 188:
-            //     if (ctrlKey) {
-
-            //     }
-            //     break;
+            default:
         }
 
     },
@@ -723,8 +733,12 @@ Magnify.prototype = {
             self.jump(1);
         });
 
-        this.$rotate.on('click', function () {
-            self.rotate();
+        this.$rotateLeft.on('click', function () {
+            self.rotate(-90);
+        });
+
+        this.$rotateRight.on('click', function () {
+            self.rotate(90);
         });
 
         this.$maximize.on('click', function () {
@@ -732,6 +746,7 @@ Magnify.prototype = {
         });
 
         $D.on('keydown', function (e) {
+            console.log(e)
             self.keydown(e);
         });
 
