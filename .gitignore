@@ -3,6 +3,3 @@ bower_components/
 *.log
 
 build/
-dist/
-docs/
-examples/
