@@ -87,7 +87,7 @@ Magnify.prototype = {
     init: function (el, options) {
 
         this.open();
-        this.resize();
+        this.resize(this.isOpened);
 
         // Get image src
         var imgSrc = this.getImgSrc(el);
@@ -562,13 +562,13 @@ Magnify.prototype = {
         this.setImageSize({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
 
     },
-    resize: function () {
+    resize: function (isOpened) {
 
         var self = this;
 
         window.onresize = throttle(function () {
 
-            if (self.isOpened) {
+            if (isOpened) {
 
                 if (!self.isMaximized) {
                     self.setModalSize({ width: self.imageData.originalWidth, height: self.imageData.originalHeight });
@@ -752,7 +752,7 @@ $.magnify = {
     isDragging: false,
     isMoving: false,
     isResizing: false,
-    isMaximized: false,
+    isMaximized: false
 }
 
 
