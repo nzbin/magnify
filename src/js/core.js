@@ -86,36 +86,27 @@ Magnify.prototype = {
 
     init: function (el, options) {
 
-        var self = this;
+        this.open();
+        this.resize();
 
-        // Bind thumbnails click event
-        $(el).on('click', function (e) {
+        // Get image src
+        var imgSrc = this.getImgSrc(el);
 
-            e.preventDefault();
-            e.stopPropagation();
+        // Get image group
+        this.groupName = null;
 
-            self.open();
-            self.resize();
+        var currentGroupName = $(el).attr('data-group'),
+            groupList = $D.find('[data-group="' + currentGroupName + '"]');
 
-            // Get image src
-            var imgSrc = self.getImgSrc(this);
+        if (currentGroupName !== undefined) {
+            this.groupName = currentGroupName;
+            this.getImgGroup(groupList, imgSrc);
+        } else {
+            this.getImgGroup(jqEl.not('[data-group]'), imgSrc);
+        }
 
-            // Get image group
-            self.groupName = null;
+        this.loadImg(imgSrc);
 
-            var currentGroupName = $(this).attr('data-group'),
-                groupList = $D.find('[data-group="' + currentGroupName + '"]');
-
-            if (currentGroupName !== undefined) {
-                self.groupName = currentGroupName;
-                self.getImgGroup(groupList, imgSrc);
-            } else {
-                self.getImgGroup(jqEl.not('[data-group]'), imgSrc);
-            }
-
-            self.loadImg(imgSrc);
-
-        });
 
     },
     creatBtns: function (btns) {
@@ -762,20 +753,6 @@ $.magnify = {
     isMoving: false,
     isResizing: false,
     isMaximized: false,
-    modal: {
-        width: 0,
-        height: 0
-    },
-    stage: {
-        width: 0,
-        height: 0
-    },
-    image: {
-        width: 0,
-        height: 0,
-        left: 0,
-        top: 0
-    }
 }
 
 
@@ -789,7 +766,13 @@ $.fn.magnify = function (options) {
 
     } else {
 
-        jqEl.each(function (index, elem) {
+        jqEl.off('click.magnify').on('click.magnify', function (e) {
+
+            if (e.isDefaultPrevented()) {
+                return;
+            }
+
+            e.preventDefault();
 
             $(this).data('magnify', new Magnify(this, options));
 
@@ -800,3 +783,18 @@ $.fn.magnify = function (options) {
     return jqEl;
 
 }
+
+/**
+ * MAGNIFY DATA-API
+ */
+$D.on('click.magnify', '[data-magnify]', function (e) {
+
+    if (e.isDefaultPrevented()) {
+        return;
+    }
+
+    e.preventDefault();
+
+    $(this).data('magnify', new Magnify(this, {}));
+
+});
