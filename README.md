@@ -64,7 +64,7 @@ All structures above have optional attributes as below:
 
 ### 3.Call plugin
 
-If you add a `data-magnify attribute`, you can write none of js.
+If you add a `data-magnify` attribute, you can write none of js.
 
 Of course, you can use selector to call the plugin as following code:
 
