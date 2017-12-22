@@ -2,7 +2,7 @@
 
 Magnify is a jQuery plugin to view images just like in windows. 
 
-[[ website ]]()
+[[ website ]](https://nzbin.github.io/magnify/)
 
 ## Main Features
 
@@ -63,6 +63,10 @@ All structures above have optional attributes as below:
 - Add a `data-group` attribute if you want to set the images in groups.
 
 ### 3.Call plugin
+
+If you add a `data-magnify attribute`, you can write none of js.
+
+Of course, you can use selector to call the plugin as following code:
 
 ```js
 $("[data-magnify=gallery]").magnify();
