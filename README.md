@@ -33,7 +33,7 @@ The icons in magnify use font-awesome default, you can customize them in options
 <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
 ```
 
-### 2.html structure
+### 2.Html structure
 
 The default structure as below:
 
@@ -69,6 +69,79 @@ $("[data-magnify=gallery]").magnify();
 ```
 
 ## Options
+
+- **draggable** `true`
+  >If ture, it allow modal dragging.
+  
+- **resizable** `true`
+  >If ture, it allow modal resizing.
+  
+- **movable** `true`
+  >If ture, it allow image moving.
+  
+- **keyboard** `true`
+  >	If ture, it allow keyboard control. It is similar to Windows viewer.
+  
+  - `←` prev image
+  - `→` next image
+  - `+` zoom in image
+  - `-` zoom out image
+  - `ctrl + alt + 0` image autual size
+  - `ctrl + ,` rotate image left
+  - `ctrl + .` rotate image right
+
+
+- **title** `true`
+  > If ture, it will show image title on header.
+
+- **fixedModalSize** `false`
+  > Init modal size will expand with image size.
+
+- **modalWidth** `320`
+  > Set init modal width.
+
+- **modalHeight** `320`
+  > Set init modal height.
+
+- **gapThreshold** `0.02`
+  > There will have a gap if modal too big to beyond the browser.
+
+- **ratioThreshold** `0.01`
+  > Image zoom ratio threshold.
+
+- **minRatio** `0.1` (10%)
+  > The min ratio to show image.
+
+- **maxRatio** `16` (1600%)
+  > The max ratio to show image.
+
+- **icons** 
+  > You can customize the icons class in following key.
+  
+  - **maximize** `fa fa-window-maximize` 
+
+  - **close** `fa fa-close` 
+
+  - **zoomIn** `fa fa-search-plus` 
+
+  - **zoomOut** `fa fa-search-minus` 
+
+  - **prev** `fa fa-arrow-left` 
+
+  - **next** `fa fa-arrow-right` 
+
+  - **fullscreen** `fa fa-photo` 
+
+  - **actualSize** `fa fa-arrows-alt` 
+ 
+  - **rotateLeft** `fa fa-rotate-left` 
+
+  - **rotateRight** `fa fa-rotate-right` 
+
+    
+
+- **toolbar** `['zoomIn','zoomOut','prev','fullscreen','next','actualSize','rotateRight']`
+  >	The buttons display in footer toolbar.
 
 
 
