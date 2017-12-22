@@ -62,7 +62,7 @@ var Magnify = function (el, options) {
 
     this.options = $.extend(true, {}, defaults, options);
 
-    if ($.isArray(options.toolbar)) {
+    if (options && $.isArray(options.toolbar)) {
         this.options.toolbar = options.toolbar;
     }
 
@@ -106,7 +106,7 @@ Magnify.prototype = {
             var currentGroupName = $(this).attr('data-group'),
                 groupList = $D.find('[data-group="' + currentGroupName + '"]');
 
-            if (currentGroupName !== self.groupName) {
+            if (currentGroupName !== undefined) {
                 self.groupName = currentGroupName;
                 self.getImgGroup(groupList, imgSrc);
             } else {
@@ -551,7 +551,7 @@ Magnify.prototype = {
 
         this.rotateAngle = rotateAngle = rotateAngle + angle;
 
-        if ((rotateAngle / angle) % 2 === 0) {
+        if ((rotateAngle / 90) % 2 === 0) {
             this.isRotated = false;
         } else {
             this.isRotated = true;
@@ -701,52 +701,51 @@ Magnify.prototype = {
 
         var self = this;
 
-        this.$close.on('click', function (e) {
+        this.$close.off('click').on('click', function (e) {
             self.close();
         });
 
-        this.$stage.on('wheel mousewheel DOMMouseScroll', function (e) {
+        this.$stage.off('wheel mousewheel DOMMouseScroll').on('wheel mousewheel DOMMouseScroll', function (e) {
             self.wheel(e);
         });
 
-        this.$zoomIn.on('click', function (e) {
+        this.$zoomIn.off('click').on('click', function (e) {
             self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         });
 
-        this.$zoomOut.on('click', function (e) {
+        this.$zoomOut.off('click').on('click', function (e) {
             self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         });
 
-        this.$actualSize.on('click', function (e) {
+        this.$actualSize.off('click').on('click', function (e) {
             self.zoomTo(1, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         });
 
-        this.$prev.on('click', function () {
+        this.$prev.off('click').on('click', function () {
             self.jump(-1);
         });
 
-        this.$fullscreen.on('click', function () {
+        this.$fullscreen.off('click').on('click', function () {
             self.fullscreen();
         });
 
-        this.$next.on('click', function () {
+        this.$next.off('click').on('click', function () {
             self.jump(1);
         });
 
-        this.$rotateLeft.on('click', function () {
+        this.$rotateLeft.off('click').on('click', function () {
             self.rotate(-90);
         });
 
-        this.$rotateRight.on('click', function () {
+        this.$rotateRight.off('click').on('click', function () {
             self.rotate(90);
         });
 
-        this.$maximize.on('click', function () {
+        this.$maximize.off('click').on('click', function () {
             self.maximize();
         });
 
-        $D.on('keydown', function (e) {
-            console.log(e)
+        $D.off('keydown').on('keydown', function (e) {
             self.keydown(e);
         });
 
