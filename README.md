@@ -98,10 +98,10 @@ $("[data-magnify=gallery]").magnify();
   > Init modal size will expand with image size.
 
 - **modalWidth** `320`
-  > Set init modal width.
+  > Set init modal width. The option is only available when you set `fixedModalSize` true.
 
 - **modalHeight** `320`
-  > Set init modal height.
+  > Set init modal height. The option is only available when you set `fixedModalSize` true
 
 - **gapThreshold** `0.02`
   > There will have a gap if modal too big to beyond the browser.
