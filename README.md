@@ -148,6 +148,8 @@ $("[data-magnify=gallery]").magnify();
 - **toolbar** `['zoomIn','zoomOut','prev','fullscreen','next','actualSize','rotateRight']`
   >	The buttons display in footer toolbar.
 
+- **fixedContent** `true`
+  > If true, the content will be fixed.
 
 
 ## License
