@@ -134,10 +134,14 @@ Magnify.prototype = {
             groupList = $D.find('[data-group="' + currentGroupName + '"]');
 
         if (currentGroupName !== undefined) {
+
             this.groupName = currentGroupName;
             this.getImgGroup(groupList, imgSrc);
+
         } else {
+
             this.getImgGroup(jqEl.not('[data-group]'), imgSrc);
+
         }
 
         this.loadImg(imgSrc);
@@ -209,6 +213,11 @@ Magnify.prototype = {
     },
     open: function () {
 
+        // Fixed modal position bug
+        if (!$('.magnify-modal').length) {
+            $('html').css('overflow', 'hidden');
+        }
+
         this.build();
 
         this.addEvent();
@@ -257,6 +266,7 @@ Magnify.prototype = {
 
     },
     close: function (el) {
+
         // off events
 
         // Remove instance
@@ -269,26 +279,35 @@ Magnify.prototype = {
 
         this.isOpened = false;
 
+        // Fixed modal position bug
+        if (!$('.magnify-modal').length) {
+            $('html').css('overflow', 'auto');
+        }
+
     },
     setModalPos: function (modal) {
 
         var winWidth = $W.width(),
-            winHeight = $W.height();
+            winHeight = $W.height(),
+            scrollLeft = $D.scrollLeft(),
+            scrollTop = $D.scrollTop();
 
         var modalWidth = modal.width(),
             modalHeight = modal.height();
 
         // Make the modal in windows center
         modal.css({
-            left: (winWidth - modalWidth) / 2 + 'px',
-            top: (winHeight - modalHeight) / 2 + 'px'
+            left: (winWidth - modalWidth) / 2 + scrollLeft + 'px',
+            top: (winHeight - modalHeight) / 2 + scrollTop + 'px'
         });
 
     },
     setModalSize: function (img) {
 
         var winWidth = $W.width(),
-            winHeight = $W.height();
+            winHeight = $W.height(),
+            scrollLeft = $D.scrollLeft(),
+            scrollTop = $D.scrollTop();
 
         // stage css value
         var stageCSS = {
@@ -302,7 +321,7 @@ Magnify.prototype = {
             borderBottom: this.$stage.css('border-bottom-width'),
         };
 
-        // modal size should calc with stage css value
+        // Modal size should calc with stage css value
         var modalWidth = img.width + getNumFromCSSValue(stageCSS.left) + getNumFromCSSValue(stageCSS.right) +
             getNumFromCSSValue(stageCSS.borderLeft) + getNumFromCSSValue(stageCSS.borderRight),
             modalHeight = img.height + getNumFromCSSValue(stageCSS.top) + getNumFromCSSValue(stageCSS.bottom) +
@@ -321,8 +340,8 @@ Magnify.prototype = {
         this.$magnify.css({
             width: minWidth + 'px',
             height: minHeight + 'px',
-            left: (winWidth - minWidth) / 2 + 'px',
-            top: (winHeight - minHeight) / 2 + 'px'
+            left: (winWidth - minWidth) / 2 + scrollLeft + 'px',
+            top: (winHeight - minHeight) / 2 + scrollTop + 'px'
         });
 
         this.setImageSize(img);
@@ -620,6 +639,9 @@ Magnify.prototype = {
 
         var self = this;
 
+        var scrollLeft = $D.scrollLeft(),
+            scrollTop = $D.scrollTop();
+
         if (!this.isMaximized) {
             // Store modal data before maximize
             this.modalData = {
@@ -634,8 +656,8 @@ Magnify.prototype = {
             this.$magnify.css({
                 width: '100%',
                 height: '100%',
-                left: '0',
-                top: '0'
+                left: scrollLeft,
+                top: scrollTop
             });
 
             this.isMaximized = true;
@@ -823,6 +845,8 @@ $.fn.magnify = function (options) {
  * MAGNIFY DATA-API
  */
 $D.on('click.magnify', '[data-magnify]', function (e) {
+
+    jqEl = $('[data-magnify]');
 
     if (e.isDefaultPrevented()) {
         return;
