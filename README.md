@@ -144,8 +144,10 @@ $("[data-magnify=gallery]").magnify();
   - **rotateRight** `fa fa-rotate-right` 
 
     
+- **headToolbar** `['maximize','close']`
+  > The buttons display in header toolbar.
 
-- **toolbar** `['zoomIn','zoomOut','prev','fullscreen','next','actualSize','rotateRight']`
+- **footToolbar** `['zoomIn','zoomOut','prev','fullscreen','next','actualSize','rotateRight']`
   >	The buttons display in footer toolbar.
 
 - **fixedContent** `true`
