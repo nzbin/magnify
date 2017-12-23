@@ -12,7 +12,7 @@
  *
  */
 .magnify-modal {
-  position: fixed;
+  position: absolute;
   width: 320px;
   height: 320px;
   background-color: #111;
