@@ -17,7 +17,13 @@
   "keywords": [
     "magnify",
     "lightbox",
-    "responsive"
+    "responsive",
+    "jquery",
+    "modal",
+    "draggable",
+    "resizable",
+    "zoomable",
+    "image-gallery"
   ],
   "bugs": {
     "url": "https://github.com/nzbin/magnify/issues"
@@ -33,7 +39,10 @@
     "compress:js": "uglifyjs dist/jquery.magnify.js -o dist/jquery.magnify.min.js -c -m --comments /^!/",
     "copy": "run-s copy:css copy:js",
     "copy:css": "cpy dist/jquery.magnify.css docs/css",
-    "copy:js": "cpy dist/jquery.magnify.js docs/js"
+    "copy:js": "cpy dist/jquery.magnify.js docs/js",
+    "release": "run-s build compress",
+    "release:css": "run-s build:css compress:css",
+    "release:js": "run-s build:js compress:js"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.6",
