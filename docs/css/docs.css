@@ -27,19 +27,32 @@ code {
     border-radius: 3px;
 }
 
-.image-set{
-    font-size:0px;
-    margin-left:-5px;
-    margin-right:-5px;
+.image-set {
+    font-size: 0px;
+    margin-left: -5px;
+    margin-right: -5px;
 }
 
-.image-set a{
-    display: inline-block;
-    margin-left:5px;
-    margin-right:5px;
+.image-set img {
+    display: block;
 }
+
+.image-set a {
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 2px;
+    border: 1px solid #ddd;
+    transition: border-color .3s ease;
+}
+
+.image-set a:hover {
+    border-color: #aaa;
+}
+
 
 /* prettify style */
+
 pre ul,
 pre ol {
     padding: 0;

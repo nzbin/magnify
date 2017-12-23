@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Magnify Examples</title>
     <!-- Bootstrap -->
-    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/fonts/fontawesome-webfont.svg" rel="stylesheet">
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="../dist/jquery.magnify.css" rel="stylesheet">
@@ -80,6 +79,11 @@
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="../dist/jquery.magnify.js"></script>
+    <script>
+        $('[data-magnify]').magnify({
+            fixedContent: false
+        });
+    </script>
 </body>
 
 </html>

@@ -49,14 +49,26 @@ var $W = $(window),
         title: true,
         modalWidth: 320,
         modalHeight: 320,
-        fixedContent: false,
+        fixedContent: true,
         fixedModalSize: false,
         initMaximized: false,
         gapThreshold: 0.02,
         ratioThreshold: 0.1,
         minRatio: 0.1,
         maxRatio: 16,
-        toolbar: ['zoomIn', 'zoomOut', 'prev', 'fullscreen', 'next', 'actualSize', 'rotateRight'],
+        headToolbar: [
+            'maximize',
+            'close'
+        ],
+        footToolbar: [
+            'zoomIn',
+            'zoomOut',
+            'prev',
+            'fullscreen',
+            'next',
+            'actualSize',
+            'rotateRight'
+        ],
         icons: {
             maximize: 'fa fa-window-maximize',
             close: 'fa fa-close',
@@ -108,11 +120,13 @@ var Magnify = function (el, options) {
 
     this.options = $.extend(true, {}, defaults, options);
 
-    if (options && $.isArray(options.toolbar)) {
-        this.options.toolbar = options.toolbar;
+    if (options && $.isArray(options.footToolbar)) {
+        this.options.footToolbar = options.footToolbar;
     }
 
-    this.init(el, self.options);
+    if (options && $.isArray(options.headToolbar)) {
+        this.options.headToolbar = options.headToolbar;
+    }
 
     this.isOpened = false;
     this.isMaximized = false;
@@ -121,6 +135,8 @@ var Magnify = function (el, options) {
 
     // Store image data in every instance
     // this.imageData = {};
+
+    this.init(el, self.options);
 
 }
 
@@ -157,15 +173,15 @@ Magnify.prototype = {
         this.loadImg(imgSrc);
 
     },
-    creatBtns: function (btns) {
+    creatBtns: function (toolbar, btns) {
 
-        var footerBtnsStr = '';
+        var btnsStr = '';
 
-        $.each(this.options.toolbar, function (index, item) {
-            footerBtnsStr += btns[item];
+        $.each(toolbar, function (index, item) {
+            btnsStr += btns[item];
         });
 
-        return footerBtnsStr;
+        return btnsStr;
 
     },
     creatDOM: function () {
@@ -207,13 +223,13 @@ Magnify.prototype = {
         var magnifyHTML = '<div class="magnify-modal">\
                                 <div class="magnify-header">\
                                     <div class="magnify-title"></div>\
-                                    <div class="magnify-toolbar">' + btnsTpl.maximize + btnsTpl.close + '</div>\
+                                    <div class="magnify-toolbar">' + this.creatBtns(this.options.headToolbar, btnsTpl) + '</div>\
                                 </div>\
                                 <div class="magnify-stage">\
                                     <img src="" alt="" title="">\
                                 </div>\
                                 <div class="magnify-footer">\
-                                    <div class="magnify-toolbar">' + this.creatBtns(btnsTpl) + '</div>\
+                                    <div class="magnify-toolbar">' + this.creatBtns(this.options.footToolbar, btnsTpl) + '</div>\
                                 </div>\
                             </div>';
 
@@ -223,7 +239,7 @@ Magnify.prototype = {
     open: function () {
 
         // Fixed modal position bug
-        if (!$('.magnify-modal').length) {
+        if (!$('.magnify-modal').length && this.options.fixedContent) {
             $('html').css('overflow', 'hidden');
         }
 
@@ -291,7 +307,7 @@ Magnify.prototype = {
         this.isOpened = isOpened = false;
 
         // Fixed modal position bug
-        if (!$('.magnify-modal').length) {
+        if (!$('.magnify-modal').length && this.options.fixedContent) {
             $('html').css('overflow', 'auto');
         }
 
@@ -549,43 +565,36 @@ Magnify.prototype = {
             newLeft = origin.x - (origin.x - imgData.x) / imgData.w * newWidth,
             newTop = origin.y - (origin.y - imgData.y) / imgData.h * newHeight;
 
+        // δ is the difference between image new width and new height
+        var δ = !this.isRotated ? 0 : (newWidth - newHeight) / 2,
+            imgNewWidth = !this.isRotated ? newWidth : newHeight,
+            imgNewHeight = !this.isRotated ? newHeight : newWidth;
+
         var offsetX = stageData.w - newWidth,
-            offsetY = stageData.h - newHeight,
-            // Get the offsets when image rotate 90 deg
-            offsetX2 = stageData.w - (newWidth + newHeight) / 2,
-            offsetY2 = stageData.h - (newWidth + newHeight) / 2;
+            offsetY = stageData.h - newHeight;
 
         // zoom out & zoom in condition
         // It's important and it takes me a lot of time to get it
-        if (!this.isRotated) {
-
-            if (newHeight <= stageData.h) {
-                newTop = (stageData.h - newHeight) / 2;
-            } else {
-                newTop = newTop > 0 ? 0 : (newTop > offsetY ? newTop : offsetY);
-            }
-
-            if (newWidth <= stageData.w) {
-                newLeft = (stageData.w - newWidth) / 2;
-            } else {
-                newLeft = newLeft > 0 ? 0 : (newLeft > offsetX ? newLeft : offsetX);
-            }
-
+        // The conditions with image rotate 90 degree drive me crazy alomst!
+        if (imgNewHeight <= stageData.h) {
+            newTop = (stageData.h - newHeight) / 2;
         } else {
-            // The conditions bellow drive me crazy alomst!
-            if (newWidth <= stageData.h) {
-                newTop = (stageData.h - newHeight) / 2;
-            } else {
-                newTop = newTop > (newWidth - newHeight) / 2 ? (newWidth - newHeight) / 2 : (newTop > offsetY2 ? newTop : offsetY2);
-            }
-
-            if (newHeight <= stageData.w) {
-                newLeft = (stageData.w - newWidth) / 2;
-            } else {
-                newLeft = newLeft > (newHeight - newWidth) / 2 ? (newHeight - newWidth) / 2 : (newLeft > offsetX2 ? newLeft : offsetX2);
-            }
-
+            newTop = newTop > δ ? δ : (newTop > (offsetY - δ) ? newTop : (offsetY - δ));
         }
+
+        if (imgNewWidth <= stageData.w) {
+            newLeft = (stageData.w - newWidth) / 2;
+        } else {
+            newLeft = newLeft > -δ ? -δ : (newLeft > (offsetX + δ) ? newLeft : (offsetX + δ));
+        }
+
+        // Add grab cursor
+        // if(newHeight > stageData.h || newWidth > stageData.w || newWidth > stageData.h || newHeight > stageData.w){
+        //     this.$stage.addClass('is-grab');
+        // }
+        // if(newHeight <= stageData.h || newWidth <= stageData.w || newWidth <= stageData.h || newHeight <= stageData.w) {
+        //     this.$stage.removeClass('is-grab');
+        // }
 
         $image.css({
             width: Math.ceil(newWidth) + 'px',
@@ -631,7 +640,7 @@ Magnify.prototype = {
 
         var self = this;
 
-        var resizeHandler = throttle(function(){
+        var resizeHandler = throttle(function () {
 
             if (isOpened) {
 
