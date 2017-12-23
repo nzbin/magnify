@@ -49,6 +49,7 @@ var $W = $(window),
         title: true,
         modalWidth: 320,
         modalHeight: 320,
+        fixedContent: false,
         fixedModalSize: false,
         initMaximized: false,
         gapThreshold: 0.02,
@@ -79,14 +80,24 @@ var $W = $(window),
     // jquery element of calling plugin
     jqEl = null,
 
-    // image rotate angle
-    rotateAngle = 0,
-
     // image moving flag
     isMoving = false,
 
     // modal resizing flag
-    isResizing = false;
+    isResizing = false,
+
+    // modal open flag
+    isOpened = false,
+
+    // modal maximize flag
+    isMaximized = false,
+
+    // image rotate 90*(2n+1) flag
+    isRotated = false,
+
+    // image rotate angle
+    rotateAngle = 0;
+
 
 /**
  * Magnify Class
@@ -122,7 +133,6 @@ Magnify.prototype = {
     init: function (el, options) {
 
         this.open();
-        this.resize(this.isOpened);
 
         // Get image src
         var imgSrc = this.getImgSrc(el);
@@ -145,7 +155,6 @@ Magnify.prototype = {
         }
 
         this.loadImg(imgSrc);
-
 
     },
     creatBtns: function (btns) {
@@ -218,11 +227,13 @@ Magnify.prototype = {
             $('html').css('overflow', 'hidden');
         }
 
+        this.isOpened = isOpened = true;
+
         this.build();
 
         this.addEvent();
 
-        this.isOpened = true;
+        this.resize();
 
     },
     build: function () {
@@ -277,7 +288,7 @@ Magnify.prototype = {
 
         this.rotateAngle = rotateAngle = 0;
 
-        this.isOpened = false;
+        this.isOpened = isOpened = false;
 
         // Fixed modal position bug
         if (!$('.magnify-modal').length) {
@@ -616,11 +627,11 @@ Magnify.prototype = {
         this.setImageSize({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
 
     },
-    resize: function (isOpened) {
+    resize: function () {
 
         var self = this;
 
-        window.onresize = throttle(function () {
+        var resizeHandler = throttle(function(){
 
             if (isOpened) {
 
@@ -629,10 +640,12 @@ Magnify.prototype = {
                 }
 
                 self.setImageSize({ width: self.imageData.originalWidth, height: self.imageData.originalHeight });
-
             }
 
         }, 500);
+
+
+        $W.off('resize').on('resize', resizeHandler);
 
     },
     maximize: function () {
@@ -805,11 +818,7 @@ Magnify.prototype = {
  * Public static functions
  */
 $.magnify = {
-    instance: Magnify.prototype,
-    isDragging: false,
-    isMoving: false,
-    isResizing: false,
-    isMaximized: false
+    instance: Magnify.prototype
 }
 
 
@@ -1424,8 +1433,9 @@ function exitFullscreen() {
  * @return {[String]}     [description]
  */
 function getImageNameFromUrl(url) {
-    var reg = /^.*?\/*([^/?]*)\.[a-z]+(\?.+|$)/ig;
-    return url.replace(reg, '$1');
+    var reg = /^.*?\/*([^/?]*)\.[a-z]+(\?.+|$)/ig,
+        txt = url.replace(reg, '$1');
+    return txt;
 }
 
 /**

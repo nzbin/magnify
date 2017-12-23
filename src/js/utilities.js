@@ -83,8 +83,9 @@ function exitFullscreen() {
  * @return {[String]}     [description]
  */
 function getImageNameFromUrl(url) {
-    var reg = /^.*?\/*([^/?]*)\.[a-z]+(\?.+|$)/ig;
-    return url.replace(reg, '$1');
+    var reg = /^.*?\/*([^/?]*)\.[a-z]+(\?.+|$)/ig,
+        txt = url.replace(reg, '$1');
+    return txt;
 }
 
 /**
