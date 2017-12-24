@@ -589,12 +589,12 @@ Magnify.prototype = {
         }
 
         // Add grab cursor
-        // if(newHeight > stageData.h || newWidth > stageData.w || newWidth > stageData.h || newHeight > stageData.w){
-        //     this.$stage.addClass('is-grab');
-        // }
-        // if(newHeight <= stageData.h || newWidth <= stageData.w || newWidth <= stageData.h || newHeight <= stageData.w) {
-        //     this.$stage.removeClass('is-grab');
-        // }
+        if(imgNewHeight > stageData.h || imgNewWidth > stageData.w){
+            this.$stage.addClass('is-grab');
+        }
+        if(imgNewHeight <= stageData.h && imgNewWidth <= stageData.w) {
+            this.$stage.removeClass('is-grab');
+        }
 
         $image.css({
             width: Math.ceil(newWidth) + 'px',
@@ -969,7 +969,7 @@ $.extend(Magnify.prototype, {
  * --------------------------------------
  */
 
-var movable = function(image, stage) {
+var movable = function (image, stage) {
 
     var self = this;
 
@@ -986,7 +986,7 @@ var movable = function(image, stage) {
 
         δ = 0;
 
-    var dragStart = function(e) {
+    var dragStart = function (e) {
 
         var e = e || window.event;
 
@@ -996,9 +996,6 @@ var movable = function(image, stage) {
             imageHeight = $(image).height(),
             stageWidth = $(stage).width(),
             stageHeight = $(stage).height();
-
-        isDragging = true;
-        isMoving = true;
 
         startX = e.clientX;
         startY = e.clientY;
@@ -1010,6 +1007,10 @@ var movable = function(image, stage) {
         widthDiff = !self.isRotated ? (imageWidth - stageWidth) : (imageHeight - stageWidth);
         heightDiff = !self.isRotated ? (imageHeight - stageHeight) : (imageWidth - stageHeight);
 
+        // Modal can be dragging if image is smaller to stage
+        isDragging = (widthDiff > 0 || heightDiff > 0) ? true : false;
+        isMoving = (widthDiff > 0 || heightDiff > 0) ? true : false;
+
         // Reclac the element position when mousedown
         // Fixed the issue of stage with a border
         left = $(image).position().left - δ;
@@ -1017,7 +1018,7 @@ var movable = function(image, stage) {
 
     }
 
-    var dragMove = function(e) {
+    var dragMove = function (e) {
 
         var e = e || window.event;
 
@@ -1076,14 +1077,14 @@ var movable = function(image, stage) {
 
     }
 
-    var dragEnd = function(e) {
+    var dragEnd = function (e) {
 
         isDragging = false;
         isMoving = false;
 
     }
 
-    $(image).on('mousedown', dragStart);
+    $(stage).on('mousedown', dragStart);
 
     $D.on('mousemove', dragMove);
 

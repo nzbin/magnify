@@ -554,12 +554,12 @@ Magnify.prototype = {
         }
 
         // Add grab cursor
-        // if(newHeight > stageData.h || newWidth > stageData.w || newWidth > stageData.h || newHeight > stageData.w){
-        //     this.$stage.addClass('is-grab');
-        // }
-        // if(newHeight <= stageData.h || newWidth <= stageData.w || newWidth <= stageData.h || newHeight <= stageData.w) {
-        //     this.$stage.removeClass('is-grab');
-        // }
+        if(imgNewHeight > stageData.h || imgNewWidth > stageData.w){
+            this.$stage.addClass('is-grab');
+        }
+        if(imgNewHeight <= stageData.h && imgNewWidth <= stageData.w) {
+            this.$stage.removeClass('is-grab');
+        }
 
         $image.css({
             width: Math.ceil(newWidth) + 'px',
