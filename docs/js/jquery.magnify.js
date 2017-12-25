@@ -240,7 +240,13 @@ Magnify.prototype = {
 
         // Fixed modal position bug
         if (!$('.magnify-modal').length && this.options.fixedContent) {
-            $('html').css('overflow', 'hidden');
+            
+            $('html').css({'overflow': 'hidden'});
+
+            if(hasScrollbar()){
+                $('html').css({'margin-right':'17px'});
+            }
+
         }
 
         this.isOpened = isOpened = true;
@@ -308,7 +314,7 @@ Magnify.prototype = {
 
         // Fixed modal position bug
         if (!$('.magnify-modal').length && this.options.fixedContent) {
-            $('html').css('overflow', 'auto');
+            $('html').css({'overflow': '','margin-right':''});
         }
 
     },
@@ -1450,8 +1456,8 @@ function getImageNameFromUrl(url) {
 
 /**
  * [getNumFromCSSValue description]
- * @param  {[type]} value [description]
- * @return {[type]}       [description]
+ * @param  {[String]} value [description]
+ * @return {[Number]}       [description]
  */
 function getNumFromCSSValue(value) {
     var reg = /\d+/g,
@@ -1460,4 +1466,11 @@ function getNumFromCSSValue(value) {
     return num;
 }
 
+/**
+ * [hasScrollbar description]
+ * @return {[Boolean]}       [description]
+ */
+function hasScrollbar(){
+    return document.body.scrollHeight > (window.innerHeight || document.documentElement.clientHeight);
+}
 });

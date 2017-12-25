@@ -114,3 +114,8 @@
     cursor: -webkit-grabbing;
     cursor: grabbing;
 }
+
+// IE 10 & IE 11 fixed scrollbar 
+html{
+    -ms-overflow-style: scrollbar;
+}

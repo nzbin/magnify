@@ -129,6 +129,10 @@
   cursor: grabbing;
 }
 
+html {
+  -ms-overflow-style: scrollbar;
+}
+
 .resizable-handle-e {
   position: absolute;
   top: 0;

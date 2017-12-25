@@ -205,7 +205,13 @@ Magnify.prototype = {
 
         // Fixed modal position bug
         if (!$('.magnify-modal').length && this.options.fixedContent) {
-            $('html').css('overflow', 'hidden');
+            
+            $('html').css({'overflow': 'hidden'});
+
+            if(hasScrollbar()){
+                $('html').css({'margin-right':'17px'});
+            }
+
         }
 
         this.isOpened = isOpened = true;
@@ -273,7 +279,7 @@ Magnify.prototype = {
 
         // Fixed modal position bug
         if (!$('.magnify-modal').length && this.options.fixedContent) {
-            $('html').css('overflow', 'auto');
+            $('html').css({'overflow': '','margin-right':''});
         }
 
     },

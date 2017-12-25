@@ -90,12 +90,20 @@ function getImageNameFromUrl(url) {
 
 /**
  * [getNumFromCSSValue description]
- * @param  {[type]} value [description]
- * @return {[type]}       [description]
+ * @param  {[String]} value [description]
+ * @return {[Number]}       [description]
  */
 function getNumFromCSSValue(value) {
     var reg = /\d+/g,
         arr = value.match(reg),
         num = parseFloat(arr[0]);
     return num;
+}
+
+/**
+ * [hasScrollbar description]
+ * @return {[Boolean]}       [description]
+ */
+function hasScrollbar(){
+    return document.body.scrollHeight > (window.innerHeight || document.documentElement.clientHeight);
 }
