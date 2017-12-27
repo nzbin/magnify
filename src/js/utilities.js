@@ -104,7 +104,7 @@ function getNumFromCSSValue(value) {
  * [hasScrollbar description]
  * @return {[Boolean]}       [description]
  */
-function hasScrollbar(){
+function hasScrollbar() {
     return document.body.scrollHeight > (window.innerHeight || document.documentElement.clientHeight);
 }
 
@@ -112,6 +112,14 @@ function hasScrollbar(){
  * [getScrollbarWidth description]
  * @return {[Number]}       [description]
  */
-function getScrollbarWidth(){
+function getScrollbarWidth() {
+
+    var scrollDiv = document.createElement("div");
+    scrollDiv.style.cssText = 'width: 99px; height: 99px; overflow: scroll; position: absolute; top: -9999px;';
+    document.body.appendChild(scrollDiv);
+    var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
+    document.body.removeChild(scrollDiv);
+
+    return scrollbarWidth;
 
 }

@@ -210,7 +210,10 @@ Magnify.prototype = {
             $('html').css({ 'overflow': 'hidden' });
 
             if (hasScrollbar()) {
-                $('html').css({ 'margin-right': '17px' });
+                var scrollbarWidth = getScrollbarWidth();
+                if (scrollbarWidth) {
+                    $('html').css({ 'margin-right': scrollbarWidth });
+                }
             }
 
         }
