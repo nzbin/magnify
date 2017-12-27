@@ -79,7 +79,8 @@ var $W = $(window),
             fullscreen: 'fa fa-photo',
             actualSize: 'fa fa-arrows-alt',
             rotateLeft: 'fa fa-rotate-left',
-            rotateRight: 'fa fa-rotate-right'
+            rotateRight: 'fa fa-rotate-right',
+            loading: 'fa fa-spinner fa-pulse'
         },
         lang: 'en',
         i18n: {},
@@ -114,7 +115,7 @@ var $W = $(window),
 /**
  * Magnify Class
  */
-var Magnify = function (el, options) {
+var Magnify = function(el, options) {
 
     var self = this;
 
@@ -146,7 +147,7 @@ var Magnify = function (el, options) {
  */
 Magnify.prototype = {
 
-    init: function (el, options) {
+    init: function(el, options) {
 
         this.open();
 
@@ -173,18 +174,18 @@ Magnify.prototype = {
         this.loadImg(imgSrc);
 
     },
-    creatBtns: function (toolbar, btns) {
+    creatBtns: function(toolbar, btns) {
 
         var btnsStr = '';
 
-        $.each(toolbar, function (index, item) {
+        $.each(toolbar, function(index, item) {
             btnsStr += btns[item];
         });
 
         return btnsStr;
 
     },
-    creatDOM: function () {
+    creatDOM: function() {
 
         var btnsTpl = {
             maximize: '<button class="magnify-button magnify-button-maximize" title="maximize">\
@@ -226,7 +227,7 @@ Magnify.prototype = {
                                     <div class="magnify-toolbar">' + this.creatBtns(this.options.headToolbar, btnsTpl) + '</div>\
                                 </div>\
                                 <div class="magnify-stage">\
-                                    <img src="" alt="" title="">\
+                                    <img class="magnify-image" src="" alt="" title="" />\
                                 </div>\
                                 <div class="magnify-footer">\
                                     <div class="magnify-toolbar">' + this.creatBtns(this.options.footToolbar, btnsTpl) + '</div>\
@@ -236,15 +237,15 @@ Magnify.prototype = {
         return magnifyHTML;
 
     },
-    open: function () {
+    open: function() {
 
         // Fixed modal position bug
         if (!$('.magnify-modal').length && this.options.fixedContent) {
-            
-            $('html').css({'overflow': 'hidden'});
 
-            if(hasScrollbar()){
-                $('html').css({'margin-right':'17px'});
+            $('html').css({ 'overflow': 'hidden' });
+
+            if (hasScrollbar()) {
+                $('html').css({ 'margin-right': '17px' });
             }
 
         }
@@ -258,7 +259,7 @@ Magnify.prototype = {
         this.resize();
 
     },
-    build: function () {
+    build: function() {
 
         // Create magnify HTML string
         var magnifyHTML = this.creatDOM();
@@ -298,7 +299,7 @@ Magnify.prototype = {
         }
 
     },
-    close: function (el) {
+    close: function(el) {
 
         // off events
 
@@ -314,11 +315,11 @@ Magnify.prototype = {
 
         // Fixed modal position bug
         if (!$('.magnify-modal').length && this.options.fixedContent) {
-            $('html').css({'overflow': '','margin-right':''});
+            $('html').css({ 'overflow': '', 'margin-right': '' });
         }
 
     },
-    setModalPos: function (modal) {
+    setModalPos: function(modal) {
 
         var winWidth = $W.width(),
             winHeight = $W.height(),
@@ -335,7 +336,7 @@ Magnify.prototype = {
         });
 
     },
-    setModalSize: function (img) {
+    setModalSize: function(img) {
 
         var winWidth = $W.width(),
             winHeight = $W.height(),
@@ -358,7 +359,7 @@ Magnify.prototype = {
         var modalWidth = img.width + getNumFromCSSValue(stageCSS.left) + getNumFromCSSValue(stageCSS.right) +
             getNumFromCSSValue(stageCSS.borderLeft) + getNumFromCSSValue(stageCSS.borderRight),
             modalHeight = img.height + getNumFromCSSValue(stageCSS.top) + getNumFromCSSValue(stageCSS.bottom) +
-                getNumFromCSSValue(stageCSS.borderTop) + getNumFromCSSValue(stageCSS.borderBottom);
+            getNumFromCSSValue(stageCSS.borderTop) + getNumFromCSSValue(stageCSS.borderBottom);
 
         var gapThreshold = (this.options.gapThreshold > 0 ? this.options.gapThreshold : 0) + 1,
             // modal scale to window
@@ -380,7 +381,7 @@ Magnify.prototype = {
         this.setImageSize(img);
 
     },
-    setImageSize: function (img) {
+    setImageSize: function(img) {
 
         var stageData = {
             w: this.$stage.width(),
@@ -412,13 +413,18 @@ Magnify.prototype = {
         });
 
     },
-    loadImg: function (imgSrc) {
+    loadImg: function(imgSrc) {
 
         var self = this;
 
+        var loadingHTML = '<div class="magnify-loading"><i class="' + this.options.icons.loading + '"></i></div>';
+
+        // loading start
+        this.$magnify.append(loadingHTML);
+
         this.$image.attr('src', imgSrc);
 
-        preloadImg(imgSrc, function (img) {
+        preloadImg(imgSrc, function(img) {
 
             // Store original data
             self.imageData = {
@@ -432,6 +438,9 @@ Magnify.prototype = {
                 self.setModalSize(img);
             }
 
+            // loading end
+            self.$magnify.find('.magnify-loading').remove();
+
         });
 
         if (this.options.title) {
@@ -439,13 +448,13 @@ Magnify.prototype = {
         }
 
     },
-    getImgGroup: function (list, imgSrc) {
+    getImgGroup: function(list, imgSrc) {
 
         var self = this;
 
         self.groupData = [];
 
-        $(list).each(function (index, item) {
+        $(list).each(function(index, item) {
 
             var src = self.getImgSrc(this);
 
@@ -461,7 +470,7 @@ Magnify.prototype = {
         });
 
     },
-    setImgTitle: function (url) {
+    setImgTitle: function(url) {
 
         var index = this.groupIndex,
             caption = this.groupData[index].caption,
@@ -470,7 +479,7 @@ Magnify.prototype = {
         this.$title.text(caption);
 
     },
-    getImgSrc: function (el) {
+    getImgSrc: function(el) {
 
         // Get data-src as image src at first
         var src = $(el).attr('data-src') ? $(el).attr('data-src') : $(el).attr('href');
@@ -478,14 +487,14 @@ Magnify.prototype = {
         return src;
 
     },
-    jump: function (index) {
+    jump: function(index) {
 
         this.groupIndex = this.groupIndex + index;
 
         this.jumpTo(this.groupIndex);
 
     },
-    jumpTo: function (index) {
+    jumpTo: function(index) {
 
         index = index % this.groupData.length;
 
@@ -500,7 +509,7 @@ Magnify.prototype = {
         this.loadImg(this.groupData[index].src);
 
     },
-    wheel: function (e) {
+    wheel: function(e) {
 
         e.preventDefault();
 
@@ -526,7 +535,7 @@ Magnify.prototype = {
         this.zoom(ratio, pointer, e);
 
     },
-    zoom: function (ratio, origin, e) {
+    zoom: function(ratio, origin, e) {
 
         // zoom out & zoom in
         ratio = ratio < 0 ? (1 / (1 - ratio)) : (1 + ratio);
@@ -545,7 +554,7 @@ Magnify.prototype = {
         this.zoomTo(ratio, origin, e);
 
     },
-    zoomTo: function (ratio, origin, e) {
+    zoomTo: function(ratio, origin, e) {
 
         var $image = this.$image,
             $stage = this.$stage,
@@ -595,10 +604,10 @@ Magnify.prototype = {
         }
 
         // Add grab cursor
-        if(imgNewHeight > stageData.h || imgNewWidth > stageData.w){
+        if (imgNewHeight > stageData.h || imgNewWidth > stageData.w) {
             this.$stage.addClass('is-grab');
         }
-        if(imgNewHeight <= stageData.h && imgNewWidth <= stageData.w) {
+        if (imgNewHeight <= stageData.h && imgNewWidth <= stageData.w) {
             this.$stage.removeClass('is-grab');
         }
 
@@ -618,7 +627,7 @@ Magnify.prototype = {
         });
 
     },
-    rotate: function (angle) {
+    rotate: function(angle) {
 
         this.rotateAngle = rotateAngle = rotateAngle + angle;
 
@@ -631,7 +640,7 @@ Magnify.prototype = {
         this.rotateTo(rotateAngle);
 
     },
-    rotateTo: function (angle) {
+    rotateTo: function(angle) {
 
         var self = this;
 
@@ -642,11 +651,11 @@ Magnify.prototype = {
         this.setImageSize({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
 
     },
-    resize: function () {
+    resize: function() {
 
         var self = this;
 
-        var resizeHandler = throttle(function () {
+        var resizeHandler = throttle(function() {
 
             if (isOpened) {
 
@@ -663,7 +672,7 @@ Magnify.prototype = {
         $W.off('resize').on('resize', resizeHandler);
 
     },
-    maximize: function () {
+    maximize: function() {
 
         var self = this;
 
@@ -707,12 +716,12 @@ Magnify.prototype = {
         this.setImageSize({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
 
     },
-    fullscreen: function () {
+    fullscreen: function() {
 
         requestFullscreen(this.$magnify[0]);
 
     },
-    keydown: function (e) {
+    keydown: function(e) {
 
         e.preventDefault();
 
@@ -731,39 +740,39 @@ Magnify.prototype = {
             case 37:
                 self.jump(-1);
                 break;
-            // →
+                // →
             case 39:
                 self.jump(1);
                 break;
-            // +
+                // +
             case 187:
                 self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
                 break;
-            // -
+                // -
             case 189:
                 self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
                 break;
-            // + Firefox
+                // + Firefox
             case 61:
                 self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
                 break;
-            // - Firefox
+                // - Firefox
             case 173:
                 self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
                 break;
-            // ctrl + alt + 0
+                // ctrl + alt + 0
             case 48:
                 if (ctrlKey && altKey) {
                     self.zoomTo(1, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
                 }
                 break;
-            // ctrl + ,
+                // ctrl + ,
             case 188:
                 if (ctrlKey) {
                     self.rotate(-90);
                 }
                 break;
-            // ctrl + .
+                // ctrl + .
             case 190:
                 if (ctrlKey) {
                     self.rotate(90);
@@ -773,55 +782,55 @@ Magnify.prototype = {
         }
 
     },
-    addEvent: function () {
+    addEvent: function() {
 
         var self = this;
 
-        this.$close.off('click').on('click', function (e) {
+        this.$close.off('click').on('click', function(e) {
             self.close();
         });
 
-        this.$stage.off('wheel mousewheel DOMMouseScroll').on('wheel mousewheel DOMMouseScroll', function (e) {
+        this.$stage.off('wheel mousewheel DOMMouseScroll').on('wheel mousewheel DOMMouseScroll', function(e) {
             self.wheel(e);
         });
 
-        this.$zoomIn.off('click').on('click', function (e) {
+        this.$zoomIn.off('click').on('click', function(e) {
             self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         });
 
-        this.$zoomOut.off('click').on('click', function (e) {
+        this.$zoomOut.off('click').on('click', function(e) {
             self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         });
 
-        this.$actualSize.off('click').on('click', function (e) {
+        this.$actualSize.off('click').on('click', function(e) {
             self.zoomTo(1, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         });
 
-        this.$prev.off('click').on('click', function () {
+        this.$prev.off('click').on('click', function() {
             self.jump(-1);
         });
 
-        this.$fullscreen.off('click').on('click', function () {
+        this.$fullscreen.off('click').on('click', function() {
             self.fullscreen();
         });
 
-        this.$next.off('click').on('click', function () {
+        this.$next.off('click').on('click', function() {
             self.jump(1);
         });
 
-        this.$rotateLeft.off('click').on('click', function () {
+        this.$rotateLeft.off('click').on('click', function() {
             self.rotate(-90);
         });
 
-        this.$rotateRight.off('click').on('click', function () {
+        this.$rotateRight.off('click').on('click', function() {
             self.rotate(90);
         });
 
-        this.$maximize.off('click').on('click', function () {
+        this.$maximize.off('click').on('click', function() {
             self.maximize();
         });
 
-        $D.off('keydown').on('keydown', function (e) {
+        $D.off('keydown').on('keydown', function(e) {
             self.keydown(e);
         });
 
@@ -837,7 +846,7 @@ $.magnify = {
 }
 
 
-$.fn.magnify = function (options) {
+$.fn.magnify = function(options) {
 
     jqEl = $(this);
 
@@ -847,7 +856,7 @@ $.fn.magnify = function (options) {
 
     } else {
 
-        jqEl.off('click.magnify').on('click.magnify', function (e) {
+        jqEl.off('click.magnify').on('click.magnify', function(e) {
 
             if (e.isDefaultPrevented()) {
                 return;
@@ -868,7 +877,7 @@ $.fn.magnify = function (options) {
 /**
  * MAGNIFY DATA-API
  */
-$D.on('click.magnify', '[data-magnify]', function (e) {
+$D.on('click.magnify', '[data-magnify]', function(e) {
 
     jqEl = $('[data-magnify]');
 
@@ -1473,4 +1482,13 @@ function getNumFromCSSValue(value) {
 function hasScrollbar(){
     return document.body.scrollHeight > (window.innerHeight || document.documentElement.clientHeight);
 }
+
+/**
+ * [getScrollbarWidth description]
+ * @return {[Number]}       [description]
+ */
+function getScrollbarWidth(){
+
+}
+
 });

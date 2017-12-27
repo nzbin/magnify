@@ -107,3 +107,11 @@ function getNumFromCSSValue(value) {
 function hasScrollbar(){
     return document.body.scrollHeight > (window.innerHeight || document.documentElement.clientHeight);
 }
+
+/**
+ * [getScrollbarWidth description]
+ * @return {[Number]}       [description]
+ */
+function getScrollbarWidth(){
+
+}

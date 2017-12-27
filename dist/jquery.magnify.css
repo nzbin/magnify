@@ -66,6 +66,7 @@
 .magnify-stage img {
   display: inline-block;
   position: relative;
+  width: 100%;
 }
 
 .magnify-footer {
@@ -131,6 +132,30 @@
 
 html {
   -ms-overflow-style: scrollbar;
+}
+
+.magnify-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.3);
+  text-align: center;
+}
+
+.magnify-loading::after {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 100%;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+.magnify-loading i {
+  font-size: 32px;
 }
 
 .resizable-handle-e {
