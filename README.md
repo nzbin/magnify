@@ -103,10 +103,10 @@ $("[data-magnify=gallery]").magnify();
   > Init modal size will expand with image size.
 
 - **modalWidth** `320`
-  > Set init modal width. The option is only available when you set `fixedModalSize` true.
+  > Set modal init width or min width. The init width is only available when you set `fixedModalSize` true.
 
 - **modalHeight** `320`
-  > Set init modal height. The option is only available when you set `fixedModalSize` true
+  > Set modal init height or min height. The init height is only available when you set `fixedModalSize` true
 
 - **gapThreshold** `0.02`
   > There will have a gap if modal too big to beyond the browser.
@@ -123,25 +123,27 @@ $("[data-magnify=gallery]").magnify();
 - **icons** 
   > You can customize the icons class in following key.
   
-  - **maximize** `fa fa-window-maximize` 
+  - **maximize** `fa fa-window-maximize`
 
-  - **close** `fa fa-close` 
+  - **close** `fa fa-close`
 
-  - **zoomIn** `fa fa-search-plus` 
+  - **zoomIn** `fa fa-search-plus`
 
-  - **zoomOut** `fa fa-search-minus` 
+  - **zoomOut** `fa fa-search-minus`
 
-  - **prev** `fa fa-arrow-left` 
+  - **prev** `fa fa-arrow-left`
 
-  - **next** `fa fa-arrow-right` 
+  - **next** `fa fa-arrow-right`
 
-  - **fullscreen** `fa fa-photo` 
+  - **fullscreen** `fa fa-photo`
 
-  - **actualSize** `fa fa-arrows-alt` 
+  - **actualSize** `fa fa-arrows-alt`
  
-  - **rotateLeft** `fa fa-rotate-left` 
+  - **rotateLeft** `fa fa-rotate-left`
 
-  - **rotateRight** `fa fa-rotate-right` 
+  - **rotateRight** `fa fa-rotate-right`
+
+  - **loading** `fa fa-spinner fa-pulse`
 
     
 - **headToolbar** `['maximize','close']`
