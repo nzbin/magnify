@@ -32,6 +32,7 @@
         </div>
         <h2 class="b-b-1 p-b-10 p-t-10 m-t-30" id="examples">Examples</h2>
         <p>All the pictures come from Flickr website, copyright to the original author.</p>
+        <h4>1.Example with default option</h4>
         <div class="image-set">
             <a data-magnify="gallery" data-src="" data-caption="Slipping Away by Jerry Fryer" data-group="a" href="https://farm1.staticflickr.com/313/31812080833_297acfbbd9_z.jpg">
                 <img src="https://farm1.staticflickr.com/313/31812080833_297acfbbd9_s.jpg" alt="">
@@ -43,6 +44,10 @@
                 <img src="https://farm1.staticflickr.com/470/31340603494_fb7228020d_s.jpg" alt="">
             </a>
         </div>
+        <h4>2.Example with another style</h4>
+        <p>Play with <a href="https://codepen.io/nzbin/pen/GyNpEr" target="_blank">this example on CodePen.</a></p>
+        <h4>3.Example with custom toolbar</h4>
+        <p>Play with <a href="https://codepen.io/nzbin/pen/eygbJo" target="_blank">this example on CodePen.</a></p>
         <h2 class="b-b-1 p-b-10 p-t-10 m-t-30" id="usage">Usage</h2>
         <p>The usage of magnify is very simple.</p>
         <h4>1.Include files</h4>
@@ -164,7 +169,7 @@ $('[data-magnify=gallery]').magnify(options);
                         <td>
                             <code>320</code>
                         </td>
-                        <td>Set init modal width. The option is only available when you set <code>fixedModalSize</code> true</td>
+                        <td>Set modal init width or min width. The init width is only available when you set <code>fixedModalSize</code> true.</td>
                     </tr>
                     <tr>
                         <td>modalHeight</td>
@@ -172,7 +177,7 @@ $('[data-magnify=gallery]').magnify(options);
                         <td>
                             <code>320</code>
                         </td>
-                        <td>Set init modal height. The option is only available when you set <code>fixedModalSize</code> true</td>
+                        <td>Set modal init height or min height. The init height is only available when you set <code>fixedModalSize</code> true.</td>
                     </tr>
                     <tr>
                         <td>gapThreshold</td>
@@ -288,6 +293,14 @@ $('[data-magnify=gallery]').magnify(options);
                         <td>The rotateRight button class</td>
                     </tr>
                     <tr>
+                        <td class="p-l-30">loading</td>
+                        <td>string</td>
+                        <td>
+                            <code>fa fa-spinner fa-pulse</code>
+                        </td>
+                        <td>The loading animation class</td>
+                    </tr>
+                    <tr>
                         <td colspan="4">}</td>
                     </tr>
                     <tr>
@@ -348,19 +361,6 @@ $('[data-magnify=gallery]').magnify(options);
     <script>
 
     window.prettyPrint && prettyPrint();
-
-    var magnify = $('[data-magnify=gallery]').magnify({
-        draggable: true,
-        movable: true,
-        resizable: true,
-        keyboard: true,
-        modalWidth: 320,
-        modalHeight: 320,
-        ratioThreshold: 0.1,
-        gapThreshold: 0.02,
-        title: true,
-        fixedModalSize: false
-    });
 
     </script>
 </body>
