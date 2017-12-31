@@ -83,7 +83,7 @@ var $W = $(window),
             loading: 'fa fa-spinner fa-pulse'
         },
         lang: 'en',
-        i18n: {},
+        i18n: {}
         // beforeOpen:$.noop,
         // afterOpen:$.noop,
         // beforeClose:$.noop,
@@ -259,8 +259,6 @@ Magnify.prototype = {
 
         this.addEvent();
 
-        this.resize();
-
     },
     build: function() {
 
@@ -304,8 +302,6 @@ Magnify.prototype = {
     },
     close: function(el) {
 
-        // off events
-
         // Remove instance
         this.$magnify.remove();
 
@@ -319,6 +315,11 @@ Magnify.prototype = {
         // Fixed modal position bug
         if (!$('.magnify-modal').length && this.options.fixedContent) {
             $('html').css({ 'overflow': '', 'margin-right': '' });
+        }
+
+        // off events
+        if (!$('.magnify-modal').length) {
+            $W.off('resize');
         }
 
     },
@@ -355,7 +356,7 @@ Magnify.prototype = {
             borderLeft: this.$stage.css('border-left-width'),
             borderRight: this.$stage.css('border-right-width'),
             borderTop: this.$stage.css('border-top-width'),
-            borderBottom: this.$stage.css('border-bottom-width'),
+            borderBottom: this.$stage.css('border-bottom-width')
         };
 
         // Modal size should calc with stage css value
@@ -444,6 +445,9 @@ Magnify.prototype = {
             // loading end
             self.$magnify.find('.magnify-loading').remove();
 
+        }, function(){
+            // loading end
+            self.$magnify.find('.magnify-loading').remove();
         });
 
         if (this.options.title) {
@@ -660,7 +664,7 @@ Magnify.prototype = {
 
         var resizeHandler = throttle(function() {
 
-            if (isOpened) {
+            if (self.isOpened) {
 
                 if (!self.isMaximized) {
                     self.setModalSize({ width: self.imageData.originalWidth, height: self.imageData.originalHeight });
@@ -671,8 +675,7 @@ Magnify.prototype = {
 
         }, 500);
 
-
-        $W.off('resize').on('resize', resizeHandler);
+        return resizeHandler;
 
     },
     maximize: function() {
@@ -836,6 +839,8 @@ Magnify.prototype = {
         $D.off('keydown').on('keydown', function(e) {
             self.keydown(e);
         });
+
+        $W.on('resize', self.resize());
 
     }
 
@@ -1080,7 +1085,7 @@ var movable = function (image, stage) {
 
             $(image).css({
                 left: newLeft + 'px',
-                top: newTop + 'px',
+                top: newTop + 'px'
             });
 
             // Update image initial data
@@ -1143,7 +1148,7 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
         'w': resizableHandleW,
         'nw': resizableHandleNW,
         'ne': resizableHandleNE,
-        'sw': resizableHandleSW,
+        'sw': resizableHandleSW
     }
 
     $(modal).append(
@@ -1187,7 +1192,7 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
 
         var opts = {
             'e': {
-                width: Math.max((offsetX + modalData.w), minWidth) + 'px',
+                width: Math.max((offsetX + modalData.w), minWidth) + 'px'
             },
             's': {
                 height: Math.max((offsetY + modalData.h), minHeight) + 'px'
@@ -1390,13 +1395,13 @@ function throttle(fn, delay) {
 
     var timer = null;
 
-    return function() {
+    return function () {
         var context = this,
             args = arguments;
 
         clearTimeout(timer);
 
-        timer = setTimeout(function() {
+        timer = setTimeout(function () {
             fn.apply(context, args);
         }, delay);
     };
@@ -1404,26 +1409,24 @@ function throttle(fn, delay) {
 
 /**
  * [preloadImg]
- * @param  {[String]}  src [image src]
- * @param  {Function}  fn  [callbacks]
+ * @param  {[String]}  src      [image src]
+ * @param  {Function}  success  [callbacks]
+ * @param  {Function}  error    [callbacks]
  */
-function preloadImg(src, fn) {
+function preloadImg(src, success, error) {
 
     var img = new Image();
 
-    if (!!window.ActiveXObject) {
-        img.onreadystatechange = function() {
-            if (this.readyState == 'complete') {
-                fn(img);
-            }
-        }
-    } else {
-        img.onload = function() {
-            fn(img);
-        }
+    img.onload = function () {
+        success(img);
+    }
+
+    img.onerror = function () {
+        error(img);
     }
 
     img.src = src;
+    
 }
 
 /**
