@@ -6,27 +6,6 @@
     padding: 30px 0;
 }
 
-pre {
-    display: block;
-    font-size: 13px;
-    line-height: 1.5;
-    color: #333;
-    word-break: break-all;
-    word-wrap: break-word;
-    background-color: #f5f5f5;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    overflow: auto;
-}
-
-code {
-    padding: 2px 4px;
-    font-size: 90%;
-    color: #c7254e;
-    background-color: #f9f2f4;
-    border-radius: 3px;
-}
-
 .image-set {
     font-size: 0px;
     margin-left: -5px;

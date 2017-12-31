@@ -101,7 +101,7 @@ var movable = function (image, stage) {
 
             $(image).css({
                 left: newLeft + 'px',
-                top: newTop + 'px',
+                top: newTop + 'px'
             });
 
             // Update image initial data

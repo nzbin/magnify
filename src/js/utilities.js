@@ -12,13 +12,13 @@ function throttle(fn, delay) {
 
     var timer = null;
 
-    return function() {
+    return function () {
         var context = this,
             args = arguments;
 
         clearTimeout(timer);
 
-        timer = setTimeout(function() {
+        timer = setTimeout(function () {
             fn.apply(context, args);
         }, delay);
     };
@@ -26,26 +26,24 @@ function throttle(fn, delay) {
 
 /**
  * [preloadImg]
- * @param  {[String]}  src [image src]
- * @param  {Function}  fn  [callbacks]
+ * @param  {[String]}  src      [image src]
+ * @param  {Function}  success  [callbacks]
+ * @param  {Function}  error    [callbacks]
  */
-function preloadImg(src, fn) {
+function preloadImg(src, success, error) {
 
     var img = new Image();
 
-    if (!!window.ActiveXObject) {
-        img.onreadystatechange = function() {
-            if (this.readyState == 'complete') {
-                fn(img);
-            }
-        }
-    } else {
-        img.onload = function() {
-            fn(img);
-        }
+    img.onload = function () {
+        success(img);
+    }
+
+    img.onerror = function () {
+        error(img);
     }
 
     img.src = src;
+    
 }
 
 /**

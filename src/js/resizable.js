@@ -27,7 +27,7 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
         'w': resizableHandleW,
         'nw': resizableHandleNW,
         'ne': resizableHandleNE,
-        'sw': resizableHandleSW,
+        'sw': resizableHandleSW
     }
 
     $(modal).append(
@@ -71,7 +71,7 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
 
         var opts = {
             'e': {
-                width: Math.max((offsetX + modalData.w), minWidth) + 'px',
+                width: Math.max((offsetX + modalData.w), minWidth) + 'px'
             },
             's': {
                 height: Math.max((offsetY + modalData.h), minHeight) + 'px'
