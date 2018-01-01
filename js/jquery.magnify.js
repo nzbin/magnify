@@ -729,8 +729,6 @@ Magnify.prototype = {
     },
     keydown: function(e) {
 
-        e.preventDefault();
-
         var self = this;
 
         if (!this.options.keyboard) {
