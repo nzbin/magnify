@@ -45,9 +45,13 @@
             </a>
         </div>
         <h4>2.Example with another style</h4>
-        <p>Play with <a href="https://codepen.io/nzbin/pen/GyNpEr" target="_blank">this example on CodePen.</a></p>
+        <p>Play with
+            <a href="https://codepen.io/nzbin/pen/GyNpEr" target="_blank">this example on CodePen.</a>
+        </p>
         <h4>3.Example with custom toolbar</h4>
-        <p>Play with <a href="https://codepen.io/nzbin/pen/eygbJo" target="_blank">this example on CodePen.</a></p>
+        <p>Play with
+            <a href="https://codepen.io/nzbin/pen/eygbJo" target="_blank">this example on CodePen.</a>
+        </p>
         <h2 class="b-b-1 p-b-10 p-t-10 m-t-30" id="usage">Usage</h2>
         <p>The usage of magnify is very simple.</p>
         <h4>1.Include files</h4>
@@ -56,7 +60,8 @@
 &lt;script src=&quot;/path/to/jquery.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;/path/to/jquery.magnify.js&quot;&gt;&lt;/script&gt;
 </pre>
-        <p>The icons in magnify use font-awesome default, you can customize them in options. If you use default options, you should link font-awesome css.</p>
+        <p>The icons in magnify use font-awesome default, you can customize them in options. If you use default options, you
+            should link font-awesome css.</p>
         <pre class="prettyprint">
 &lt;link href=&quot;https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css&quot; rel=&quot;stylesheet&quot;&gt;
 </pre>
@@ -82,15 +87,22 @@
         <p>All structures above have optional attributes as below:</p>
         <ul>
             <li>Add a
-                <code>data-src</code> attribute to link big image if you do not want to use a <code>&lt;a&gt;</code> tag. If you use it in a <code>&lt;a&gt;</code> tag, it will override the image link in <code>href</code> attribute.</li>
+                <code>data-src</code> attribute to link big image if you do not want to use a
+                <code>&lt;a&gt;</code> tag. If you use it in a
+                <code>&lt;a&gt;</code> tag, it will override the image link in
+                <code>href</code> attribute.</li>
             <li>Add a
-                <code>data-caption</code> attribute if you want to show a caption. If you are not using this attribute, it will show the image name in the url when you set the <code>title</code> option <code>true</code>.</li>
+                <code>data-caption</code> attribute if you want to show a caption. If you are not using this attribute, it will show the image name
+                in the url when you set the
+                <code>title</code> option
+                <code>true</code>.</li>
             <li>Add a
                 <code>data-group</code> attribute if you want to set the images in groups.
             </li>
         </ul>
         <h4>3.Call plugin</h4>
-        <p>If you add a <code>data-magnify</code> attribute, you can write none of js.</p>
+        <p>If you add a
+            <code>data-magnify</code> attribute, you can write none of js.</p>
         <p>Of course, you can use selector to call the plugin as following code:</p>
         <pre class="prettyprint">
 $('[data-magnify=gallery]').magnify(options);
@@ -138,13 +150,20 @@ $('[data-magnify=gallery]').magnify(options);
                             <code>true</code>
                         </td>
                         <td>If ture, it allow keyboard control. It is similar to Windows viewer.
-                            <p><code>←</code> prev image</p>
-                            <p><code>→</code> next image</p>
-                            <p><code>+</code> zoom in image</p>
-                            <p><code>-</code> zoom out image</p>
-                            <p><code>ctrl + alt + 0</code> image autual size</p>
-                            <p><code>ctrl + ,</code> rotate image left</p>
-                            <p><code>ctrl + .</code> rotate image right</p>
+                            <p>
+                                <code>←</code> prev image</p>
+                            <p>
+                                <code>→</code> next image</p>
+                            <p>
+                                <code>+</code> zoom in image</p>
+                            <p>
+                                <code>-</code> zoom out image</p>
+                            <p>
+                                <code>ctrl + alt + 0</code> image autual size</p>
+                            <p>
+                                <code>ctrl + ,</code> rotate image left</p>
+                            <p>
+                                <code>ctrl + .</code> rotate image right</p>
                         </td>
                     </tr>
                     <tr>
@@ -161,7 +180,10 @@ $('[data-magnify=gallery]').magnify(options);
                         <td>
                             <code>false</code>
                         </td>
-                        <td>Init modal size will expand with image size.</td>
+                        <td>
+                            <p>If false, the modal init size will fit to image size.</p>
+                            <p>If true, the modal init size will be set with <code>modalWidth</code> and <code>modalHeight</code>.</p>
+                        </td>
                     </tr>
                     <tr>
                         <td>modalWidth</td>
@@ -169,7 +191,7 @@ $('[data-magnify=gallery]').magnify(options);
                         <td>
                             <code>320</code>
                         </td>
-                        <td>Set modal init width or min width. The init width is only available when you set <code>fixedModalSize</code> true.</td>
+                        <td>The modal min width.</td>
                     </tr>
                     <tr>
                         <td>modalHeight</td>
@@ -177,7 +199,7 @@ $('[data-magnify=gallery]').magnify(options);
                         <td>
                             <code>320</code>
                         </td>
-                        <td>Set modal init height or min height. The init height is only available when you set <code>fixedModalSize</code> true.</td>
+                        <td>The modal min height.</td>
                     </tr>
                     <tr>
                         <td>gapThreshold</td>
@@ -338,6 +360,92 @@ $('[data-magnify=gallery]').magnify(options);
                         </td>
                         <td>If true, the content will be fixed.</td>
                     </tr>
+                    <tr>
+                        <td colspan="4">i18n: {</td>
+                    </tr>
+                    <tr>
+                        <td class="p-l-30">maximize</td>
+                        <td>string</td>
+                        <td>
+                            <code>maximize</code>
+                        </td>
+                        <td>The maximize button title text</td>
+                    </tr>
+                    <tr>
+                        <td class="p-l-30">close</td>
+                        <td>string</td>
+                        <td>
+                            <code>close</code>
+                        </td>
+                        <td>The close button title text</td>
+                    </tr>
+                    <tr>
+                        <td class="p-l-30">zoomIn</td>
+                        <td>string</td>
+                        <td>
+                            <code>zoom-in</code>
+                        </td>
+                        <td>The zoomIn button title text</td>
+                    </tr>
+                    <tr>
+                        <td class="p-l-30">zoomOut</td>
+                        <td>string</td>
+                        <td>
+                            <code>zoom-out</code>
+                        </td>
+                        <td>The zoomOut button title text</td>
+                    </tr>
+                    <tr>
+                        <td class="p-l-30">prev</td>
+                        <td>string</td>
+                        <td>
+                            <code>prev</code>
+                        </td>
+                        <td>The prev button title text</td>
+                    </tr>
+                    <tr>
+                        <td class="p-l-30">next</td>
+                        <td>string</td>
+                        <td>
+                            <code>next</code>
+                        </td>
+                        <td>The next button title text</td>
+                    </tr>
+                    <tr>
+                        <td class="p-l-30">fullscreen</td>
+                        <td>string</td>
+                        <td>
+                            <code>fullscreen</code>
+                        </td>
+                        <td>The fullscreen button title text</td>
+                    </tr>
+                    <tr>
+                        <td class="p-l-30">actualSize</td>
+                        <td>string</td>
+                        <td>
+                            <code>actual-size</code>
+                        </td>
+                        <td>The actualSize button title text</td>
+                    </tr>
+                    <tr>
+                        <td class="p-l-30">rotateLeft</td>
+                        <td>string</td>
+                        <td>
+                            <code>rotate-left</code>
+                        </td>
+                        <td>The rotateLeft button title text</td>
+                    </tr>
+                    <tr>
+                        <td class="p-l-30">rotateRight</td>
+                        <td>string</td>
+                        <td>
+                            <code>rotate-right</code>
+                        </td>
+                        <td>The rotateRight button title text</td>
+                    </tr>
+                    <tr>
+                        <td colspan="4">}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -352,7 +460,7 @@ $('[data-magnify=gallery]').magnify(options);
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
     <script>
-    window.jQuery || document.write('<script src="js/vendor/jquery-1.12.4.min.js"><\/script>')
+        window.jQuery || document.write('<script src="js/vendor/jquery-1.12.4.min.js"><\/script>')
     </script>
     <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.bootcss.com/prettify/r298/prettify.min.js"></script>
@@ -360,7 +468,7 @@ $('[data-magnify=gallery]').magnify(options);
     <script src="js/jquery.magnify.js"></script>
     <script>
 
-    window.prettyPrint && prettyPrint();
+        window.prettyPrint && prettyPrint();
 
     </script>
 </body>
