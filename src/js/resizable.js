@@ -203,7 +203,7 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
 
         var e = e || window.event;
 
-        e.preventDefault();
+        // e.preventDefault();
 
         if (isDragging && !self.isMaximized) {
 
@@ -235,7 +235,7 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
 
         }
 
-        return false;
+        // return false;
 
     }
     var dragEnd = function(e) {

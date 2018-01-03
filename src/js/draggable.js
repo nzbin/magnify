@@ -42,7 +42,7 @@ var draggable = function(modal) {
 
         var e = e || window.event;
 
-        e.preventDefault();
+        // e.preventDefault();
 
         if (isDragging && !isMoving && !isResizing && !self.isMaximized) {
 
@@ -59,7 +59,7 @@ var draggable = function(modal) {
 
         }
 
-        return false;
+        // return false;
 
     }
 
@@ -69,11 +69,11 @@ var draggable = function(modal) {
 
     }
 
-    $(modal).on('mousedown', dragStart);
+    $(modal).on('mousedown.magnify', dragStart);
 
-    $D.on('mousemove', dragMove);
+    $D.on('mousemove.magnify', dragMove);
 
-    $D.on('mouseup', dragEnd);
+    $D.on('mouseup.magnify', dragEnd);
 }
 
 // Add to Magnify Prototype

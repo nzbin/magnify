@@ -61,7 +61,7 @@ var movable = function (image, stage) {
 
         var e = e || window.event;
 
-        e.preventDefault();
+        // e.preventDefault();
 
         if (isDragging) {
 
@@ -112,7 +112,7 @@ var movable = function (image, stage) {
 
         }
 
-        return false;
+        // return false;
 
     }
 
