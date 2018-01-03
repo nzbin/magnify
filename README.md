@@ -155,6 +155,29 @@ $("[data-magnify=gallery]").magnify();
 - **fixedContent** `true`
   > If true, the content will be fixed.
 
+- **i18n** 
+  > You can customize the buttons title in following key.
+  
+  - **maximize** `maximize`
+
+  - **close** `close`
+
+  - **zoomIn** `zoom-in`
+
+  - **zoomOut** `zoom-out`
+
+  - **prev** `prev`
+
+  - **next** `next`
+
+  - **fullscreen** `fullscreen`
+
+  - **actualSize** `actual-size`
+ 
+  - **rotateLeft** `rotate-left`
+
+  - **rotateRight** `rotate-right`
+
 
 ## License
 
