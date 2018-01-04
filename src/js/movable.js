@@ -1,11 +1,14 @@
 /**
- * image movable
  * --------------------------------------
  * 1.no movable
  * 2.vertical movable
  * 3.horizontal movable
  * 4.vertical & horizontal movable
  * --------------------------------------
+ *
+ * [image movable]
+ * @param  {[Object]} image   [the image element]
+ * @param  {[Object]} stage   [the stage element]
  */
 
 var movable = function (image, stage) {
@@ -61,7 +64,7 @@ var movable = function (image, stage) {
 
         var e = e || window.event;
 
-        // e.preventDefault();
+        e.preventDefault();
 
         if (isDragging) {
 
@@ -123,11 +126,11 @@ var movable = function (image, stage) {
 
     }
 
-    $(stage).on('mousedown', dragStart);
+    $(stage).on('mousedown.magnify', dragStart);
 
-    $D.on('mousemove', dragMove);
+    $D.on('mousemove.magnify', dragMove);
 
-    $D.on('mouseup', dragEnd);
+    $D.on('mouseup.magnify', dragEnd);
 }
 
 // Add to Magnify Prototype

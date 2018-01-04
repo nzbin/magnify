@@ -244,6 +244,7 @@ Magnify.prototype = {
 
         // Get all magnify element
         this.$magnify = $magnify;
+        this.$header = $magnify.find('.magnify-header');
         this.$stage = $magnify.find('.magnify-stage');
         this.$title = $magnify.find('.magnify-title');
         this.$image = $magnify.find('.magnify-stage img');
@@ -264,13 +265,13 @@ Magnify.prototype = {
 
         // draggable & movable & resizable
         if (this.options.draggable) {
-            this.draggable($magnify);
+            this.draggable(this.$magnify, this.$magnify, '.magnify-button');
         }
         if (this.options.movable) {
             this.movable(this.$image, this.$stage);
         }
         if (this.options.resizable) {
-            this.resizable($magnify, this.$stage, this.$image, this.options.modalWidth, this.options.modalHeight);
+            this.resizable(this.$magnify, this.$stage, this.$image, this.options.modalWidth, this.options.modalHeight);
         }
 
     },
@@ -294,6 +295,7 @@ Magnify.prototype = {
         // off events
         if (!$('.magnify-modal').length) {
             $W.off('resize');
+            $D.off('mousemove mouseup');
         }
 
     },
@@ -587,14 +589,6 @@ Magnify.prototype = {
             newLeft = newLeft > -δ ? -δ : (newLeft > (offsetX + δ) ? newLeft : (offsetX + δ));
         }
 
-        // Add grab cursor
-        if (imgNewHeight > stageData.h || imgNewWidth > stageData.w) {
-            this.$stage.addClass('is-grab');
-        }
-        if (imgNewHeight <= stageData.h && imgNewWidth <= stageData.w) {
-            this.$stage.removeClass('is-grab');
-        }
-
         $image.css({
             width: Math.ceil(newWidth) + 'px',
             height: Math.ceil(newHeight) + 'px',
@@ -609,6 +603,9 @@ Magnify.prototype = {
             left: newLeft,
             top: newTop
         });
+
+        // Add grab cursor
+        addGrabCursor({ w: imgNewWidth, h: imgNewHeight }, { w: stageData.w, h: stageData.h }, this.$stage);
 
     },
     rotate: function (angle) {

@@ -279,6 +279,7 @@ Magnify.prototype = {
 
         // Get all magnify element
         this.$magnify = $magnify;
+        this.$header = $magnify.find('.magnify-header');
         this.$stage = $magnify.find('.magnify-stage');
         this.$title = $magnify.find('.magnify-title');
         this.$image = $magnify.find('.magnify-stage img');
@@ -299,13 +300,13 @@ Magnify.prototype = {
 
         // draggable & movable & resizable
         if (this.options.draggable) {
-            this.draggable($magnify);
+            this.draggable(this.$magnify, this.$magnify, '.magnify-button');
         }
         if (this.options.movable) {
             this.movable(this.$image, this.$stage);
         }
         if (this.options.resizable) {
-            this.resizable($magnify, this.$stage, this.$image, this.options.modalWidth, this.options.modalHeight);
+            this.resizable(this.$magnify, this.$stage, this.$image, this.options.modalWidth, this.options.modalHeight);
         }
 
     },
@@ -329,6 +330,7 @@ Magnify.prototype = {
         // off events
         if (!$('.magnify-modal').length) {
             $W.off('resize');
+            $D.off('mousemove mouseup');
         }
 
     },
@@ -622,14 +624,6 @@ Magnify.prototype = {
             newLeft = newLeft > -δ ? -δ : (newLeft > (offsetX + δ) ? newLeft : (offsetX + δ));
         }
 
-        // Add grab cursor
-        if (imgNewHeight > stageData.h || imgNewWidth > stageData.w) {
-            this.$stage.addClass('is-grab');
-        }
-        if (imgNewHeight <= stageData.h && imgNewWidth <= stageData.w) {
-            this.$stage.removeClass('is-grab');
-        }
-
         $image.css({
             width: Math.ceil(newWidth) + 'px',
             height: Math.ceil(newHeight) + 'px',
@@ -644,6 +638,9 @@ Magnify.prototype = {
             left: newLeft,
             top: newTop
         });
+
+        // Add grab cursor
+        addGrabCursor({ w: imgNewWidth, h: imgNewHeight }, { w: stageData.w, h: stageData.h }, this.$stage);
 
     },
     rotate: function (angle) {
@@ -910,11 +907,13 @@ $D.on('click.magnify', '[data-magnify]', function (e) {
 });
 
 /**
- * draggable
+ * [draggable]
+ * @param  {[Object]} modal       [the modal element]
+ * @param  {[Object]} dragHandle  [the handle element when dragging]
+ * @param  {[Object]} dragCancel  [the cancel element when dragging]
  */
 
-// modal draggable
-var draggable = function(modal) {
+var draggable = function(modal, dragHandle, dragCancel) {
 
     var self = this;
 
@@ -933,7 +932,7 @@ var draggable = function(modal) {
         e.preventDefault();
 
         // Get clicked button
-        var elemCancel = $(e.target).closest('.magnify-button');
+        var elemCancel = $(e.target).closest(dragCancel);
         // Stop modal moving when click buttons
         if(elemCancel.length){
             return true;
@@ -953,7 +952,7 @@ var draggable = function(modal) {
 
         var e = e || window.event;
 
-        // e.preventDefault();
+        e.preventDefault();
 
         if (isDragging && !isMoving && !isResizing && !self.isMaximized) {
 
@@ -980,7 +979,7 @@ var draggable = function(modal) {
 
     }
 
-    $(modal).on('mousedown.magnify', dragStart);
+    $(dragHandle).on('mousedown.magnify', dragStart);
 
     $D.on('mousemove.magnify', dragMove);
 
@@ -993,13 +992,16 @@ $.extend(Magnify.prototype, {
 });
 
 /**
- * image movable
  * --------------------------------------
  * 1.no movable
  * 2.vertical movable
  * 3.horizontal movable
  * 4.vertical & horizontal movable
  * --------------------------------------
+ *
+ * [image movable]
+ * @param  {[Object]} image   [the image element]
+ * @param  {[Object]} stage   [the stage element]
  */
 
 var movable = function (image, stage) {
@@ -1055,7 +1057,7 @@ var movable = function (image, stage) {
 
         var e = e || window.event;
 
-        // e.preventDefault();
+        e.preventDefault();
 
         if (isDragging) {
 
@@ -1117,11 +1119,11 @@ var movable = function (image, stage) {
 
     }
 
-    $(stage).on('mousedown', dragStart);
+    $(stage).on('mousedown.magnify', dragStart);
 
-    $D.on('mousemove', dragMove);
+    $D.on('mousemove.magnify', dragMove);
 
-    $D.on('mouseup', dragEnd);
+    $D.on('mouseup.magnify', dragEnd);
 }
 
 // Add to Magnify Prototype
@@ -1130,14 +1132,21 @@ $.extend(Magnify.prototype, {
 });
 
 /**
- * resizable
  * ------------------------------
  * 1.modal resizable
  * 2.keep image in stage center
+ * 3.~
  * ------------------------------
+ * 
+ * [resizable]
+ * @param  {[Object]} modal       [the modal element]
+ * @param  {[Object]} stage       [the stage element]
+ * @param  {[Object]} image       [the image element]
+ * @param  {[Number]} minWidth    [the option of modalWidth]
+ * @param  {[Number]} minHeight   [the option of modalHeight]
  */
 
-var resizable = function(modal, stage, image, minWidth, minHeight) {
+var resizable = function (modal, stage, image, minWidth, minHeight) {
 
     var self = this;
 
@@ -1167,7 +1176,7 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
 
     var isDragging = false;
 
-    var draggingLimit = false;
+    // var draggingLimit = false;
 
     var startX = 0,
         startY = 0,
@@ -1194,7 +1203,7 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
     var direction = '';
 
     // modal CSS options
-    var getModalOpts = function(dir, offsetX, offsetY) {
+    var getModalOpts = function (dir, offsetX, offsetY) {
 
         // Modal should not move when its width to the minwidth
         var modalLeft = (-offsetX + modalData.w) > minWidth ? (offsetX + modalData.l) : (modalData.l + modalData.w - minWidth),
@@ -1241,7 +1250,7 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
     }
 
     // image CSS options
-    var getImageOpts = function(dir, offsetX, offsetY) {
+    var getImageOpts = function (dir, offsetX, offsetY) {
         // δ is the difference between image width and height
         var δ = !self.isRotated ? 0 : (imageData.w - imageData.h) / 2,
             imgWidth = !self.isRotated ? imageData.w : imageData.h,
@@ -1293,7 +1302,7 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
         return opts[dir];
     }
 
-    var dragStart = function(dir, e) {
+    var dragStart = function (dir, e) {
 
         var e = e || window.event;
 
@@ -1330,11 +1339,11 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
         direction = dir;
     }
 
-    var dragMove = function(e) {
+    var dragMove = function (e) {
 
         var e = e || window.event;
 
-        // e.preventDefault();
+        e.preventDefault();
 
         if (isDragging && !self.isMaximized) {
 
@@ -1369,21 +1378,24 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
         // return false;
 
     }
-    var dragEnd = function(e) {
+    var dragEnd = function (e) {
 
         isDragging = false;
         isResizing = false;
 
+        // Add grab cursor
+        addGrabCursor({ w: $(image).width(), h: $(image).height() }, { w: $(stage).width(), h: $(stage).height() }, stage);
+
     }
 
-    $.each(resizableHandles, function(dir, handle) {
-        handle.on('mousedown', function(e) {
+    $.each(resizableHandles, function (dir, handle) {
+        handle.on('mousedown.magnify', function (e) {
             dragStart(dir, e);
         });
     });
 
-    $D.on('mousemove', dragMove);
-    $D.on('mouseup', dragEnd);
+    $D.on('mousemove.magnify', dragMove);
+    $D.on('mouseup.magnify', dragEnd);
 }
 
 // Add to Magnify Prototype
@@ -1436,11 +1448,11 @@ function preloadImg(src, success, error) {
     }
 
     img.src = src;
-    
+
 }
 
 /**
- * [requestFullscreen description]
+ * [requestFullscreen]
  * @param  {[type]} element [description]
  */
 function requestFullscreen(element) {
@@ -1456,7 +1468,7 @@ function requestFullscreen(element) {
 }
 
 /**
- * [exitFullscreen description]
+ * [exitFullscreen]
  */
 function exitFullscreen() {
     if (document.exitFullscreen) {
@@ -1480,7 +1492,7 @@ function getImageNameFromUrl(url) {
 }
 
 /**
- * [getNumFromCSSValue description]
+ * [getNumFromCSSValue]
  * @param  {[String]} value [description]
  * @return {[Number]}       [description]
  */
@@ -1492,7 +1504,7 @@ function getNumFromCSSValue(value) {
 }
 
 /**
- * [hasScrollbar description]
+ * [hasScrollbar]
  * @return {[Boolean]}       [description]
  */
 function hasScrollbar() {
@@ -1500,7 +1512,7 @@ function hasScrollbar() {
 }
 
 /**
- * [getScrollbarWidth description]
+ * [getScrollbarWidth]
  * @return {[Number]}       [description]
  */
 function getScrollbarWidth() {
@@ -1513,6 +1525,21 @@ function getScrollbarWidth() {
 
     return scrollbarWidth;
 
+}
+
+/**
+ * [addGrabCursor]
+ * @param {[Object]} imageData    [description]
+ * @param {[Object]} stageData    [description]
+ * @param {[Object]} stage        [description]
+ */
+function addGrabCursor(imageData, stageData, stage) {
+    if (imageData.h > stageData.h || imageData.w > stageData.w) {
+        stage.addClass('is-grab');
+    }
+    if (imageData.h <= stageData.h && imageData.w <= stageData.w) {
+        stage.removeClass('is-grab');
+    }
 }
 
 });

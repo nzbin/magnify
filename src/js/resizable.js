@@ -1,12 +1,19 @@
 /**
- * resizable
  * ------------------------------
  * 1.modal resizable
  * 2.keep image in stage center
+ * 3.~
  * ------------------------------
+ * 
+ * [resizable]
+ * @param  {[Object]} modal       [the modal element]
+ * @param  {[Object]} stage       [the stage element]
+ * @param  {[Object]} image       [the image element]
+ * @param  {[Number]} minWidth    [the option of modalWidth]
+ * @param  {[Number]} minHeight   [the option of modalHeight]
  */
 
-var resizable = function(modal, stage, image, minWidth, minHeight) {
+var resizable = function (modal, stage, image, minWidth, minHeight) {
 
     var self = this;
 
@@ -36,7 +43,7 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
 
     var isDragging = false;
 
-    var draggingLimit = false;
+    // var draggingLimit = false;
 
     var startX = 0,
         startY = 0,
@@ -63,7 +70,7 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
     var direction = '';
 
     // modal CSS options
-    var getModalOpts = function(dir, offsetX, offsetY) {
+    var getModalOpts = function (dir, offsetX, offsetY) {
 
         // Modal should not move when its width to the minwidth
         var modalLeft = (-offsetX + modalData.w) > minWidth ? (offsetX + modalData.l) : (modalData.l + modalData.w - minWidth),
@@ -110,7 +117,7 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
     }
 
     // image CSS options
-    var getImageOpts = function(dir, offsetX, offsetY) {
+    var getImageOpts = function (dir, offsetX, offsetY) {
         // δ is the difference between image width and height
         var δ = !self.isRotated ? 0 : (imageData.w - imageData.h) / 2,
             imgWidth = !self.isRotated ? imageData.w : imageData.h,
@@ -162,7 +169,7 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
         return opts[dir];
     }
 
-    var dragStart = function(dir, e) {
+    var dragStart = function (dir, e) {
 
         var e = e || window.event;
 
@@ -199,11 +206,11 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
         direction = dir;
     }
 
-    var dragMove = function(e) {
+    var dragMove = function (e) {
 
         var e = e || window.event;
 
-        // e.preventDefault();
+        e.preventDefault();
 
         if (isDragging && !self.isMaximized) {
 
@@ -238,21 +245,24 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
         // return false;
 
     }
-    var dragEnd = function(e) {
+    var dragEnd = function (e) {
 
         isDragging = false;
         isResizing = false;
 
+        // Add grab cursor
+        addGrabCursor({ w: $(image).width(), h: $(image).height() }, { w: $(stage).width(), h: $(stage).height() }, stage);
+
     }
 
-    $.each(resizableHandles, function(dir, handle) {
-        handle.on('mousedown', function(e) {
+    $.each(resizableHandles, function (dir, handle) {
+        handle.on('mousedown.magnify', function (e) {
             dragStart(dir, e);
         });
     });
 
-    $D.on('mousemove', dragMove);
-    $D.on('mouseup', dragEnd);
+    $D.on('mousemove.magnify', dragMove);
+    $D.on('mouseup.magnify', dragEnd);
 }
 
 // Add to Magnify Prototype

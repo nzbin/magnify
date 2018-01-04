@@ -1,9 +1,11 @@
 /**
- * draggable
+ * [draggable]
+ * @param  {[Object]} modal       [the modal element]
+ * @param  {[Object]} dragHandle  [the handle element when dragging]
+ * @param  {[Object]} dragCancel  [the cancel element when dragging]
  */
 
-// modal draggable
-var draggable = function(modal) {
+var draggable = function(modal, dragHandle, dragCancel) {
 
     var self = this;
 
@@ -22,7 +24,7 @@ var draggable = function(modal) {
         e.preventDefault();
 
         // Get clicked button
-        var elemCancel = $(e.target).closest('.magnify-button');
+        var elemCancel = $(e.target).closest(dragCancel);
         // Stop modal moving when click buttons
         if(elemCancel.length){
             return true;
@@ -42,7 +44,7 @@ var draggable = function(modal) {
 
         var e = e || window.event;
 
-        // e.preventDefault();
+        e.preventDefault();
 
         if (isDragging && !isMoving && !isResizing && !self.isMaximized) {
 
@@ -69,7 +71,7 @@ var draggable = function(modal) {
 
     }
 
-    $(modal).on('mousedown.magnify', dragStart);
+    $(dragHandle).on('mousedown.magnify', dragStart);
 
     $D.on('mousemove.magnify', dragMove);
 

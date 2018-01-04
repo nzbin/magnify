@@ -43,11 +43,11 @@ function preloadImg(src, success, error) {
     }
 
     img.src = src;
-    
+
 }
 
 /**
- * [requestFullscreen description]
+ * [requestFullscreen]
  * @param  {[type]} element [description]
  */
 function requestFullscreen(element) {
@@ -63,7 +63,7 @@ function requestFullscreen(element) {
 }
 
 /**
- * [exitFullscreen description]
+ * [exitFullscreen]
  */
 function exitFullscreen() {
     if (document.exitFullscreen) {
@@ -87,7 +87,7 @@ function getImageNameFromUrl(url) {
 }
 
 /**
- * [getNumFromCSSValue description]
+ * [getNumFromCSSValue]
  * @param  {[String]} value [description]
  * @return {[Number]}       [description]
  */
@@ -99,7 +99,7 @@ function getNumFromCSSValue(value) {
 }
 
 /**
- * [hasScrollbar description]
+ * [hasScrollbar]
  * @return {[Boolean]}       [description]
  */
 function hasScrollbar() {
@@ -107,7 +107,7 @@ function hasScrollbar() {
 }
 
 /**
- * [getScrollbarWidth description]
+ * [getScrollbarWidth]
  * @return {[Number]}       [description]
  */
 function getScrollbarWidth() {
@@ -120,4 +120,19 @@ function getScrollbarWidth() {
 
     return scrollbarWidth;
 
+}
+
+/**
+ * [addGrabCursor]
+ * @param {[Object]} imageData    [description]
+ * @param {[Object]} stageData    [description]
+ * @param {[Object]} stage        [description]
+ */
+function addGrabCursor(imageData, stageData, stage) {
+    if (imageData.h > stageData.h || imageData.w > stageData.w) {
+        stage.addClass('is-grab');
+    }
+    if (imageData.h <= stageData.h && imageData.w <= stageData.w) {
+        stage.removeClass('is-grab');
+    }
 }
