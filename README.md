@@ -100,13 +100,15 @@ $("[data-magnify=gallery]").magnify();
   > If ture, it will show image title on header.
 
 - **fixedModalSize** `false`
-  > Init modal size will expand with image size.
+  > If false, the modal init size will fit to image size.
+  > 
+  > If true, the modal init size will be set with `modalWidth` and `modalHeight`.
 
 - **modalWidth** `320`
-  > Set modal init width or min width. The init width is only available when you set `fixedModalSize` true.
+  > The modal min width.
 
 - **modalHeight** `320`
-  > Set modal init height or min height. The init height is only available when you set `fixedModalSize` true
+  > The modal min height.
 
 - **gapThreshold** `0.02`
   > There will have a gap if modal too big to beyond the browser.
