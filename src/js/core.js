@@ -280,8 +280,8 @@ Magnify.prototype = {
         // Remove instance
         this.$magnify.remove();
 
-        this.isMaximized = false;
-        this.isRotated = false;
+        this.isMaximized = isMaximized = false;
+        this.isRotated = isRotated = false;
 
         this.rotateAngle = rotateAngle = 0;
 
@@ -610,15 +610,15 @@ Magnify.prototype = {
     },
     rotate: function (angle) {
 
-        this.rotateAngle = rotateAngle = rotateAngle + angle;
+        this.rotateAngle = rotateAngle = this.rotateAngle + angle;
 
-        if ((rotateAngle / 90) % 2 === 0) {
+        if ((this.rotateAngle / 90) % 2 === 0) {
             this.isRotated = false;
         } else {
             this.isRotated = true;
         }
 
-        this.rotateTo(rotateAngle);
+        this.rotateTo(this.rotateAngle);
 
     },
     rotateTo: function (angle) {
@@ -630,6 +630,9 @@ Magnify.prototype = {
         });
 
         this.setImageSize({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
+
+        // Remove grab cursor when rotate
+        this.$stage.removeClass('is-grab');
 
     },
     resize: function () {
