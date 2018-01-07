@@ -547,10 +547,10 @@ Magnify.prototype = {
         // ratio threshold
         var ratio = -delta * this.options.ratioThreshold;
 
-        // mouse point position
+        // mouse point position relative to stage
         var pointer = {
-            x: e.originalEvent.clientX - this.$stage.offset().left,
-            y: e.originalEvent.clientY - this.$stage.offset().top
+            x: e.originalEvent.clientX - this.$stage.offset().left + $D.scrollLeft(),
+            y: e.originalEvent.clientY - this.$stage.offset().top + $D.scrollTop()
         }
 
         this.zoom(ratio, pointer, e);
