@@ -640,7 +640,11 @@ Magnify.prototype = {
         });
 
         // Add grab cursor
-        addGrabCursor({ w: imgNewWidth, h: imgNewHeight }, { w: stageData.w, h: stageData.h }, this.$stage);
+        addGrabCursor(
+            { w: imgNewWidth, h: imgNewHeight }, 
+            { w: stageData.w, h: stageData.h }, 
+            this.$stage
+        );
 
     },
     rotate: function (angle) {
@@ -732,6 +736,13 @@ Magnify.prototype = {
         }
 
         this.setImageSize({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
+
+        addGrabCursor(
+            { w: this.$image.width(), h: this.$image.height() }, 
+            { w: this.$stage.width(), h: this.$stage.height() }, 
+            this.$stage, 
+            this.isRotated
+        );
 
     },
     fullscreen: function () {
@@ -1377,7 +1388,11 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
 
         // Add grab cursor
         if (isResizing) {
-            addGrabCursor({ w: imgWidth, h: imgHeight }, { w: $(stage).width(), h: $(stage).height() }, stage);
+            addGrabCursor(
+                { w: imgWidth, h: imgHeight }, 
+                { w: $(stage).width(), h: $(stage).height() }, 
+                stage
+            );
         }
 
         isDragging = false;
@@ -1526,15 +1541,20 @@ function getScrollbarWidth() {
 
 /**
  * [addGrabCursor]
- * @param {[Object]} imageData    [description]
- * @param {[Object]} stageData    [description]
- * @param {[Object]} stage        [description]
+ * @param {[Object]}  imageData    [description]
+ * @param {[Object]}  stageData    [description]
+ * @param {[Object]}  stage        [description]
+ * @param {[Boolean]} isRotate     [description]
  */
-function addGrabCursor(imageData, stageData, stage) {
-    if (imageData.h > stageData.h || imageData.w > stageData.w) {
+function addGrabCursor(imageData, stageData, stage, isRotated) {
+
+    var imageWidth = !isRotated ? imageData.w : imageData.h,
+        imageHeight = !isRotated ? imageData.h : imageData.w;
+
+    if (imageHeight > stageData.h || imageWidth > stageData.w) {
         stage.addClass('is-grab');
     }
-    if (imageData.h <= stageData.h && imageData.w <= stageData.w) {
+    if (imageHeight <= stageData.h && imageWidth <= stageData.w) {
         stage.removeClass('is-grab');
     }
 }

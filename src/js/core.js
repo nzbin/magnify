@@ -605,7 +605,11 @@ Magnify.prototype = {
         });
 
         // Add grab cursor
-        addGrabCursor({ w: imgNewWidth, h: imgNewHeight }, { w: stageData.w, h: stageData.h }, this.$stage);
+        addGrabCursor(
+            { w: imgNewWidth, h: imgNewHeight }, 
+            { w: stageData.w, h: stageData.h }, 
+            this.$stage
+        );
 
     },
     rotate: function (angle) {
@@ -697,6 +701,13 @@ Magnify.prototype = {
         }
 
         this.setImageSize({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
+
+        addGrabCursor(
+            { w: this.$image.width(), h: this.$image.height() }, 
+            { w: this.$stage.width(), h: this.$stage.height() }, 
+            this.$stage, 
+            this.isRotated
+        );
 
     },
     fullscreen: function () {

@@ -241,7 +241,11 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
 
         // Add grab cursor
         if (isResizing) {
-            addGrabCursor({ w: imgWidth, h: imgHeight }, { w: $(stage).width(), h: $(stage).height() }, stage);
+            addGrabCursor(
+                { w: imgWidth, h: imgHeight }, 
+                { w: $(stage).width(), h: $(stage).height() }, 
+                stage
+            );
         }
 
         isDragging = false;

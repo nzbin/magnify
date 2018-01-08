@@ -124,15 +124,20 @@ function getScrollbarWidth() {
 
 /**
  * [addGrabCursor]
- * @param {[Object]} imageData    [description]
- * @param {[Object]} stageData    [description]
- * @param {[Object]} stage        [description]
+ * @param {[Object]}  imageData    [description]
+ * @param {[Object]}  stageData    [description]
+ * @param {[Object]}  stage        [description]
+ * @param {[Boolean]} isRotate     [description]
  */
-function addGrabCursor(imageData, stageData, stage) {
-    if (imageData.h > stageData.h || imageData.w > stageData.w) {
+function addGrabCursor(imageData, stageData, stage, isRotated) {
+
+    var imageWidth = !isRotated ? imageData.w : imageData.h,
+        imageHeight = !isRotated ? imageData.h : imageData.w;
+
+    if (imageHeight > stageData.h || imageWidth > stageData.w) {
         stage.addClass('is-grab');
     }
-    if (imageData.h <= stageData.h && imageData.w <= stageData.w) {
+    if (imageHeight <= stageData.h && imageWidth <= stageData.w) {
         stage.removeClass('is-grab');
     }
 }
