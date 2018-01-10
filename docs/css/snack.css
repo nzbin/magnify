@@ -267,6 +267,14 @@ code {
   border-radius: 3px;
 }
 
+kbd {
+  padding: 2px 4px;
+  font-size: 90%;
+  color: #fff;
+  background-color: #333;
+  border-radius: 3px;
+}
+
 h1,
 h2,
 h3,
@@ -324,8 +332,8 @@ hr {
   vertical-align: middle;
   line-height: 1.42858;
   font-size: 14px;
-  border: 1px solid transparent;
-  border-radius: 3px;
+  border: 2px solid transparent;
+  border-radius: 4px;
   cursor: pointer;
   outline: none;
 }
@@ -632,18 +640,18 @@ hr {
   position: relative;
   float: left;
   border-radius: 0;
-  margin-right: -1px;
+  margin-left: -2px;
 }
 
 .btns > .btn:first-child {
   margin-left: 0;
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
 }
 
 .btns > .btn:last-child {
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
 }
 
 .btns.vertical > .btn {
@@ -653,18 +661,19 @@ hr {
   border-radius: 0;
   width: 100%;
   max-width: 100%;
-  margin-top: -1px;
+  margin-left: 0;
+  margin-top: -2px;
 }
 
 .btns.vertical > .btn:first-child {
   margin-top: 0;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
 }
 
 .btns.vertical > .btn:last-child {
-  border-bottom-left-radius: 3px;
-  border-bottom-right-radius: 3px;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
 }
 
 .container {
@@ -958,8 +967,8 @@ label {
   display: block;
   width: 100%;
   padding: 4px 8px;
-  border: 1px solid #ddd;
-  border-radius: 3px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
   background-color: #fff;
   font-size: 14px;
   line-height: 1.42858;
