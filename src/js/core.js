@@ -111,7 +111,14 @@ var Magnify = function (el, options) {
     this.rotateAngle = 0;
 
     // Store image data in every instance
-    // this.imageData = {};
+    this.imageData = {};
+    // Store modal data in every instance
+    this.modalData = {
+        width: null,
+        height: null,
+        left: null,
+        top: null
+    }
 
     this.init(el, self.options);
 
@@ -402,6 +409,21 @@ Magnify.prototype = {
         // loading start
         this.$magnify.append(loadingHTML);
 
+        // Set modal maximized when init
+        if (this.options.initMaximized) {
+
+            this.$magnify.addClass('magnify-maximize');
+
+            this.$magnify.css({
+                width: '100%',
+                height: '100%',
+                left: $D.scrollLeft(),
+                top: $D.scrollTop()
+            });
+
+            this.isMaximized = true;
+        }
+
         this.$image.attr('src', imgSrc);
 
         preloadImg(imgSrc, function (img) {
@@ -420,13 +442,14 @@ Magnify.prototype = {
 
             // loading end
             self.$magnify.find('.magnify-loading').remove();
-
             // Add events when image loaded success
             self.addEvent();
 
         }, function () {
             // loading end
             self.$magnify.find('.magnify-loading').remove();
+            // Add events when image loaded failed
+            self.addEvent();
         });
 
         if (this.options.title) {
@@ -606,8 +629,8 @@ Magnify.prototype = {
 
         // Add grab cursor
         addGrabCursor(
-            { w: imgNewWidth, h: imgNewHeight }, 
-            { w: stageData.w, h: stageData.h }, 
+            { w: imgNewWidth, h: imgNewHeight },
+            { w: stageData.w, h: stageData.h },
             this.$stage
         );
 
@@ -663,9 +686,6 @@ Magnify.prototype = {
 
         var self = this;
 
-        var scrollLeft = $D.scrollLeft(),
-            scrollTop = $D.scrollTop();
-
         if (!this.isMaximized) {
             // Store modal data before maximize
             this.modalData = {
@@ -680,8 +700,8 @@ Magnify.prototype = {
             this.$magnify.css({
                 width: '100%',
                 height: '100%',
-                left: scrollLeft,
-                top: scrollTop
+                left: $D.scrollLeft(),
+                top: $D.scrollTop()
             });
 
             this.isMaximized = true;
@@ -689,12 +709,12 @@ Magnify.prototype = {
         } else {
 
             this.$magnify.removeClass('magnify-maximize');
-
+            
             this.$magnify.css({
-                width: this.modalData.width,
-                height: this.modalData.height,
-                left: this.modalData.left,
-                top: this.modalData.top
+                width: this.modalData.width ? this.modalData.width : this.options.modalWidth,
+                height: this.modalData.height ? this.modalData.height : this.options.modalHeight,
+                left: this.modalData.left ? this.modalData.left : ($W.width() - this.options.modalWidth) / 2 + $D.scrollLeft(),
+                top: this.modalData.top ? this.modalData.top : ($W.height() - this.options.modalHeight) / 2 + $D.scrollTop()
             });
 
             this.isMaximized = false;
@@ -703,9 +723,9 @@ Magnify.prototype = {
         this.setImageSize({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
 
         addGrabCursor(
-            { w: this.$image.width(), h: this.$image.height() }, 
-            { w: this.$stage.width(), h: this.$stage.height() }, 
-            this.$stage, 
+            { w: this.$image.width(), h: this.$image.height() },
+            { w: this.$stage.width(), h: this.$stage.height() },
+            this.$stage,
             this.isRotated
         );
 
