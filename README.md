@@ -181,6 +181,8 @@ $("[data-magnify=gallery]").magnify();
 
   - **rotateRight** `rotate-right`
 
+- **initMaximized** `false`
+  > If true, the modal size will be set maximized when init.
 
 ## License
 
