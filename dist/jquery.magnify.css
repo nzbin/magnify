@@ -130,10 +130,6 @@
   cursor: grabbing;
 }
 
-html {
-  -ms-overflow-style: scrollbar;
-}
-
 .magnify-loading {
   position: absolute;
   top: 0;
