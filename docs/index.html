@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="magnify,jquery plugin,lightbox,jquery 插件,viewer,Windows 照片查看器,图片查看器,模态窗,拖拽,缩放,旋转,平移,最大化">
+    <meta name="description" content="magnify,jquery plugin,lightbox,viewer,Windows 照片查看器,图片查看器,模态窗,拖拽,缩放,旋转,平移,最大化">
     <title>Magnify</title>
     <!-- Bootstrap -->
     <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
@@ -55,6 +55,10 @@
         <h4>3.Example with custom toolbar</h4>
         <p>Play with
             <a href="https://codepen.io/nzbin/pen/eygbJo" target="_blank">this example on CodePen.</a>
+        </p>
+        <h4>4.Example with modal size maximized when init </h4>
+        <p>Play with
+            <a href="https://codepen.io/nzbin/pen/PEaOBq" target="_blank">this example on CodePen.</a>
         </p>
         <h2 class="b-b-1 p-b-10 p-t-10 m-t-30" id="usage">Usage</h2>
         <p>The usage of magnify is very simple.</p>
@@ -451,7 +455,7 @@ $('[data-magnify=gallery]').magnify(options);
                     </tr>
                     <tr>
                         <td>initMaximized</td>
-                        <td>string</td>
+                        <td>Boolean</td>
                         <td>
                             <code>false</code>
                         </td>
