@@ -434,6 +434,13 @@ Magnify.prototype = {
             top: (stageData.h - img.height * scale) / 2
         });
 
+        addGrabCursor(
+            { w: this.$image.width(), h: this.$image.height() },
+            { w: this.$stage.width(), h: this.$stage.height() },
+            this.$stage,
+            this.isRotated
+        );
+
     },
     loadImg: function (imgSrc) {
 
@@ -710,6 +717,7 @@ Magnify.prototype = {
                 }
 
                 self.setImageSize({ width: self.imageData.originalWidth, height: self.imageData.originalHeight });
+
             }
 
         }, 500);
@@ -756,13 +764,6 @@ Magnify.prototype = {
         }
 
         this.setImageSize({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
-
-        addGrabCursor(
-            { w: this.$image.width(), h: this.$image.height() },
-            { w: this.$stage.width(), h: this.$stage.height() },
-            this.$stage,
-            this.isRotated
-        );
 
     },
     fullscreen: function () {
@@ -1085,6 +1086,10 @@ var movable = function (image, stage) {
         left = $(image).position().left - δ;
         top = $(image).position().top + δ;
 
+        // Add grabbing cursor
+        if(stage.hasClass('is-grab')){
+            stage.addClass('is-grabbing');
+        }
     }
 
     var dragMove = function (e) {
@@ -1150,6 +1155,9 @@ var movable = function (image, stage) {
 
         isDragging = false;
         isMoving = false;
+
+        // Remove grabbing cursor
+        stage.removeClass('is-grabbing');
 
     }
 

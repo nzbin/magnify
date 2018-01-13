@@ -58,6 +58,10 @@ var movable = function (image, stage) {
         left = $(image).position().left - δ;
         top = $(image).position().top + δ;
 
+        // Add grabbing cursor
+        if(stage.hasClass('is-grab')){
+            stage.addClass('is-grabbing');
+        }
     }
 
     var dragMove = function (e) {
@@ -123,6 +127,9 @@ var movable = function (image, stage) {
 
         isDragging = false;
         isMoving = false;
+
+        // Remove grabbing cursor
+        stage.removeClass('is-grabbing');
 
     }
 

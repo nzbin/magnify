@@ -399,6 +399,13 @@ Magnify.prototype = {
             top: (stageData.h - img.height * scale) / 2
         });
 
+        addGrabCursor(
+            { w: this.$image.width(), h: this.$image.height() },
+            { w: this.$stage.width(), h: this.$stage.height() },
+            this.$stage,
+            this.isRotated
+        );
+
     },
     loadImg: function (imgSrc) {
 
@@ -675,6 +682,7 @@ Magnify.prototype = {
                 }
 
                 self.setImageSize({ width: self.imageData.originalWidth, height: self.imageData.originalHeight });
+
             }
 
         }, 500);
@@ -721,13 +729,6 @@ Magnify.prototype = {
         }
 
         this.setImageSize({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
-
-        addGrabCursor(
-            { w: this.$image.width(), h: this.$image.height() },
-            { w: this.$stage.width(), h: this.$stage.height() },
-            this.$stage,
-            this.isRotated
-        );
 
     },
     fullscreen: function () {
