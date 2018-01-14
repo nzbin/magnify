@@ -4,6 +4,8 @@ Magnify is a jQuery plugin to view images just like in windows.
 
 [[ website ]](https://nzbin.github.io/magnify/)
 
+> If you want to support IE8, please goto [magnify-lower](https://github.com/nzbin/magnify-lower/).
+
 ## Main Features
 
 - Modal draggable.
