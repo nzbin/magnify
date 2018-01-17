@@ -184,7 +184,12 @@ $("[data-magnify=gallery]").magnify();
   - **rotateRight** `rotate-right`
 
 - **initMaximized** `false`
+  > If false, the modal size will be set of image size or what you set.
+  > 
   > If true, the modal size will be set maximized when init.
+
+- **multiInstances** `true`
+  > If true, it allow multiple instances.
 
 ## License
 
