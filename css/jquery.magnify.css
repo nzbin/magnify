@@ -20,6 +20,7 @@
   -webkit-box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.3);
           box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.3);
   z-index: 1090;
+  cursor: default;
 }
 
 .magnify-header {
@@ -49,7 +50,6 @@
      -moz-user-select: none;
       -ms-user-select: none;
           user-select: none;
-  cursor: default;
 }
 
 .magnify-stage {
