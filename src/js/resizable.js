@@ -208,6 +208,9 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
         imgHeight = !self.isRotated ? imageData.h : imageData.w;
 
         direction = dir;
+
+        setCursor(dir + '-resize');
+
     }
 
     var dragMove = function (e) {
@@ -242,14 +245,16 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
         // Add grab cursor
         if (isResizing) {
             addGrabCursor(
-                { w: imgWidth, h: imgHeight }, 
-                { w: $(stage).width(), h: $(stage).height() }, 
+                { w: imgWidth, h: imgHeight },
+                { w: $(stage).width(), h: $(stage).height() },
                 stage
             );
         }
 
         isDragging = false;
         isResizing = false;
+
+        setCursor('');
 
     }
 

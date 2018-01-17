@@ -59,7 +59,8 @@ var $W = $(window),
             actualSize: 'actual-size',
             rotateLeft: 'rotate-left',
             rotateRight: 'rotate-right'
-        }
+        },
+        multiInstances: true
         // beforeOpen:$.noop,
         // afterOpen:$.noop,
         // beforeClose:$.noop,
@@ -210,7 +211,7 @@ Magnify.prototype = {
                                     <div class="magnify-toolbar">' + this.creatBtns(this.options.headToolbar, btnsTpl) + '</div>\
                                 </div>\
                                 <div class="magnify-stage">\
-                                    <img class="magnify-image" src="" alt="" title="" />\
+                                    <img class="magnify-image" src="" alt="" />\
                                 </div>\
                                 <div class="magnify-footer">\
                                     <div class="magnify-toolbar">' + this.creatBtns(this.options.footToolbar, btnsTpl) + '</div>\
@@ -221,6 +222,10 @@ Magnify.prototype = {
 
     },
     open: function () {
+
+        if(!this.options.multiInstances){
+            $('.magnify-modal').eq(0).remove();
+        }
 
         // Fixed modal position bug
         if (!$('.magnify-modal').length && this.options.fixedContent) {
@@ -275,7 +280,7 @@ Magnify.prototype = {
             this.draggable(this.$magnify, this.$magnify, '.magnify-button');
         }
         if (this.options.movable) {
-            this.movable(this.$image, this.$stage);
+            this.movable(this.$stage, this.$image);
         }
         if (this.options.resizable) {
             this.resizable(this.$magnify, this.$stage, this.$image, this.options.modalWidth, this.options.modalHeight);
@@ -717,7 +722,7 @@ Magnify.prototype = {
         } else {
 
             this.$magnify.removeClass('magnify-maximize');
-            
+
             this.$magnify.css({
                 width: this.modalData.width ? this.modalData.width : this.options.modalWidth,
                 height: this.modalData.height ? this.modalData.height : this.options.modalHeight,

@@ -7,11 +7,11 @@
  * --------------------------------------
  *
  * [image movable]
- * @param  {[Object]} image   [the image element]
  * @param  {[Object]} stage   [the stage element]
+ * @param  {[Object]} image   [the image element]
  */
 
-var movable = function (image, stage) {
+var movable = function (stage, image) {
 
     var self = this;
 
@@ -59,7 +59,7 @@ var movable = function (image, stage) {
         top = $(image).position().top + δ;
 
         // Add grabbing cursor
-        if(stage.hasClass('is-grab')){
+        if (stage.hasClass('is-grab')) {
             stage.addClass('is-grabbing');
         }
     }

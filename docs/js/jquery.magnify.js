@@ -94,7 +94,8 @@ var $W = $(window),
             actualSize: 'actual-size',
             rotateLeft: 'rotate-left',
             rotateRight: 'rotate-right'
-        }
+        },
+        multiInstances: true
         // beforeOpen:$.noop,
         // afterOpen:$.noop,
         // beforeClose:$.noop,
@@ -245,7 +246,7 @@ Magnify.prototype = {
                                     <div class="magnify-toolbar">' + this.creatBtns(this.options.headToolbar, btnsTpl) + '</div>\
                                 </div>\
                                 <div class="magnify-stage">\
-                                    <img class="magnify-image" src="" alt="" title="" />\
+                                    <img class="magnify-image" src="" alt="" />\
                                 </div>\
                                 <div class="magnify-footer">\
                                     <div class="magnify-toolbar">' + this.creatBtns(this.options.footToolbar, btnsTpl) + '</div>\
@@ -256,6 +257,10 @@ Magnify.prototype = {
 
     },
     open: function () {
+
+        if(!this.options.multiInstances){
+            $('.magnify-modal').eq(0).remove();
+        }
 
         // Fixed modal position bug
         if (!$('.magnify-modal').length && this.options.fixedContent) {
@@ -310,7 +315,7 @@ Magnify.prototype = {
             this.draggable(this.$magnify, this.$magnify, '.magnify-button');
         }
         if (this.options.movable) {
-            this.movable(this.$image, this.$stage);
+            this.movable(this.$stage, this.$image);
         }
         if (this.options.resizable) {
             this.resizable(this.$magnify, this.$stage, this.$image, this.options.modalWidth, this.options.modalHeight);
@@ -752,7 +757,7 @@ Magnify.prototype = {
         } else {
 
             this.$magnify.removeClass('magnify-maximize');
-            
+
             this.$magnify.css({
                 width: this.modalData.width ? this.modalData.width : this.options.modalWidth,
                 height: this.modalData.height ? this.modalData.height : this.options.modalHeight,
@@ -1035,11 +1040,11 @@ $.extend(Magnify.prototype, {
  * --------------------------------------
  *
  * [image movable]
- * @param  {[Object]} image   [the image element]
  * @param  {[Object]} stage   [the stage element]
+ * @param  {[Object]} image   [the image element]
  */
 
-var movable = function (image, stage) {
+var movable = function (stage, image) {
 
     var self = this;
 
@@ -1087,7 +1092,7 @@ var movable = function (image, stage) {
         top = $(image).position().top + δ;
 
         // Add grabbing cursor
-        if(stage.hasClass('is-grab')){
+        if (stage.hasClass('is-grab')) {
             stage.addClass('is-grabbing');
         }
     }
@@ -1383,6 +1388,9 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
         imgHeight = !self.isRotated ? imageData.h : imageData.w;
 
         direction = dir;
+
+        setCursor(dir + '-resize');
+
     }
 
     var dragMove = function (e) {
@@ -1417,14 +1425,16 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
         // Add grab cursor
         if (isResizing) {
             addGrabCursor(
-                { w: imgWidth, h: imgHeight }, 
-                { w: $(stage).width(), h: $(stage).height() }, 
+                { w: imgWidth, h: imgHeight },
+                { w: $(stage).width(), h: $(stage).height() },
                 stage
             );
         }
 
         isDragging = false;
         isResizing = false;
+
+        setCursor('');
 
     }
 
@@ -1587,4 +1597,11 @@ function addGrabCursor(imageData, stageData, stage, isRotated) {
     }
 }
 
+/**
+ * [addGrabCursor]
+ * @param {[String]}  value    [cursor CSS value]
+ */
+function setCursor(value){
+    $('body,.magnify-modal,.magnify-stage,.magnify-button').css('cursor',value);
+}
 });
