@@ -143,9 +143,9 @@ function addGrabCursor(imageData, stageData, stage, isRotated) {
 }
 
 /**
- * [addGrabCursor]
+ * [setCursor]
  * @param {[String]}  value    [cursor CSS value]
  */
 function setCursor(value){
-    $('body,.magnify-modal,.magnify-stage,.magnify-button').css('cursor',value);
+    $('html,body,.magnify-modal,.magnify-stage,.magnify-button').css('cursor',value);
 }

@@ -61,6 +61,7 @@ var movable = function (stage, image) {
         // Add grabbing cursor
         if (stage.hasClass('is-grab')) {
             stage.addClass('is-grabbing');
+            $('html,body,.magnify-modal,.magnify-button,.resizable-handle').addClass('is-grabbing');
         }
     }
 
@@ -130,6 +131,7 @@ var movable = function (stage, image) {
 
         // Remove grabbing cursor
         stage.removeClass('is-grabbing');
+        $('html,body,.magnify-modal,.magnify-button,.resizable-handle').removeClass('is-grabbing');
 
     }
 

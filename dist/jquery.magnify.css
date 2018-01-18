@@ -6,7 +6,7 @@
  * |  |  |  |   _   |  \_/   |  |\   |_| |_|  |      |  |
  * |__|  |__|__| |__|\____/|_|__| \__|_____|__|      |__|
  *
- * magnify.css v0.1.0
+ * magnify.css v0.3.1
  *
  * Copyright (c) 2017 nzbin
  *
@@ -116,18 +116,6 @@
 
 .magnify-button.magnify-button-maximize:hover {
   background-color: #525252;
-}
-
-.is-grab {
-  cursor: move;
-  cursor: -webkit-grab;
-  cursor: grab;
-}
-
-.is-grabbing {
-  cursor: move;
-  cursor: -webkit-grabbing;
-  cursor: grabbing;
 }
 
 .magnify-loading {
@@ -412,6 +400,18 @@
   bottom: 0;
   right: 0;
   border-width: 0;
+}
+
+.is-grab {
+  cursor: move;
+  cursor: -webkit-grab;
+  cursor: grab;
+}
+
+.is-grabbing {
+  cursor: move;
+  cursor: -webkit-grabbing;
+  cursor: grabbing;
 }
 
 /*# sourceMappingURL=jquery.magnify.css.map */
