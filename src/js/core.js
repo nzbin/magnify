@@ -301,7 +301,7 @@ Magnify.prototype = {
 
         // Fixed modal position bug
         if (!$('.magnify-modal').length && this.options.fixedContent) {
-            $('html').css({ 'overflow': '', 'margin-right': '' });
+            $('html').css({ 'overflow': '', 'padding-right': '' });
         }
 
         // off events
