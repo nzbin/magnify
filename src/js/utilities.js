@@ -123,13 +123,13 @@ function getScrollbarWidth() {
 }
 
 /**
- * [addGrabCursor]
+ * [setGrabCursor]
  * @param {[Object]}  imageData    [description]
  * @param {[Object]}  stageData    [description]
  * @param {[Object]}  stage        [description]
  * @param {[Boolean]} isRotate     [description]
  */
-function addGrabCursor(imageData, stageData, stage, isRotated) {
+function setGrabCursor(imageData, stageData, stage, isRotated) {
 
     var imageWidth = !isRotated ? imageData.w : imageData.h,
         imageHeight = !isRotated ? imageData.h : imageData.w;
@@ -140,12 +140,4 @@ function addGrabCursor(imageData, stageData, stage, isRotated) {
     if (imageHeight <= stageData.h && imageWidth <= stageData.w) {
         stage.removeClass('is-grab');
     }
-}
-
-/**
- * [setCursor]
- * @param {[String]}  value    [cursor CSS value]
- */
-function setCursor(value){
-    $('html,body,.magnify-modal,.magnify-stage,.magnify-button').css('cursor',value);
 }

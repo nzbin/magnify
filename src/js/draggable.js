@@ -61,8 +61,6 @@ var draggable = function(modal, dragHandle, dragCancel) {
 
         }
 
-        // return false;
-
     }
 
     var dragEnd = function(e) {

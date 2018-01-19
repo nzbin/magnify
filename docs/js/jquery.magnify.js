@@ -270,7 +270,7 @@ Magnify.prototype = {
             if (hasScrollbar()) {
                 var scrollbarWidth = getScrollbarWidth();
                 if (scrollbarWidth) {
-                    $('html').css({ 'margin-right': scrollbarWidth });
+                    $('html').css({ 'padding-right': scrollbarWidth });
                 }
             }
 
@@ -439,7 +439,8 @@ Magnify.prototype = {
             top: (stageData.h - img.height * scale) / 2
         });
 
-        addGrabCursor(
+        // Set grab cursor
+        setGrabCursor(
             { w: this.$image.width(), h: this.$image.height() },
             { w: this.$stage.width(), h: this.$stage.height() },
             this.$stage,
@@ -674,8 +675,8 @@ Magnify.prototype = {
             top: newTop
         });
 
-        // Add grab cursor
-        addGrabCursor(
+        // Set grab cursor
+        setGrabCursor(
             { w: imgNewWidth, h: imgNewHeight },
             { w: stageData.w, h: stageData.h },
             this.$stage
@@ -1009,8 +1010,6 @@ var draggable = function(modal, dragHandle, dragCancel) {
 
         }
 
-        // return false;
-
     }
 
     var dragEnd = function(e) {
@@ -1093,8 +1092,7 @@ var movable = function (stage, image) {
 
         // Add grabbing cursor
         if (stage.hasClass('is-grab')) {
-            stage.addClass('is-grabbing');
-            $('html,body,.magnify-modal,.magnify-button,.resizable-handle').addClass('is-grabbing');
+            $('html,body,.magnify-modal,.magnify-stage,.magnify-button,.resizable-handle').addClass('is-grabbing');
         }
     }
 
@@ -1153,8 +1151,6 @@ var movable = function (stage, image) {
 
         }
 
-        // return false;
-
     }
 
     var dragEnd = function (e) {
@@ -1163,8 +1159,7 @@ var movable = function (stage, image) {
         isMoving = false;
 
         // Remove grabbing cursor
-        stage.removeClass('is-grabbing');
-        $('html,body,.magnify-modal,.magnify-button,.resizable-handle').removeClass('is-grabbing');
+        $('html,body,.magnify-modal,.magnify-stage,.magnify-button,.resizable-handle').removeClass('is-grabbing');
 
     }
 
@@ -1391,7 +1386,8 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
 
         direction = dir;
 
-        setCursor(dir + '-resize');
+        // Add resizable cursor 
+        $('html,body,.magnify-modal,.magnify-stage,.magnify-button').css('cursor', dir + '-resize');
 
     }
 
@@ -1419,14 +1415,12 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
 
         }
 
-        // return false;
-
     }
     var dragEnd = function (e) {
 
-        // Add grab cursor
+        // Set grab cursor
         if (isResizing) {
-            addGrabCursor(
+            setGrabCursor(
                 { w: imgWidth, h: imgHeight },
                 { w: $(stage).width(), h: $(stage).height() },
                 stage
@@ -1436,7 +1430,8 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
         isDragging = false;
         isResizing = false;
 
-        setCursor('');
+        // Remove resizable cursor
+        $('html,body,.magnify-modal,.magnify-stage,.magnify-button').css('cursor','');
 
     }
 
@@ -1580,13 +1575,13 @@ function getScrollbarWidth() {
 }
 
 /**
- * [addGrabCursor]
+ * [setGrabCursor]
  * @param {[Object]}  imageData    [description]
  * @param {[Object]}  stageData    [description]
  * @param {[Object]}  stage        [description]
  * @param {[Boolean]} isRotate     [description]
  */
-function addGrabCursor(imageData, stageData, stage, isRotated) {
+function setGrabCursor(imageData, stageData, stage, isRotated) {
 
     var imageWidth = !isRotated ? imageData.w : imageData.h,
         imageHeight = !isRotated ? imageData.h : imageData.w;
@@ -1599,11 +1594,4 @@ function addGrabCursor(imageData, stageData, stage, isRotated) {
     }
 }
 
-/**
- * [setCursor]
- * @param {[String]}  value    [cursor CSS value]
- */
-function setCursor(value){
-    $('html,body,.magnify-modal,.magnify-stage,.magnify-button').css('cursor',value);
-}
 });

@@ -209,7 +209,8 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
 
         direction = dir;
 
-        setCursor(dir + '-resize');
+        // Add resizable cursor 
+        $('html,body,.magnify-modal,.magnify-stage,.magnify-button').css('cursor', dir + '-resize');
 
     }
 
@@ -237,14 +238,12 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
 
         }
 
-        // return false;
-
     }
     var dragEnd = function (e) {
 
-        // Add grab cursor
+        // Set grab cursor
         if (isResizing) {
-            addGrabCursor(
+            setGrabCursor(
                 { w: imgWidth, h: imgHeight },
                 { w: $(stage).width(), h: $(stage).height() },
                 stage
@@ -254,7 +253,8 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
         isDragging = false;
         isResizing = false;
 
-        setCursor('');
+        // Remove resizable cursor
+        $('html,body,.magnify-modal,.magnify-stage,.magnify-button').css('cursor','');
 
     }
 

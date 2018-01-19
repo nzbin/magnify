@@ -235,7 +235,7 @@ Magnify.prototype = {
             if (hasScrollbar()) {
                 var scrollbarWidth = getScrollbarWidth();
                 if (scrollbarWidth) {
-                    $('html').css({ 'margin-right': scrollbarWidth });
+                    $('html').css({ 'padding-right': scrollbarWidth });
                 }
             }
 
@@ -404,7 +404,8 @@ Magnify.prototype = {
             top: (stageData.h - img.height * scale) / 2
         });
 
-        addGrabCursor(
+        // Set grab cursor
+        setGrabCursor(
             { w: this.$image.width(), h: this.$image.height() },
             { w: this.$stage.width(), h: this.$stage.height() },
             this.$stage,
@@ -639,8 +640,8 @@ Magnify.prototype = {
             top: newTop
         });
 
-        // Add grab cursor
-        addGrabCursor(
+        // Set grab cursor
+        setGrabCursor(
             { w: imgNewWidth, h: imgNewHeight },
             { w: stageData.w, h: stageData.h },
             this.$stage
