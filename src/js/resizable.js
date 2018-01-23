@@ -4,7 +4,7 @@
  * 2.keep image in stage center
  * 3.~
  * ------------------------------
- * 
+ *
  * [resizable]
  * @param  {[Object]} modal       [the modal element]
  * @param  {[Object]} stage       [the stage element]
@@ -15,260 +15,259 @@
 
 var resizable = function (modal, stage, image, minWidth, minHeight) {
 
-    var self = this;
+  var self = this;
 
-    var resizableHandleE = $('<div class="resizable-handle resizable-handle-e"></div>'),
-        resizableHandleW = $('<div class="resizable-handle resizable-handle-w"></div>'),
-        resizableHandleS = $('<div class="resizable-handle resizable-handle-s"></div>'),
-        resizableHandleN = $('<div class="resizable-handle resizable-handle-n"></div>'),
-        resizableHandleSE = $('<div class="resizable-handle resizable-handle-se"></div>'),
-        resizableHandleSW = $('<div class="resizable-handle resizable-handle-sw"></div>'),
-        resizableHandleNE = $('<div class="resizable-handle resizable-handle-ne"></div>'),
-        resizableHandleNW = $('<div class="resizable-handle resizable-handle-nw"></div>');
+  var resizableHandleE = $('<div class="resizable-handle resizable-handle-e"></div>'),
+    resizableHandleW = $('<div class="resizable-handle resizable-handle-w"></div>'),
+    resizableHandleS = $('<div class="resizable-handle resizable-handle-s"></div>'),
+    resizableHandleN = $('<div class="resizable-handle resizable-handle-n"></div>'),
+    resizableHandleSE = $('<div class="resizable-handle resizable-handle-se"></div>'),
+    resizableHandleSW = $('<div class="resizable-handle resizable-handle-sw"></div>'),
+    resizableHandleNE = $('<div class="resizable-handle resizable-handle-ne"></div>'),
+    resizableHandleNW = $('<div class="resizable-handle resizable-handle-nw"></div>');
 
-    var resizableHandles = {
-        'e': resizableHandleE,
-        's': resizableHandleS,
-        'se': resizableHandleSE,
-        'n': resizableHandleN,
-        'w': resizableHandleW,
-        'nw': resizableHandleNW,
-        'ne': resizableHandleNE,
-        'sw': resizableHandleSW
-    }
+  var resizableHandles = {
+    'e': resizableHandleE,
+    's': resizableHandleS,
+    'se': resizableHandleSE,
+    'n': resizableHandleN,
+    'w': resizableHandleW,
+    'nw': resizableHandleNW,
+    'ne': resizableHandleNE,
+    'sw': resizableHandleSW
+  }
 
-    $(modal).append(
-        resizableHandleE, resizableHandleW, resizableHandleS, resizableHandleN, resizableHandleSE, resizableHandleSW, resizableHandleNE, resizableHandleNW
-    );
+  $(modal).append(
+    resizableHandleE, resizableHandleW, resizableHandleS, resizableHandleN, resizableHandleSE, resizableHandleSW, resizableHandleNE, resizableHandleNW
+  );
 
-    var isDragging = false;
+  var isDragging = false;
 
-    var startX = 0,
-        startY = 0,
+  var startX = 0,
+    startY = 0,
 
-        modalData = {
-            w: 0,
-            h: 0,
-            l: 0,
-            t: 0
-        },
-        stageData = {
-            w: 0,
-            h: 0,
-            l: 0,
-            t: 0
-        },
-        imageData = {
-            w: 0,
-            h: 0,
-            l: 0,
-            t: 0
-        },
+    modalData = {
+      w: 0,
+      h: 0,
+      l: 0,
+      t: 0
+    },
+    stageData = {
+      w: 0,
+      h: 0,
+      l: 0,
+      t: 0
+    },
+    imageData = {
+      w: 0,
+      h: 0,
+      l: 0,
+      t: 0
+    },
 
-        // δ is the difference between image width and height
-        δ = 0,
-        imgWidth = 0,
-        imgHeight = 0,
+    // δ is the difference between image width and height
+    δ = 0,
+    imgWidth = 0,
+    imgHeight = 0,
 
-        direction = '';
+    direction = '';
 
-    // modal CSS options
-    var getModalOpts = function (dir, offsetX, offsetY) {
+  // modal CSS options
+  var getModalOpts = function (dir, offsetX, offsetY) {
 
-        // Modal should not move when its width to the minwidth
-        var modalLeft = (-offsetX + modalData.w) > minWidth ? (offsetX + modalData.l) : (modalData.l + modalData.w - minWidth),
-            modalTop = (-offsetY + modalData.h) > minHeight ? (offsetY + modalData.t) : (modalData.t + modalData.h - minHeight);
+    // Modal should not move when its width to the minwidth
+    var modalLeft = (-offsetX + modalData.w) > minWidth ? (offsetX + modalData.l) : (modalData.l + modalData.w - minWidth),
+      modalTop = (-offsetY + modalData.h) > minHeight ? (offsetY + modalData.t) : (modalData.t + modalData.h - minHeight);
 
-        var opts = {
-            'e': {
-                width: Math.max((offsetX + modalData.w), minWidth) + 'px'
-            },
-            's': {
-                height: Math.max((offsetY + modalData.h), minHeight) + 'px'
-            },
-            'se': {
-                width: Math.max((offsetX + modalData.w), minWidth) + 'px',
-                height: Math.max((offsetY + modalData.h), minHeight) + 'px'
-            },
-            'w': {
-                width: Math.max((-offsetX + modalData.w), minWidth) + 'px',
-                left: modalLeft + 'px'
-            },
-            'n': {
-                height: Math.max((-offsetY + modalData.h), minHeight) + 'px',
-                top: modalTop + 'px'
-            },
-            'nw': {
-                width: Math.max((-offsetX + modalData.w), minWidth) + 'px',
-                height: Math.max((-offsetY + modalData.h), minHeight) + 'px',
-                top: modalTop + 'px',
-                left: modalLeft + 'px'
-            },
-            'ne': {
-                width: Math.max((offsetX + modalData.w), minWidth) + 'px',
-                height: Math.max((-offsetY + modalData.h), minHeight) + 'px',
-                top: modalTop + 'px'
-            },
-            'sw': {
-                width: Math.max((-offsetX + modalData.w), minWidth) + 'px',
-                height: Math.max((offsetY + modalData.h), minHeight) + 'px',
-                left: modalLeft + 'px'
-            }
-        };
+    var opts = {
+      'e': {
+        width: Math.max((offsetX + modalData.w), minWidth) + 'px'
+      },
+      's': {
+        height: Math.max((offsetY + modalData.h), minHeight) + 'px'
+      },
+      'se': {
+        width: Math.max((offsetX + modalData.w), minWidth) + 'px',
+        height: Math.max((offsetY + modalData.h), minHeight) + 'px'
+      },
+      'w': {
+        width: Math.max((-offsetX + modalData.w), minWidth) + 'px',
+        left: modalLeft + 'px'
+      },
+      'n': {
+        height: Math.max((-offsetY + modalData.h), minHeight) + 'px',
+        top: modalTop + 'px'
+      },
+      'nw': {
+        width: Math.max((-offsetX + modalData.w), minWidth) + 'px',
+        height: Math.max((-offsetY + modalData.h), minHeight) + 'px',
+        top: modalTop + 'px',
+        left: modalLeft + 'px'
+      },
+      'ne': {
+        width: Math.max((offsetX + modalData.w), minWidth) + 'px',
+        height: Math.max((-offsetY + modalData.h), minHeight) + 'px',
+        top: modalTop + 'px'
+      },
+      'sw': {
+        width: Math.max((-offsetX + modalData.w), minWidth) + 'px',
+        height: Math.max((offsetY + modalData.h), minHeight) + 'px',
+        left: modalLeft + 'px'
+      }
+    };
 
-        return opts[dir];
-    }
+    return opts[dir];
+  }
 
-    // image CSS options
-    var getImageOpts = function (dir, offsetX, offsetY) {
+  // image CSS options
+  var getImageOpts = function (dir, offsetX, offsetY) {
 
-        // Image should not move when modal width to the min width
-        // The minwidth is modal width, so we should clac the stage minwidth
-        var widthDiff = (offsetX + modalData.w) > minWidth ? (stageData.w - imgWidth + offsetX - δ) : (minWidth - (modalData.w - stageData.w) - imgWidth - δ),
-            heightDiff = (offsetY + modalData.h) > minHeight ? (stageData.h - imgHeight + offsetY + δ) : (minHeight - (modalData.h - stageData.h) - imgHeight + δ),
+    // Image should not move when modal width to the min width
+    // The minwidth is modal width, so we should clac the stage minwidth
+    var widthDiff = (offsetX + modalData.w) > minWidth ? (stageData.w - imgWidth + offsetX - δ) : (minWidth - (modalData.w - stageData.w) - imgWidth - δ),
+      heightDiff = (offsetY + modalData.h) > minHeight ? (stageData.h - imgHeight + offsetY + δ) : (minHeight - (modalData.h - stageData.h) - imgHeight + δ),
 
-            widthDiff2 = (-offsetX + modalData.w) > minWidth ? (stageData.w - imgWidth - offsetX - δ) : (minWidth - (modalData.w - stageData.w) - imgWidth - δ),
-            heightDiff2 = (-offsetY + modalData.h) > minHeight ? (stageData.h - imgHeight - offsetY + δ) : (minHeight - (modalData.h - stageData.h) - imgHeight + δ);
+      widthDiff2 = (-offsetX + modalData.w) > minWidth ? (stageData.w - imgWidth - offsetX - δ) : (minWidth - (modalData.w - stageData.w) - imgWidth - δ),
+      heightDiff2 = (-offsetY + modalData.h) > minHeight ? (stageData.h - imgHeight - offsetY + δ) : (minHeight - (modalData.h - stageData.h) - imgHeight + δ);
 
-        // Get image position in dragging
-        var imgLeft = $(image).position().left - δ,
-            imgTop = $(image).position().top + δ;
+    // Get image position in dragging
+    var imgLeft = $(image).position().left - δ,
+      imgTop = $(image).position().top + δ;
 
-        var opts = {
-            'e': {
-                left: widthDiff >= -δ ? ((widthDiff - δ) / 2 + 'px') : (imgLeft > widthDiff ? (imgLeft + 'px') : (widthDiff + 'px'))
-            },
-            's': {
-                top: heightDiff >= δ ? ((heightDiff + δ) / 2 + 'px') : (imgTop > heightDiff ? (imgTop + 'px') : (heightDiff + 'px'))
-            },
-            'se': {
-                top: heightDiff >= δ ? ((heightDiff + δ) / 2 + 'px') : (imgTop > heightDiff ? (imgTop + 'px') : (heightDiff + 'px')),
-                left: widthDiff >= -δ ? ((widthDiff - δ) / 2 + 'px') : (imgLeft > widthDiff ? (imgLeft + 'px') : (widthDiff + 'px'))
-            },
-            'w': {
-                left: widthDiff2 >= -δ ? ((widthDiff2 - δ) / 2 + 'px') : (imgLeft > widthDiff2 ? (imgLeft + 'px') : (widthDiff2 + 'px'))
-            },
-            'n': {
-                top: heightDiff2 >= δ ? ((heightDiff2 + δ) / 2 + 'px') : (imgTop > heightDiff2 ? (imgTop + 'px') : (heightDiff2 + 'px'))
-            },
-            'nw': {
-                top: heightDiff2 >= δ ? ((heightDiff2 + δ) / 2 + 'px') : (imgTop > heightDiff2 ? (imgTop + 'px') : (heightDiff2 + 'px')),
-                left: widthDiff2 >= -δ ? ((widthDiff2 - δ) / 2 + 'px') : (imgLeft > widthDiff2 ? (imgLeft + 'px') : (widthDiff2 + 'px'))
-            },
-            'ne': {
-                top: heightDiff2 >= δ ? ((heightDiff2 + δ) / 2 + 'px') : (imgTop > heightDiff2 ? (imgTop + 'px') : (heightDiff2 + 'px')),
-                left: widthDiff >= -δ ? ((widthDiff - δ) / 2 + 'px') : (imgLeft > widthDiff ? (imgLeft + 'px') : (widthDiff + 'px'))
-            },
-            'sw': {
-                top: heightDiff >= δ ? ((heightDiff + δ) / 2 + 'px') : (imgTop > heightDiff ? (imgTop + 'px') : (heightDiff + 'px')),
-                left: widthDiff2 >= -δ ? ((widthDiff2 - δ) / 2 + 'px') : (imgLeft > widthDiff2 ? (imgLeft + 'px') : (widthDiff2 + 'px'))
-            }
-        };
+    var opts = {
+      'e': {
+        left: widthDiff >= -δ ? ((widthDiff - δ) / 2 + 'px') : (imgLeft > widthDiff ? (imgLeft + 'px') : (widthDiff + 'px'))
+      },
+      's': {
+        top: heightDiff >= δ ? ((heightDiff + δ) / 2 + 'px') : (imgTop > heightDiff ? (imgTop + 'px') : (heightDiff + 'px'))
+      },
+      'se': {
+        top: heightDiff >= δ ? ((heightDiff + δ) / 2 + 'px') : (imgTop > heightDiff ? (imgTop + 'px') : (heightDiff + 'px')),
+        left: widthDiff >= -δ ? ((widthDiff - δ) / 2 + 'px') : (imgLeft > widthDiff ? (imgLeft + 'px') : (widthDiff + 'px'))
+      },
+      'w': {
+        left: widthDiff2 >= -δ ? ((widthDiff2 - δ) / 2 + 'px') : (imgLeft > widthDiff2 ? (imgLeft + 'px') : (widthDiff2 + 'px'))
+      },
+      'n': {
+        top: heightDiff2 >= δ ? ((heightDiff2 + δ) / 2 + 'px') : (imgTop > heightDiff2 ? (imgTop + 'px') : (heightDiff2 + 'px'))
+      },
+      'nw': {
+        top: heightDiff2 >= δ ? ((heightDiff2 + δ) / 2 + 'px') : (imgTop > heightDiff2 ? (imgTop + 'px') : (heightDiff2 + 'px')),
+        left: widthDiff2 >= -δ ? ((widthDiff2 - δ) / 2 + 'px') : (imgLeft > widthDiff2 ? (imgLeft + 'px') : (widthDiff2 + 'px'))
+      },
+      'ne': {
+        top: heightDiff2 >= δ ? ((heightDiff2 + δ) / 2 + 'px') : (imgTop > heightDiff2 ? (imgTop + 'px') : (heightDiff2 + 'px')),
+        left: widthDiff >= -δ ? ((widthDiff - δ) / 2 + 'px') : (imgLeft > widthDiff ? (imgLeft + 'px') : (widthDiff + 'px'))
+      },
+      'sw': {
+        top: heightDiff >= δ ? ((heightDiff + δ) / 2 + 'px') : (imgTop > heightDiff ? (imgTop + 'px') : (heightDiff + 'px')),
+        left: widthDiff2 >= -δ ? ((widthDiff2 - δ) / 2 + 'px') : (imgLeft > widthDiff2 ? (imgLeft + 'px') : (widthDiff2 + 'px'))
+      }
+    };
 
-        return opts[dir];
-    }
+    return opts[dir];
+  }
 
-    var dragStart = function (dir, e) {
+  var dragStart = function (dir, e) {
 
-        var e = e || window.event;
+    var e = e || window.event;
 
-        e.preventDefault();
+    e.preventDefault();
 
-        isDragging = true;
-        isResizing = true;
+    isDragging = true;
+    isResizing = true;
 
-        startX = e.clientX;
-        startY = e.clientY;
+    startX = e.type === 'touchstart' ? e.originalEvent.targetTouches[0].pageX : e.clientX;
+    startY = e.type === 'touchstart' ? e.originalEvent.targetTouches[0].pageY : e.clientY;
 
-        // Reclac the modal data when mousedown
-        modalData = {
-            w: $(modal).width(),
-            h: $(modal).height(),
-            l: $(modal).offset().left,
-            t: $(modal).offset().top
-        };
+    // Reclac the modal data when mousedown
+    modalData = {
+      w: $(modal).width(),
+      h: $(modal).height(),
+      l: $(modal).offset().left,
+      t: $(modal).offset().top
+    };
 
-        stageData = {
-            w: $(stage).width(),
-            h: $(stage).height(),
-            l: $(stage).offset().left,
-            t: $(stage).offset().top
-        };
+    stageData = {
+      w: $(stage).width(),
+      h: $(stage).height(),
+      l: $(stage).offset().left,
+      t: $(stage).offset().top
+    };
 
-        imageData = {
-            w: $(image).width(),
-            h: $(image).height(),
-            l: $(image).position().left,
-            t: $(image).position().top
-        };
+    imageData = {
+      w: $(image).width(),
+      h: $(image).height(),
+      l: $(image).position().left,
+      t: $(image).position().top
+    };
 
-        // δ is the difference between image width and height
-        δ = !self.isRotated ? 0 : (imageData.w - imageData.h) / 2;
-        imgWidth = !self.isRotated ? imageData.w : imageData.h;
-        imgHeight = !self.isRotated ? imageData.h : imageData.w;
+    // δ is the difference between image width and height
+    δ = !self.isRotated ? 0 : (imageData.w - imageData.h) / 2;
+    imgWidth = !self.isRotated ? imageData.w : imageData.h;
+    imgHeight = !self.isRotated ? imageData.h : imageData.w;
 
-        direction = dir;
+    direction = dir;
 
-        // Add resizable cursor 
-        $('html,body,.magnify-modal,.magnify-stage,.magnify-button').css('cursor', dir + '-resize');
+    // Add resizable cursor
+    $('html,body,.magnify-modal,.magnify-stage,.magnify-button').css('cursor', dir + '-resize');
 
-    }
+  }
 
-    var dragMove = function (e) {
+  var dragMove = function (e) {
 
-        var e = e || window.event;
+    var e = e || window.event;
 
-        e.preventDefault();
+    e.preventDefault();
 
-        if (isDragging && !self.isMaximized) {
+    if (isDragging && !self.isMaximized) {
 
-            var endX = e.clientX,
-                endY = e.clientY,
+      var endX = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageX : e.clientX,
+        endY = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageY : e.clientY,
 
-                relativeX = endX - startX,
-                relativeY = endY - startY;
+        relativeX = endX - startX,
+        relativeY = endY - startY;
 
-            var modalOpts = getModalOpts(direction, relativeX, relativeY);
+      var modalOpts = getModalOpts(direction, relativeX, relativeY);
 
-            $(modal).css(modalOpts);
+      $(modal).css(modalOpts);
 
-            var imageOpts = getImageOpts(direction, relativeX, relativeY);
+      var imageOpts = getImageOpts(direction, relativeX, relativeY);
 
-            $(image).css(imageOpts);
-
-        }
-
-    }
-    var dragEnd = function (e) {
-
-        // Set grab cursor
-        if (isResizing) {
-            setGrabCursor(
-                { w: imgWidth, h: imgHeight },
-                { w: $(stage).width(), h: $(stage).height() },
-                stage
-            );
-        }
-
-        isDragging = false;
-        isResizing = false;
-
-        // Remove resizable cursor
-        $('html,body,.magnify-modal,.magnify-stage,.magnify-button').css('cursor','');
+      $(image).css(imageOpts);
 
     }
 
-    $.each(resizableHandles, function (dir, handle) {
-        handle.on('mousedown.magnify', function (e) {
-            dragStart(dir, e);
-        });
+  }
+  var dragEnd = function (e) {
+
+    // Set grab cursor
+    if (isResizing) {
+      setGrabCursor({ w: imgWidth, h: imgHeight }, { w: $(stage).width(), h: $(stage).height() },
+        stage
+      );
+    }
+
+    isDragging = false;
+    isResizing = false;
+
+    // Remove resizable cursor
+    $('html,body,.magnify-modal,.magnify-stage,.magnify-button').css('cursor', '');
+
+  }
+
+  $.each(resizableHandles, function (dir, handle) {
+    handle.on(touchEvents.start, function (e) {
+      dragStart(dir, e);
     });
+  });
 
-    $D.on('mousemove.magnify', dragMove);
-    $D.on('mouseup.magnify', dragEnd);
+  $D.on(touchEvents.move, dragMove);
+
+  $D.on(touchEvents.end, dragEnd);
 }
 
 // Add to Magnify Prototype
 $.extend(Magnify.prototype, {
-    resizable: resizable
+  resizable: resizable
 });

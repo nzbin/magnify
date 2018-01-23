@@ -2,73 +2,72 @@
 <html lang="zh-CN">
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Magnify Examples</title>
-    <!-- Bootstrap -->
-    <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../dist/jquery.magnify.css" rel="stylesheet">
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-    <style>
-        .magnify-header .magnify-toolbar {
-            width: 40px;
-        }
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Magnify Examples</title>
+  <!-- Bootstrap -->
+  <link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../dist/jquery.magnify.css" rel="stylesheet">
+  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+    <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+  <style>
+  .magnify-header .magnify-toolbar {
+    width: 40px;
+  }
 
-        .magnify-button.magnify-button-maximize:hover {
-            background-color: transparent;
-        }
-    </style>
+  .magnify-button.magnify-button-maximize:hover {
+    background-color: transparent;
+  }
+
+  </style>
 </head>
 
 <body>
-    <div class="container">
-
-        <div class="image-set">
-            <a data-magnify="gallery" data-caption="Rémi Bizouard triple champion du monde by malainxx24" href="https://farm5.staticflickr.com/4267/34162425794_1430f38362_z.jpg">
-                <img src="https://farm5.staticflickr.com/4267/34162425794_1430f38362_s.jpg" alt="">
-            </a>
-            <a data-magnify="gallery" data-caption="A SELFROOME by MASSILIA JMMC" href="https://farm5.staticflickr.com/4304/35957594681_187d1eab44_z.jpg">
-                <img src="https://farm5.staticflickr.com/4304/35957594681_187d1eab44_s.jpg" alt="">
-            </a>
-            <a data-magnify="gallery" data-caption="Paraglider flying over Aurlandfjord, Norway by framedbythomas" href="https://farm1.staticflickr.com/512/32967783396_a6b4babd92_z.jpg">
-                <img src="https://farm1.staticflickr.com/512/32967783396_a6b4babd92_s.jpg" alt="">
-            </a>
-        </div>
-
+  <div class="container">
+    <div class="image-set">
+      <a data-magnify="gallery" data-caption="Rémi Bizouard triple champion du monde by malainxx24" href="https://farm5.staticflickr.com/4267/34162425794_1430f38362_z.jpg">
+        <img src="https://farm5.staticflickr.com/4267/34162425794_1430f38362_s.jpg" alt="">
+      </a>
+      <a data-magnify="gallery" data-caption="A SELFROOME by MASSILIA JMMC" href="https://farm5.staticflickr.com/4304/35957594681_187d1eab44_z.jpg">
+        <img src="https://farm5.staticflickr.com/4304/35957594681_187d1eab44_s.jpg" alt="">
+      </a>
+      <a data-magnify="gallery" data-caption="Paraglider flying over Aurlandfjord, Norway by framedbythomas" href="https://farm1.staticflickr.com/512/32967783396_a6b4babd92_z.jpg">
+        <img src="https://farm1.staticflickr.com/512/32967783396_a6b4babd92_s.jpg" alt="">
+      </a>
     </div>
+  </div>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="../dist/jquery.magnify.js"></script>
+  <script>
+  $('[data-magnify]').magnify({
+    headToolbar: [
+      'close'
+    ],
+    footToolbar: [
+      'maximize',
+      'zoomIn',
+      'zoomOut',
+      'prev',
+      'fullscreen',
+      'next',
+      'actualSize',
+      'rotateLeft',
+      'rotateRight'
+    ],
+    modalWidth: 400,
+    modalHeight: 400
+  });
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="../dist/jquery.magnify.js"></script>
-    <script>
-        $('[data-magnify]').magnify({
-            headToolbar: [
-                'close'
-            ],
-            footToolbar: [
-                'maximize',
-                'zoomIn',
-                'zoomOut',
-                'prev',
-                'fullscreen',
-                'next',
-                'actualSize',
-                'rotateLeft',
-                'rotateRight'
-            ],
-            modalWidth: 400,
-            modalHeight: 400
-        });
-    </script>
+  </script>
 </body>
 
 </html>

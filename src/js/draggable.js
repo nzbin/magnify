@@ -5,78 +5,78 @@
  * @param  {[Object]} dragCancel  [the cancel element when dragging]
  */
 
-var draggable = function(modal, dragHandle, dragCancel) {
+var draggable = function (modal, dragHandle, dragCancel) {
 
-    var self = this;
+  var self = this;
 
-    var isDragging = false;
+  var isDragging = false;
 
-    var startX = 0,
-        startY = 0,
+  var startX = 0,
+    startY = 0,
 
-        left = 0,
-        top = 0;
+    left = 0,
+    top = 0;
 
-    var dragStart = function(e) {
+  var dragStart = function (e) {
 
-        var e = e || window.event;
+    var e = e || window.event;
 
-        e.preventDefault();
+    e.preventDefault();
 
-        // Get clicked button
-        var elemCancel = $(e.target).closest(dragCancel);
-        // Stop modal moving when click buttons
-        if(elemCancel.length){
-            return true;
-        }
+    // Get clicked button
+    var elemCancel = $(e.target).closest(dragCancel);
+    // Stop modal moving when click buttons
+    if (elemCancel.length) {
+      return true;
+    }
 
-        isDragging = true;
+    isDragging = true;
 
-        startX = e.clientX;
-        startY = e.clientY;
+    startX = e.type === 'touchstart' ? e.originalEvent.targetTouches[0].pageX : e.clientX;
+    startY = e.type === 'touchstart' ? e.originalEvent.targetTouches[0].pageY : e.clientY;
 
-        left = $(modal).offset().left;
-        top = $(modal).offset().top;
+    left = $(modal).offset().left;
+    top = $(modal).offset().top;
+
+  }
+
+  var dragMove = function (e) {
+
+    var e = e || window.event;
+
+    e.preventDefault();
+
+    if (isDragging && !isMoving && !isResizing && !self.isMaximized) {
+
+      var endX = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageX : e.clientX,
+        endY = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageY : e.clientY,
+
+        relativeX = endX - startX,
+        relativeY = endY - startY;
+
+      $(modal).css({
+        left: relativeX + left + 'px',
+        top: relativeY + top + 'px'
+      });
 
     }
 
-    var dragMove = function(e) {
+  }
 
-        var e = e || window.event;
+  var dragEnd = function (e) {
 
-        e.preventDefault();
+    isDragging = false;
 
-        if (isDragging && !isMoving && !isResizing && !self.isMaximized) {
+  }
 
-            var endX = e.clientX,
-                endY = e.clientY,
+  $(dragHandle).on(touchEvents.start, dragStart);
 
-                relativeX = endX - startX,
-                relativeY = endY - startY;
+  $D.on(touchEvents.move, dragMove);
 
-            $(modal).css({
-                left: relativeX + left + 'px',
-                top: relativeY + top + 'px'
-            });
-
-        }
-
-    }
-
-    var dragEnd = function(e) {
-
-        isDragging = false;
-
-    }
-
-    $(dragHandle).on('mousedown.magnify', dragStart);
-
-    $D.on('mousemove.magnify', dragMove);
-
-    $D.on('mouseup.magnify', dragEnd);
+  $D.on(touchEvents.end, dragEnd);
 }
 
 // Add to Magnify Prototype
 $.extend(Magnify.prototype, {
-    draggable: draggable
+  draggable: draggable
 });
