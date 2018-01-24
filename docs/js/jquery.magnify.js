@@ -348,7 +348,8 @@ Magnify.prototype = {
     // off events
     if (!$('.magnify-modal').length) {
       $W.off('resize');
-      $D.off('mousemove mouseup');
+      $D.off(touchEvents.move);
+      $D.off(touchEvents.end);
     }
 
   },
@@ -972,7 +973,7 @@ var draggable = function (modal, dragHandle, dragCancel) {
 
     var e = e || window.event;
 
-    e.preventDefault();
+    // e.preventDefault();
 
     // Get clicked button
     var elemCancel = $(e.target).closest(dragCancel);

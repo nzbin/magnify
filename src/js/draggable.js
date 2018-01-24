@@ -21,7 +21,7 @@ var draggable = function (modal, dragHandle, dragCancel) {
 
     var e = e || window.event;
 
-    e.preventDefault();
+    // e.preventDefault();
 
     // Get clicked button
     var elemCancel = $(e.target).closest(dragCancel);
