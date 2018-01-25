@@ -257,14 +257,14 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
   }
 
   $.each(resizableHandles, function (dir, handle) {
-    handle.on(touchEvents.start, function (e) {
+    handle.on(TOUCH_START_EVENT, function (e) {
       dragStart(dir, e);
     });
   });
 
-  $D.on(touchEvents.move, dragMove);
+  $D.on(TOUCH_MOVE_EVENT, dragMove);
 
-  $D.on(touchEvents.end, dragEnd);
+  $D.on(TOUCH_END_EVENT, dragEnd);
 }
 
 // Add to Magnify Prototype

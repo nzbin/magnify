@@ -131,11 +131,11 @@ var movable = function (stage, image) {
 
   }
 
-  $(stage).on(touchEvents.start, dragStart);
+  $(stage).on(TOUCH_START_EVENT, dragStart);
 
-  $D.on(touchEvents.move, dragMove);
+  $D.on(TOUCH_MOVE_EVENT, dragMove);
 
-  $D.on(touchEvents.end, dragEnd);
+  $D.on(TOUCH_END_EVENT, dragEnd);
 }
 
 // Add to Magnify Prototype
