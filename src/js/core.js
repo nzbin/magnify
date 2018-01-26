@@ -1,7 +1,6 @@
 /**
  * Private static constants
  */
-
 var CLICK_EVENT = 'click',
   RESIZE_EVENT = 'resize',
   KEYDOWN_EVENT = 'keydown',
@@ -13,7 +12,6 @@ var CLICK_EVENT = 'click',
 /**
  * Private vars
  */
-
 var $W = $(window),
   $D = $(document),
 
