@@ -6,7 +6,7 @@
  * |  |  |  |   _   |  \_/   |  |\   |_| |_|  |      |  |
  * |__|  |__|__| |__|\____/|_|__| \__|_____|__|      |__|
  *
- * jquery.magnify.js v0.4.0
+ * jquery.magnify.js v0.4.1
  *
  * A jQuery plugin to view images just like in windows
  *
@@ -35,7 +35,6 @@
 /**
  * Private static constants
  */
-
 var CLICK_EVENT = 'click',
   RESIZE_EVENT = 'resize',
   KEYDOWN_EVENT = 'keydown',
@@ -47,7 +46,6 @@ var CLICK_EVENT = 'click',
 /**
  * Private vars
  */
-
 var $W = $(window),
   $D = $(document),
 
