@@ -62,6 +62,10 @@ var movable = function (stage, image) {
     if (stage.hasClass('is-grab')) {
       $('html,body,.magnify-modal,.magnify-stage,.magnify-button,.resizable-handle').addClass('is-grabbing');
     }
+
+    $D.on(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
+      .on(TOUCH_END_EVENT + EVENT_NS, dragEnd);
+
   }
 
   var dragMove = function (e) {
@@ -123,6 +127,9 @@ var movable = function (stage, image) {
 
   var dragEnd = function (e) {
 
+    $D.off(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
+      .off(TOUCH_END_EVENT + EVENT_NS, dragEnd);
+
     isDragging = false;
     isMoving = false;
 
@@ -131,11 +138,8 @@ var movable = function (stage, image) {
 
   }
 
-  $(stage).on(TOUCH_START_EVENT, dragStart);
+  $(stage).on(TOUCH_START_EVENT + EVENT_NS, dragStart);
 
-  $D.on(TOUCH_MOVE_EVENT, dragMove);
-
-  $D.on(TOUCH_END_EVENT, dragEnd);
 }
 
 // Add to Magnify Prototype

@@ -7,7 +7,8 @@ var CLICK_EVENT = 'click',
   WHEEL_EVENT = 'wheel mousewheel DOMMouseScroll',
   TOUCH_START_EVENT = supportTouch() ? 'touchstart' : 'mousedown',
   TOUCH_MOVE_EVENT = supportTouch() ? 'touchmove' : 'mousemove',
-  TOUCH_END_EVENT = supportTouch() ? 'touchend' : 'mouseup';
+  TOUCH_END_EVENT = supportTouch() ? 'touchend' : 'mouseup',
+  EVENT_NS = '.magnify';
 
 /**
  * Private Vars
@@ -311,9 +312,8 @@ Magnify.prototype = {
 
     // off events
     if (!$('.magnify-modal').length) {
-      $W.off(RESIZE_EVENT);
-      $D.off(TOUCH_MOVE_EVENT);
-      $D.off(TOUCH_END_EVENT);
+      $D.off(KEYDOWN_EVENT + EVENT_NS);
+      $W.off(RESIZE_EVENT + EVENT_NS);
     }
 
   },
@@ -807,55 +807,55 @@ Magnify.prototype = {
 
     var self = this;
 
-    this.$close.off(CLICK_EVENT).on(CLICK_EVENT, function (e) {
+    this.$close.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
       self.close();
     });
 
-    this.$stage.off(WHEEL_EVENT).on(WHEEL_EVENT, function (e) {
+    this.$stage.off(WHEEL_EVENT + EVENT_NS).on(WHEEL_EVENT + EVENT_NS, function (e) {
       self.wheel(e);
     });
 
-    this.$zoomIn.off(CLICK_EVENT).on(CLICK_EVENT, function (e) {
+    this.$zoomIn.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
       self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
     });
 
-    this.$zoomOut.off(CLICK_EVENT).on(CLICK_EVENT, function (e) {
+    this.$zoomOut.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
       self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
     });
 
-    this.$actualSize.off(CLICK_EVENT).on(CLICK_EVENT, function (e) {
+    this.$actualSize.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
       self.zoomTo(1, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
     });
 
-    this.$prev.off(CLICK_EVENT).on(CLICK_EVENT, function () {
+    this.$prev.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
       self.jump(-1);
     });
 
-    this.$fullscreen.off(CLICK_EVENT).on(CLICK_EVENT, function () {
+    this.$fullscreen.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
       self.fullscreen();
     });
 
-    this.$next.off(CLICK_EVENT).on(CLICK_EVENT, function () {
+    this.$next.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
       self.jump(1);
     });
 
-    this.$rotateLeft.off(CLICK_EVENT).on(CLICK_EVENT, function () {
+    this.$rotateLeft.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
       self.rotate(-90);
     });
 
-    this.$rotateRight.off(CLICK_EVENT).on(CLICK_EVENT, function () {
+    this.$rotateRight.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
       self.rotate(90);
     });
 
-    this.$maximize.off(CLICK_EVENT).on(CLICK_EVENT, function () {
+    this.$maximize.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
       self.maximize();
     });
 
-    $D.off(KEYDOWN_EVENT).on(KEYDOWN_EVENT, function (e) {
+    $D.off(KEYDOWN_EVENT + EVENT_NS).on(KEYDOWN_EVENT + EVENT_NS, function (e) {
       self.keydown(e);
     });
 
-    $W.on(RESIZE_EVENT, self.resize());
+    $W.on(RESIZE_EVENT + EVENT_NS, self.resize());
 
   }
 
@@ -879,7 +879,7 @@ $.fn.magnify = function (options) {
 
   } else {
 
-    jqEl.off(CLICK_EVENT).on(CLICK_EVENT, function (e) {
+    jqEl.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
 
       if (e.isDefaultPrevented()) {
         return;
@@ -900,7 +900,7 @@ $.fn.magnify = function (options) {
 /**
  * MAGNIFY DATA-API
  */
-$D.on(CLICK_EVENT, '[data-magnify]', function (e) {
+$D.on(CLICK_EVENT + EVENT_NS, '[data-magnify]', function (e) {
 
   jqEl = $('[data-magnify]');
 

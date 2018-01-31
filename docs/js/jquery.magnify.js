@@ -33,7 +33,7 @@
   'use strict';
 
 /**
- * Private static constants
+ * Private Static Constants
  */
 var CLICK_EVENT = 'click',
   RESIZE_EVENT = 'resize',
@@ -41,10 +41,11 @@ var CLICK_EVENT = 'click',
   WHEEL_EVENT = 'wheel mousewheel DOMMouseScroll',
   TOUCH_START_EVENT = supportTouch() ? 'touchstart' : 'mousedown',
   TOUCH_MOVE_EVENT = supportTouch() ? 'touchmove' : 'mousemove',
-  TOUCH_END_EVENT = supportTouch() ? 'touchend' : 'mouseup';
+  TOUCH_END_EVENT = supportTouch() ? 'touchend' : 'mouseup',
+  EVENT_NS = '.magnify';
 
 /**
- * Private vars
+ * Private Vars
  */
 var $W = $(window),
   $D = $(document),
@@ -168,7 +169,7 @@ var Magnify = function (el, options) {
 
 
 /**
- * Mangify prototype
+ * Mangify Prototype
  */
 Magnify.prototype = {
 
@@ -345,9 +346,8 @@ Magnify.prototype = {
 
     // off events
     if (!$('.magnify-modal').length) {
-      $W.off(RESIZE_EVENT);
-      $D.off(TOUCH_MOVE_EVENT);
-      $D.off(TOUCH_END_EVENT);
+      $D.off(KEYDOWN_EVENT + EVENT_NS);
+      $W.off(RESIZE_EVENT + EVENT_NS);
     }
 
   },
@@ -841,62 +841,62 @@ Magnify.prototype = {
 
     var self = this;
 
-    this.$close.off(CLICK_EVENT).on(CLICK_EVENT, function (e) {
+    this.$close.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
       self.close();
     });
 
-    this.$stage.off(WHEEL_EVENT).on(WHEEL_EVENT, function (e) {
+    this.$stage.off(WHEEL_EVENT + EVENT_NS).on(WHEEL_EVENT + EVENT_NS, function (e) {
       self.wheel(e);
     });
 
-    this.$zoomIn.off(CLICK_EVENT).on(CLICK_EVENT, function (e) {
+    this.$zoomIn.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
       self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
     });
 
-    this.$zoomOut.off(CLICK_EVENT).on(CLICK_EVENT, function (e) {
+    this.$zoomOut.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
       self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
     });
 
-    this.$actualSize.off(CLICK_EVENT).on(CLICK_EVENT, function (e) {
+    this.$actualSize.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
       self.zoomTo(1, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
     });
 
-    this.$prev.off(CLICK_EVENT).on(CLICK_EVENT, function () {
+    this.$prev.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
       self.jump(-1);
     });
 
-    this.$fullscreen.off(CLICK_EVENT).on(CLICK_EVENT, function () {
+    this.$fullscreen.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
       self.fullscreen();
     });
 
-    this.$next.off(CLICK_EVENT).on(CLICK_EVENT, function () {
+    this.$next.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
       self.jump(1);
     });
 
-    this.$rotateLeft.off(CLICK_EVENT).on(CLICK_EVENT, function () {
+    this.$rotateLeft.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
       self.rotate(-90);
     });
 
-    this.$rotateRight.off(CLICK_EVENT).on(CLICK_EVENT, function () {
+    this.$rotateRight.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
       self.rotate(90);
     });
 
-    this.$maximize.off(CLICK_EVENT).on(CLICK_EVENT, function () {
+    this.$maximize.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
       self.maximize();
     });
 
-    $D.off(KEYDOWN_EVENT).on(KEYDOWN_EVENT, function (e) {
+    $D.off(KEYDOWN_EVENT + EVENT_NS).on(KEYDOWN_EVENT + EVENT_NS, function (e) {
       self.keydown(e);
     });
 
-    $W.on(RESIZE_EVENT, self.resize());
+    $W.on(RESIZE_EVENT + EVENT_NS, self.resize());
 
   }
 
 }
 
 /**
- * Public static functions
+ * Public Static Functions
  */
 $.magnify = {
   instance: Magnify.prototype
@@ -913,7 +913,7 @@ $.fn.magnify = function (options) {
 
   } else {
 
-    jqEl.off(CLICK_EVENT).on(CLICK_EVENT, function (e) {
+    jqEl.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
 
       if (e.isDefaultPrevented()) {
         return;
@@ -934,7 +934,7 @@ $.fn.magnify = function (options) {
 /**
  * MAGNIFY DATA-API
  */
-$D.on(CLICK_EVENT, '[data-magnify]', function (e) {
+$D.on(CLICK_EVENT + EVENT_NS, '[data-magnify]', function (e) {
 
   jqEl = $('[data-magnify]');
 
@@ -988,6 +988,9 @@ var draggable = function (modal, dragHandle, dragCancel) {
     left = $(modal).offset().left;
     top = $(modal).offset().top;
 
+    $D.on(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
+      .on(TOUCH_END_EVENT + EVENT_NS, dragEnd);
+
   }
 
   var dragMove = function (e) {
@@ -1015,15 +1018,15 @@ var draggable = function (modal, dragHandle, dragCancel) {
 
   var dragEnd = function (e) {
 
+    $D.off(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
+      .off(TOUCH_END_EVENT + EVENT_NS, dragEnd);
+
     isDragging = false;
 
   }
 
-  $(dragHandle).on(TOUCH_START_EVENT, dragStart);
+  $(dragHandle).on(TOUCH_START_EVENT + EVENT_NS, dragStart);
 
-  $D.on(TOUCH_MOVE_EVENT, dragMove);
-
-  $D.on(TOUCH_END_EVENT, dragEnd);
 }
 
 // Add to Magnify Prototype
@@ -1095,6 +1098,10 @@ var movable = function (stage, image) {
     if (stage.hasClass('is-grab')) {
       $('html,body,.magnify-modal,.magnify-stage,.magnify-button,.resizable-handle').addClass('is-grabbing');
     }
+
+    $D.on(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
+      .on(TOUCH_END_EVENT + EVENT_NS, dragEnd);
+
   }
 
   var dragMove = function (e) {
@@ -1156,6 +1163,9 @@ var movable = function (stage, image) {
 
   var dragEnd = function (e) {
 
+    $D.off(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
+      .off(TOUCH_END_EVENT + EVENT_NS, dragEnd);
+
     isDragging = false;
     isMoving = false;
 
@@ -1164,11 +1174,8 @@ var movable = function (stage, image) {
 
   }
 
-  $(stage).on(TOUCH_START_EVENT, dragStart);
+  $(stage).on(TOUCH_START_EVENT + EVENT_NS, dragStart);
 
-  $D.on(TOUCH_MOVE_EVENT, dragMove);
-
-  $D.on(TOUCH_END_EVENT, dragEnd);
 }
 
 // Add to Magnify Prototype
@@ -1195,14 +1202,14 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
 
   var self = this;
 
-  var resizableHandleE = $('<div class="resizable-handle resizable-handle-e"></div>'),
-    resizableHandleW = $('<div class="resizable-handle resizable-handle-w"></div>'),
-    resizableHandleS = $('<div class="resizable-handle resizable-handle-s"></div>'),
-    resizableHandleN = $('<div class="resizable-handle resizable-handle-n"></div>'),
-    resizableHandleSE = $('<div class="resizable-handle resizable-handle-se"></div>'),
-    resizableHandleSW = $('<div class="resizable-handle resizable-handle-sw"></div>'),
-    resizableHandleNE = $('<div class="resizable-handle resizable-handle-ne"></div>'),
-    resizableHandleNW = $('<div class="resizable-handle resizable-handle-nw"></div>');
+  var resizableHandleE = $('<div class="magnify-resizable-handle magnify-resizable-handle-e"></div>'),
+    resizableHandleW = $('<div class="magnify-resizable-handle magnify-resizable-handle-w"></div>'),
+    resizableHandleS = $('<div class="magnify-resizable-handle magnify-resizable-handle-s"></div>'),
+    resizableHandleN = $('<div class="magnify-resizable-handle magnify-resizable-handle-n"></div>'),
+    resizableHandleSE = $('<div class="magnify-resizable-handle magnify-resizable-handle-se"></div>'),
+    resizableHandleSW = $('<div class="magnify-resizable-handle magnify-resizable-handle-sw"></div>'),
+    resizableHandleNE = $('<div class="magnify-resizable-handle magnify-resizable-handle-ne"></div>'),
+    resizableHandleNW = $('<div class="magnify-resizable-handle magnify-resizable-handle-nw"></div>');
 
   var resizableHandles = {
     'e': resizableHandleE,
@@ -1390,6 +1397,9 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
     // Add resizable cursor
     $('html,body,.magnify-modal,.magnify-stage,.magnify-button').css('cursor', dir + '-resize');
 
+    $D.on(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
+      .on(TOUCH_END_EVENT + EVENT_NS, dragEnd);
+
   }
 
   var dragMove = function (e) {
@@ -1419,6 +1429,9 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
   }
   var dragEnd = function (e) {
 
+    $D.off(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
+      .off(TOUCH_END_EVENT + EVENT_NS, dragEnd);
+
     // Set grab cursor
     if (isResizing) {
       setGrabCursor({ w: imgWidth, h: imgHeight }, { w: $(stage).width(), h: $(stage).height() },
@@ -1435,14 +1448,11 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
   }
 
   $.each(resizableHandles, function (dir, handle) {
-    handle.on(TOUCH_START_EVENT, function (e) {
+    handle.on(TOUCH_START_EVENT + EVENT_NS, function (e) {
       dragStart(dir, e);
     });
   });
 
-  $D.on(TOUCH_MOVE_EVENT, dragMove);
-
-  $D.on(TOUCH_END_EVENT, dragEnd);
 }
 
 // Add to Magnify Prototype
@@ -1451,7 +1461,7 @@ $.extend(Magnify.prototype, {
 });
 
 /**
- * Private functions
+ * Private Functions
  */
 
 /**

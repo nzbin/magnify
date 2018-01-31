@@ -38,6 +38,9 @@ var draggable = function (modal, dragHandle, dragCancel) {
     left = $(modal).offset().left;
     top = $(modal).offset().top;
 
+    $D.on(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
+      .on(TOUCH_END_EVENT + EVENT_NS, dragEnd);
+
   }
 
   var dragMove = function (e) {
@@ -65,15 +68,15 @@ var draggable = function (modal, dragHandle, dragCancel) {
 
   var dragEnd = function (e) {
 
+    $D.off(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
+      .off(TOUCH_END_EVENT + EVENT_NS, dragEnd);
+
     isDragging = false;
 
   }
 
-  $(dragHandle).on(TOUCH_START_EVENT, dragStart);
+  $(dragHandle).on(TOUCH_START_EVENT + EVENT_NS, dragStart);
 
-  $D.on(TOUCH_MOVE_EVENT, dragMove);
-
-  $D.on(TOUCH_END_EVENT, dragEnd);
 }
 
 // Add to Magnify Prototype

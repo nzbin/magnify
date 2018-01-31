@@ -212,6 +212,9 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
     // Add resizable cursor
     $('html,body,.magnify-modal,.magnify-stage,.magnify-button').css('cursor', dir + '-resize');
 
+    $D.on(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
+      .on(TOUCH_END_EVENT + EVENT_NS, dragEnd);
+
   }
 
   var dragMove = function (e) {
@@ -241,6 +244,9 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
   }
   var dragEnd = function (e) {
 
+    $D.off(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
+      .off(TOUCH_END_EVENT + EVENT_NS, dragEnd);
+
     // Set grab cursor
     if (isResizing) {
       setGrabCursor({ w: imgWidth, h: imgHeight }, { w: $(stage).width(), h: $(stage).height() },
@@ -257,14 +263,11 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
   }
 
   $.each(resizableHandles, function (dir, handle) {
-    handle.on(TOUCH_START_EVENT, function (e) {
+    handle.on(TOUCH_START_EVENT + EVENT_NS, function (e) {
       dragStart(dir, e);
     });
   });
 
-  $D.on(TOUCH_MOVE_EVENT, dragMove);
-
-  $D.on(TOUCH_END_EVENT, dragEnd);
 }
 
 // Add to Magnify Prototype
