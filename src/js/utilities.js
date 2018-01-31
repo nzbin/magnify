@@ -1,5 +1,5 @@
 /**
- * Private functions
+ * Private Functions
  */
 
 /**

@@ -1,96 +1,96 @@
 // -----------------------
 // Resizable
 // -----------------------
-// .resizable-handle {}
+// .magnify-resizable-handle {}
 
-.resizable-handle-e {
+.magnify-resizable-handle-e {
     position: absolute;
     top: 0;
-    bottom: 0;
     right: -5px;
+    bottom: 0;
     left: auto;
-    width: 10px;
     z-index: 10;
+    width: 10px;
     cursor: e-resize;
 }
 
-.resizable-handle-s {
+.magnify-resizable-handle-s {
     position: absolute;
     top: auto;
-    bottom: -5px;
     right: 0;
+    bottom: -5px;
     left: 0;
-    height: 10px;
     z-index: 10;
+    height: 10px;
     cursor: s-resize;
 }
 
-.resizable-handle-w {
+.magnify-resizable-handle-w {
     position: absolute;
     top: 0;
+    right: auto;
     bottom: 0;
     left: -5px;
-    right: auto;
-    width: 10px;
     z-index: 10;
+    width: 10px;
     cursor: w-resize;
 }
 
-.resizable-handle-n {
+.magnify-resizable-handle-n {
     position: absolute;
     top: -5px;
-    bottom: auto;
     right: 0;
+    bottom: auto;
     left: 0;
-    height: 10px;
     z-index: 10;
+    height: 10px;
     cursor: n-resize;
 }
 
-.resizable-handle-se {
+.magnify-resizable-handle-se {
     position: absolute;
-    width: 10px;
-    height: 10px;
-    bottom: -5px;
-    right: -5px;
     top: auto;
+    right: -5px;
+    bottom: -5px;
     left: auto;
     z-index: 11;
+    width: 10px;
+    height: 10px;
     cursor: se-resize;
 }
 
-.resizable-handle-sw {
+.magnify-resizable-handle-sw {
     position: absolute;
-    width: 10px;
-    height: 10px;
-    bottom: -5px;
-    right: auto;
     top: auto;
+    right: auto;
+    bottom: -5px;
     left: -5px;
     z-index: 11;
+    width: 10px;
+    height: 10px;
     cursor: sw-resize;
 }
 
-.resizable-handle-nw {
+.magnify-resizable-handle-nw {
     position: absolute;
-    width: 10px;
-    height: 10px;
-    bottom: auto;
-    right: auto;
     top: -5px;
+    right: auto;
+    bottom: auto;
     left: -5px;
     z-index: 11;
+    width: 10px;
+    height: 10px;
     cursor: nw-resize;
 }
 
-.resizable-handle-ne {
+.magnify-resizable-handle-ne {
     position: absolute;
-    width: 10px;
-    height: 10px;
-    bottom: auto;
-    right: -5px;
     top: -5px;
+    right: -5px;
+    bottom: auto;
     left: auto;
     z-index: 11;
+    width: 10px;
+    height: 10px;
     cursor: ne-resize;
 }

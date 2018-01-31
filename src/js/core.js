@@ -1,5 +1,5 @@
 /**
- * Private static constants
+ * Private Static Constants
  */
 var CLICK_EVENT = 'click',
   RESIZE_EVENT = 'resize',
@@ -10,7 +10,7 @@ var CLICK_EVENT = 'click',
   TOUCH_END_EVENT = supportTouch() ? 'touchend' : 'mouseup';
 
 /**
- * Private vars
+ * Private Vars
  */
 var $W = $(window),
   $D = $(document),
@@ -134,7 +134,7 @@ var Magnify = function (el, options) {
 
 
 /**
- * Mangify prototype
+ * Mangify Prototype
  */
 Magnify.prototype = {
 
@@ -862,7 +862,7 @@ Magnify.prototype = {
 }
 
 /**
- * Public static functions
+ * Public Static Functions
  */
 $.magnify = {
   instance: Magnify.prototype

@@ -3,12 +3,12 @@
 // -----------------------
 .magnify-modal {
     position: absolute;
+    z-index: 1090;
     width: 320px;
     height: 320px;
     background-color: #111;
     background-color: rgba(0, 0, 0, .85);
     box-shadow: 0 0 3px 1px rgba(0, 0, 0, .3);
-    z-index: 1090;
     cursor: default;
 }
 
@@ -20,9 +20,9 @@
 // }
 .magnify-header {
     position: relative;
+    z-index: 2;
     height: 40px;
     color: #fff;
-    z-index: 2;
     .magnify-toolbar {
         position: absolute;
         top: 0;
@@ -38,36 +38,36 @@
     font-size: 14px;
     line-height: 1;
     white-space: nowrap;
-    overflow: hidden;
     text-overflow: ellipsis;
     user-select: none;
+    overflow: hidden;
 }
 
 .magnify-stage {
     position: absolute;
     top: 40px;
-    left: 10px;
-    bottom: 40px;
     right: 10px;
+    bottom: 40px;
+    left: 10px;
+    z-index: 1;
     border: 1px solid #ccc;
     overflow: hidden;
-    z-index: 1;
-    img {
-        display: inline-block;
-        position: relative;
-        width: 100%;
-    }
 }
 
+.magnify-image {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
 
 .magnify-footer {
     position: absolute;
     bottom: 0;
+    z-index: 2;
     width: 100%;
     height: 40px;
-    text-align: center;
     color: #fff;
-    z-index: 2;
+    text-align: center;
     .magnify-toolbar {
         display: inline-block;
         height: 40px;
@@ -82,24 +82,23 @@
     display: inline-block;
     width: 40px;
     height: 40px;
+    box-sizing: border-box;
     margin: 0;
     padding: 10px;
+    font-size: 14px;
+    color: #ccc;
+    text-align: center;
+    background: none;
     border-width: 0;
     border-radius: 0;
-    text-align: center;
-    font-size: 14px;
-    background: none;
-    color: #ccc;
     cursor: pointer;
     outline: none;
-    box-sizing: border-box;
     &:hover {
         color: #fff;
     }
     &.magnify-button-close:hover {
         background-color: #ff4545;
     }
-
     &.magnify-button-maximize:hover {
         background-color: #525252;
     }
@@ -113,8 +112,8 @@
     right: 0;
     bottom: 0;
     z-index: 2;
-    background-color: rgba(0, 0, 0, 0.3);
     text-align: center;
+    background-color: rgba(0, 0, 0, 0.3);
     &::after {
         content: '';
         display: inline-block;

@@ -17,14 +17,14 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
 
   var self = this;
 
-  var resizableHandleE = $('<div class="resizable-handle resizable-handle-e"></div>'),
-    resizableHandleW = $('<div class="resizable-handle resizable-handle-w"></div>'),
-    resizableHandleS = $('<div class="resizable-handle resizable-handle-s"></div>'),
-    resizableHandleN = $('<div class="resizable-handle resizable-handle-n"></div>'),
-    resizableHandleSE = $('<div class="resizable-handle resizable-handle-se"></div>'),
-    resizableHandleSW = $('<div class="resizable-handle resizable-handle-sw"></div>'),
-    resizableHandleNE = $('<div class="resizable-handle resizable-handle-ne"></div>'),
-    resizableHandleNW = $('<div class="resizable-handle resizable-handle-nw"></div>');
+  var resizableHandleE = $('<div class="magnify-resizable-handle magnify-resizable-handle-e"></div>'),
+    resizableHandleW = $('<div class="magnify-resizable-handle magnify-resizable-handle-w"></div>'),
+    resizableHandleS = $('<div class="magnify-resizable-handle magnify-resizable-handle-s"></div>'),
+    resizableHandleN = $('<div class="magnify-resizable-handle magnify-resizable-handle-n"></div>'),
+    resizableHandleSE = $('<div class="magnify-resizable-handle magnify-resizable-handle-se"></div>'),
+    resizableHandleSW = $('<div class="magnify-resizable-handle magnify-resizable-handle-sw"></div>'),
+    resizableHandleNE = $('<div class="magnify-resizable-handle magnify-resizable-handle-ne"></div>'),
+    resizableHandleNW = $('<div class="magnify-resizable-handle magnify-resizable-handle-nw"></div>');
 
   var resizableHandles = {
     'e': resizableHandleE,
