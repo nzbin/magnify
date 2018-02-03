@@ -40,10 +40,10 @@
     "copy": "run-s copy:css copy:js",
     "copy:css": "cpy dist/jquery.magnify.css docs/css",
     "copy:js": "cpy dist/jquery.magnify.js docs/js",
-    "release": "run-s build compress",
+    "release": "run-s lint build compress",
     "release:css": "run-s build:css compress:css",
     "release:js": "run-s build:js compress:js",
-    "lint": "eslint src/js"
+    "lint": "eslint src/js --fix"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.6",
@@ -54,7 +54,6 @@
     "npm-run-all": "^4.1.2",
     "onchange": "^3.2.1",
     "postcss-cli": "^4.1.1",
-    "rollup": "^0.51.8",
     "uglify-js": "^3.1.10"
   }
 }
