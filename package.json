@@ -29,7 +29,7 @@
     "url": "https://github.com/nzbin/magnify/issues"
   },
   "scripts": {
-    "sass":"node-sass --output-style expanded src/sass/magnify.scss dist/jquery.magnify.css",
+    "sass": "node-sass --output-style expanded src/sass/magnify.scss dist/jquery.magnify.css",
     "autoprefixer": "postcss -u autoprefixer --no-map.inline --autoprefixer.browsers \"last 1 versions\" -r dist/*.css",
     "build": "run-s build:css build:js",
     "build:css": "run-s sass autoprefixer",
@@ -42,13 +42,14 @@
     "copy:js": "cpy dist/jquery.magnify.js docs/js",
     "release": "run-s build compress",
     "release:css": "run-s build:css compress:css",
-    "release:js": "run-s build:js compress:js"
+    "release:js": "run-s build:js compress:js",
+    "lint": "eslint src/js"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.6",
     "concat": "^1.0.3",
     "cpy-cli": "^1.0.1",
-    "eslint": "^4.11.0",
+    "eslint": "^4.17.0",
     "node-sass": "^4.7.2",
     "npm-run-all": "^4.1.2",
     "onchange": "^3.2.1",
