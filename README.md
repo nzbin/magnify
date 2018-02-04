@@ -191,6 +191,9 @@ $("[data-magnify=gallery]").magnify();
 - **multiInstances** `true`
   > If true, it allow multiple instances.
 
+- **initEvent** `click`
+  > The event to init plugin. Another value is `dblclick`.
+
 ## License
 
 MIT License

@@ -69,7 +69,8 @@
 &lt;script src=&quot;/path/to/jquery.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;/path/to/jquery.magnify.js&quot;&gt;&lt;/script&gt;
 </pre>
-    <p>The icons in magnify use font-awesome default, you can customize them in options. If you use default options, you should link font-awesome css.</p>
+    <p>The icons in magnify use font-awesome default, you can customize them in options. If you use default options, you should
+      link font-awesome css.</p>
     <pre class="prettyprint">
 &lt;link href=&quot;https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css&quot; rel=&quot;stylesheet&quot;&gt;
 </pre>
@@ -100,7 +101,8 @@
         <code>&lt;a&gt;</code> tag, it will override the image link in
         <code>href</code> attribute.</li>
       <li>Add a
-        <code>data-caption</code> attribute if you want to show a caption. If you are not using this attribute, it will show the image name in the url when you set the
+        <code>data-caption</code> attribute if you want to show a caption. If you are not using this attribute, it will show the image name in the
+        url when you set the
         <code>title</code> option
         <code>true</code>.</li>
       <li>Add a
@@ -476,6 +478,17 @@ $('[data-magnify=gallery]').magnify(options);
               <p>If true, it allow multiple instances.</p>
             </td>
           </tr>
+          <tr>
+            <td>initEvent</td>
+            <td>String</td>
+            <td>
+              <code>click</code>
+            </td>
+            <td>
+              <p>The event to init plugin. Another value is
+                <code>dblclick</code>.</p>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -491,7 +504,7 @@ $('[data-magnify=gallery]').magnify(options);
   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
   <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
   <script>
-  window.jQuery || document.write('<script src="js/vendor/jquery-1.12.4.min.js"><\/script>')
+    window.jQuery || document.write('<script src="js/vendor/jquery-1.12.4.min.js"><\/script>')
 
   </script>
   <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -499,7 +512,7 @@ $('[data-magnify=gallery]').magnify(options);
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="js/jquery.magnify.js"></script>
   <script>
-  window.prettyPrint && prettyPrint();
+    window.prettyPrint && prettyPrint();
 
   </script>
 </body>
