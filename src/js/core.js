@@ -395,7 +395,7 @@ Magnify.prototype = {
     });
 
     this.setImageSize(img);
-    
+
     this.isOpened = true;
 
   },
@@ -765,49 +765,49 @@ Magnify.prototype = {
       altKey = e.altKey || e.metaKey;
 
     switch (keyCode) {
-    // ←
-    case 37:
-      self.jump(-1);
-      break;
+      // ←
+      case 37:
+        self.jump(-1);
+        break;
       // →
-    case 39:
-      self.jump(1);
-      break;
+      case 39:
+        self.jump(1);
+        break;
       // +
-    case 187:
-      self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-      break;
+      case 187:
+        self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+        break;
       // -
-    case 189:
-      self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-      break;
+      case 189:
+        self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+        break;
       // + Firefox
-    case 61:
-      self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-      break;
+      case 61:
+        self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+        break;
       // - Firefox
-    case 173:
-      self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-      break;
+      case 173:
+        self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+        break;
       // ctrl + alt + 0
-    case 48:
-      if (ctrlKey && altKey) {
-        self.zoomTo(1, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-      }
-      break;
+      case 48:
+        if (ctrlKey && altKey) {
+          self.zoomTo(1, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+        }
+        break;
       // ctrl + ,
-    case 188:
-      if (ctrlKey) {
-        self.rotate(-90);
-      }
-      break;
+      case 188:
+        if (ctrlKey) {
+          self.rotate(-90);
+        }
+        break;
       // ctrl + .
-    case 190:
-      if (ctrlKey) {
-        self.rotate(90);
-      }
-      break;
-    default:
+      case 190:
+        if (ctrlKey) {
+          self.rotate(90);
+        }
+        break;
+      default:
     }
 
   },
@@ -880,6 +880,8 @@ $.magnify = {
 $.fn.magnify = function (options) {
 
   jqEl = $(this);
+  // Get init event, 'click' or 'dblclick'
+  var opts = $.extend(true, {}, defaults, options);
 
   if (typeof options === 'string') {
 
@@ -887,13 +889,23 @@ $.fn.magnify = function (options) {
 
   } else {
 
-    jqEl.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
+    if (opts.initEvent === 'dblclick') {
 
-      if (e.isDefaultPrevented()) {
-        return;
-      }
+      jqEl.off('click' + EVENT_NS).on('click' + EVENT_NS, function (e) {
+
+        e.preventDefault();
+        // This will stop triggering data-api event
+        e.stopPropagation();
+
+      });
+
+    }
+
+    jqEl.off(opts.initEvent + EVENT_NS).on(opts.initEvent + EVENT_NS, function (e) {
 
       e.preventDefault();
+      // This will stop triggering data-api event
+      e.stopPropagation();
 
       $(this).data('magnify', new Magnify(this, options));
 
@@ -911,10 +923,6 @@ $.fn.magnify = function (options) {
 $D.on(CLICK_EVENT + EVENT_NS, '[data-magnify]', function (e) {
 
   jqEl = $('[data-magnify]');
-
-  if (e.isDefaultPrevented()) {
-    return;
-  }
 
   e.preventDefault();
 
