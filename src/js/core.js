@@ -72,7 +72,9 @@ var $W = $(window),
       rotateRight: 'rotate-right(Ctrl+.)'
     },
     multiInstances: true,
-    initEvent: 'click'
+    initEvent: 'click',
+    initAnimation: true,
+    changeImgWithModalFixed: false
     // beforeOpen:$.noop,
     // afterOpen:$.noop,
     // beforeClose:$.noop,
@@ -263,6 +265,8 @@ Magnify.prototype = {
 
     this.build();
 
+    this.addEvent();
+
     this.setModalPos(this.$magnify);
 
   },
@@ -354,7 +358,8 @@ Magnify.prototype = {
   },
   setModalSize: function (img) {
 
-    var winWidth = $W.width(),
+    var self = this,
+      winWidth = $W.width(),
       winHeight = $W.height(),
       scrollLeft = $D.scrollLeft(),
       scrollTop = $D.scrollTop();
@@ -387,14 +392,30 @@ Magnify.prototype = {
     minWidth = this.options.fixedModalSize ? this.options.modalWidth : Math.ceil(minWidth);
     minHeight = this.options.fixedModalSize ? this.options.modalHeight : Math.ceil(minHeight);
 
-    this.$magnify.css({
-      width: minWidth + 'px',
-      height: minHeight + 'px',
-      left: (winWidth - minWidth) / 2 + scrollLeft + 'px',
-      top: (winHeight - minHeight) / 2 + scrollTop + 'px'
-    });
+    // Add modal init animation
+    if (this.options.initAnimation) {
 
-    this.setImageSize(img);
+      this.$magnify.animate({
+        width: minWidth + 'px',
+        height: minHeight + 'px',
+        left: (winWidth - minWidth) / 2 + scrollLeft + 'px',
+        top: (winHeight - minHeight) / 2 + scrollTop + 'px'
+      }, function () {
+        self.setImageSize(img);
+      });
+
+    } else {
+
+      this.$magnify.css({
+        width: minWidth + 'px',
+        height: minHeight + 'px',
+        left: (winWidth - minWidth) / 2 + scrollLeft + 'px',
+        top: (winHeight - minHeight) / 2 + scrollTop + 'px'
+      });
+
+      this.setImageSize(img);
+
+    }
 
     this.isOpened = true;
 
@@ -435,6 +456,14 @@ Magnify.prototype = {
       this.$stage,
       this.isRotated
     );
+    
+    // loading end
+    this.$magnify.find('.magnify-loading').remove();
+
+    // Add image init animation
+    if (this.options.initAnimation) {
+      this.$image.fadeIn();
+    }
 
   },
   loadImg: function (imgSrc) {
@@ -446,6 +475,10 @@ Magnify.prototype = {
     // loading start
     this.$magnify.append(loadingHTML);
 
+    if (this.options.initAnimation) {
+      this.$image.hide();
+    }
+
     this.$image.attr('src', imgSrc);
 
     preloadImg(imgSrc, function (img) {
@@ -456,7 +489,7 @@ Magnify.prototype = {
         originalHeight: img.height
       };
 
-      if (self.isOpened) {
+      if (self.isMaximized || ( self.isOpened && self.options.changeImgWithModalFixed)) {
         self.setImageSize(img);
       } else {
         self.setModalSize(img);
@@ -465,16 +498,9 @@ Magnify.prototype = {
       self.$stage.removeClass('text-center');
       self.$image.removeClass('init-size');
 
-      // loading end
-      self.$magnify.find('.magnify-loading').remove();
-      // Add events when image loaded success
-      self.addEvent();
-
     }, function () {
       // loading end
-      self.$magnify.find('.magnify-loading').remove();
-      // Add events when image loaded failed
-      self.addEvent();
+      self.$magnify.find('.magnify-loading').remove();     
     });
 
     if (this.options.title) {
