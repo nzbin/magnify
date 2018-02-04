@@ -22,7 +22,8 @@ function throttle(fn, delay) {
       fn.apply(context, args);
     }, delay);
   };
-};
+
+}
 
 /**
  * [preloadImg]
@@ -36,11 +37,11 @@ function preloadImg(src, success, error) {
 
   img.onload = function() {
     success(img);
-  }
+  };
 
   img.onerror = function() {
     error(img);
-  }
+  };
 
   img.src = src;
 
@@ -112,7 +113,7 @@ function hasScrollbar() {
  */
 function getScrollbarWidth() {
 
-  var scrollDiv = document.createElement("div");
+  var scrollDiv = document.createElement('div');
   scrollDiv.style.cssText = 'width: 99px; height: 99px; overflow: scroll; position: absolute; top: -9999px;';
   document.body.appendChild(scrollDiv);
   var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;

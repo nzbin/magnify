@@ -35,7 +35,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
     'nw': resizableHandleNW,
     'ne': resizableHandleNE,
     'sw': resizableHandleSW
-  }
+  };
 
   $(modal).append(
     resizableHandleE, resizableHandleW, resizableHandleS, resizableHandleN, resizableHandleSE, resizableHandleSW, resizableHandleNE, resizableHandleNW
@@ -117,7 +117,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
     };
 
     return opts[dir];
-  }
+  };
 
   // image CSS options
   var getImageOpts = function (dir, offsetX, offsetY) {
@@ -166,7 +166,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
     };
 
     return opts[dir];
-  }
+  };
 
   var dragStart = function (dir, e) {
 
@@ -215,7 +215,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
     $D.on(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
       .on(TOUCH_END_EVENT + EVENT_NS, dragEnd);
 
-  }
+  };
 
   var dragMove = function (e) {
 
@@ -241,7 +241,8 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
 
     }
 
-  }
+  };
+
   var dragEnd = function (e) {
 
     $D.off(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
@@ -260,7 +261,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
     // Remove resizable cursor
     $('html,body,.magnify-modal,.magnify-stage,.magnify-button').css('cursor', '');
 
-  }
+  };
 
   $.each(resizableHandles, function (dir, handle) {
     handle.on(TOUCH_START_EVENT + EVENT_NS, function (e) {
@@ -268,7 +269,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
     });
   });
 
-}
+};
 
 // Add to Magnify Prototype
 $.extend(Magnify.prototype, {

@@ -105,7 +105,8 @@ var $W = $(window),
       rotateLeft: 'rotate-left(Ctrl+,)',
       rotateRight: 'rotate-right(Ctrl+.)'
     },
-    multiInstances: true
+    multiInstances: true,
+    initEvent: 'click'
     // beforeOpen:$.noop,
     // afterOpen:$.noop,
     // beforeClose:$.noop,
@@ -161,11 +162,11 @@ var Magnify = function (el, options) {
     height: null,
     left: null,
     top: null
-  }
+  };
 
   this.init(el, self.options);
 
-}
+};
 
 
 /**
@@ -255,7 +256,7 @@ Magnify.prototype = {
       rotateRight: '<button class="magnify-button magnify-button-rotate-right" title="' + this.options.i18n.rotateRight + '">\
                       <i class="' + this.options.icons.rotateRight + '" aria-hidden="true"></i>\
                     </button>'
-    }
+    };
 
     // magnify base HTML
     var magnifyHTML = '<div class="magnify-modal">\
@@ -294,8 +295,6 @@ Magnify.prototype = {
 
     }
 
-    this.isOpened = true;
-
     this.build();
 
     this.setModalPos(this.$magnify);
@@ -312,9 +311,9 @@ Magnify.prototype = {
     // Get all magnify element
     this.$magnify = $magnify;
     this.$header = $magnify.find('.magnify-header');
-    this.$stage = $magnify.find('.magnify-stage');
+    this.$stage = $magnify.find('.magnify-stage').addClass('text-center');
     this.$title = $magnify.find('.magnify-title');
-    this.$image = $magnify.find('.magnify-image');
+    this.$image = $magnify.find('.magnify-image').addClass('init-size');
     this.$close = $magnify.find('.magnify-button-close');
     this.$maximize = $magnify.find('.magnify-button-maximize');
     this.$zoomIn = $magnify.find('.magnify-button-zoom-in');
@@ -361,11 +360,30 @@ Magnify.prototype = {
     var modalWidth = modal.width(),
       modalHeight = modal.height();
 
-    // Make the modal in windows center
-    modal.css({
-      left: (winWidth - modalWidth) / 2 + scrollLeft + 'px',
-      top: (winHeight - modalHeight) / 2 + scrollTop + 'px'
-    });
+    // Set modal maximized when init
+    if (this.options.initMaximized) {
+
+      modal.addClass('magnify-maximize');
+
+      modal.css({
+        width: '100%',
+        height: '100%',
+        left: scrollLeft,
+        top: scrollTop
+      });
+
+      this.isOpened = true;
+      this.isMaximized = true;
+
+    } else {
+
+      // Make the modal in windows center
+      modal.css({
+        left: (winWidth - modalWidth) / 2 + scrollLeft + 'px',
+        top: (winHeight - modalHeight) / 2 + scrollTop + 'px'
+      });
+
+    }
 
   },
   setModalSize: function (img) {
@@ -411,6 +429,8 @@ Magnify.prototype = {
     });
 
     this.setImageSize(img);
+    
+    this.isOpened = true;
 
   },
   setImageSize: function (img) {
@@ -418,7 +438,7 @@ Magnify.prototype = {
     var stageData = {
       w: this.$stage.width(),
       h: this.$stage.height()
-    }
+    };
 
     // image scale to stage
     var scale = 1;
@@ -460,21 +480,6 @@ Magnify.prototype = {
     // loading start
     this.$magnify.append(loadingHTML);
 
-    // Set modal maximized when init
-    if (this.options.initMaximized) {
-
-      this.$magnify.addClass('magnify-maximize');
-
-      this.$magnify.css({
-        width: '100%',
-        height: '100%',
-        left: $D.scrollLeft(),
-        top: $D.scrollTop()
-      });
-
-      this.isMaximized = true;
-    }
-
     this.$image.attr('src', imgSrc);
 
     preloadImg(imgSrc, function (img) {
@@ -483,13 +488,16 @@ Magnify.prototype = {
       self.imageData = {
         originalWidth: img.width,
         originalHeight: img.height
-      }
+      };
 
-      if (self.isMaximized) {
+      if (self.isOpened) {
         self.setImageSize(img);
       } else {
         self.setModalSize(img);
       }
+
+      self.$stage.removeClass('text-center');
+      self.$image.removeClass('init-size');
 
       // loading end
       self.$magnify.find('.magnify-loading').remove();
@@ -524,7 +532,7 @@ Magnify.prototype = {
       });
       // Get image index
       if (imgSrc === src) {
-        self.groupIndex = index
+        self.groupIndex = index;
       }
 
     });
@@ -590,7 +598,7 @@ Magnify.prototype = {
     var pointer = {
       x: e.originalEvent.clientX - this.$stage.offset().left + $D.scrollLeft(),
       y: e.originalEvent.clientY - this.$stage.offset().top + $D.scrollTop()
-    }
+    };
 
     this.zoom(ratio, pointer, e);
 
@@ -632,7 +640,7 @@ Magnify.prototype = {
       h: $stage.height(),
       x: $stage.offset().left,
       y: $stage.offset().top
-    }
+    };
 
     var newWidth = this.imageData.originalWidth * ratio,
       newHeight = this.imageData.originalHeight * ratio,
@@ -719,11 +727,11 @@ Magnify.prototype = {
 
       if (self.isOpened) {
 
-        if (!self.isMaximized) {
+        if (self.isMaximized) {
+          self.setImageSize({ width: self.imageData.originalWidth, height: self.imageData.originalHeight });
+        } else {
           self.setModalSize({ width: self.imageData.originalWidth, height: self.imageData.originalHeight });
         }
-
-        self.setImageSize({ width: self.imageData.originalWidth, height: self.imageData.originalHeight });
 
       }
 
@@ -743,7 +751,7 @@ Magnify.prototype = {
         height: this.$magnify.height(),
         left: this.$magnify.offset().left,
         top: this.$magnify.offset().top
-      }
+      };
 
       this.$magnify.addClass('magnify-maximize');
 
@@ -791,49 +799,49 @@ Magnify.prototype = {
       altKey = e.altKey || e.metaKey;
 
     switch (keyCode) {
-      // ←
-      case 37:
-        self.jump(-1);
-        break;
+    // ←
+    case 37:
+      self.jump(-1);
+      break;
       // →
-      case 39:
-        self.jump(1);
-        break;
+    case 39:
+      self.jump(1);
+      break;
       // +
-      case 187:
-        self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-        break;
+    case 187:
+      self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+      break;
       // -
-      case 189:
-        self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-        break;
+    case 189:
+      self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+      break;
       // + Firefox
-      case 61:
-        self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-        break;
+    case 61:
+      self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+      break;
       // - Firefox
-      case 173:
-        self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-        break;
+    case 173:
+      self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+      break;
       // ctrl + alt + 0
-      case 48:
-        if (ctrlKey && altKey) {
-          self.zoomTo(1, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-        }
-        break;
+    case 48:
+      if (ctrlKey && altKey) {
+        self.zoomTo(1, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+      }
+      break;
       // ctrl + ,
-      case 188:
-        if (ctrlKey) {
-          self.rotate(-90);
-        }
-        break;
+    case 188:
+      if (ctrlKey) {
+        self.rotate(-90);
+      }
+      break;
       // ctrl + .
-      case 190:
-        if (ctrlKey) {
-          self.rotate(90);
-        }
-        break;
-      default:
+    case 190:
+      if (ctrlKey) {
+        self.rotate(90);
+      }
+      break;
+    default:
     }
 
   },
@@ -893,14 +901,14 @@ Magnify.prototype = {
 
   }
 
-}
+};
 
 /**
  * Public Static Functions
  */
 $.magnify = {
   instance: Magnify.prototype
-}
+};
 
 
 $.fn.magnify = function (options) {
@@ -929,7 +937,7 @@ $.fn.magnify = function (options) {
 
   return jqEl;
 
-}
+};
 
 /**
  * MAGNIFY DATA-API
@@ -991,7 +999,7 @@ var draggable = function (modal, dragHandle, dragCancel) {
     $D.on(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
       .on(TOUCH_END_EVENT + EVENT_NS, dragEnd);
 
-  }
+  };
 
   var dragMove = function (e) {
 
@@ -1014,7 +1022,7 @@ var draggable = function (modal, dragHandle, dragCancel) {
 
     }
 
-  }
+  };
 
   var dragEnd = function (e) {
 
@@ -1023,11 +1031,11 @@ var draggable = function (modal, dragHandle, dragCancel) {
 
     isDragging = false;
 
-  }
+  };
 
   $(dragHandle).on(TOUCH_START_EVENT + EVENT_NS, dragStart);
 
-}
+};
 
 // Add to Magnify Prototype
 $.extend(Magnify.prototype, {
@@ -1102,7 +1110,7 @@ var movable = function (stage, image) {
     $D.on(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
       .on(TOUCH_END_EVENT + EVENT_NS, dragEnd);
 
-  }
+  };
 
   var dragMove = function (e) {
 
@@ -1159,7 +1167,7 @@ var movable = function (stage, image) {
 
     }
 
-  }
+  };
 
   var dragEnd = function (e) {
 
@@ -1172,11 +1180,11 @@ var movable = function (stage, image) {
     // Remove grabbing cursor
     $('html,body,.magnify-modal,.magnify-stage,.magnify-button,.resizable-handle').removeClass('is-grabbing');
 
-  }
+  };
 
   $(stage).on(TOUCH_START_EVENT + EVENT_NS, dragStart);
 
-}
+};
 
 // Add to Magnify Prototype
 $.extend(Magnify.prototype, {
@@ -1220,7 +1228,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
     'nw': resizableHandleNW,
     'ne': resizableHandleNE,
     'sw': resizableHandleSW
-  }
+  };
 
   $(modal).append(
     resizableHandleE, resizableHandleW, resizableHandleS, resizableHandleN, resizableHandleSE, resizableHandleSW, resizableHandleNE, resizableHandleNW
@@ -1302,7 +1310,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
     };
 
     return opts[dir];
-  }
+  };
 
   // image CSS options
   var getImageOpts = function (dir, offsetX, offsetY) {
@@ -1351,7 +1359,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
     };
 
     return opts[dir];
-  }
+  };
 
   var dragStart = function (dir, e) {
 
@@ -1400,7 +1408,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
     $D.on(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
       .on(TOUCH_END_EVENT + EVENT_NS, dragEnd);
 
-  }
+  };
 
   var dragMove = function (e) {
 
@@ -1426,7 +1434,8 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
 
     }
 
-  }
+  };
+
   var dragEnd = function (e) {
 
     $D.off(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
@@ -1445,7 +1454,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
     // Remove resizable cursor
     $('html,body,.magnify-modal,.magnify-stage,.magnify-button').css('cursor', '');
 
-  }
+  };
 
   $.each(resizableHandles, function (dir, handle) {
     handle.on(TOUCH_START_EVENT + EVENT_NS, function (e) {
@@ -1453,7 +1462,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
     });
   });
 
-}
+};
 
 // Add to Magnify Prototype
 $.extend(Magnify.prototype, {
@@ -1484,7 +1493,8 @@ function throttle(fn, delay) {
       fn.apply(context, args);
     }, delay);
   };
-};
+
+}
 
 /**
  * [preloadImg]
@@ -1498,11 +1508,11 @@ function preloadImg(src, success, error) {
 
   img.onload = function() {
     success(img);
-  }
+  };
 
   img.onerror = function() {
     error(img);
-  }
+  };
 
   img.src = src;
 
@@ -1574,7 +1584,7 @@ function hasScrollbar() {
  */
 function getScrollbarWidth() {
 
-  var scrollDiv = document.createElement("div");
+  var scrollDiv = document.createElement('div');
   scrollDiv.style.cssText = 'width: 99px; height: 99px; overflow: scroll; position: absolute; top: -9999px;';
   document.body.appendChild(scrollDiv);
   var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
