@@ -23,6 +23,14 @@
   cursor: default;
 }
 
+.magnify-maximize {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
 .magnify-header {
   position: relative;
   z-index: 2;
@@ -63,12 +71,16 @@
   overflow: hidden;
 }
 
+.magnify-stage.stage-ready {
+  text-align: center;
+}
+
 .magnify-image {
   position: relative;
   display: inline-block;
 }
 
-.magnify-image.init-size {
+.magnify-image.image-ready {
   max-width: 100%;
   max-height: 100%;
 }
@@ -416,10 +428,6 @@
   cursor: move;
   cursor: -webkit-grabbing;
   cursor: grabbing;
-}
-
-.text-center {
-  text-align: center;
 }
 
 /*# sourceMappingURL=jquery.magnify.css.map */

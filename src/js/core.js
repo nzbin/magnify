@@ -281,9 +281,9 @@ Magnify.prototype = {
     // Get all magnify element
     this.$magnify = $magnify;
     this.$header = $magnify.find('.magnify-header');
-    this.$stage = $magnify.find('.magnify-stage').addClass('text-center');
+    this.$stage = $magnify.find('.magnify-stage').addClass('stage-ready');
     this.$title = $magnify.find('.magnify-title');
-    this.$image = $magnify.find('.magnify-image').addClass('init-size');
+    this.$image = $magnify.find('.magnify-image').addClass('image-ready');
     this.$close = $magnify.find('.magnify-button-close');
     this.$maximize = $magnify.find('.magnify-button-maximize');
     this.$zoomIn = $magnify.find('.magnify-button-zoom-in');
@@ -338,8 +338,8 @@ Magnify.prototype = {
       modal.css({
         width: '100%',
         height: '100%',
-        left: scrollLeft,
-        top: scrollTop
+        left: 0,
+        top: 0
       });
 
       this.isOpened = true;
@@ -392,27 +392,23 @@ Magnify.prototype = {
     minWidth = this.options.fixedModalSize ? this.options.modalWidth : Math.ceil(minWidth);
     minHeight = this.options.fixedModalSize ? this.options.modalHeight : Math.ceil(minHeight);
 
+    var modalCSSObj = {
+      width: minWidth + 'px',
+      height: minHeight + 'px',
+      left: (winWidth - minWidth) / 2 + scrollLeft + 'px',
+      top: (winHeight - minHeight) / 2 + scrollTop + 'px'
+    }
+
     // Add modal init animation
     if (this.options.initAnimation) {
 
-      this.$magnify.animate({
-        width: minWidth + 'px',
-        height: minHeight + 'px',
-        left: (winWidth - minWidth) / 2 + scrollLeft + 'px',
-        top: (winHeight - minHeight) / 2 + scrollTop + 'px'
-      }, function () {
+      this.$magnify.animate(modalCSSObj, function () {
         self.setImageSize(img);
       });
 
     } else {
 
-      this.$magnify.css({
-        width: minWidth + 'px',
-        height: minHeight + 'px',
-        left: (winWidth - minWidth) / 2 + scrollLeft + 'px',
-        top: (winHeight - minHeight) / 2 + scrollTop + 'px'
-      });
-
+      this.$magnify.css(modalCSSObj);
       this.setImageSize(img);
 
     }
@@ -495,8 +491,8 @@ Magnify.prototype = {
         self.setModalSize(img);
       }
 
-      self.$stage.removeClass('text-center');
-      self.$image.removeClass('init-size');
+      self.$stage.removeClass('stage-ready');
+      self.$image.removeClass('image-ready');
 
     }, function () {
       // loading end
@@ -750,8 +746,8 @@ Magnify.prototype = {
       this.$magnify.css({
         width: '100%',
         height: '100%',
-        left: $D.scrollLeft(),
-        top: $D.scrollTop()
+        left: 0,
+        top: 0
       });
 
       this.isMaximized = true;

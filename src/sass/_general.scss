@@ -12,12 +12,14 @@
     cursor: default;
 }
 
-// .magnify-maximize {
-//     top: 0 !important;
-//     left: 0 !important;
-//     width: 100% !important;
-//     height: 100% !important;
-// }
+.magnify-maximize {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
 .magnify-header {
     position: relative;
     z-index: 2;
@@ -52,12 +54,15 @@
     z-index: 1;
     border: 1px solid #ccc;
     overflow: hidden;
+    &.stage-ready{
+        text-align: center;
+    }
 }
 
 .magnify-image {
     position: relative;
     display: inline-block;
-    &.init-size {
+    &.image-ready {
         max-width: 100%;
         max-height: 100%;
     }
