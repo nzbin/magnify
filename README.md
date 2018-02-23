@@ -128,6 +128,8 @@ $("[data-magnify=gallery]").magnify();
 - **icons** 
   > You can customize the icons class in following key.
   
+  - **minimize** `fa fa-window-minimize`
+
   - **maximize** `fa fa-window-maximize`
 
   - **close** `fa fa-close`
@@ -163,6 +165,8 @@ $("[data-magnify=gallery]").magnify();
 - **i18n** 
   > You can customize the buttons title in following key.
   
+  - **minimize** `minimize`
+
   - **maximize** `maximize`
 
   - **close** `close`
