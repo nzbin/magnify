@@ -134,6 +134,10 @@
   background-color: #525252;
 }
 
+.magnify-button.magnify-button-minimize:hover {
+  background-color: #525252;
+}
+
 .magnify-loading {
   position: absolute;
   top: 0;

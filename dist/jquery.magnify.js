@@ -80,6 +80,7 @@ var $W = $(window),
       'rotateRight'
     ],
     icons: {
+      minimize: 'fa fa-window-minimize',
       maximize: 'fa fa-window-maximize',
       close: 'fa fa-close',
       zoomIn: 'fa fa-search-plus',
@@ -94,6 +95,7 @@ var $W = $(window),
     },
     // lang: 'en',
     i18n: {
+      minimize: 'minimize',
       maximize: 'maximize',
       close: 'close',
       zoomIn: 'zoom-in(+)',
@@ -228,6 +230,9 @@ Magnify.prototype = {
   creatDOM: function () {
 
     var btnsTpl = {
+      minimize: '<button class="magnify-button magnify-button-minimize" title="' + this.options.i18n.minimize + '">\
+                      <i class="' + this.options.icons.minimize + '" aria-hidden="true"></i>\
+                    </button>',
       maximize: '<button class="magnify-button magnify-button-maximize" title="' + this.options.i18n.maximize + '">\
                       <i class="' + this.options.icons.maximize + '" aria-hidden="true"></i>\
                     </button>',
@@ -320,6 +325,7 @@ Magnify.prototype = {
     this.$image = $magnify.find('.magnify-image').addClass('image-ready');
     this.$close = $magnify.find('.magnify-button-close');
     this.$maximize = $magnify.find('.magnify-button-maximize');
+    this.$minimize = $magnify.find('.magnify-button-minimize');
     this.$zoomIn = $magnify.find('.magnify-button-zoom-in');
     this.$zoomOut = $magnify.find('.magnify-button-zoom-out');
     this.$actualSize = $magnify.find('.magnify-button-actual-size');
@@ -361,8 +367,8 @@ Magnify.prototype = {
       scrollLeft = $D.scrollLeft(),
       scrollTop = $D.scrollTop();
 
-    var modalWidth = modal.width(),
-      modalHeight = modal.height();
+    var modalWidth = this.options.modalWidth,
+      modalHeight = this.options.modalHeight;
 
     // Set modal maximized when init
     if (this.options.initMaximized) {
@@ -383,6 +389,8 @@ Magnify.prototype = {
 
       // Make the modal in windows center
       modal.css({
+        width: modalWidth,
+        height: modalHeight,
         left: (winWidth - modalWidth) / 2 + scrollLeft + 'px',
         top: (winHeight - modalHeight) / 2 + scrollTop + 'px'
       });
@@ -469,8 +477,8 @@ Magnify.prototype = {
     this.$image.css({
       width: Math.floor(img.width * scale) + 'px',
       height: Math.floor(img.height * scale) + 'px',
-      left: (stageData.w - img.width * scale) / 2 + 'px',
-      top: (stageData.h - img.height * scale) / 2 + 'px'
+      left: (stageData.w - Math.floor(img.width * scale)) / 2 + 'px',
+      top: (stageData.h - Math.floor(img.height * scale)) / 2 + 'px'
     });
 
     // Store image initial data
@@ -486,7 +494,7 @@ Magnify.prototype = {
       this.$stage,
       this.isRotated
     );
-    
+
     // loading end
     this.$magnify.find('.magnify-loading').remove();
 
@@ -519,7 +527,7 @@ Magnify.prototype = {
         originalHeight: img.height
       };
 
-      if (self.isMaximized || ( self.isOpened && self.options.changeImgWithModalFixed)) {
+      if (self.isMaximized || (self.isOpened && self.options.changeImgWithModalFixed)) {
         self.setImageSize(img);
       } else {
         self.setModalSize(img);
@@ -530,7 +538,7 @@ Magnify.prototype = {
 
     }, function () {
       // loading end
-      self.$magnify.find('.magnify-loading').remove();     
+      self.$magnify.find('.magnify-loading').remove();
     });
 
     if (this.options.title) {

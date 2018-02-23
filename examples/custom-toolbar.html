@@ -18,11 +18,11 @@
   <![endif]-->
   <style>
   .magnify-header .magnify-toolbar {
-    width: 40px;
+    width: 120px;
   }
 
-  .magnify-button.magnify-button-maximize:hover {
-    background-color: transparent;
+  .magnify-title {
+    margin-right: 120px;
   }
 
   </style>
@@ -50,15 +50,16 @@
   <script>
   $('[data-magnify]').magnify({
     headToolbar: [
+      'minimize',
+      'maximize',
       'close'
     ],
     footToolbar: [
-      'maximize',
+      'prev',
+      'next',
       'zoomIn',
       'zoomOut',
-      'prev',
       'fullscreen',
-      'next',
       'actualSize',
       'rotateLeft',
       'rotateRight'
