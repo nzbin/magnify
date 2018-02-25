@@ -150,7 +150,7 @@ $("[data-magnify=gallery]").magnify();
 
   - **rotateRight** `fa fa-rotate-right`
 
-  - **loading** `fa fa-spinner fa-pulse`
+  - **loader** `fa fa-spinner fa-pulse`
 
     
 - **headToolbar** `['maximize','close']`
