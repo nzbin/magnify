@@ -95,6 +95,7 @@
     padding: 10px;
     font-size: 14px;
     color: #ccc;
+    line-height: 1;
     text-align: center;
     background: none;
     border-width: 0;
@@ -115,8 +116,8 @@
     }
 }
 
-// loading
-.magnify-loading {
+// loader
+.magnify-loader {
     position: absolute;
     top: 0;
     left: 0;

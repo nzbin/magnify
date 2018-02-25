@@ -57,7 +57,7 @@ var $W = $(window),
       actualSize: 'fa fa-arrows-alt',
       rotateLeft: 'fa fa-rotate-left',
       rotateRight: 'fa fa-rotate-right',
-      loading: 'fa fa-spinner fa-pulse'
+      loader: 'fa fa-spinner fa-pulse'
     },
     // lang: 'en',
     i18n: {
@@ -397,15 +397,15 @@ Magnify.prototype = {
     var minWidth = Math.max(modalWidth * scale, this.options.modalWidth),
       minHeight = Math.max(modalHeight * scale, this.options.modalHeight);
 
-    minWidth = this.options.fixedModalSize ? this.options.modalWidth : Math.ceil(minWidth);
-    minHeight = this.options.fixedModalSize ? this.options.modalHeight : Math.ceil(minHeight);
+    minWidth = this.options.fixedModalSize ? this.options.modalWidth : Math.round(minWidth);
+    minHeight = this.options.fixedModalSize ? this.options.modalHeight : Math.round(minHeight);
 
     var modalCSSObj = {
       width: minWidth + 'px',
       height: minHeight + 'px',
       left: (winWidth - minWidth) / 2 + scrollLeft + 'px',
       top: (winHeight - minHeight) / 2 + scrollTop + 'px'
-    }
+    };
 
     // Add modal init animation
     if (this.options.initAnimation) {
@@ -441,10 +441,10 @@ Magnify.prototype = {
     }
 
     this.$image.css({
-      width: Math.floor(img.width * scale) + 'px',
-      height: Math.floor(img.height * scale) + 'px',
-      left: (stageData.w - Math.floor(img.width * scale)) / 2 + 'px',
-      top: (stageData.h - Math.floor(img.height * scale)) / 2 + 'px'
+      width: Math.round(img.width * scale) + 'px',
+      height: Math.round(img.height * scale) + 'px',
+      left: (stageData.w - Math.round(img.width * scale)) / 2 + 'px',
+      top: (stageData.h - Math.round(img.height * scale)) / 2 + 'px'
     });
 
     // Store image initial data
@@ -456,13 +456,15 @@ Magnify.prototype = {
     });
 
     // Set grab cursor
-    setGrabCursor({ w: this.$image.width(), h: this.$image.height() }, { w: this.$stage.width(), h: this.$stage.height() },
+    setGrabCursor(
+      { w: this.$image.width(), h: this.$image.height() },
+      { w: this.$stage.width(), h: this.$stage.height() },
       this.$stage,
       this.isRotated
     );
 
-    // loading end
-    this.$magnify.find('.magnify-loading').remove();
+    // loader end
+    this.$magnify.find('.magnify-loader').remove();
 
     // Add image init animation
     if (this.options.initAnimation) {
@@ -474,10 +476,10 @@ Magnify.prototype = {
 
     var self = this;
 
-    var loadingHTML = '<div class="magnify-loading"><i class="' + this.options.icons.loading + '"></i></div>';
+    var loaderHTML = '<div class="magnify-loader"><i class="' + this.options.icons.loader + '"></i></div>';
 
-    // loading start
-    this.$magnify.append(loadingHTML);
+    // loader start
+    this.$magnify.append(loaderHTML);
 
     if (this.options.initAnimation) {
       this.$image.hide();
@@ -503,8 +505,8 @@ Magnify.prototype = {
       self.$image.removeClass('image-ready');
 
     }, function () {
-      // loading end
-      self.$magnify.find('.magnify-loading').remove();
+      // loader end
+      self.$magnify.find('.magnify-loader').remove();
     });
 
     if (this.options.title) {
@@ -668,10 +670,10 @@ Magnify.prototype = {
     }
 
     $image.css({
-      width: Math.ceil(newWidth) + 'px',
-      height: Math.ceil(newHeight) + 'px',
-      left: newLeft + 'px',
-      top: newTop + 'px'
+      width: Math.round(newWidth) + 'px',
+      height: Math.round(newHeight) + 'px',
+      left: Math.round(newLeft) + 'px',
+      top: Math.round(newTop) + 'px'
     });
 
     // Update image initial data
@@ -683,7 +685,9 @@ Magnify.prototype = {
     });
 
     // Set grab cursor
-    setGrabCursor({ w: imgNewWidth, h: imgNewHeight }, { w: stageData.w, h: stageData.h },
+    setGrabCursor(
+      { w: Math.round(imgNewWidth), h: Math.round(imgNewHeight) },
+      { w: stageData.w, h: stageData.h },
       this.$stage
     );
 
@@ -795,49 +799,49 @@ Magnify.prototype = {
       altKey = e.altKey || e.metaKey;
 
     switch (keyCode) {
-      // ←
-      case 37:
-        self.jump(-1);
-        break;
+    // ←
+    case 37:
+      self.jump(-1);
+      break;
       // →
-      case 39:
-        self.jump(1);
-        break;
+    case 39:
+      self.jump(1);
+      break;
       // +
-      case 187:
-        self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-        break;
+    case 187:
+      self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+      break;
       // -
-      case 189:
-        self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-        break;
+    case 189:
+      self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+      break;
       // + Firefox
-      case 61:
-        self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-        break;
+    case 61:
+      self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+      break;
       // - Firefox
-      case 173:
-        self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-        break;
+    case 173:
+      self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+      break;
       // ctrl + alt + 0
-      case 48:
-        if (ctrlKey && altKey) {
-          self.zoomTo(1, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-        }
-        break;
+    case 48:
+      if (ctrlKey && altKey) {
+        self.zoomTo(1, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+      }
+      break;
       // ctrl + ,
-      case 188:
-        if (ctrlKey) {
-          self.rotate(-90);
-        }
-        break;
+    case 188:
+      if (ctrlKey) {
+        self.rotate(-90);
+      }
+      break;
       // ctrl + .
-      case 190:
-        if (ctrlKey) {
-          self.rotate(90);
-        }
-        break;
-      default:
+    case 190:
+      if (ctrlKey) {
+        self.rotate(90);
+      }
+      break;
+    default:
     }
 
   },
