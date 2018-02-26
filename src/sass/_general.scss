@@ -105,15 +105,18 @@
     &:hover {
         color: #fff;
     }
-    &.magnify-button-close:hover {
-        background-color: #ff4545;
-    }
-    &.magnify-button-maximize:hover {
-        background-color: #525252;
-    }
-    &.magnify-button-minimize:hover {
-        background-color: #525252;
-    }
+}
+
+.magnify-button-close:hover {
+    background-color: #ff4545;
+}
+
+.magnify-button-maximize:hover {
+    background-color: #525252;
+}
+
+.magnify-button-minimize:hover {
+    background-color: #525252;
 }
 
 // loader
@@ -126,6 +129,7 @@
     z-index: 2;
     text-align: center;
     background-color: rgba(0, 0, 0, 0.3);
+    color:#333;
     &::after {
         content: '';
         display: inline-block;
