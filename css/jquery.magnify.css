@@ -127,15 +127,15 @@
   color: #fff;
 }
 
-.magnify-button.magnify-button-close:hover {
+.magnify-button-close:hover {
   background-color: #ff4545;
 }
 
-.magnify-button.magnify-button-maximize:hover {
+.magnify-button-maximize:hover {
   background-color: #525252;
 }
 
-.magnify-button.magnify-button-minimize:hover {
+.magnify-button-minimize:hover {
   background-color: #525252;
 }
 
@@ -148,6 +148,7 @@
   z-index: 2;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.3);
+  color: #333;
 }
 
 .magnify-loader::after {
@@ -274,6 +275,7 @@
   bottom: 0;
   left: 0;
   border-width: 0;
+  background-color: #000;
 }
 
 :-moz-full-screen {
@@ -295,6 +297,7 @@
   bottom: 0;
   left: 0;
   border-width: 0;
+  background-color: #000;
 }
 
 :-ms-fullscreen {
@@ -316,6 +319,7 @@
   bottom: 0;
   left: 0;
   border-width: 0;
+  background-color: #000;
 }
 
 :full-screen {
@@ -337,6 +341,7 @@
   bottom: 0;
   left: 0;
   border-width: 0;
+  background-color: #000;
 }
 
 :-webkit-full-screen {
@@ -397,6 +402,7 @@
   bottom: 0;
   left: 0;
   border-width: 0;
+  background-color: #000;
 }
 
 :-moz-full-screen .magnify-stage {
@@ -405,6 +411,7 @@
   bottom: 0;
   left: 0;
   border-width: 0;
+  background-color: #000;
 }
 
 :-ms-fullscreen .magnify-stage {
@@ -413,6 +420,7 @@
   bottom: 0;
   left: 0;
   border-width: 0;
+  background-color: #000;
 }
 
 :fullscreen .magnify-stage {
@@ -421,6 +429,19 @@
   bottom: 0;
   left: 0;
   border-width: 0;
+  background-color: #000;
+}
+
+::-webkit-backdrop {
+  background-color: #000;
+}
+
+::backdrop {
+  background-color: #000;
+}
+
+::-ms-backdrop {
+  background-color: #000;
 }
 
 .is-grab {
