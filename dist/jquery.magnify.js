@@ -268,7 +268,7 @@ Magnify.prototype = {
     // magnify base HTML
     var magnifyHTML = '<div class="magnify-modal">\
                           <div class="magnify-header">\
-                              <div class="magnify-title"></div>\
+                              '+ (this.options.title ? '<div class="magnify-title"></div>' : '') + '\
                               <div class="magnify-toolbar">' + this.creatBtns(this.options.headToolbar, btnsTpl) + '</div>\
                           </div>\
                           <div class="magnify-stage">\
@@ -833,49 +833,49 @@ Magnify.prototype = {
       altKey = e.altKey || e.metaKey;
 
     switch (keyCode) {
-    // ←
-    case 37:
-      self.jump(-1);
-      break;
+      // ←
+      case 37:
+        self.jump(-1);
+        break;
       // →
-    case 39:
-      self.jump(1);
-      break;
+      case 39:
+        self.jump(1);
+        break;
       // +
-    case 187:
-      self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-      break;
+      case 187:
+        self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+        break;
       // -
-    case 189:
-      self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-      break;
+      case 189:
+        self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+        break;
       // + Firefox
-    case 61:
-      self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-      break;
+      case 61:
+        self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+        break;
       // - Firefox
-    case 173:
-      self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-      break;
+      case 173:
+        self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+        break;
       // ctrl + alt + 0
-    case 48:
-      if (ctrlKey && altKey) {
-        self.zoomTo(1, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-      }
-      break;
+      case 48:
+        if (ctrlKey && altKey) {
+          self.zoomTo(1, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+        }
+        break;
       // ctrl + ,
-    case 188:
-      if (ctrlKey) {
-        self.rotate(-90);
-      }
-      break;
+      case 188:
+        if (ctrlKey) {
+          self.rotate(-90);
+        }
+        break;
       // ctrl + .
-    case 190:
-      if (ctrlKey) {
-        self.rotate(90);
-      }
-      break;
-    default:
+      case 190:
+        if (ctrlKey) {
+          self.rotate(90);
+        }
+        break;
+      default:
     }
 
   },

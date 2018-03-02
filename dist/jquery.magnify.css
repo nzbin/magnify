@@ -42,8 +42,6 @@
   position: absolute;
   top: 0;
   right: 0;
-  width: 80px;
-  height: 40px;
 }
 
 .magnify-title {
@@ -97,7 +95,6 @@
 
 .magnify-footer .magnify-toolbar {
   display: inline-block;
-  height: 40px;
 }
 
 .magnify-toolbar {
