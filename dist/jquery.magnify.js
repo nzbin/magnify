@@ -227,6 +227,9 @@ Magnify.prototype = {
     return btnsStr;
 
   },
+  creatTitle: function () {
+    return (this.options.title ? '<div class="magnify-title"></div>' : '');
+  },
   creatDOM: function () {
 
     var btnsTpl = {
@@ -267,16 +270,15 @@ Magnify.prototype = {
 
     // magnify base HTML
     var magnifyHTML = '<div class="magnify-modal">\
-                          <div class="magnify-header">\
-                              '+ (this.options.title ? '<div class="magnify-title"></div>' : '') + '\
-                              <div class="magnify-toolbar">' + this.creatBtns(this.options.headToolbar, btnsTpl) + '</div>\
-                          </div>\
-                          <div class="magnify-stage">\
-                              <img class="magnify-image" src="" alt="" />\
-                          </div>\
-                          <div class="magnify-footer">\
-                              <div class="magnify-toolbar">' + this.creatBtns(this.options.footToolbar, btnsTpl) + '</div>\
-                          </div>\
+                        <div class="magnify-header">\
+                          <div class="magnify-toolbar">' + this.creatBtns(this.options.headToolbar, btnsTpl) + '</div>' + this.creatTitle() + '\
+                        </div>\
+                        <div class="magnify-stage">\
+                          <img class="magnify-image" src="" alt="" />\
+                        </div>\
+                        <div class="magnify-footer">\
+                          <div class="magnify-toolbar">' + this.creatBtns(this.options.footToolbar, btnsTpl) + '</div>\
+                        </div>\
                       </div>';
 
     return magnifyHTML;

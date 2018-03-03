@@ -39,13 +39,10 @@
 }
 
 .magnify-header .magnify-toolbar {
-  position: absolute;
-  top: 0;
-  right: 0;
+  float: right;
 }
 
 .magnify-title {
-  margin-right: 80px;
   padding: 13px 10px;
   font-size: 14px;
   line-height: 1;
