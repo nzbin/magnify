@@ -110,7 +110,7 @@ var $W = $(window),
     multiInstances: true,
     initEvent: 'click',
     initAnimation: true,
-    changeImgWithModalFixed: false
+    fixedModalPos: false
     // beforeOpen:$.noop,
     // afterOpen:$.noop,
     // beforeClose:$.noop,
@@ -531,7 +531,7 @@ Magnify.prototype = {
         originalHeight: img.height
       };
 
-      if (self.isMaximized || (self.isOpened && self.options.changeImgWithModalFixed)) {
+      if (self.isMaximized || (self.isOpened && self.options.fixedModalPos)) {
         self.setImageSize(img);
       } else {
         self.setModalSize(img);
