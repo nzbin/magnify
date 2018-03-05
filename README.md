@@ -201,8 +201,8 @@ $("[data-magnify=gallery]").magnify();
 - **initAnimation** `true`
   > If false, it will not have animation at plugin's init.
 
-- **changeImgWithModalFixed** `false`
-  > if true, the modal size will be fixed when change images.
+- **fixedModalPos** `false`
+  > if true, the modal position will be fixed when change images.
 
 ## License
 
