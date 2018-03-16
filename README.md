@@ -90,13 +90,13 @@ $("[data-magnify=gallery]").magnify();
 - **keyboard** `true`
   >	If ture, it allow keyboard control. It is similar to Windows viewer.
   
-  - `←` prev image
-  - `→` next image
-  - `+` zoom in image
-  - `-` zoom out image
-  - `ctrl + alt + 0` image autual size
-  - `ctrl + ,` rotate image left
-  - `ctrl + .` rotate image right
+  - <kbd>←</kbd> prev image
+  - <kbd>→</kbd> next image
+  - <kbd>+</kbd> zoom in image
+  - <kbd>-</kbd> zoom out image
+  - <kbd>ctrl</kbd> + <kbd>alt</kbd> + <kbd>0</kbd> image autual size
+  - <kbd>ctrl</kbd> + <kbd>,</kbd> rotate image left
+  - <kbd>ctrl</kbd> + <kbd>.</kbd> rotate image right
 
 
 - **title** `true`
