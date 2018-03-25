@@ -1,0 +1,62 @@
+.magnify-modal {
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, .85);
+  box-shadow: 0 0 1px 1px #fff, 0 0 0 2px rgba(0, 0, 0, 0.3), 0 0 10px 2px rgba(0, 0, 0, 0.2), 0 1px 10px 2px rgba(0, 0, 0, 0.3);
+  border-radius: 4px;
+}
+
+.magnify-header {
+  height: 30px;
+}
+
+.magnify-title {
+  padding: 8px 10px;
+}
+
+.magnify-stage {
+  top: 30px;
+  right: 5px;
+  left: 5px;
+  background-color: #fff;
+  border-color: #666;
+}
+
+.magnify-title {
+  color: #333
+}
+
+.magnify-header .magnify-toolbar {
+  margin-right: 5px;
+}
+
+.magnify-header .magnify-button {
+  height: 22px;
+  padding: 0;
+  background-color: #eee;
+  color: #fff;
+  text-shadow: 0 0 1px #000;
+}
+
+.magnify-header .magnify-button:hover {
+  background-color: #ccc;
+}
+
+.magnify-header .magnify-button-close {
+  background-color: #ff6e6e;
+}
+
+.magnify-header .magnify-button-close:hover {
+  background-color: #ff4545;
+}
+
+.magnify-footer .magnify-button {
+  color: #666;
+}
+
+.magnify-footer .magnify-button:hover {
+  color: #333;
+}
+
+.magnify-loader {
+  background: transparent;
+}

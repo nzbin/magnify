@@ -1,0 +1,30 @@
+.magnify-modal {
+  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.3);
+}
+
+.magnify-header .magnify-toolbar {
+  background-color: rgba(0, 0, 0, .5);
+}
+
+.magnify-stage {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  border-width: 0;
+}
+
+.magnify-footer .magnify-toolbar {
+  background-color: rgba(0, 0, 0, .5);
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.magnify-header,
+.magnify-footer {
+  pointer-events: none;
+}
+
+.magnify-button {
+  pointer-events: auto;
+}
