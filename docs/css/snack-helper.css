@@ -1,8 +1,12 @@
-/*
- * helper.css v1.0.0
+/**
+ *
+ * snack-helper.css v1.0.0
+ *
+ * https://nzbin.github.io/snack-helper/
+ *
+ * Copyright (c) 2017 nzbin
  *
  * Released under the MIT license
- * Copyright 2017 by nzbin
  *
  */
 .f-w-100 {
@@ -97,6 +101,10 @@
   font-size: 36px !important;
 }
 
+.f-s-0 {
+  font-size: 0;
+}
+
 .text-left {
   text-align: left !important;
 }
@@ -113,6 +121,10 @@
   white-space: nowrap !important;
   overflow: hidden !important;
   text-overflow: ellipsis !important;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
 }
 
 .align-top {
@@ -413,6 +425,86 @@
   margin-left: 30px !important;
 }
 
+.m-35 {
+  margin: 35px !important;
+}
+
+.m-t-35 {
+  margin-top: 35px !important;
+}
+
+.m-r-35 {
+  margin-right: 35px !important;
+}
+
+.m-b-35 {
+  margin-bottom: 35px !important;
+}
+
+.m-l-35 {
+  margin-left: 35px !important;
+}
+
+.m-40 {
+  margin: 40px !important;
+}
+
+.m-t-40 {
+  margin-top: 40px !important;
+}
+
+.m-r-40 {
+  margin-right: 40px !important;
+}
+
+.m-b-40 {
+  margin-bottom: 40px !important;
+}
+
+.m-l-40 {
+  margin-left: 40px !important;
+}
+
+.m-45 {
+  margin: 45px !important;
+}
+
+.m-t-45 {
+  margin-top: 45px !important;
+}
+
+.m-r-45 {
+  margin-right: 45px !important;
+}
+
+.m-b-45 {
+  margin-bottom: 45px !important;
+}
+
+.m-l-45 {
+  margin-left: 45px !important;
+}
+
+.m-50 {
+  margin: 50px !important;
+}
+
+.m-t-50 {
+  margin-top: 50px !important;
+}
+
+.m-r-50 {
+  margin-right: 50px !important;
+}
+
+.m-b-50 {
+  margin-bottom: 50px !important;
+}
+
+.m-l-50 {
+  margin-left: 50px !important;
+}
+
 .m-t--5 {
   margin-top: -5px !important;
 }
@@ -507,6 +599,70 @@
 
 .m-l--30 {
   margin-left: -30px !important;
+}
+
+.m-t--35 {
+  margin-top: -35px !important;
+}
+
+.m-r--35 {
+  margin-right: -35px !important;
+}
+
+.m-b--35 {
+  margin-bottom: -35px !important;
+}
+
+.m-l--35 {
+  margin-left: -35px !important;
+}
+
+.m-t--40 {
+  margin-top: -40px !important;
+}
+
+.m-r--40 {
+  margin-right: -40px !important;
+}
+
+.m-b--40 {
+  margin-bottom: -40px !important;
+}
+
+.m-l--40 {
+  margin-left: -40px !important;
+}
+
+.m-t--45 {
+  margin-top: -45px !important;
+}
+
+.m-r--45 {
+  margin-right: -45px !important;
+}
+
+.m-b--45 {
+  margin-bottom: -45px !important;
+}
+
+.m-l--45 {
+  margin-left: -45px !important;
+}
+
+.m-t--50 {
+  margin-top: -50px !important;
+}
+
+.m-r--50 {
+  margin-right: -50px !important;
+}
+
+.m-b--50 {
+  margin-bottom: -50px !important;
+}
+
+.m-l--50 {
+  margin-left: -50px !important;
 }
 
 .p-0 {
@@ -647,6 +803,86 @@
 
 .p-l-30 {
   padding-left: 30px !important;
+}
+
+.p-35 {
+  padding: 35px !important;
+}
+
+.p-t-35 {
+  padding-top: 35px !important;
+}
+
+.p-r-35 {
+  padding-right: 35px !important;
+}
+
+.p-b-35 {
+  padding-bottom: 35px !important;
+}
+
+.p-l-35 {
+  padding-left: 35px !important;
+}
+
+.p-40 {
+  padding: 40px !important;
+}
+
+.p-t-40 {
+  padding-top: 40px !important;
+}
+
+.p-r-40 {
+  padding-right: 40px !important;
+}
+
+.p-b-40 {
+  padding-bottom: 40px !important;
+}
+
+.p-l-40 {
+  padding-left: 40px !important;
+}
+
+.p-45 {
+  padding: 45px !important;
+}
+
+.p-t-45 {
+  padding-top: 45px !important;
+}
+
+.p-r-45 {
+  padding-right: 45px !important;
+}
+
+.p-b-45 {
+  padding-bottom: 45px !important;
+}
+
+.p-l-45 {
+  padding-left: 45px !important;
+}
+
+.p-50 {
+  padding: 50px !important;
+}
+
+.p-t-50 {
+  padding-top: 50px !important;
+}
+
+.p-r-50 {
+  padding-right: 50px !important;
+}
+
+.p-b-50 {
+  padding-bottom: 50px !important;
+}
+
+.p-l-50 {
+  padding-left: 50px !important;
 }
 
 .h-full {
@@ -1121,7 +1357,8 @@
   border-bottom-left-radius: 20px !important;
 }
 
-.no-shadow, .shadow-none {
+.no-shadow,
+.shadow-none {
   box-shadow: none !important;
 }
 
@@ -1820,3 +2057,5 @@
 .text-pink-darkest {
   color: #7d0022;
 }
+
+/*# sourceMappingURL=snack-helper.css.map */
