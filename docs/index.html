@@ -36,294 +36,302 @@
       </p>
     </div>
     <h2 class="b-b-1 p-b-10 p-t-10 m-t-30" id="examples">Examples</h2>
-    <p>All the pictures come from Flickr website, copyright to the original author.</p>
-    <h4>1.Example with default options</h4>
-    <div class="image-set">
-      <a data-magnify="gallery" data-src="" data-caption="Slipping Away by Jerry Fryer" data-group="a" href="https://farm1.staticflickr.com/313/31812080833_297acfbbd9_z.jpg">
-        <img src="https://farm1.staticflickr.com/313/31812080833_297acfbbd9_s.jpg" alt="">
-      </a>
-      <a data-magnify="gallery" data-src="" data-caption="Mi Fuego by albert dros" data-group="a" href="https://farm4.staticflickr.com/3804/33589584740_b0fbdcd4aa_z.jpg">
-        <img src="https://farm4.staticflickr.com/3804/33589584740_b0fbdcd4aa_s.jpg" alt="">
-      </a>
-      <a data-magnify="gallery" data-src="" data-caption="Winter Fairytale by Achim Thomae" data-group="a" href="https://farm1.staticflickr.com/470/31340603494_fb7228020d_z.jpg">
-        <img src="https://farm1.staticflickr.com/470/31340603494_fb7228020d_s.jpg" alt="">
-      </a>
-    </div>
-    <div class="boxes default m-t-20" id="optionsGenerator">
-      <div class="box headed">Options Generator</div>
-      <div class="box bodied">
-        <div class="row form-horizontal">
-          <div class="col-6">
-            <div class="form-item">
-              <label for="" class="col-4 form-label">
-                draggable
-              </label>
-              <div class="col-8">
-                <div class="checkbox inline">
-                  <input type="checkbox" id="draggable" name="draggable" v-model="options.draggable">
-                  <label for="draggable">{{options.draggable}}</label>
+    <p>All the pictures come from Flickr website, copyright to the original author. You can play the following example by changing
+      themes and options in the playground. Besides,
+      <a href="https://codepen.io/collection/XGzYZy/#" target="_blank">examples collection</a> can be found on CodePen.
+    </p>
+    <div id="playground">
+      <div class="form-inline">
+        <select class="form-field" @change="changeTheme">
+          <option value="0">default theme</option>
+          <option value="1">simple theme</option>
+          <option value="2">white theme</option>
+        </select>
+      </div>
+      <div class="image-set m-t-20">
+        <a data-magnify="gallery" data-src="" data-caption="Slipping Away by Jerry Fryer" data-group="a" href="https://farm1.staticflickr.com/313/31812080833_297acfbbd9_z.jpg">
+          <img src="https://farm1.staticflickr.com/313/31812080833_297acfbbd9_s.jpg" alt="">
+        </a>
+        <a data-magnify="gallery" data-src="" data-caption="Mi Fuego by albert dros" data-group="a" href="https://farm4.staticflickr.com/3804/33589584740_b0fbdcd4aa_z.jpg">
+          <img src="https://farm4.staticflickr.com/3804/33589584740_b0fbdcd4aa_s.jpg" alt="">
+        </a>
+        <a data-magnify="gallery" data-src="" data-caption="Winter Fairytale by Achim Thomae" data-group="a" href="https://farm1.staticflickr.com/470/31340603494_fb7228020d_z.jpg">
+          <img src="https://farm1.staticflickr.com/470/31340603494_fb7228020d_s.jpg" alt="">
+        </a>
+      </div>
+      <div class="boxes default m-t-20">
+        <div class="box headed">Options Generator</div>
+        <div class="box bodied">
+          <div class="row form-horizontal">
+            <div class="col-6">
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  draggable
+                </label>
+                <div class="col-8">
+                  <div class="checkbox inline">
+                    <input type="checkbox" id="draggable" name="draggable" v-model="options.draggable">
+                    <label for="draggable">{{options.draggable}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  resizable
+                </label>
+                <div class="col-8">
+                  <div class="checkbox inline">
+                    <input type="checkbox" id="resizable" name="resizable" v-model="options.resizable">
+                    <label for="resizable">{{options.resizable}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  movable
+                </label>
+                <div class="col-8">
+                  <div class="checkbox inline">
+                    <input type="checkbox" id="movable" name="movable" v-model="options.movable">
+                    <label for="movable">{{options.movable}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  keyboard
+                </label>
+                <div class="col-8">
+                  <div class="checkbox inline">
+                    <input type="checkbox" id="keyboard" name="keyboard" v-model="options.keyboard">
+                    <label for="keyboard">{{options.keyboard}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  title
+                </label>
+                <div class="col-8">
+                  <div class="checkbox inline">
+                    <input type="checkbox" id="title" name="title" v-model="options.title">
+                    <label for="title">{{options.title}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  multiInstances
+                </label>
+                <div class="col-8">
+                  <div class="checkbox inline">
+                    <input type="checkbox" id="multiInstances" name="multiInstances" v-model="options.multiInstances">
+                    <label for="multiInstances">{{options.multiInstances}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  fixedContent
+                </label>
+                <div class="col-8">
+                  <div class="checkbox inline">
+                    <input type="checkbox" id="fixedContent" name="fixedContent" v-model="options.fixedContent">
+                    <label for="fixedContent">{{options.fixedContent}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  fixedModalPos
+                </label>
+                <div class="col-8">
+                  <div class="checkbox inline">
+                    <input type="checkbox" id="fixedModalPos" name="fixedModalPos" v-model="options.fixedModalPos">
+                    <label for="fixedModalPos">{{options.fixedModalPos}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  fixedModalSize
+                </label>
+                <div class="col-8">
+                  <div class="checkbox inline">
+                    <input type="checkbox" id="fixedModalSize" name="fixedModalSize" v-model="options.fixedModalSize">
+                    <label for="fixedModalSize">{{options.fixedModalSize}}</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  modalWidth
+                </label>
+                <div class="col-8">
+                  <input type="number" name="modalWidth" class="form-field" min="0" v-model="options.modalWidth">
+                </div>
+              </div>
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  modalHeight
+                </label>
+                <div class="col-8">
+                  <input type="number" name="modalHeight" class="form-field" min="0" v-model="options.modalHeight">
+                </div>
+              </div>
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  gapThreshold
+                </label>
+                <div class="col-8">
+                  <input type="number" name="gapThreshold" class="form-field" min="0" step=".01" v-model="options.gapThreshold">
                 </div>
               </div>
             </div>
-            <div class="form-item">
-              <label for="" class="col-4 form-label">
-                resizable
-              </label>
-              <div class="col-8">
-                <div class="checkbox inline">
-                  <input type="checkbox" id="resizable" name="resizable" v-model="options.resizable">
-                  <label for="resizable">{{options.resizable}}</label>
+            <div class="col-6">
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  ratioThreshold
+                </label>
+                <div class="col-8">
+                  <input type="number" name="ratioThreshold" class="form-field" min="0" step=".1" v-model="options.ratioThreshold">
                 </div>
               </div>
-            </div>
-            <div class="form-item">
-              <label for="" class="col-4 form-label">
-                movable
-              </label>
-              <div class="col-8">
-                <div class="checkbox inline">
-                  <input type="checkbox" id="movable" name="movable" v-model="options.movable">
-                  <label for="movable">{{options.movable}}</label>
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  minRatio
+                </label>
+                <div class="col-8">
+                  <input type="number" name="minRatio" class="form-field" min="0.1" step=".1" v-model="options.minRatio">
                 </div>
               </div>
-            </div>
-            <div class="form-item">
-              <label for="" class="col-4 form-label">
-                keyboard
-              </label>
-              <div class="col-8">
-                <div class="checkbox inline">
-                  <input type="checkbox" id="keyboard" name="keyboard" v-model="options.keyboard">
-                  <label for="keyboard">{{options.keyboard}}</label>
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  maxRatio
+                </label>
+                <div class="col-8">
+                  <input type="number" name="maxRatio" class="form-field" min="0" step=".1" v-model="options.maxRatio">
                 </div>
               </div>
-            </div>
-            <div class="form-item">
-              <label for="" class="col-4 form-label">
-                title
-              </label>
-              <div class="col-8">
-                <div class="checkbox inline">
-                  <input type="checkbox" id="title" name="title" v-model="options.title">
-                  <label for="title">{{options.title}}</label>
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  headToolbar
+                  <span data-balloon="Pay attention to the order of choice." data-balloon-pos="up">
+                    <i class="fa fa-info-circle text-danger"></i>
+                  </span>
+                </label>
+                <div class="col-8">
+                  <div class="checkbox inline m-r-10">
+                    <input type="checkbox" name="minimize" id="minimize" value="minimize" v-model="options.headToolbar">
+                    <label for="minimize">minimize</label>
+                  </div>
+                  <div class="checkbox inline m-r-10 m-l-0">
+                    <input type="checkbox" name="maximize" id="maximize" value="maximize" v-model="options.headToolbar">
+                    <label for="maximize">maximize</label>
+                  </div>
+                  <div class="checkbox inline m-l-0">
+                    <input type="checkbox" name="close" id="close" value="close" v-model="options.headToolbar">
+                    <label for="close">close</label>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="form-item">
-              <label for="" class="col-4 form-label">
-                fixedModalSize
-              </label>
-              <div class="col-8">
-                <div class="checkbox inline">
-                  <input type="checkbox" id="fixedModalSize" name="fixedModalSize" v-model="options.fixedModalSize">
-                  <label for="fixedModalSize">{{options.fixedModalSize}}</label>
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  footToolbar
+                  <span data-balloon="Pay attention to the order of choice." data-balloon-pos="up">
+                    <i class="fa fa-info-circle text-danger"></i>
+                  </span>
+                </label>
+                <div class="col-8">
+                  <div class="checkbox inline m-r-10">
+                    <input type="checkbox" name="zoomIn" id="zoomIn" value="zoomIn" v-model="options.footToolbar">
+                    <label for="zoomIn">zoomIn</label>
+                  </div>
+                  <div class="checkbox inline m-r-10 m-l-0">
+                    <input type="checkbox" name="zoomOut" id="zoomOut" value="zoomOut" v-model="options.footToolbar">
+                    <label for="zoomOut">zoomOut</label>
+                  </div>
+                  <div class="checkbox inline m-r-10 m-l-0">
+                    <input type="checkbox" name="prev" id="prev" value="prev" v-model="options.footToolbar">
+                    <label for="prev">prev</label>
+                  </div>
+                  <div class="checkbox inline m-r-10 m-l-0">
+                    <input type="checkbox" name="fullscreen" id="fullscreen" value="fullscreen" v-model="options.footToolbar">
+                    <label for="fullscreen">fullscreen</label>
+                  </div>
+                  <div class="checkbox inline m-r-10 m-l-0">
+                    <input type="checkbox" name="next" id="next" value="next" v-model="options.footToolbar">
+                    <label for="next">next</label>
+                  </div>
+                  <div class="checkbox inline m-r-10 m-l-0">
+                    <input type="checkbox" name="actualSize" id="actualSize" value="actualSize" v-model="options.footToolbar">
+                    <label for="actualSize">actualSize</label>
+                  </div>
+                  <div class="checkbox inline m-r-10 m-l-0">
+                    <input type="checkbox" name="rotateRight" id="rotateRight" value="rotateRight" v-model="options.footToolbar">
+                    <label for="rotateRight">rotateRight</label>
+                  </div>
+                  <div class="checkbox inline m-l-0">
+                    <input type="checkbox" name="rotateLeft" id="rotateLeft" value="rotateLeft" v-model="options.footToolbar">
+                    <label for="rotateLeft">rotateLeft</label>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="form-item">
-              <label for="" class="col-4 form-label">
-                modalWidth
-              </label>
-              <div class="col-8">
-                <input type="number" name="modalWidth" class="form-field" min="0" v-model="options.modalWidth">
-              </div>
-            </div>
-            <div class="form-item">
-              <label for="" class="col-4 form-label">
-                modalHeight
-              </label>
-              <div class="col-8">
-                <input type="number" name="modalHeight" class="form-field" min="0" v-model="options.modalHeight">
-              </div>
-            </div>
-            <div class="form-item">
-              <label for="" class="col-4 form-label">
-                gapThreshold
-              </label>
-              <div class="col-8">
-                <input type="number" name="gapThreshold" class="form-field" min="0" step=".01" v-model="options.gapThreshold">
-              </div>
-            </div>
-            <div class="form-item">
-              <label for="" class="col-4 form-label">
-                ratioThreshold
-              </label>
-              <div class="col-8">
-                <input type="number" name="ratioThreshold" class="form-field" min="0" step=".1" v-model="options.ratioThreshold">
-              </div>
-            </div>
-            <div class="form-item">
-              <label for="" class="col-4 form-label">
-                minRatio
-              </label>
-              <div class="col-8">
-                <input type="number" name="minRatio" class="form-field" min="0" step=".1" v-model="options.minRatio">
-              </div>
-            </div>
-            <div class="form-item">
-              <label for="" class="col-4 form-label">
-                maxRatio
-              </label>
-              <div class="col-8">
-                <input type="number" name="maxRatio" class="form-field" min="0" step=".1" v-model="options.maxRatio">
-              </div>
-            </div>
-          </div>
-          <div class="col-6">
-            <div class="form-item">
-              <label for="" class="col-4 form-label">
-                headToolbar 
-                <span data-balloon="Pay attention to the order of choice." data-balloon-pos="up"><i class="fa fa-info-circle text-danger"></i></span>
-              </label>
-              <div class="col-8">
-                <div class="checkbox inline m-r-10">
-                  <input type="checkbox" name="minimize" id="minimize" value="minimize" v-model="options.headToolbar">
-                  <label for="minimize">minimize</label>
-                </div>
-                <div class="checkbox inline m-r-10 m-l-0">
-                  <input type="checkbox" name="maximize" id="maximize" value="maximize" v-model="options.headToolbar">
-                  <label for="maximize">maximize</label>
-                </div>
-                <div class="checkbox inline m-l-0">
-                  <input type="checkbox" name="close" id="close" value="close" v-model="options.headToolbar">
-                  <label for="close">close</label>
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  initMaximized
+                </label>
+                <div class="col-8">
+                  <div class="checkbox inline">
+                    <input type="checkbox" id="initMaximized" name="initMaximized" v-model="options.initMaximized">
+                    <label for="initMaximized">{{options.initMaximized}}</label>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="form-item">
-              <label for="" class="col-4 form-label">
-                footToolbar
-                <span data-balloon="Pay attention to the order of choice." data-balloon-pos="up"><i class="fa fa-info-circle text-danger"></i></span>
-              </label>
-              <div class="col-8">
-                <div class="checkbox inline m-r-10">
-                  <input type="checkbox" name="zoomIn" id="zoomIn" value="zoomIn" v-model="options.footToolbar">
-                  <label for="zoomIn">zoomIn</label>
-                </div>
-                <div class="checkbox inline m-r-10 m-l-0">
-                  <input type="checkbox" name="zoomOut" id="zoomOut" value="zoomOut" v-model="options.footToolbar">
-                  <label for="zoomOut">zoomOut</label>
-                </div>
-                <div class="checkbox inline m-r-10 m-l-0">
-                  <input type="checkbox" name="prev" id="prev" value="prev" v-model="options.footToolbar">
-                  <label for="prev">prev</label>
-                </div>
-                <div class="checkbox inline m-r-10 m-l-0">
-                  <input type="checkbox" name="fullscreen" id="fullscreen" value="fullscreen" v-model="options.footToolbar">
-                  <label for="fullscreen">fullscreen</label>
-                </div>
-                <div class="checkbox inline m-r-10 m-l-0">
-                  <input type="checkbox" name="next" id="next" value="next" v-model="options.footToolbar">
-                  <label for="next">next</label>
-                </div>
-                <div class="checkbox inline m-r-10 m-l-0">
-                  <input type="checkbox" name="actualSize" id="actualSize" value="actualSize" v-model="options.footToolbar">
-                  <label for="actualSize">actualSize</label>
-                </div>
-                <div class="checkbox inline m-r-10 m-l-0">
-                  <input type="checkbox" name="rotateRight" id="rotateRight" value="rotateRight" v-model="options.footToolbar">
-                  <label for="rotateRight">rotateRight</label>
-                </div>
-                <div class="checkbox inline m-l-0">
-                  <input type="checkbox" name="rotateLeft" id="rotateLeft" value="rotateLeft" v-model="options.footToolbar">
-                  <label for="rotateLeft">rotateLeft</label>
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  initAnimation
+                </label>
+                <div class="col-8">
+                  <div class="checkbox inline">
+                    <input type="checkbox" id="initAnimation" name="initAnimation" v-model="options.initAnimation">
+                    <label for="initAnimation">{{options.initAnimation}}</label>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="form-item">
-              <label for="" class="col-4 form-label">
-                fixedContent
-              </label>
-              <div class="col-8">
-                <div class="checkbox inline">
-                  <input type="checkbox" id="fixedContent" name="fixedContent" v-model="options.fixedContent">
-                  <label for="fixedContent">{{options.fixedContent}}</label>
+
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  initEvent
+                </label>
+                <div class="col-8">
+                  <select name="initEvent" class="form-field" v-model="options.initEvent">
+                    <option value="click">click</option>
+                    <option value="dblclick">dblclick</option>
+                  </select>
                 </div>
               </div>
-            </div>
-            <div class="form-item">
-              <label for="" class="col-4 form-label">
-                initMaximized
-              </label>
-              <div class="col-8">
-                <div class="checkbox inline">
-                  <input type="checkbox" id="initMaximized" name="initMaximized" v-model="options.initMaximized">
-                  <label for="initMaximized">{{options.initMaximized}}</label>
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  icons
+                </label>
+                <div class="col-8">
+                  {...}
                 </div>
               </div>
-            </div>
-            <div class="form-item">
-              <label for="" class="col-4 form-label">
-                multiInstances
-              </label>
-              <div class="col-8">
-                <div class="checkbox inline">
-                  <input type="checkbox" id="multiInstances" name="multiInstances" v-model="options.multiInstances">
-                  <label for="multiInstances">{{options.multiInstances}}</label>
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  i18n
+                </label>
+                <div class="col-8">
+                  {...}
                 </div>
-              </div>
-            </div>
-            <div class="form-item">
-              <label for="" class="col-4 form-label">
-                initAnimation
-              </label>
-              <div class="col-8">
-                <div class="checkbox inline">
-                  <input type="checkbox" id="initAnimation" name="initAnimation" v-model="options.initAnimation">
-                  <label for="initAnimation">{{options.initAnimation}}</label>
-                </div>
-              </div>
-            </div>
-            <div class="form-item">
-              <label for="" class="col-4 form-label">
-                fixedModalPos
-              </label>
-              <div class="col-8">
-                <div class="checkbox inline">
-                  <input type="checkbox" id="fixedModalPos" name="fixedModalPos" v-model="options.fixedModalPos">
-                  <label for="fixedModalPos">{{options.fixedModalPos}}</label>
-                </div>
-              </div>
-            </div>
-            <div class="form-item">
-              <label for="" class="col-4 form-label">
-                initEvent
-              </label>
-              <div class="col-8">
-                <select name="initEvent" class="form-field" v-model="options.initEvent">
-                  <option value="click">click</option>
-                  <option value="dblclick">dblclick</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-item">
-              <label for="" class="col-4 form-label">
-                icons
-              </label>
-              <div class="col-8">
-                {...}
-              </div>
-            </div>
-            <div class="form-item">
-              <label for="" class="col-4 form-label">
-                i18n
-              </label>
-              <div class="col-8">
-                {...}
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <h4>2.Example with simple UI style</h4>
-    <p>Play with
-      <a href="https://codepen.io/nzbin/pen/GyNpEr" target="_blank">this example on CodePen.</a>
-    </p>
-    <h4>3.Example with white UI style</h4>
-    <p>Play with
-      <a href="https://codepen.io/nzbin/pen/QQBEQm" target="_blank">this example on CodePen.</a>
-    </p>
 
     <h2 class="b-b-1 p-b-10 p-t-10 m-t-30" id="usage">Usage</h2>
     <p>The usage of magnify is very simple.</p>
@@ -819,32 +827,45 @@ $('[data-magnify=gallery]').magnify(options);
     window.prettyPrint && prettyPrint();
 
     var defaultOpts = {
-          draggable: true,
-          resizable: true,
-          movable: true,
-          keyboard: true,
-          title: true,
-          modalWidth: 320,
-          modalHeight: 320,
-          fixedContent: true,
-          fixedModalSize: false,
-          initMaximized: false,
-          gapThreshold: 0.02,
-          ratioThreshold: 0.1,
-          minRatio: 0.1,
-          maxRatio: 16,
-          headToolbar: ['maximize', 'close'],
-          footToolbar: ['zoomIn', 'zoomOut', 'prev', 'fullscreen', 'next', 'actualSize', 'rotateRight'],
-          multiInstances: true,
-          initEvent: 'click',
-          initAnimation: true,
-          fixedModalPos: false
-        };
+      draggable: true,
+      resizable: true,
+      movable: true,
+      keyboard: true,
+      title: true,
+      modalWidth: 320,
+      modalHeight: 320,
+      fixedContent: true,
+      fixedModalSize: false,
+      initMaximized: false,
+      gapThreshold: 0.02,
+      ratioThreshold: 0.1,
+      minRatio: 0.1,
+      maxRatio: 16,
+      headToolbar: ['maximize', 'close'],
+      footToolbar: ['zoomIn', 'zoomOut', 'prev', 'fullscreen', 'next', 'actualSize', 'rotateRight'],
+      multiInstances: true,
+      initEvent: 'click',
+      initAnimation: true,
+      fixedModalPos: false
+    };
 
     var vm = new Vue({
-      el: '#optionsGenerator',
+      el: '#playground',
       data: {
         options: defaultOpts
+      },
+      methods: {
+        changeTheme: function (e) {
+          if (e.target.value === '0') {
+            $('.magnify-theme').remove();
+          } else if (e.target.value === '1') {
+            $('.magnify-theme').remove();
+            $('head').append('<link class="magnify-theme" href="css/magnify-simple-theme.css" rel="stylesheet">');
+          } else if (e.target.value === '2') {
+            $('.magnify-theme').remove();
+            $('head').append('<link class="magnify-theme" href="css/magnify-white-theme.css" rel="stylesheet">');
+          }
+        }
       },
       updated: function () {
         $('[data-magnify]').magnify(this.options);
