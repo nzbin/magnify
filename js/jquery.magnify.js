@@ -950,6 +950,14 @@ $.magnify = {
 $.fn.magnify = function (options) {
 
   jqEl = $(this);
+
+  // Convert a numeric string into a number
+  for (var key in options) {
+    if (typeof (options[key]) === 'string' && !isNaN(options[key])) {
+      options[key] = parseFloat(options[key])
+    }
+  }
+
   // Get init event, 'click' or 'dblclick'
   var opts = $.extend(true, {}, defaults, options);
 
