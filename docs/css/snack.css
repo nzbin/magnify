@@ -1196,7 +1196,6 @@ table {
   border: 2px solid transparent;
   border-radius: 5px;
   margin-bottom: 15px;
-  overflow: hidden;
 }
 
 .boxes > .box {
