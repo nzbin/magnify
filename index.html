@@ -305,10 +305,14 @@
                   initEvent
                 </label>
                 <div class="col-8">
-                  <select name="initEvent" class="form-field" v-model="options.initEvent">
-                    <option value="click">click</option>
-                    <option value="dblclick">dblclick</option>
-                  </select>
+                  <div class="radio inline">
+                    <input type="radio" id="click" value="click" v-model="options.initEvent">
+                    <label for="click">click</label>
+                  </div>
+                  <div class="radio inline">
+                    <input type="radio" id="dblclick" value="dblclick" v-model="options.initEvent">
+                    <label for="dblclick">dblclick</label>
+                  </div>
                 </div>
               </div>
               <div class="form-item">
