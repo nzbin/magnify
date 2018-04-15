@@ -2,7 +2,7 @@
  * ------------------------------
  * 1.modal resizable
  * 2.keep image in stage center
- * 3.~
+ * 3.other image limitations
  * ------------------------------
  *
  * [resizable]

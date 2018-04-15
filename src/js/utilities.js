@@ -3,6 +3,16 @@
  */
 
 /**
+ * [getImgSrc]
+ * @param {[Object]}  el    [description]
+ */
+function getImgSrc(el) {
+  // Get data-src as image src at first
+  var src = $(el).attr('data-src') ? $(el).attr('data-src') : $(el).attr('href');
+  return src;
+}
+
+/**
  * [throttle]
  * @param  {Function} fn    [description]
  * @param  {[Number]} delay [description]
@@ -12,13 +22,13 @@ function throttle(fn, delay) {
 
   var timer = null;
 
-  return function() {
+  return function () {
     var context = this,
       args = arguments;
 
     clearTimeout(timer);
 
-    timer = setTimeout(function() {
+    timer = setTimeout(function () {
       fn.apply(context, args);
     }, delay);
   };
@@ -35,11 +45,11 @@ function preloadImg(src, success, error) {
 
   var img = new Image();
 
-  img.onload = function() {
+  img.onload = function () {
     success(img);
   };
 
-  img.onerror = function() {
+  img.onerror = function () {
     error(img);
   };
 
@@ -147,6 +157,6 @@ function setGrabCursor(imageData, stageData, stage, isRotated) {
  * [supportTouch]
  * @return {[Boolean]}     [description]
  */
-function supportTouch(){
+function supportTouch() {
   return !!(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch);
 }

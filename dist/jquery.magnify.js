@@ -93,7 +93,6 @@ var $W = $(window),
       rotateRight: 'fa fa-rotate-right',
       loader: 'fa fa-spinner fa-pulse'
     },
-    // lang: 'en',
     i18n: {
       minimize: 'minimize',
       maximize: 'maximize',
@@ -108,13 +107,16 @@ var $W = $(window),
       rotateRight: 'rotate-right(Ctrl+.)'
     },
     multiInstances: true,
+    zIndex: 1090,
     initEvent: 'click',
     initAnimation: true,
-    fixedModalPos: false
-    // beforeOpen:$.noop,
-    // afterOpen:$.noop,
-    // beforeClose:$.noop,
-    // afterClose:$.noop
+    fixedModalPos: false,
+    callbacks: {
+      beforeOpen: $.noop,
+      afterOpen: $.noop,
+      beforeClose: $.noop,
+      afterClose: $.noop
+    }
   },
 
   // jquery element of calling plugin
@@ -124,14 +126,8 @@ var $W = $(window),
   isMoving = false,
   // modal resizing flag
   isResizing = false,
-  // modal open flag
-  isOpened = false,
-  // modal maximize flag
-  isMaximized = false,
-  // image rotate 90*(2n+1) flag
-  isRotated = false,
-  // image rotate angle
-  rotateAngle = 0;
+  // modal z-index setting
+  zIndex = 0;
 
 
 /**
@@ -151,11 +147,19 @@ var Magnify = function (el, options) {
     this.options.headToolbar = options.headToolbar;
   }
 
+  // Store element of clicked
+  this.$el = $(el);
+
   // As we have multiple instances,
   // so every instance has following variables.
+
+  // modal open flag
   this.isOpened = false;
+  // modal maximize flag
   this.isMaximized = false;
+  // image rotate 90*(2n+1) flag
   this.isRotated = false;
+  // image rotate angle
   this.rotateAngle = 0;
 
   // Store image data in every instance
@@ -172,7 +176,6 @@ var Magnify = function (el, options) {
 
 };
 
-
 /**
  * Mangify Prototype
  */
@@ -181,7 +184,7 @@ Magnify.prototype = {
   init: function (el, options) {
 
     // Get image src
-    var imgSrc = this.getImgSrc(el);
+    var imgSrc = getImgSrc(el);
 
     // Get image group
     this.groupName = null;
@@ -199,7 +202,7 @@ Magnify.prototype = {
       this.getImgGroup(jqEl.not('[data-group]'), imgSrc);
 
     }
-
+    
     this.open();
 
     this.loadImg(imgSrc);
@@ -216,7 +219,7 @@ Magnify.prototype = {
     }
 
   },
-  creatBtns: function (toolbar, btns) {
+  _creatBtns: function (toolbar, btns) {
 
     var btnsStr = '';
 
@@ -227,7 +230,7 @@ Magnify.prototype = {
     return btnsStr;
 
   },
-  creatTitle: function () {
+  _creatTitle: function () {
     return (this.options.title ? '<div class="magnify-title"></div>' : '');
   },
   creatDOM: function () {
@@ -271,17 +274,50 @@ Magnify.prototype = {
     // magnify base HTML
     var magnifyHTML = '<div class="magnify-modal">\
                         <div class="magnify-header">\
-                          <div class="magnify-toolbar">' + this.creatBtns(this.options.headToolbar, btnsTpl) + '</div>' + this.creatTitle() + '\
+                          <div class="magnify-toolbar">' + this._creatBtns(this.options.headToolbar, btnsTpl) + '</div>' + this._creatTitle() + '\
                         </div>\
                         <div class="magnify-stage">\
                           <img class="magnify-image" src="" alt="" />\
                         </div>\
                         <div class="magnify-footer">\
-                          <div class="magnify-toolbar">' + this.creatBtns(this.options.footToolbar, btnsTpl) + '</div>\
+                          <div class="magnify-toolbar">' + this._creatBtns(this.options.footToolbar, btnsTpl) + '</div>\
                         </div>\
                       </div>';
 
     return magnifyHTML;
+
+  },
+  build: function () {
+
+    // Create magnify HTML string
+    var magnifyHTML = this.creatDOM();
+
+    // Make magnify HTML string to jQuery element
+    var $magnify = $(magnifyHTML);
+
+    // Get all magnify element
+    this.$magnify = $magnify;
+    this.$header = $magnify.find('.magnify-header');
+    this.$stage = $magnify.find('.magnify-stage');
+    this.$title = $magnify.find('.magnify-title');
+    this.$image = $magnify.find('.magnify-image');
+    this.$close = $magnify.find('.magnify-button-close');
+    this.$maximize = $magnify.find('.magnify-button-maximize');
+    this.$minimize = $magnify.find('.magnify-button-minimize');
+    this.$zoomIn = $magnify.find('.magnify-button-zoom-in');
+    this.$zoomOut = $magnify.find('.magnify-button-zoom-out');
+    this.$actualSize = $magnify.find('.magnify-button-actual-size');
+    this.$fullscreen = $magnify.find('.magnify-button-fullscreen');
+    this.$rotateLeft = $magnify.find('.magnify-button-rotate-left');
+    this.$rotateRight = $magnify.find('.magnify-button-rotate-right');
+    this.$prev = $magnify.find('.magnify-button-prev');
+    this.$next = $magnify.find('.magnify-button-next');
+
+    this.$stage.addClass('stage-ready');
+    this.$image.addClass('image-ready');
+
+    this._triggerHook('beforeOpen', this.$el);
+    $('body').append($magnify);
 
   },
   open: function () {
@@ -306,41 +342,19 @@ Magnify.prototype = {
 
     this.build();
 
-    this.addEvent();
+    this.addEvents();
 
     this.setModalPos(this.$magnify);
 
-  },
-  build: function () {
+    // Reset modal z-index with multiple instances
+    this.$magnify.css('z-index', zIndex);
 
-    // Create magnify HTML string
-    var magnifyHTML = this.creatDOM();
-
-    // Make magnify HTML string to jQuery element
-    var $magnify = $(magnifyHTML);
-
-    // Get all magnify element
-    this.$magnify = $magnify;
-    this.$header = $magnify.find('.magnify-header');
-    this.$stage = $magnify.find('.magnify-stage').addClass('stage-ready');
-    this.$title = $magnify.find('.magnify-title');
-    this.$image = $magnify.find('.magnify-image').addClass('image-ready');
-    this.$close = $magnify.find('.magnify-button-close');
-    this.$maximize = $magnify.find('.magnify-button-maximize');
-    this.$minimize = $magnify.find('.magnify-button-minimize');
-    this.$zoomIn = $magnify.find('.magnify-button-zoom-in');
-    this.$zoomOut = $magnify.find('.magnify-button-zoom-out');
-    this.$actualSize = $magnify.find('.magnify-button-actual-size');
-    this.$fullscreen = $magnify.find('.magnify-button-fullscreen');
-    this.$rotateLeft = $magnify.find('.magnify-button-rotate-left');
-    this.$rotateRight = $magnify.find('.magnify-button-rotate-right');
-    this.$prev = $magnify.find('.magnify-button-prev');
-    this.$next = $magnify.find('.magnify-button-next');
-
-    $('body').append($magnify);
+    this._triggerHook('afterOpen', this.$el);
 
   },
   close: function (el) {
+
+    this._triggerHook('beforeClose', this.$el);
 
     // Remove instance
     this.$magnify.remove();
@@ -350,9 +364,16 @@ Magnify.prototype = {
     this.isRotated = false;
     this.rotateAngle = 0;
 
+    var zeroModal = !$('.magnify-modal').length;
+
     // Fixed modal position bug
-    if (!$('.magnify-modal').length && this.options.fixedContent) {
+    if (zeroModal && this.options.fixedContent) {
       $('html').css({ 'overflow': '', 'padding-right': '' });
+    }
+
+    // Reset zIndex after close
+    if (zeroModal && this.options.multiInstances) {
+      zIndex = this.options.zIndex;
     }
 
     // off events
@@ -360,6 +381,8 @@ Magnify.prototype = {
       $D.off(KEYDOWN_EVENT + EVENT_NS);
       $W.off(RESIZE_EVENT + EVENT_NS);
     }
+
+    this._triggerHook('afterClose', this.$el);
 
   },
   setModalPos: function (modal) {
@@ -558,7 +581,7 @@ Magnify.prototype = {
 
     $(list).each(function (index, item) {
 
-      var src = self.getImgSrc(this);
+      var src = getImgSrc(this);
 
       self.groupData.push({
         src: src,
@@ -579,14 +602,6 @@ Magnify.prototype = {
       caption = caption ? caption : getImageNameFromUrl(url);
 
     this.$title.text(caption);
-
-  },
-  getImgSrc: function (el) {
-
-    // Get data-src as image src at first
-    var src = $(el).attr('data-src') ? $(el).attr('data-src') : $(el).attr('href');
-
-    return src;
 
   },
   jump: function (index) {
@@ -881,7 +896,7 @@ Magnify.prototype = {
     }
 
   },
-  addEvent: function () {
+  addEvents: function () {
 
     var self = this;
 
@@ -935,8 +950,12 @@ Magnify.prototype = {
 
     $W.on(RESIZE_EVENT + EVENT_NS, self.resize());
 
+  },
+  _triggerHook: function(e, data) {
+    if (this.options.callbacks[e]) {
+      this.options.callbacks[e].apply(this, $.isArray(data) ? data : [data]);
+    }
   }
-
 };
 
 /**
@@ -960,6 +979,9 @@ $.fn.magnify = function (options) {
 
   // Get init event, 'click' or 'dblclick'
   var opts = $.extend(true, {}, defaults, options);
+
+  // We should get zIndex of options before plugin's init.
+  zIndex = opts.zIndex;
 
   if (typeof options === 'string') {
 
@@ -1031,7 +1053,11 @@ var draggable = function (modal, dragHandle, dragCancel) {
 
     var e = e || window.event;
 
-    // e.preventDefault();
+    e.preventDefault();
+
+    if (self.options.multiInstances) {
+      modal.css('z-index', ++zIndex);
+    }
 
     // Get clicked button
     var elemCancel = $(e.target).closest(dragCancel);
@@ -1247,7 +1273,7 @@ $.extend(Magnify.prototype, {
  * ------------------------------
  * 1.modal resizable
  * 2.keep image in stage center
- * 3.~
+ * 3.other image limitations
  * ------------------------------
  *
  * [resizable]
@@ -1526,6 +1552,16 @@ $.extend(Magnify.prototype, {
  */
 
 /**
+ * [getImgSrc]
+ * @param {[Object]}  el    [description]
+ */
+function getImgSrc(el) {
+  // Get data-src as image src at first
+  var src = $(el).attr('data-src') ? $(el).attr('data-src') : $(el).attr('href');
+  return src;
+}
+
+/**
  * [throttle]
  * @param  {Function} fn    [description]
  * @param  {[Number]} delay [description]
@@ -1535,13 +1571,13 @@ function throttle(fn, delay) {
 
   var timer = null;
 
-  return function() {
+  return function () {
     var context = this,
       args = arguments;
 
     clearTimeout(timer);
 
-    timer = setTimeout(function() {
+    timer = setTimeout(function () {
       fn.apply(context, args);
     }, delay);
   };
@@ -1558,11 +1594,11 @@ function preloadImg(src, success, error) {
 
   var img = new Image();
 
-  img.onload = function() {
+  img.onload = function () {
     success(img);
   };
 
-  img.onerror = function() {
+  img.onerror = function () {
     error(img);
   };
 
@@ -1670,7 +1706,7 @@ function setGrabCursor(imageData, stageData, stage, isRotated) {
  * [supportTouch]
  * @return {[Boolean]}     [description]
  */
-function supportTouch(){
+function supportTouch() {
   return !!(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch);
 }
 
