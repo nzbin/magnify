@@ -855,6 +855,29 @@ $('[data-magnify=gallery]').magnify(options);
       </table>
     </div>
 
+    <h2 class="b-b-1 p-b-10 p-t-10 m-t-30" id="Events">Events</h2>
+    <p>
+        You can define callbacks in <code>callbacks</code> option. In each callback <code>this</code> is  the <code>Magnify</code> instance. You can also get the element clicked of plugin's init from <code>arguments</code> of Function.
+    </p>
+    <pre class="prettyprint">
+$("[data-magnify=gallery]").magnify({
+  callbacks: {
+    beforeOpen: function(el){
+      // Will fire before modal is opened
+    },
+    afterOpen: function(el){
+      // Will fire after modal is opened
+    },
+    beforeClose: function(el){
+      // Will fire before modal is closed
+    },
+    afterClose: function(el){
+      // Will fire after modal is closed
+    }
+  }
+});
+</pre>
+
     <h2 class="b-b-1 p-b-10 p-t-10 m-t-30" id="bugs_contributing">Bugs & Contributing</h2>
     <p>Please report bugs via
       <a href="https://github.com/nzbin/magnify">GitHub</a> if you think you might have found a bug or if you have a feature suggestion.
