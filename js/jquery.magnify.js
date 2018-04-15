@@ -107,10 +107,11 @@ var $W = $(window),
       rotateRight: 'rotate-right(Ctrl+.)'
     },
     multiInstances: true,
-    zIndex: 1090,
     initEvent: 'click',
     initAnimation: true,
     fixedModalPos: false,
+    zIndex: 1090,
+    dragHandle: '.magnify-modal',
     callbacks: {
       beforeOpen: $.noop,
       afterOpen: $.noop,
@@ -124,8 +125,10 @@ var $W = $(window),
 
   // image moving flag
   isMoving = false,
+
   // modal resizing flag
   isResizing = false,
+  
   // modal z-index setting
   zIndex = 0;
 
@@ -202,14 +205,14 @@ Magnify.prototype = {
       this.getImgGroup(jqEl.not('[data-group]'), imgSrc);
 
     }
-    
+
     this.open();
 
     this.loadImg(imgSrc);
 
     // draggable & movable & resizable
     if (this.options.draggable) {
-      this.draggable(this.$magnify, this.$magnify, '.magnify-button');
+      this.draggable(this.$magnify, this.options.dragHandle, '.magnify-button');
     }
     if (this.options.movable) {
       this.movable(this.$stage, this.$image);
@@ -951,7 +954,7 @@ Magnify.prototype = {
     $W.on(RESIZE_EVENT + EVENT_NS, self.resize());
 
   },
-  _triggerHook: function(e, data) {
+  _triggerHook: function (e, data) {
     if (this.options.callbacks[e]) {
       this.options.callbacks[e].apply(this, $.isArray(data) ? data : [data]);
     }
