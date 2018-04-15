@@ -217,18 +217,18 @@ You can define callbacks in `callbacks` option. In each callback `this` is  the 
 ```js
 $("[data-magnify=gallery]").magnify({
   callbacks: {
-	beforeOpen: function(el){
-	  // Will fire before modal is opened
-	},
-	afterOpen: function(el){
+    beforeOpen: function(el){
+      // Will fire before modal is opened
+    },
+    afterOpen: function(el){
       // Will fire after modal is opened
 	},
-	beforeClose: function(el){
+    beforeClose: function(el){
       // Will fire before modal is closed
-	},
-	afterClose: function(el){
-	  // Will fire after modal is closed
-	}
+    },
+    afterClose: function(el){
+      // Will fire after modal is closed
+    }
   }
 });
 ```
