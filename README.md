@@ -204,6 +204,12 @@ $("[data-magnify=gallery]").magnify();
 - **fixedModalPos** `false`
   > if true, the modal position will be fixed when change images.
 
+- **zIndex** `1090`
+  > The modal style of z-index, it is useful with multiple instances.
+
+- **dragHandle** `.magnify-modal`
+  > The handle of draggable.
+
 ## License
 
 MIT License

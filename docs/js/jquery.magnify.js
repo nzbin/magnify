@@ -111,7 +111,7 @@ var $W = $(window),
     initAnimation: true,
     fixedModalPos: false,
     zIndex: 1090,
-    dragHandle: '.magnify-modal',
+    dragHandle: '',
     callbacks: {
       beforeOpen: $.noop,
       afterOpen: $.noop,
@@ -128,7 +128,7 @@ var $W = $(window),
 
   // modal resizing flag
   isResizing = false,
-  
+
   // modal z-index setting
   zIndex = 0;
 
@@ -212,7 +212,7 @@ Magnify.prototype = {
 
     // draggable & movable & resizable
     if (this.options.draggable) {
-      this.draggable(this.$magnify, this.options.dragHandle, '.magnify-button');
+      this.draggable(this.$magnify, this.dragHandle, '.magnify-button');
     }
     if (this.options.movable) {
       this.movable(this.$stage, this.$image);
@@ -351,6 +351,9 @@ Magnify.prototype = {
 
     // Reset modal z-index with multiple instances
     this.$magnify.css('z-index', zIndex);
+
+    // Set handle element of draggable
+    this.dragHandle = this.options.dragHandle ? this.$magnify.find(this.options.dragHandle) : this.$magnify;
 
     this._triggerHook('afterOpen', this.$el);
 
@@ -1041,7 +1044,7 @@ $D.on(CLICK_EVENT + EVENT_NS, '[data-magnify]', function (e) {
  */
 
 var draggable = function (modal, dragHandle, dragCancel) {
-
+console.log(dragHandle)
   var self = this;
 
   var isDragging = false;

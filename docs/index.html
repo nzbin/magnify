@@ -187,8 +187,27 @@
                   <input type="number" name="gapThreshold" class="form-field" min="0" step=".01" v-model="options.gapThreshold">
                 </div>
               </div>
+
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  zIndex
+                </label>
+                <div class="col-8">
+                  <input type="number" name="zIndex" class="form-field" min="1" step="1" v-model="options.zIndex">
+                </div>
+              </div>
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  dragHandle
+                </label>
+                <div class="col-8">
+                  <input type="text" name="dragHandle" class="form-field" v-model="options.dragHandle">
+                </div>
+              </div>
+
             </div>
             <div class="col-6">
+
               <div class="form-item">
                 <label for="" class="col-4 form-label">
                   ratioThreshold
@@ -213,6 +232,7 @@
                   <input type="number" name="maxRatio" class="form-field" min="0" step=".1" v-model="options.maxRatio">
                 </div>
               </div>
+
               <div class="form-item">
                 <label for="" class="col-4 form-label">
                   headToolbar
@@ -326,6 +346,14 @@
               <div class="form-item">
                 <label for="" class="col-4 form-label">
                   i18n
+                </label>
+                <div class="col-8">
+                  {...}
+                </div>
+              </div>
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  callbacks
                 </label>
                 <div class="col-8">
                   {...}
@@ -800,7 +828,27 @@ $('[data-magnify=gallery]').magnify(options);
               <code>false</code>
             </td>
             <td>
-              <p>if true, the modal position will be fixed when change images.</p>
+              <p>If true, the modal position will be fixed when change images.</p>
+            </td>
+          </tr>
+          <tr>
+            <td>zIndex</td>
+            <td>number</td>
+            <td>
+              <code>1090</code>
+            </td>
+            <td>
+              <p>The modal style of z-index, it is useful with multiple instances.</p>
+            </td>
+          </tr>
+          <tr>
+            <td>dragHandle</td>
+            <td>string</td>
+            <td>
+              <code>''</code>
+            </td>
+            <td>
+              <p>The handle of draggable.</p>
             </td>
           </tr>
         </tbody>
@@ -850,7 +898,9 @@ $('[data-magnify=gallery]').magnify(options);
       multiInstances: true,
       initEvent: 'click',
       initAnimation: true,
-      fixedModalPos: false
+      fixedModalPos: false,
+      zIndex: 1090,
+      dragHandle: '',
     };
 
     var vm = new Vue({
