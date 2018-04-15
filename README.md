@@ -210,6 +210,29 @@ $("[data-magnify=gallery]").magnify();
 - **dragHandle** `.magnify-modal`
   > The handle of draggable.
 
+## Events
+
+You can define callbacks in `callbacks` option. In each callback `this` is  the `Magnify` instance. You can also get the element clicked of plugin's init from `arguments` of Function.
+
+```js
+$("[data-magnify=gallery]").magnify({
+  callbacks: {
+	beforeOpen: function(el){
+	  // Will fire before modal is opened
+	},
+	afterOpen: function(el){
+      // Will fire after modal is opened
+	},
+	beforeClose: function(el){
+      // Will fire before modal is closed
+	},
+	afterClose: function(el){
+	  // Will fire after modal is closed
+	}
+  }
+});
+```
+
 ## License
 
 MIT License
