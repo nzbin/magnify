@@ -52,24 +52,55 @@ var $W = $(window),
 
   // plugin default options
   defaults = {
+    // Enable modal to drag
     draggable: true,
+
+    // Enable modal to resize
     resizable: true,
+
+    // Enable image to move
     movable: true,
+
+    // Enable keyboard navigation
     keyboard: true,
+
+    // Shows the title
     title: true,
+
+    // Min width of modal
     modalWidth: 320,
+
+    // Min height of modal
     modalHeight: 320,
+
+    // Enable the page content fixed
     fixedContent: true,
+
+    // Disable the modal size fixed
     fixedModalSize: false,
+
+    // Disable the image viewer maximized on init
     initMaximized: false,
+
+    // Threshold of modal to browser window
     gapThreshold: 0.02,
+
+    // Threshold of image ratio
     ratioThreshold: 0.1,
+
+    // Min ratio of image when zoom out
     minRatio: 0.1,
+
+    // Max ratio of image when zoom in
     maxRatio: 16,
+
+    // Toolbar options in header
     headToolbar: [
       'maximize',
       'close'
     ],
+
+    // Toolbar options in footer
     footToolbar: [
       'zoomIn',
       'zoomOut',
@@ -79,6 +110,8 @@ var $W = $(window),
       'actualSize',
       'rotateRight'
     ],
+
+    // Customize button icon
     icons: {
       minimize: 'fa fa-window-minimize',
       maximize: 'fa fa-window-maximize',
@@ -93,6 +126,8 @@ var $W = $(window),
       rotateRight: 'fa fa-rotate-right',
       loader: 'fa fa-spinner fa-pulse'
     },
+
+    // Customize language of button title
     i18n: {
       minimize: 'minimize',
       maximize: 'maximize',
@@ -106,12 +141,26 @@ var $W = $(window),
       rotateLeft: 'rotate-left(Ctrl+,)',
       rotateRight: 'rotate-right(Ctrl+.)'
     },
+
+    // Enable multiple instances
     multiInstances: true,
+
+    // Init trigger event
     initEvent: 'click',
+
+    // Enable animation
     initAnimation: true,
+
+    // Disable modal position fixed when change images
     fixedModalPos: false,
+
+    // Modal z-index
     zIndex: 1090,
+
+    // Selector of drag handler
     dragHandle: '',
+
+    // Callback events
     callbacks: {
       beforeOpen: $.noop,
       afterOpen: $.noop,
@@ -277,13 +326,18 @@ Magnify.prototype = {
     // magnify base HTML
     var magnifyHTML = '<div class="magnify-modal">\
                         <div class="magnify-header">\
-                          <div class="magnify-toolbar">' + this._creatBtns(this.options.headToolbar, btnsTpl) + '</div>' + this._creatTitle() + '\
+                          <div class="magnify-toolbar magnify-head-toolbar">' +
+      this._creatBtns(this.options.headToolbar, btnsTpl) + '\
+                          </div>' +
+      this._creatTitle() + '\
                         </div>\
                         <div class="magnify-stage">\
                           <img class="magnify-image" src="" alt="" />\
                         </div>\
                         <div class="magnify-footer">\
-                          <div class="magnify-toolbar">' + this._creatBtns(this.options.footToolbar, btnsTpl) + '</div>\
+                          <div class="magnify-toolbar magnify-foot-toolbar">' +
+      this._creatBtns(this.options.footToolbar, btnsTpl) + '\
+                          </div>\
                         </div>\
                       </div>';
 
@@ -301,6 +355,9 @@ Magnify.prototype = {
     // Get all magnify element
     this.$magnify = $magnify;
     this.$header = $magnify.find('.magnify-header');
+    this.$headToolbar = $magnify.find('.magnify-head-toolbar');
+    this.$footer = $magnify.find('.magnify-footer');
+    this.$footToolbar = $magnify.find('.magnify-foot-toolbar');
     this.$stage = $magnify.find('.magnify-stage');
     this.$title = $magnify.find('.magnify-title');
     this.$image = $magnify.find('.magnify-image');
@@ -1044,7 +1101,7 @@ $D.on(CLICK_EVENT + EVENT_NS, '[data-magnify]', function (e) {
  */
 
 var draggable = function (modal, dragHandle, dragCancel) {
-console.log(dragHandle)
+
   var self = this;
 
   var isDragging = false;

@@ -6,7 +6,7 @@
  */
 
 var draggable = function (modal, dragHandle, dragCancel) {
-console.log(dragHandle)
+
   var self = this;
 
   var isDragging = false;

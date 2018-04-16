@@ -207,7 +207,7 @@ $("[data-magnify=gallery]").magnify();
 - **zIndex** `1090`
   > The modal style of z-index, it is useful with multiple instances.
 
-- **dragHandle** ``
+- **dragHandle** ` `
   > The handle of draggable.
 
 ## Events
