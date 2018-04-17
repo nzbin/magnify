@@ -163,9 +163,9 @@ var $W = $(window),
     // Callback events
     callbacks: {
       beforeOpen: $.noop,
-      afterOpen: $.noop,
+      opened: $.noop,
       beforeClose: $.noop,
-      afterClose: $.noop
+      closed: $.noop
     }
   },
 
@@ -412,7 +412,7 @@ Magnify.prototype = {
     // Set handle element of draggable
     this.dragHandle = this.options.dragHandle ? this.$magnify.find(this.options.dragHandle) : this.$magnify;
 
-    this._triggerHook('afterOpen', this.$el);
+    this._triggerHook('opened', this.$el);
 
   },
   close: function (el) {
@@ -445,7 +445,7 @@ Magnify.prototype = {
       $W.off(RESIZE_EVENT + EVENT_NS);
     }
 
-    this._triggerHook('afterClose', this.$el);
+    this._triggerHook('closed', this.$el);
 
   },
   setModalPos: function (modal) {
@@ -1115,8 +1115,9 @@ var draggable = function (modal, dragHandle, dragCancel) {
   var dragStart = function (e) {
 
     var e = e || window.event;
-
-    e.preventDefault();
+    
+    // Must be removed
+    // e.preventDefault();
 
     if (self.options.multiInstances) {
       modal.css('z-index', ++zIndex);

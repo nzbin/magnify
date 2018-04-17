@@ -20,8 +20,9 @@ var draggable = function (modal, dragHandle, dragCancel) {
   var dragStart = function (e) {
 
     var e = e || window.event;
-
-    e.preventDefault();
+    
+    // Must be removed
+    // e.preventDefault();
 
     if (self.options.multiInstances) {
       modal.css('z-index', ++zIndex);
