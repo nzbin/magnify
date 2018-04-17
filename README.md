@@ -1,5 +1,8 @@
 # Magnify
 
+[![Travis](https://img.shields.io/travis/nzbin/magnify.svg)](https://travis-ci.org/nzbin/magnify)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/nzbin/magnify)
+
 Magnify is a jQuery plugin to view images just like in windows. 
 
 [[ website ]](https://nzbin.github.io/magnify/)
@@ -220,13 +223,13 @@ $("[data-magnify=gallery]").magnify({
     beforeOpen: function(el){
       // Will fire before modal is opened
     },
-    afterOpen: function(el){
+    opened: function(el){
       // Will fire after modal is opened
     },
     beforeClose: function(el){
       // Will fire before modal is closed
     },
-    afterClose: function(el){
+    closed: function(el){
       // Will fire after modal is closed
     }
   }
