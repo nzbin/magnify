@@ -845,7 +845,7 @@ $('[data-magnify=gallery]').magnify(options);
             <td>dragHandle</td>
             <td>string</td>
             <td>
-              <code>''</code>
+              <code>' '</code>
             </td>
             <td>
               <p>The handle of draggable.</p>
@@ -865,13 +865,13 @@ $("[data-magnify=gallery]").magnify({
     beforeOpen: function(el){
       // Will fire before modal is opened
     },
-    afterOpen: function(el){
+    opened: function(el){
       // Will fire after modal is opened
     },
     beforeClose: function(el){
       // Will fire before modal is closed
     },
-    afterClose: function(el){
+    closed: function(el){
       // Will fire after modal is closed
     }
   }
