@@ -179,7 +179,7 @@ var $W = $(window),
   isResizing = false,
 
   // modal z-index setting
-  zIndex = 0;
+  zIndex = defaults.zIndex;
 
 
 /**
@@ -1089,7 +1089,7 @@ $D.on(CLICK_EVENT + EVENT_NS, '[data-magnify]', function (e) {
 
   e.preventDefault();
 
-  $(this).data('magnify', new Magnify(this, {}));
+  $(this).data('magnify', new Magnify(this, defaults));
 
 });
 
