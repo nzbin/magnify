@@ -6,7 +6,7 @@
  * |  |  |  |   _   |  \_/   |  |\   |_| |_|  |      |  |
  * |__|  |__|__| |__|\____/|_|__| \__|_____|__|      |__|
  *
- * jquery.magnify.js v0.8.1
+ * jquery.magnify.js v1.0.0
  *
  * A jQuery plugin to view images just like in windows
  *
@@ -158,7 +158,7 @@ var $W = $(window),
     zIndex: 1090,
 
     // Selector of drag handler
-    dragHandle: '',
+    dragHandle: false,
 
     // Callback events
     callbacks: {
@@ -383,7 +383,11 @@ Magnify.prototype = {
     this.$magnify.css('z-index', zIndex);
 
     // Set handle element of draggable
-    this.dragHandle = this.options.dragHandle ? this.$magnify.find(this.options.dragHandle) : this.$magnify;
+    if (!this.options.dragHandle || this.options.dragHandle === '.magnify-modal') {
+      this.dragHandle = this.$magnify;
+    } else {
+      this.dragHandle = this.$magnify.find(this.options.dragHandle);
+    }
 
   },
   open: function () {
@@ -409,7 +413,7 @@ Magnify.prototype = {
     this.build();
 
     this._triggerHook('beforeOpen', this.$el);
-    
+
     // Add Magnify to DOM
     $('body').append(this.$magnify);
 

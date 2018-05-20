@@ -215,7 +215,7 @@ $("[data-magnify=gallery]").magnify();
 
 ## Events
 
-You can define callbacks in `callbacks` option. In each callback `this` is  the `Magnify` instance. You can also get the element clicked of plugin's init from `arguments` of Function.
+You can define callbacks in `callbacks` option. In each callback `this` is  the `Magnify` instance. You can also get the element clicked of plugin's init from arguments `el` of Function.
 
 ```js
 $("[data-magnify=gallery]").magnify({
@@ -231,6 +231,14 @@ $("[data-magnify=gallery]").magnify({
     },
     closed: function(el){
       // Will fire after modal is closed
+    },
+    beforeChange: function(index){
+      // Will fire before image is changed
+      // The arguments is the index of image group
+    },
+    changed: function(index){
+      // Will fire after image is changed
+      // The arguments is the index of image group
     }
   }
 });

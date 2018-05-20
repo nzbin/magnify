@@ -857,7 +857,7 @@ $('[data-magnify=gallery]').magnify(options);
 
     <h2 class="b-b-1 p-b-10 p-t-10 m-t-30" id="Events">Events</h2>
     <p>
-        You can define callbacks in <code>callbacks</code> option. In each callback <code>this</code> is  the <code>Magnify</code> instance. You can also get the element clicked of plugin's init from <code>arguments</code> of Function.
+        You can define callbacks in <code>callbacks</code> option. In each callback <code>this</code> is  the <code>Magnify</code> instance. You can also get the element clicked of plugin's init from arguments <code>el</code> of Function.
     </p>
     <pre class="prettyprint">
 $("[data-magnify=gallery]").magnify({
@@ -873,6 +873,14 @@ $("[data-magnify=gallery]").magnify({
     },
     closed: function(el){
       // Will fire after modal is closed
+    },
+    beforeChange: function(index){
+      // Will fire before image is changed
+      // The arguments is the index of image group
+    },
+    changed: function(index){
+      // Will fire after image is changed
+      // The arguments is the index of image group
     }
   }
 });
@@ -923,7 +931,7 @@ $("[data-magnify=gallery]").magnify({
       initAnimation: true,
       fixedModalPos: false,
       zIndex: 1090,
-      dragHandle: '',
+      dragHandle: '.magnify-modal',
     };
 
     var vm = new Vue({
