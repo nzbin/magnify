@@ -165,7 +165,9 @@ var $W = $(window),
       beforeOpen: $.noop,
       opened: $.noop,
       beforeClose: $.noop,
-      closed: $.noop
+      closed: $.noop,
+      beforeChange: $.noop,
+      changed: $.noop
     }
   },
 
@@ -373,11 +375,15 @@ Magnify.prototype = {
     this.$prev = $magnify.find('.magnify-button-prev');
     this.$next = $magnify.find('.magnify-button-next');
 
+    // Add class before image loaded
     this.$stage.addClass('stage-ready');
     this.$image.addClass('image-ready');
 
-    this._triggerHook('beforeOpen', this.$el);
-    $('body').append($magnify);
+    // Reset modal z-index with multiple instances
+    this.$magnify.css('z-index', zIndex);
+
+    // Set handle element of draggable
+    this.dragHandle = this.options.dragHandle ? this.$magnify.find(this.options.dragHandle) : this.$magnify;
 
   },
   open: function () {
@@ -402,15 +408,14 @@ Magnify.prototype = {
 
     this.build();
 
+    this._triggerHook('beforeOpen', this.$el);
+    
+    // Add Magnify to DOM
+    $('body').append(this.$magnify);
+
     this.addEvents();
 
     this.setModalPos(this.$magnify);
-
-    // Reset modal z-index with multiple instances
-    this.$magnify.css('z-index', zIndex);
-
-    // Set handle element of draggable
-    this.dragHandle = this.options.dragHandle ? this.$magnify.find(this.options.dragHandle) : this.$magnify;
 
     this._triggerHook('opened', this.$el);
 
@@ -686,7 +691,11 @@ Magnify.prototype = {
 
     this.groupIndex = index;
 
+    this._triggerHook('beforeChange', index);
+
     this.loadImg(this.groupData[index].src);
+
+    this._triggerHook('changed', index);
 
   },
   wheel: function (e) {
