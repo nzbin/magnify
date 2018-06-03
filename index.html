@@ -201,7 +201,14 @@
                   dragHandle
                 </label>
                 <div class="col-8">
-                  <input type="text" name="dragHandle" class="form-field" v-model="options.dragHandle">
+                  <div class="radio inline m-r-10">
+                    <input type="radio" id="magnify-modal" value=".magnify-modal" v-model="options.dragHandle">
+                    <label for="magnify-modal">magnify-modal</label>
+                  </div>
+                  <div class="radio inline m-r-10 m-l-0">
+                    <input type="radio" id="magnify-header" value=".magnify-header" v-model="options.dragHandle">
+                    <label for="magnify-header">magnify-header</label>
+                  </div>
                 </div>
               </div>
 
