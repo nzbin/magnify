@@ -35,6 +35,7 @@
   padding: 2px;
   border: 1px solid #ddd;
   transition: border-color .3s ease;
+  cursor: zoom-in;
 }
 
 .image-set a:hover {
