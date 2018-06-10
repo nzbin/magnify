@@ -44,7 +44,7 @@
     "release:css": "run-s build:css compress:css",
     "release:js": "run-s build:js compress:js",
     "lint": "run-s lint:css lint:js",
-    "lint:css": "stylelint --syntax scss \"src/**/*.scss\"",
+    "lint:css": "stylelint --syntax scss \"src/**/*.scss\" --fix",
     "lint:js": "eslint src/js --fix"
   },
   "devDependencies": {
