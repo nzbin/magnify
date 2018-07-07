@@ -1,5 +1,5 @@
 {
-  "name": "magnify",
+  "name": "jquery.magnify",
   "version": "1.0.0",
   "description": "A jQuery plugin to view images just like in Windows",
   "main": "magnify.js",
