@@ -1,0 +1,29 @@
+{
+  "name": "jquery.magnify",
+  "description": "A jQuery plugin to view images just like in Windows",
+  "main": "jquery.magnify.js",
+  "authors": [
+    "nzbin"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "magnify",
+    "lightbox",
+    "responsive",
+    "jquery",
+    "modal",
+    "draggable",
+    "resizable",
+    "zoomable",
+    "image-gallery",
+	"photoviewer"
+  ],
+  "homepage": "https://github.com/nzbin/magnify#readme",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

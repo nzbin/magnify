@@ -23,7 +23,8 @@
     "draggable",
     "resizable",
     "zoomable",
-    "image-gallery"
+    "image-gallery",
+	"photoviewer"
   ],
   "bugs": {
     "url": "https://github.com/nzbin/magnify/issues"
