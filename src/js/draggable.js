@@ -20,12 +20,12 @@ var draggable = function (modal, dragHandle, dragCancel) {
   var dragStart = function (e) {
 
     var e = e || window.event;
-    
+
     // Must be removed
     // e.preventDefault();
 
     if (self.options.multiInstances) {
-      modal.css('z-index', ++zIndex);
+      modal.css('z-index', ++PUBLIC_VARS['zIndex']);
     }
 
     // Get clicked button
@@ -54,7 +54,7 @@ var draggable = function (modal, dragHandle, dragCancel) {
 
     e.preventDefault();
 
-    if (isDragging && !isMoving && !isResizing && !self.isMaximized) {
+    if (isDragging && !PUBLIC_VARS['isMoving'] && !PUBLIC_VARS['isResizing'] && !self.isMaximized) {
 
       var endX = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageX : e.clientX,
         endY = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageY : e.clientY,

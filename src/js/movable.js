@@ -51,7 +51,7 @@ var movable = function (stage, image) {
 
     // Modal can be dragging if image is smaller to stage
     isDragging = (widthDiff > 0 || heightDiff > 0) ? true : false;
-    isMoving = (widthDiff > 0 || heightDiff > 0) ? true : false;
+    PUBLIC_VARS['isMoving'] = (widthDiff > 0 || heightDiff > 0) ? true : false;
 
     // Reclac the element position when mousedown
     // Fixed the issue of stage with a border
@@ -131,7 +131,7 @@ var movable = function (stage, image) {
       .off(TOUCH_END_EVENT + EVENT_NS, dragEnd);
 
     isDragging = false;
-    isMoving = false;
+    PUBLIC_VARS['isMoving'] = false;
 
     // Remove grabbing cursor
     $('html,body,.magnify-modal,.magnify-stage,.magnify-button,.magnify-resizable-handle').removeClass('is-grabbing');

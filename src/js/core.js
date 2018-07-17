@@ -1,23 +1,23 @@
 /**
  * Private Static Constants
  */
-var CLICK_EVENT = 'click',
+
+var $W = $(window),
+  $D = $(document),
+
+  CLICK_EVENT = 'click',
   RESIZE_EVENT = 'resize',
   KEYDOWN_EVENT = 'keydown',
   WHEEL_EVENT = 'wheel mousewheel DOMMouseScroll',
   TOUCH_START_EVENT = supportTouch() ? 'touchstart' : 'mousedown',
   TOUCH_MOVE_EVENT = supportTouch() ? 'touchmove' : 'mousemove',
   TOUCH_END_EVENT = supportTouch() ? 'touchend' : 'mouseup',
-  EVENT_NS = '.magnify';
 
-/**
- * Private Vars
- */
-var $W = $(window),
-  $D = $(document),
+  NS = 'magnify',
+  EVENT_NS = '.' + NS,
 
   // plugin default options
-  defaults = {
+  DEFAULTS = {
     // Enable modal to drag
     draggable: true,
 
@@ -89,8 +89,7 @@ var $W = $(window),
       fullscreen: 'fa fa-photo',
       actualSize: 'fa fa-arrows-alt',
       rotateLeft: 'fa fa-rotate-left',
-      rotateRight: 'fa fa-rotate-right',
-      loader: 'fa fa-spinner fa-pulse'
+      rotateRight: 'fa fa-rotate-right'
     },
 
     // Customize language of button title
@@ -137,27 +136,27 @@ var $W = $(window),
     }
   },
 
-  // jquery element of calling plugin
-  jqEl = null,
+  PUBLIC_VARS = {
+    // image moving flag
+    isMoving: false,
+    // modal resizing flag
+    isResizing: false,
+    // modal z-index setting
+    zIndex: DEFAULTS.zIndex,
+  };
 
-  // image moving flag
-  isMoving = false,
-
-  // modal resizing flag
-  isResizing = false,
-
-  // modal z-index setting
-  zIndex = defaults.zIndex;
+// jquery element of calling plugin
+var jqEl = null;
 
 
 /**
  * Magnify Class
  */
-var Magnify = function (el, options) {
+var Magnify = function(el, options) {
 
   var self = this;
 
-  this.options = $.extend(true, {}, defaults, options);
+  this.options = $.extend(true, {}, DEFAULTS, options);
 
   if (options && $.isArray(options.footToolbar)) {
     this.options.footToolbar = options.footToolbar;
@@ -201,7 +200,7 @@ var Magnify = function (el, options) {
  */
 Magnify.prototype = {
 
-  init: function (el, options) {
+  init: function(el, opts) {
 
     // Get image src
     var imgSrc = getImgSrc(el);
@@ -228,32 +227,32 @@ Magnify.prototype = {
     this.loadImg(imgSrc);
 
     // draggable & movable & resizable
-    if (this.options.draggable) {
+    if (opts.draggable) {
       this.draggable(this.$magnify, this.dragHandle, '.magnify-button');
     }
-    if (this.options.movable) {
+    if (opts.movable) {
       this.movable(this.$stage, this.$image);
     }
-    if (this.options.resizable) {
-      this.resizable(this.$magnify, this.$stage, this.$image, this.options.modalWidth, this.options.modalHeight);
+    if (opts.resizable) {
+      this.resizable(this.$magnify, this.$stage, this.$image, opts.modalWidth, opts.modalHeight);
     }
 
   },
-  _creatBtns: function (toolbar, btns) {
+  _creatBtns: function(toolbar, btns) {
 
     var btnsStr = '';
 
-    $.each(toolbar, function (index, item) {
+    $.each(toolbar, function(index, item) {
       btnsStr += btns[item];
     });
 
     return btnsStr;
 
   },
-  _creatTitle: function () {
+  _creatTitle: function() {
     return (this.options.title ? '<div class="magnify-title"></div>' : '');
   },
-  creatDOM: function () {
+  creatDOM: function() {
 
     var btnsTpl = {
       minimize: '<button class="magnify-button magnify-button-minimize" title="' + this.options.i18n.minimize + '">\
@@ -312,7 +311,7 @@ Magnify.prototype = {
     return magnifyHTML;
 
   },
-  build: function () {
+  build: function() {
 
     // Create magnify HTML string
     var magnifyHTML = this.creatDOM();
@@ -346,7 +345,7 @@ Magnify.prototype = {
     this.$image.addClass('image-ready');
 
     // Reset modal z-index with multiple instances
-    this.$magnify.css('z-index', zIndex);
+    this.$magnify.css('z-index', PUBLIC_VARS['zIndex']);
 
     // Set handle element of draggable
     if (!this.options.dragHandle || this.options.dragHandle === '.magnify-modal') {
@@ -356,7 +355,7 @@ Magnify.prototype = {
     }
 
   },
-  open: function () {
+  open: function() {
 
     if (!this.options.multiInstances) {
       $('.magnify-modal').eq(0).remove();
@@ -390,7 +389,7 @@ Magnify.prototype = {
     this._triggerHook('opened', this.$el);
 
   },
-  close: function (el) {
+  close: function(el) {
 
     this._triggerHook('beforeClose', this.$el);
 
@@ -411,7 +410,7 @@ Magnify.prototype = {
 
     // Reset zIndex after close
     if (zeroModal && this.options.multiInstances) {
-      zIndex = this.options.zIndex;
+      PUBLIC_VARS['zIndex'] = this.options.zIndex;
     }
 
     // off events
@@ -423,7 +422,7 @@ Magnify.prototype = {
     this._triggerHook('closed', this.$el);
 
   },
-  setModalPos: function (modal) {
+  setModalPos: function(modal) {
 
     var winWidth = $W.width(),
       winHeight = $W.height(),
@@ -461,7 +460,7 @@ Magnify.prototype = {
     }
 
   },
-  setModalSize: function (img) {
+  setModalSize: function(img) {
 
     var self = this,
       winWidth = $W.width(),
@@ -485,7 +484,7 @@ Magnify.prototype = {
     var modalWidth = img.width + getNumFromCSSValue(stageCSS.left) + getNumFromCSSValue(stageCSS.right) +
       getNumFromCSSValue(stageCSS.borderLeft) + getNumFromCSSValue(stageCSS.borderRight),
       modalHeight = img.height + getNumFromCSSValue(stageCSS.top) + getNumFromCSSValue(stageCSS.bottom) +
-        getNumFromCSSValue(stageCSS.borderTop) + getNumFromCSSValue(stageCSS.borderBottom);
+      getNumFromCSSValue(stageCSS.borderTop) + getNumFromCSSValue(stageCSS.borderBottom);
 
     var gapThreshold = (this.options.gapThreshold > 0 ? this.options.gapThreshold : 0) + 1,
       // modal scale to window
@@ -507,7 +506,7 @@ Magnify.prototype = {
     // Add modal init animation
     if (this.options.initAnimation) {
 
-      this.$magnify.animate(modalCSSObj, function () {
+      this.$magnify.animate(modalCSSObj, function() {
         self.setImageSize(img);
       });
 
@@ -521,7 +520,7 @@ Magnify.prototype = {
     this.isOpened = true;
 
   },
-  setImageSize: function (img) {
+  setImageSize: function(img) {
 
     var stageData = {
       w: this.$stage.width(),
@@ -553,9 +552,7 @@ Magnify.prototype = {
     });
 
     // Set grab cursor
-    setGrabCursor(
-      { w: this.$image.width(), h: this.$image.height() },
-      { w: this.$stage.width(), h: this.$stage.height() },
+    setGrabCursor({ w: this.$image.width(), h: this.$image.height() }, { w: this.$stage.width(), h: this.$stage.height() },
       this.$stage,
       this.isRotated
     );
@@ -569,11 +566,11 @@ Magnify.prototype = {
     }
 
   },
-  loadImg: function (imgSrc) {
+  loadImg: function(imgSrc) {
 
     var self = this;
 
-    var loaderHTML = '<div class="magnify-loader"><i class="' + this.options.icons.loader + '"></i></div>';
+    var loaderHTML = '<div class="magnify-loader"></div>';
 
     // loader start
     this.$magnify.append(loaderHTML);
@@ -584,7 +581,7 @@ Magnify.prototype = {
 
     this.$image.attr('src', imgSrc);
 
-    preloadImg(imgSrc, function (img) {
+    preloadImg(imgSrc, function(img) {
 
       // Store original data
       self.imageData = {
@@ -601,7 +598,7 @@ Magnify.prototype = {
       self.$stage.removeClass('stage-ready');
       self.$image.removeClass('image-ready');
 
-    }, function () {
+    }, function() {
       // loader end
       self.$magnify.find('.magnify-loader').remove();
     });
@@ -611,13 +608,13 @@ Magnify.prototype = {
     }
 
   },
-  getImgGroup: function (list, imgSrc) {
+  getImgGroup: function(list, imgSrc) {
 
     var self = this;
 
     self.groupData = [];
 
-    $(list).each(function (index, item) {
+    $(list).each(function(index, item) {
 
       var src = getImgSrc(this);
 
@@ -633,7 +630,7 @@ Magnify.prototype = {
     });
 
   },
-  setImgTitle: function (url) {
+  setImgTitle: function(url) {
 
     var index = this.groupIndex,
       caption = this.groupData[index].caption,
@@ -642,14 +639,14 @@ Magnify.prototype = {
     this.$title.text(caption);
 
   },
-  jump: function (index) {
+  jump: function(index) {
 
     this.groupIndex = this.groupIndex + index;
 
     this.jumpTo(this.groupIndex);
 
   },
-  jumpTo: function (index) {
+  jumpTo: function(index) {
 
     index = index % this.groupData.length;
 
@@ -668,7 +665,7 @@ Magnify.prototype = {
     this._triggerHook('changed', index);
 
   },
-  wheel: function (e) {
+  wheel: function(e) {
 
     e.preventDefault();
 
@@ -694,7 +691,7 @@ Magnify.prototype = {
     this.zoom(ratio, pointer, e);
 
   },
-  zoom: function (ratio, origin, e) {
+  zoom: function(ratio, origin, e) {
 
     // zoom out & zoom in
     ratio = ratio < 0 ? (1 / (1 - ratio)) : (1 + ratio);
@@ -713,7 +710,7 @@ Magnify.prototype = {
     this.zoomTo(ratio, origin, e);
 
   },
-  zoomTo: function (ratio, origin, e) {
+  zoomTo: function(ratio, origin, e) {
 
     var $image = this.$image,
       $stage = this.$stage,
@@ -778,14 +775,12 @@ Magnify.prototype = {
     });
 
     // Set grab cursor
-    setGrabCursor(
-      { w: Math.round(imgNewWidth), h: Math.round(imgNewHeight) },
-      { w: stageData.w, h: stageData.h },
+    setGrabCursor({ w: Math.round(imgNewWidth), h: Math.round(imgNewHeight) }, { w: stageData.w, h: stageData.h },
       this.$stage
     );
 
   },
-  rotate: function (angle) {
+  rotate: function(angle) {
 
     this.rotateAngle = this.rotateAngle + angle;
 
@@ -798,7 +793,7 @@ Magnify.prototype = {
     this.rotateTo(this.rotateAngle);
 
   },
-  rotateTo: function (angle) {
+  rotateTo: function(angle) {
 
     var self = this;
 
@@ -812,11 +807,11 @@ Magnify.prototype = {
     this.$stage.removeClass('is-grab');
 
   },
-  resize: function () {
+  resize: function() {
 
     var self = this;
 
-    var resizeHandler = throttle(function () {
+    var resizeHandler = throttle(function() {
 
       if (self.isOpened) {
 
@@ -833,7 +828,7 @@ Magnify.prototype = {
     return resizeHandler;
 
   },
-  maximize: function () {
+  maximize: function() {
 
     var self = this;
 
@@ -874,12 +869,12 @@ Magnify.prototype = {
     this.setImageSize({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
 
   },
-  fullscreen: function () {
+  fullscreen: function() {
 
     requestFullscreen(this.$magnify[0]);
 
   },
-  keydown: function (e) {
+  keydown: function(e) {
 
     var self = this;
 
@@ -896,39 +891,39 @@ Magnify.prototype = {
       case 37:
         self.jump(-1);
         break;
-      // →
+        // →
       case 39:
         self.jump(1);
         break;
-      // +
+        // +
       case 187:
         self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         break;
-      // -
+        // -
       case 189:
         self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         break;
-      // + Firefox
+        // + Firefox
       case 61:
         self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         break;
-      // - Firefox
+        // - Firefox
       case 173:
         self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         break;
-      // ctrl + alt + 0
+        // ctrl + alt + 0
       case 48:
         if (ctrlKey && altKey) {
           self.zoomTo(1, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         }
         break;
-      // ctrl + ,
+        // ctrl + ,
       case 188:
         if (ctrlKey) {
           self.rotate(-90);
         }
         break;
-      // ctrl + .
+        // ctrl + .
       case 190:
         if (ctrlKey) {
           self.rotate(90);
@@ -938,62 +933,62 @@ Magnify.prototype = {
     }
 
   },
-  addEvents: function () {
+  addEvents: function() {
 
     var self = this;
 
-    this.$close.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
+    this.$close.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function(e) {
       self.close();
     });
 
-    this.$stage.off(WHEEL_EVENT + EVENT_NS).on(WHEEL_EVENT + EVENT_NS, function (e) {
+    this.$stage.off(WHEEL_EVENT + EVENT_NS).on(WHEEL_EVENT + EVENT_NS, function(e) {
       self.wheel(e);
     });
 
-    this.$zoomIn.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
+    this.$zoomIn.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function(e) {
       self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
     });
 
-    this.$zoomOut.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
+    this.$zoomOut.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function(e) {
       self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
     });
 
-    this.$actualSize.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
+    this.$actualSize.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function(e) {
       self.zoomTo(1, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
     });
 
-    this.$prev.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
+    this.$prev.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function() {
       self.jump(-1);
     });
 
-    this.$fullscreen.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
+    this.$fullscreen.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function() {
       self.fullscreen();
     });
 
-    this.$next.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
+    this.$next.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function() {
       self.jump(1);
     });
 
-    this.$rotateLeft.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
+    this.$rotateLeft.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function() {
       self.rotate(-90);
     });
 
-    this.$rotateRight.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
+    this.$rotateRight.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function() {
       self.rotate(90);
     });
 
-    this.$maximize.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
+    this.$maximize.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function() {
       self.maximize();
     });
 
-    $D.off(KEYDOWN_EVENT + EVENT_NS).on(KEYDOWN_EVENT + EVENT_NS, function (e) {
+    $D.off(KEYDOWN_EVENT + EVENT_NS).on(KEYDOWN_EVENT + EVENT_NS, function(e) {
       self.keydown(e);
     });
 
     $W.on(RESIZE_EVENT + EVENT_NS, self.resize());
 
   },
-  _triggerHook: function (e, data) {
+  _triggerHook: function(e, data) {
     if (this.options.callbacks[e]) {
       this.options.callbacks[e].apply(this, $.isArray(data) ? data : [data]);
     }
@@ -1001,29 +996,25 @@ Magnify.prototype = {
 };
 
 /**
- * Public Static Functions
+ * jQuery plugin
  */
-$.magnify = {
-  instance: Magnify.prototype
-};
 
-
-$.fn.magnify = function (options) {
+$.fn.magnify = function(options) {
 
   jqEl = $(this);
 
   // Convert a numeric string into a number
   for (var key in options) {
-    if (typeof (options[key]) === 'string' && !isNaN(options[key])) {
+    if (typeof(options[key]) === 'string' && !isNaN(options[key])) {
       options[key] = parseFloat(options[key])
     }
   }
 
   // Get init event, 'click' or 'dblclick'
-  var opts = $.extend(true, {}, defaults, options);
+  var opts = $.extend(true, {}, DEFAULTS, options);
 
   // We should get zIndex of options before plugin's init.
-  zIndex = opts.zIndex;
+  PUBLIC_VARS['zIndex'] = opts.zIndex;
 
   if (typeof options === 'string') {
 
@@ -1033,7 +1024,7 @@ $.fn.magnify = function (options) {
 
     if (opts.initEvent === 'dblclick') {
 
-      jqEl.off('click' + EVENT_NS).on('click' + EVENT_NS, function (e) {
+      jqEl.off('click' + EVENT_NS).on('click' + EVENT_NS, function(e) {
 
         e.preventDefault();
         // This will stop triggering data-api event
@@ -1043,7 +1034,7 @@ $.fn.magnify = function (options) {
 
     }
 
-    jqEl.off(opts.initEvent + EVENT_NS).on(opts.initEvent + EVENT_NS, function (e) {
+    jqEl.off(opts.initEvent + EVENT_NS).on(opts.initEvent + EVENT_NS, function(e) {
 
       e.preventDefault();
       // This will stop triggering data-api event
@@ -1062,12 +1053,12 @@ $.fn.magnify = function (options) {
 /**
  * MAGNIFY DATA-API
  */
-$D.on(CLICK_EVENT + EVENT_NS, '[data-magnify]', function (e) {
+$D.on(CLICK_EVENT + EVENT_NS, '[data-magnify]', function(e) {
 
   jqEl = $('[data-magnify]');
 
   e.preventDefault();
 
-  $(this).data('magnify', new Magnify(this, defaults));
+  $(this).data('magnify', new Magnify(this, DEFAULTS));
 
 });

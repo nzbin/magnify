@@ -13,7 +13,7 @@
  * @param  {[Number]} minHeight   [the option of modalHeight]
  */
 
-var resizable = function (modal, stage, image, minWidth, minHeight) {
+var resizable = function(modal, stage, image, minWidth, minHeight) {
 
   var self = this;
 
@@ -38,7 +38,8 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
   };
 
   $(modal).append(
-    resizableHandleE, resizableHandleW, resizableHandleS, resizableHandleN, resizableHandleSE, resizableHandleSW, resizableHandleNE, resizableHandleNW
+    resizableHandleE, resizableHandleW, resizableHandleS, resizableHandleN,
+    resizableHandleSE, resizableHandleSW, resizableHandleNE, resizableHandleNW
   );
 
   var isDragging = false;
@@ -73,7 +74,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
     direction = '';
 
   // modal CSS options
-  var getModalOpts = function (dir, offsetX, offsetY) {
+  var getModalOpts = function(dir, offsetX, offsetY) {
 
     // Modal should not move when its width to the minwidth
     var modalLeft = (-offsetX + modalData.w) > minWidth ? (offsetX + modalData.l) : (modalData.l + modalData.w - minWidth),
@@ -120,7 +121,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
   };
 
   // image CSS options
-  var getImageOpts = function (dir, offsetX, offsetY) {
+  var getImageOpts = function(dir, offsetX, offsetY) {
 
     // Image should not move when modal width to the min width
     // The minwidth is modal width, so we should clac the stage minwidth
@@ -171,14 +172,14 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
     return opts[dir];
   };
 
-  var dragStart = function (dir, e) {
+  var dragStart = function(dir, e) {
 
     var e = e || window.event;
 
     e.preventDefault();
 
     isDragging = true;
-    isResizing = true;
+    PUBLIC_VARS['isResizing'] = true;
 
     startX = e.type === 'touchstart' ? e.originalEvent.targetTouches[0].pageX : e.clientX;
     startY = e.type === 'touchstart' ? e.originalEvent.targetTouches[0].pageY : e.clientY;
@@ -220,7 +221,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
 
   };
 
-  var dragMove = function (e) {
+  var dragMove = function(e) {
 
     var e = e || window.event;
 
@@ -246,28 +247,28 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
 
   };
 
-  var dragEnd = function (e) {
+  var dragEnd = function(e) {
 
     $D.off(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
       .off(TOUCH_END_EVENT + EVENT_NS, dragEnd);
 
     // Set grab cursor
-    if (isResizing) {
+    if (PUBLIC_VARS['isResizing']) {
       setGrabCursor({ w: imgWidth, h: imgHeight }, { w: $(stage).width(), h: $(stage).height() },
         stage
       );
     }
 
     isDragging = false;
-    isResizing = false;
+    PUBLIC_VARS['isResizing'] = false;
 
     // Remove resizable cursor
     $('html,body,.magnify-modal,.magnify-stage,.magnify-button').css('cursor', '');
 
   };
 
-  $.each(resizableHandles, function (dir, handle) {
-    handle.on(TOUCH_START_EVENT + EVENT_NS, function (e) {
+  $.each(resizableHandles, function(dir, handle) {
+    handle.on(TOUCH_START_EVENT + EVENT_NS, function(e) {
       dragStart(dir, e);
     });
   });
