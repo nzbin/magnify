@@ -168,8 +168,6 @@ $("[data-magnify=gallery]").magnify();
 
   - **rotateRight** `fa fa-rotate-right`
 
-  - **loader** `fa fa-spinner fa-pulse`
-
     
 - **headToolbar** `['maximize','close']`
   > The buttons display in header toolbar.
