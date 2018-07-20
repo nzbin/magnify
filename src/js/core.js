@@ -636,7 +636,7 @@ Magnify.prototype = {
       caption = this.groupData[index].caption,
       caption = caption ? caption : getImageNameFromUrl(url);
 
-    this.$title.text(caption);
+    this.$title.html(caption);
 
   },
   jump: function(index) {
