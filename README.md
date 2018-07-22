@@ -1,3 +1,5 @@
+> ⚠️ Attention! This repository will not be maintained. The plugin is easy to use, but its customization can be troublesome. To improve plugin's flexibility, I made another repository [PhotoViewer](https://github.com/nzbin/photoviewer) which is the enhanced version of Magnify.
+
 # Magnify
 
 [![Travis](https://img.shields.io/travis/nzbin/magnify.svg)](https://travis-ci.org/nzbin/magnify)
