@@ -1,6 +1,6 @@
 {
   "name": "jquery.magnify",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A jQuery plugin to view images just like in Windows",
   "main": "magnify.js",
   "homepage": "https://github.com/nzbin/magnify#readme",
@@ -35,7 +35,7 @@
     "autoprefixer": "postcss -u autoprefixer --no-map.inline --autoprefixer.browsers \"last 1 versions\" -r dist/*.css",
     "build": "run-s build:css build:js",
     "build:css": "run-s sass",
-    "build:js": "concat -o dist/jquery.magnify.js  src/js/intro.js src/js/core.js src/js/draggable.js src/js/movable.js src/js/resizable.js src/js/utilities.js src/js/outro.js",
+    "build:js": "concat -o dist/jquery.magnify.js  src/js/intro.js src/js/utilities.js src/js/core.js src/js/draggable.js src/js/movable.js src/js/resizable.js src/js/outro.js",
     "compress": "run-s compress:css compress:js",
     "compress:css": "run-s sassmin autoprefixer",
     "compress:js": "uglifyjs dist/jquery.magnify.js -o dist/jquery.magnify.min.js -c -m --comments /^!/",

@@ -44,7 +44,7 @@
       <div class="form-inline">
         <select class="form-field" @change="changeTheme">
           <option value="0">default theme</option>
-          <option value="1">simple theme</option>
+          <option value="1">bezelless theme</option>
           <option value="2">white theme</option>
         </select>
       </div>
@@ -471,7 +471,7 @@ $('[data-magnify=gallery]').magnify(options);
             <td>
               <code>true</code>
             </td>
-            <td>If ture, it allow keyboard control. It is similar to Windows viewer.
+            <td>If ture, it allow keyboard control. It is similar to Windows photo viewer.
               <p>
                 <kbd>←</kbd> prev image</p>
               <p>
@@ -944,7 +944,7 @@ $("[data-magnify=gallery]").magnify({
             $('.magnify-theme').remove();
           } else if (e.target.value === '1') {
             $('.magnify-theme').remove();
-            $('head').append('<link class="magnify-theme" href="css/magnify-simple-theme.css" rel="stylesheet">');
+            $('head').append('<link class="magnify-theme" href="css/magnify-bezelless-theme.css" rel="stylesheet">');
           } else if (e.target.value === '2') {
             $('.magnify-theme').remove();
             $('head').append('<link class="magnify-theme" href="css/magnify-white-theme.css" rel="stylesheet">');
