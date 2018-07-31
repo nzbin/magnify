@@ -108,7 +108,7 @@ $("[data-magnify=gallery]").magnify();
   >If ture, it allow image moving.
   
 - **keyboard** `true`
-  >	If ture, it allow keyboard control. It is similar to Windows viewer.
+  >	If ture, it allow keyboard control. It is similar to Windows photo viewer.
   
   - <kbd>←</kbd> prev image
   - <kbd>→</kbd> next image
