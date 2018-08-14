@@ -13,7 +13,7 @@
  * @param  {[Number]} minHeight   [the option of modalHeight]
  */
 
-var resizable = function(modal, stage, image, minWidth, minHeight) {
+var resizable = function (modal, stage, image, minWidth, minHeight) {
 
   var self = this;
 
@@ -35,7 +35,7 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
     'nw': resizableHandleNW,
     'ne': resizableHandleNE,
     'sw': resizableHandleSW
-  };
+  }
 
   $(modal).append(
     resizableHandleE, resizableHandleW, resizableHandleS, resizableHandleN,
@@ -74,7 +74,7 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
     direction = '';
 
   // modal CSS options
-  var getModalOpts = function(dir, offsetX, offsetY) {
+  var getModalOpts = function (dir, offsetX, offsetY) {
 
     // Modal should not move when its width to the minwidth
     var modalLeft = (-offsetX + modalData.w) > minWidth ? (offsetX + modalData.l) : (modalData.l + modalData.w - minWidth),
@@ -118,10 +118,12 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
     };
 
     return opts[dir];
-  };
+  }
 
   // image CSS options
-  var getImageOpts = function(dir, offsetX, offsetY) {
+  var getImageOpts = function (dir, offsetX, offsetY) {
+
+    var $image = isIE8() ? $(stage).find(image) : $(image);
 
     // Image should not move when modal width to the min width
     // The minwidth is modal width, so we should clac the stage minwidth
@@ -132,11 +134,11 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
       heightDiff2 = (-offsetY + modalData.h) > minHeight ? (stageData.h - imgHeight - offsetY + δ) : (minHeight - (modalData.h - stageData.h) - imgHeight + δ);
 
     // Get image position in dragging
-    var imgLeft = (widthDiff > 0 ? $(image).position().left : ($(image).position().left < 0 ? $(image).position().left : 0)) - δ,
-      imgTop = (heightDiff > 0 ? $(image).position().top : ($(image).position().top < 0 ? $(image).position().top : 0)) + δ,
+    var imgLeft = (widthDiff > 0 ? $image.position().left : ($image.position().left < 0 ? $image.position().left : 0)) - δ,
+      imgTop = (heightDiff > 0 ? $image.position().top : ($image.position().top < 0 ? $image.position().top : 0)) + δ,
 
-      imgLeft2 = (widthDiff2 > 0 ? $(image).position().left : ($(image).position().left < 0 ? $(image).position().left : 0)) - δ,
-      imgTop2 = (heightDiff2 > 0 ? $(image).position().top : ($(image).position().top < 0 ? $(image).position().top : 0)) + δ;
+      imgLeft2 = (widthDiff2 > 0 ? $image.position().left : ($image.position().left < 0 ? $image.position().left : 0)) - δ,
+      imgTop2 = (heightDiff2 > 0 ? $image.position().top : ($image.position().top < 0 ? $image.position().top : 0)) + δ;
 
     var opts = {
       'e': {
@@ -170,13 +172,15 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
     };
 
     return opts[dir];
-  };
+  }
 
-  var dragStart = function(dir, e) {
+  var dragStart = function (dir, e) {
 
     var e = e || window.event;
 
     e.preventDefault();
+
+    var $image = isIE8() ? $(stage).find(image) : $(image);
 
     isDragging = true;
     PUBLIC_VARS['isResizing'] = true;
@@ -190,21 +194,21 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
       h: $(modal).height(),
       l: $(modal).offset().left,
       t: $(modal).offset().top
-    };
+    }
 
     stageData = {
       w: $(stage).width(),
       h: $(stage).height(),
       l: $(stage).offset().left,
       t: $(stage).offset().top
-    };
+    }
 
     imageData = {
-      w: $(image).width(),
-      h: $(image).height(),
-      l: $(image).position().left,
-      t: $(image).position().top
-    };
+      w: $image.width(),
+      h: $image.height(),
+      l: $image.position().left,
+      t: $image.position().top
+    }
 
     // δ is the difference between image width and height
     δ = !self.isRotated ? 0 : (imageData.w - imageData.h) / 2;
@@ -219,13 +223,15 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
     $D.on(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
       .on(TOUCH_END_EVENT + EVENT_NS, dragEnd);
 
-  };
+  }
 
-  var dragMove = function(e) {
+  var dragMove = function (e) {
 
     var e = e || window.event;
 
     e.preventDefault();
+
+    var $image = isIE8() ? $(stage).find(image) : $(image);
 
     if (isDragging && !self.isMaximized) {
 
@@ -241,13 +247,13 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
 
       var imageOpts = getImageOpts(direction, relativeX, relativeY);
 
-      $(image).css(imageOpts);
+      $image.css(imageOpts);
 
     }
 
-  };
+  }
 
-  var dragEnd = function(e) {
+  var dragEnd = function (e) {
 
     $D.off(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
       .off(TOUCH_END_EVENT + EVENT_NS, dragEnd);
@@ -267,13 +273,13 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
 
   };
 
-  $.each(resizableHandles, function(dir, handle) {
-    handle.on(TOUCH_START_EVENT + EVENT_NS, function(e) {
+  $.each(resizableHandles, function (dir, handle) {
+    handle.on(TOUCH_START_EVENT + EVENT_NS, function (e) {
       dragStart(dir, e);
     });
   });
 
-};
+}
 
 // Add to Magnify Prototype
 $.extend(Magnify.prototype, {

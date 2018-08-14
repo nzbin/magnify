@@ -194,6 +194,15 @@ function supportTouch() {
 }
 
 /**
+ * [isIE8]
+ * @return {[Boolean]}      [description]
+ */
+function isIE8() {
+  return (navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.indexOf('MSIE 8.0') > 0) ||
+    (navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.indexOf('MSIE 7.0') > 0)
+}
+
+/**
  * Private Static Constants
  */
 
@@ -337,7 +346,7 @@ var $W = $(window),
     // modal resizing flag
     isResizing: false,
     // modal z-index setting
-    zIndex: DEFAULTS.zIndex,
+    zIndex: DEFAULTS.zIndex
   };
 
 // jquery element of calling plugin
@@ -347,7 +356,7 @@ var jqEl = null;
 /**
  * Magnify Class
  */
-var Magnify = function(el, options) {
+var Magnify = function (el, options) {
 
   var self = this;
 
@@ -388,14 +397,14 @@ var Magnify = function(el, options) {
 
   this.init(el, self.options);
 
-};
+}
 
 /**
  * Mangify Prototype
  */
 Magnify.prototype = {
 
-  init: function(el, opts) {
+  init: function (el, opts) {
 
     // Get image src
     var imgSrc = getImgSrc(el);
@@ -426,28 +435,28 @@ Magnify.prototype = {
       this.draggable(this.$magnify, this.dragHandle, '.magnify-button');
     }
     if (opts.movable) {
-      this.movable(this.$stage, this.$image);
+      this.movable(this.$stage, isIE8() ? '.magnify-image' : this.$image);
     }
     if (opts.resizable) {
-      this.resizable(this.$magnify, this.$stage, this.$image, opts.modalWidth, opts.modalHeight);
+      this.resizable(this.$magnify, this.$stage, isIE8() ? '.magnify-image' : this.$image, opts.modalWidth, opts.modalHeight);
     }
 
   },
-  _creatBtns: function(toolbar, btns) {
+  _creatBtns: function (toolbar, btns) {
 
     var btnsStr = '';
 
-    $.each(toolbar, function(index, item) {
+    $.each(toolbar, function (index, item) {
       btnsStr += btns[item];
     });
 
     return btnsStr;
 
   },
-  _creatTitle: function() {
+  _creatTitle: function () {
     return (this.options.title ? '<div class="magnify-title"></div>' : '');
   },
-  creatDOM: function() {
+  creatDOM: function () {
 
     var btnsTpl = {
       minimize: '<button class="magnify-button magnify-button-minimize" title="' + this.options.i18n.minimize + '">\
@@ -488,25 +497,20 @@ Magnify.prototype = {
     // magnify base HTML
     var magnifyHTML = '<div class="magnify-modal">\
                         <div class="magnify-header">\
-                          <div class="magnify-toolbar magnify-head-toolbar">' +
-      this._creatBtns(this.options.headToolbar, btnsTpl) + '\
-                          </div>' +
-      this._creatTitle() + '\
+                          <div class="magnify-toolbar magnify-head-toolbar">' + this._creatBtns(this.options.headToolbar, btnsTpl) + '</div>' + this._creatTitle() + '\
                         </div>\
                         <div class="magnify-stage">\
                           <img class="magnify-image" src="" alt="" />\
                         </div>\
                         <div class="magnify-footer">\
-                          <div class="magnify-toolbar magnify-foot-toolbar">' +
-      this._creatBtns(this.options.footToolbar, btnsTpl) + '\
-                          </div>\
+                          <div class="magnify-toolbar magnify-foot-toolbar">' + this._creatBtns(this.options.footToolbar, btnsTpl) + '</div>\
                         </div>\
                       </div>';
 
     return magnifyHTML;
 
   },
-  build: function() {
+  build: function () {
 
     // Create magnify HTML string
     var magnifyHTML = this.creatDOM();
@@ -550,7 +554,7 @@ Magnify.prototype = {
     }
 
   },
-  open: function() {
+  open: function () {
 
     if (!this.options.multiInstances) {
       $('.magnify-modal').eq(0).remove();
@@ -584,7 +588,7 @@ Magnify.prototype = {
     this._triggerHook('opened', this.$el);
 
   },
-  close: function(el) {
+  close: function (el) {
 
     this._triggerHook('beforeClose', this.$el);
 
@@ -617,7 +621,7 @@ Magnify.prototype = {
     this._triggerHook('closed', this.$el);
 
   },
-  setModalPos: function(modal) {
+  setModalPos: function (modal) {
 
     var winWidth = $W.width(),
       winHeight = $W.height(),
@@ -655,7 +659,7 @@ Magnify.prototype = {
     }
 
   },
-  setModalSize: function(img) {
+  setModalSize: function (img) {
 
     var self = this,
       winWidth = $W.width(),
@@ -679,7 +683,7 @@ Magnify.prototype = {
     var modalWidth = img.width + getNumFromCSSValue(stageCSS.left) + getNumFromCSSValue(stageCSS.right) +
       getNumFromCSSValue(stageCSS.borderLeft) + getNumFromCSSValue(stageCSS.borderRight),
       modalHeight = img.height + getNumFromCSSValue(stageCSS.top) + getNumFromCSSValue(stageCSS.bottom) +
-      getNumFromCSSValue(stageCSS.borderTop) + getNumFromCSSValue(stageCSS.borderBottom);
+        getNumFromCSSValue(stageCSS.borderTop) + getNumFromCSSValue(stageCSS.borderBottom);
 
     var gapThreshold = (this.options.gapThreshold > 0 ? this.options.gapThreshold : 0) + 1,
       // modal scale to window
@@ -701,7 +705,7 @@ Magnify.prototype = {
     // Add modal init animation
     if (this.options.initAnimation) {
 
-      this.$magnify.animate(modalCSSObj, function() {
+      this.$magnify.animate(modalCSSObj, function () {
         self.setImageSize(img);
       });
 
@@ -715,7 +719,9 @@ Magnify.prototype = {
     this.isOpened = true;
 
   },
-  setImageSize: function(img) {
+  setImageSize: function (img) {
+
+    var $image = isIE8() ? this.$stage.find('.magnify-image') : this.$image;
 
     var stageData = {
       w: this.$stage.width(),
@@ -731,12 +737,19 @@ Magnify.prototype = {
       scale = Math.min(stageData.w / img.height, stageData.h / img.width, 1);
     }
 
-    this.$image.css({
+    $image.css({
       width: Math.ceil(img.width * scale) + 'px',
       height: Math.ceil(img.height * scale) + 'px',
       left: (stageData.w - Math.ceil(img.width * scale)) / 2 + 'px',
       top: (stageData.h - Math.ceil(img.height * scale)) / 2 + 'px'
     });
+
+    if (isIE8()) {
+      $image.find('group').css({
+        width: Math.floor(img.width * scale) + 'px',
+        height: Math.floor(img.height * scale) + 'px'
+      });
+    }
 
     // Store image initial data
     $.extend(this.imageData, {
@@ -747,7 +760,7 @@ Magnify.prototype = {
     });
 
     // Set grab cursor
-    setGrabCursor({ w: this.$image.width(), h: this.$image.height() }, { w: this.$stage.width(), h: this.$stage.height() },
+    setGrabCursor({ w: $image.width(), h: $image.height() }, { w: this.$stage.width(), h: this.$stage.height() },
       this.$stage,
       this.isRotated
     );
@@ -757,11 +770,11 @@ Magnify.prototype = {
 
     // Add image init animation
     if (this.options.initAnimation) {
-      this.$image.fadeIn();
+      $image.fadeIn();
     }
 
   },
-  loadImg: function(imgSrc) {
+  loadImg: function (imgSrc) {
 
     var self = this;
 
@@ -774,15 +787,19 @@ Magnify.prototype = {
       this.$image.hide();
     }
 
-    this.$image.attr('src', imgSrc);
+    if (isIE8()) {
+      this.$stage.html('<img class="magnify-image" id="magnify-image" src="' + imgSrc + '" alt="" />')
+    } else {
+      this.$image.attr('src', imgSrc);
+    }
 
-    preloadImg(imgSrc, function(img) {
+    preloadImg(imgSrc, function (img) {
 
       // Store original data
       self.imageData = {
         originalWidth: img.width,
         originalHeight: img.height
-      };
+      }
 
       if (self.isMaximized || (self.isOpened && self.options.fixedModalPos)) {
         self.setImageSize(img);
@@ -793,7 +810,7 @@ Magnify.prototype = {
       self.$stage.removeClass('stage-ready');
       self.$image.removeClass('image-ready');
 
-    }, function() {
+    }, function () {
       // loader end
       self.$magnify.find('.magnify-loader').remove();
     });
@@ -803,13 +820,13 @@ Magnify.prototype = {
     }
 
   },
-  getImgGroup: function(list, imgSrc) {
+  getImgGroup: function (list, imgSrc) {
 
     var self = this;
 
     self.groupData = [];
 
-    $(list).each(function(index, item) {
+    $(list).each(function (index, item) {
 
       var src = getImgSrc(this);
 
@@ -825,7 +842,7 @@ Magnify.prototype = {
     });
 
   },
-  setImgTitle: function(url) {
+  setImgTitle: function (url) {
 
     var index = this.groupIndex,
       caption = this.groupData[index].caption,
@@ -834,14 +851,14 @@ Magnify.prototype = {
     this.$title.html(caption);
 
   },
-  jump: function(index) {
+  jump: function (index) {
 
     this.groupIndex = this.groupIndex + index;
 
     this.jumpTo(this.groupIndex);
 
   },
-  jumpTo: function(index) {
+  jumpTo: function (index) {
 
     index = index % this.groupData.length;
 
@@ -860,7 +877,7 @@ Magnify.prototype = {
     this._triggerHook('changed', index);
 
   },
-  wheel: function(e) {
+  wheel: function (e) {
 
     e.preventDefault();
 
@@ -886,7 +903,9 @@ Magnify.prototype = {
     this.zoom(ratio, pointer, e);
 
   },
-  zoom: function(ratio, origin, e) {
+  zoom: function (ratio, origin, e) {
+
+    this.$image = isIE8() ? this.$stage.find('.magnify-image') : this.$image;
 
     // zoom out & zoom in
     ratio = ratio < 0 ? (1 / (1 - ratio)) : (1 + ratio);
@@ -905,9 +924,9 @@ Magnify.prototype = {
     this.zoomTo(ratio, origin, e);
 
   },
-  zoomTo: function(ratio, origin, e) {
+  zoomTo: function (ratio, origin, e) {
 
-    var $image = this.$image,
+    var $image = isIE8() ? this.$stage.find('.magnify-image') : this.$image,
       $stage = this.$stage,
       imgData = {
         w: this.imageData.width,
@@ -923,7 +942,7 @@ Magnify.prototype = {
       h: $stage.height(),
       x: $stage.offset().left,
       y: $stage.offset().top
-    };
+    }
 
     var newWidth = this.imageData.originalWidth * ratio,
       newHeight = this.imageData.originalHeight * ratio,
@@ -961,6 +980,13 @@ Magnify.prototype = {
       top: Math.round(newTop) + 'px'
     });
 
+    if (isIE8()) {
+      $image.find('group').css({
+        width: Math.ceil(newWidth) + 'px',
+        height: Math.ceil(newHeight) + 'px'
+      });
+    }
+
     // Update image initial data
     $.extend(this.imageData, {
       width: newWidth,
@@ -975,7 +1001,7 @@ Magnify.prototype = {
     );
 
   },
-  rotate: function(angle) {
+  rotate: function (angle) {
 
     this.rotateAngle = this.rotateAngle + angle;
 
@@ -988,12 +1014,14 @@ Magnify.prototype = {
     this.rotateTo(this.rotateAngle);
 
   },
-  rotateTo: function(angle) {
+  rotateTo: function (angle) {
 
-    var self = this;
+    var self = this,
+      $image = isIE8() ? this.$stage.find('.magnify-image') : this.$image;
 
-    this.$image.css({
-      transform: 'rotate(' + angle + 'deg)'
+    // depend on jQueryRotate.js
+    $image.rotate({
+      angle: angle
     });
 
     this.setImageSize({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
@@ -1002,11 +1030,11 @@ Magnify.prototype = {
     this.$stage.removeClass('is-grab');
 
   },
-  resize: function() {
+  resize: function () {
 
     var self = this;
 
-    var resizeHandler = throttle(function() {
+    var resizeHandler = throttle(function () {
 
       if (self.isOpened) {
 
@@ -1023,7 +1051,7 @@ Magnify.prototype = {
     return resizeHandler;
 
   },
-  maximize: function() {
+  maximize: function () {
 
     var self = this;
 
@@ -1064,12 +1092,12 @@ Magnify.prototype = {
     this.setImageSize({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
 
   },
-  fullscreen: function() {
+  fullscreen: function () {
 
     requestFullscreen(this.$magnify[0]);
 
   },
-  keydown: function(e) {
+  keydown: function (e) {
 
     var self = this;
 
@@ -1086,39 +1114,39 @@ Magnify.prototype = {
       case 37:
         self.jump(-1);
         break;
-        // →
+      // →
       case 39:
         self.jump(1);
         break;
-        // +
+      // +
       case 187:
         self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         break;
-        // -
+      // -
       case 189:
         self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         break;
-        // + Firefox
+      // + Firefox
       case 61:
         self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         break;
-        // - Firefox
+      // - Firefox
       case 173:
         self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         break;
-        // ctrl + alt + 0
+      // ctrl + alt + 0
       case 48:
         if (ctrlKey && altKey) {
           self.zoomTo(1, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
         }
         break;
-        // ctrl + ,
+      // ctrl + ,
       case 188:
         if (ctrlKey) {
           self.rotate(-90);
         }
         break;
-        // ctrl + .
+      // ctrl + .
       case 190:
         if (ctrlKey) {
           self.rotate(90);
@@ -1128,79 +1156,79 @@ Magnify.prototype = {
     }
 
   },
-  addEvents: function() {
+  addEvents: function () {
 
     var self = this;
 
-    this.$close.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function(e) {
+    this.$close.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
       self.close();
     });
 
-    this.$stage.off(WHEEL_EVENT + EVENT_NS).on(WHEEL_EVENT + EVENT_NS, function(e) {
+    this.$stage.off(WHEEL_EVENT + EVENT_NS).on(WHEEL_EVENT + EVENT_NS, function (e) {
       self.wheel(e);
     });
 
-    this.$zoomIn.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function(e) {
+    this.$zoomIn.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
       self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
     });
 
-    this.$zoomOut.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function(e) {
+    this.$zoomOut.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
       self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
     });
 
-    this.$actualSize.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function(e) {
+    this.$actualSize.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
       self.zoomTo(1, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
     });
 
-    this.$prev.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function() {
+    this.$prev.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
       self.jump(-1);
     });
 
-    this.$fullscreen.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function() {
+    this.$fullscreen.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
       self.fullscreen();
     });
 
-    this.$next.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function() {
+    this.$next.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
       self.jump(1);
     });
 
-    this.$rotateLeft.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function() {
+    this.$rotateLeft.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
       self.rotate(-90);
     });
 
-    this.$rotateRight.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function() {
+    this.$rotateRight.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
       self.rotate(90);
     });
 
-    this.$maximize.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function() {
+    this.$maximize.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
       self.maximize();
     });
 
-    $D.off(KEYDOWN_EVENT + EVENT_NS).on(KEYDOWN_EVENT + EVENT_NS, function(e) {
+    $D.off(KEYDOWN_EVENT + EVENT_NS).on(KEYDOWN_EVENT + EVENT_NS, function (e) {
       self.keydown(e);
     });
 
     $W.on(RESIZE_EVENT + EVENT_NS, self.resize());
 
   },
-  _triggerHook: function(e, data) {
+  _triggerHook: function (e, data) {
     if (this.options.callbacks[e]) {
       this.options.callbacks[e].apply(this, $.isArray(data) ? data : [data]);
     }
   }
-};
+}
 
 /**
  * jQuery plugin
  */
 
-$.fn.magnify = function(options) {
+$.fn.magnify = function (options) {
 
   jqEl = $(this);
 
   // Convert a numeric string into a number
   for (var key in options) {
-    if (typeof(options[key]) === 'string' && !isNaN(options[key])) {
+    if (typeof (options[key]) === 'string' && !isNaN(options[key])) {
       options[key] = parseFloat(options[key])
     }
   }
@@ -1219,7 +1247,7 @@ $.fn.magnify = function(options) {
 
     if (opts.initEvent === 'dblclick') {
 
-      jqEl.off('click' + EVENT_NS).on('click' + EVENT_NS, function(e) {
+      jqEl.off('click' + EVENT_NS).on('click' + EVENT_NS, function (e) {
 
         e.preventDefault();
         // This will stop triggering data-api event
@@ -1229,7 +1257,7 @@ $.fn.magnify = function(options) {
 
     }
 
-    jqEl.off(opts.initEvent + EVENT_NS).on(opts.initEvent + EVENT_NS, function(e) {
+    jqEl.off(opts.initEvent + EVENT_NS).on(opts.initEvent + EVENT_NS, function (e) {
 
       e.preventDefault();
       // This will stop triggering data-api event
@@ -1243,12 +1271,12 @@ $.fn.magnify = function(options) {
 
   return jqEl;
 
-};
+}
 
 /**
  * MAGNIFY DATA-API
  */
-$D.on(CLICK_EVENT + EVENT_NS, '[data-magnify]', function(e) {
+$D.on(CLICK_EVENT + EVENT_NS, '[data-magnify]', function (e) {
 
   jqEl = $('[data-magnify]');
 
@@ -1385,8 +1413,10 @@ var movable = function (stage, image) {
 
     e.preventDefault();
 
-    var imageWidth = $(image).width(),
-      imageHeight = $(image).height(),
+    var $image = isIE8() ? $(stage).find(image) : $(image);
+
+    var imageWidth = $image.width(),
+      imageHeight = $image.height(),
       stageWidth = $(stage).width(),
       stageHeight = $(stage).height();
 
@@ -1406,8 +1436,8 @@ var movable = function (stage, image) {
 
     // Reclac the element position when mousedown
     // Fixed the issue of stage with a border
-    left = $(image).position().left - δ;
-    top = $(image).position().top + δ;
+    left = $image.position().left - (isIE8() ? 0 : δ);
+    top = $image.position().top + (isIE8() ? 0 : δ);
 
     // Add grabbing cursor
     if (stage.hasClass('is-grab')) {
@@ -1417,13 +1447,15 @@ var movable = function (stage, image) {
     $D.on(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
       .on(TOUCH_END_EVENT + EVENT_NS, dragEnd);
 
-  };
+  }
 
   var dragMove = function (e) {
 
     var e = e || window.event;
 
     e.preventDefault();
+
+    var $image = isIE8() ? $(stage).find(image) : $(image);
 
     if (isDragging) {
 
@@ -1461,7 +1493,7 @@ var movable = function (stage, image) {
         newLeft = left;
       }
 
-      $(image).css({
+      $image.css({
         left: newLeft + 'px',
         top: newTop + 'px'
       });
@@ -1474,7 +1506,7 @@ var movable = function (stage, image) {
 
     }
 
-  };
+  }
 
   var dragEnd = function (e) {
 
@@ -1487,11 +1519,11 @@ var movable = function (stage, image) {
     // Remove grabbing cursor
     $('html,body,.magnify-modal,.magnify-stage,.magnify-button,.magnify-resizable-handle').removeClass('is-grabbing');
 
-  };
+  }
 
   $(stage).on(TOUCH_START_EVENT + EVENT_NS, dragStart);
 
-};
+}
 
 // Add to Magnify Prototype
 $.extend(Magnify.prototype, {
@@ -1513,7 +1545,7 @@ $.extend(Magnify.prototype, {
  * @param  {[Number]} minHeight   [the option of modalHeight]
  */
 
-var resizable = function(modal, stage, image, minWidth, minHeight) {
+var resizable = function (modal, stage, image, minWidth, minHeight) {
 
   var self = this;
 
@@ -1535,7 +1567,7 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
     'nw': resizableHandleNW,
     'ne': resizableHandleNE,
     'sw': resizableHandleSW
-  };
+  }
 
   $(modal).append(
     resizableHandleE, resizableHandleW, resizableHandleS, resizableHandleN,
@@ -1574,7 +1606,7 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
     direction = '';
 
   // modal CSS options
-  var getModalOpts = function(dir, offsetX, offsetY) {
+  var getModalOpts = function (dir, offsetX, offsetY) {
 
     // Modal should not move when its width to the minwidth
     var modalLeft = (-offsetX + modalData.w) > minWidth ? (offsetX + modalData.l) : (modalData.l + modalData.w - minWidth),
@@ -1618,10 +1650,12 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
     };
 
     return opts[dir];
-  };
+  }
 
   // image CSS options
-  var getImageOpts = function(dir, offsetX, offsetY) {
+  var getImageOpts = function (dir, offsetX, offsetY) {
+
+    var $image = isIE8() ? $(stage).find(image) : $(image);
 
     // Image should not move when modal width to the min width
     // The minwidth is modal width, so we should clac the stage minwidth
@@ -1632,11 +1666,11 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
       heightDiff2 = (-offsetY + modalData.h) > minHeight ? (stageData.h - imgHeight - offsetY + δ) : (minHeight - (modalData.h - stageData.h) - imgHeight + δ);
 
     // Get image position in dragging
-    var imgLeft = (widthDiff > 0 ? $(image).position().left : ($(image).position().left < 0 ? $(image).position().left : 0)) - δ,
-      imgTop = (heightDiff > 0 ? $(image).position().top : ($(image).position().top < 0 ? $(image).position().top : 0)) + δ,
+    var imgLeft = (widthDiff > 0 ? $image.position().left : ($image.position().left < 0 ? $image.position().left : 0)) - δ,
+      imgTop = (heightDiff > 0 ? $image.position().top : ($image.position().top < 0 ? $image.position().top : 0)) + δ,
 
-      imgLeft2 = (widthDiff2 > 0 ? $(image).position().left : ($(image).position().left < 0 ? $(image).position().left : 0)) - δ,
-      imgTop2 = (heightDiff2 > 0 ? $(image).position().top : ($(image).position().top < 0 ? $(image).position().top : 0)) + δ;
+      imgLeft2 = (widthDiff2 > 0 ? $image.position().left : ($image.position().left < 0 ? $image.position().left : 0)) - δ,
+      imgTop2 = (heightDiff2 > 0 ? $image.position().top : ($image.position().top < 0 ? $image.position().top : 0)) + δ;
 
     var opts = {
       'e': {
@@ -1670,13 +1704,15 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
     };
 
     return opts[dir];
-  };
+  }
 
-  var dragStart = function(dir, e) {
+  var dragStart = function (dir, e) {
 
     var e = e || window.event;
 
     e.preventDefault();
+
+    var $image = isIE8() ? $(stage).find(image) : $(image);
 
     isDragging = true;
     PUBLIC_VARS['isResizing'] = true;
@@ -1690,21 +1726,21 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
       h: $(modal).height(),
       l: $(modal).offset().left,
       t: $(modal).offset().top
-    };
+    }
 
     stageData = {
       w: $(stage).width(),
       h: $(stage).height(),
       l: $(stage).offset().left,
       t: $(stage).offset().top
-    };
+    }
 
     imageData = {
-      w: $(image).width(),
-      h: $(image).height(),
-      l: $(image).position().left,
-      t: $(image).position().top
-    };
+      w: $image.width(),
+      h: $image.height(),
+      l: $image.position().left,
+      t: $image.position().top
+    }
 
     // δ is the difference between image width and height
     δ = !self.isRotated ? 0 : (imageData.w - imageData.h) / 2;
@@ -1719,13 +1755,15 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
     $D.on(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
       .on(TOUCH_END_EVENT + EVENT_NS, dragEnd);
 
-  };
+  }
 
-  var dragMove = function(e) {
+  var dragMove = function (e) {
 
     var e = e || window.event;
 
     e.preventDefault();
+
+    var $image = isIE8() ? $(stage).find(image) : $(image);
 
     if (isDragging && !self.isMaximized) {
 
@@ -1741,13 +1779,13 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
 
       var imageOpts = getImageOpts(direction, relativeX, relativeY);
 
-      $(image).css(imageOpts);
+      $image.css(imageOpts);
 
     }
 
-  };
+  }
 
-  var dragEnd = function(e) {
+  var dragEnd = function (e) {
 
     $D.off(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
       .off(TOUCH_END_EVENT + EVENT_NS, dragEnd);
@@ -1767,13 +1805,13 @@ var resizable = function(modal, stage, image, minWidth, minHeight) {
 
   };
 
-  $.each(resizableHandles, function(dir, handle) {
-    handle.on(TOUCH_START_EVENT + EVENT_NS, function(e) {
+  $.each(resizableHandles, function (dir, handle) {
+    handle.on(TOUCH_START_EVENT + EVENT_NS, function (e) {
       dragStart(dir, e);
     });
   });
 
-};
+}
 
 // Add to Magnify Prototype
 $.extend(Magnify.prototype, {
@@ -1781,3 +1819,328 @@ $.extend(Magnify.prototype, {
 });
 
 });
+
+// VERSION: 2.3 LAST UPDATE: 11.07.2013
+/*
+ * Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.php
+ *
+ * Made by Wilq32, wilq32@gmail.com, Wroclaw, Poland, 01.2009
+ * Website: http://jqueryrotate.com
+ */
+
+(function($) {
+  var supportedCSS, supportedCSSOrigin, styles = document.getElementsByTagName("head")[0].style,
+    toCheck = "transformProperty WebkitTransform OTransform msTransform MozTransform".split(" ");
+  for (var a = 0; a < toCheck.length; a++)
+    if (styles[toCheck[a]] !== undefined) { supportedCSS = toCheck[a]; }
+  if (supportedCSS) {
+    supportedCSSOrigin = supportedCSS.replace(/[tT]ransform/, "TransformOrigin");
+    if (supportedCSSOrigin[0] == "T") supportedCSSOrigin[0] = "t";
+  }
+
+  // Bad eval to preven google closure to remove it from code o_O
+  eval('IE = "v"=="\v"');
+
+  jQuery.fn.extend({
+    rotate: function(parameters) {
+      if (this.length === 0 || typeof parameters == "undefined") return;
+      if (typeof parameters == "number") parameters = { angle: parameters };
+      var returned = [];
+      for (var i = 0, i0 = this.length; i < i0; i++) {
+        var element = this.get(i);
+        if (!element.Wilq32 || !element.Wilq32.PhotoEffect) {
+
+          var paramClone = $.extend(true, {}, parameters);
+          var newRotObject = new Wilq32.PhotoEffect(element, paramClone)._rootObj;
+
+          returned.push($(newRotObject));
+        } else {
+          element.Wilq32.PhotoEffect._handleRotation(parameters);
+        }
+      }
+      return returned;
+    },
+    getRotateAngle: function() {
+      var ret = [0];
+      for (var i = 0, i0 = this.length; i < i0; i++) {
+        var element = this.get(i);
+        if (element.Wilq32 && element.Wilq32.PhotoEffect) {
+          ret[i] = element.Wilq32.PhotoEffect._angle;
+        }
+      }
+      return ret;
+    },
+    stopRotate: function() {
+      for (var i = 0, i0 = this.length; i < i0; i++) {
+        var element = this.get(i);
+        if (element.Wilq32 && element.Wilq32.PhotoEffect) {
+          clearTimeout(element.Wilq32.PhotoEffect._timer);
+        }
+      }
+    }
+  });
+
+  // Library agnostic interface
+
+  Wilq32 = window.Wilq32 || {};
+  Wilq32.PhotoEffect = (function() {
+
+    if (supportedCSS) {
+      return function(img, parameters) {
+        img.Wilq32 = {
+          PhotoEffect: this
+        };
+
+        this._img = this._rootObj = this._eventObj = img;
+        this._handleRotation(parameters);
+      }
+    } else {
+      return function(img, parameters) {
+        this._img = img;
+        this._onLoadDelegate = [parameters];
+
+        this._rootObj = document.createElement('span');
+        this._rootObj.style.display = "inline-block";
+        this._rootObj.Wilq32 = {
+          PhotoEffect: this
+        };
+        img.parentNode.insertBefore(this._rootObj, img);
+
+        if (img.complete) {
+          this._Loader();
+        } else {
+          var self = this;
+          // TODO: Remove jQuery dependency
+          jQuery(this._img).bind("load", function() { self._Loader(); });
+        }
+      }
+    }
+  })();
+
+  Wilq32.PhotoEffect.prototype = {
+    _setupParameters: function(parameters) {
+      this._parameters = this._parameters || {};
+      if (typeof this._angle !== "number") { this._angle = 0; }
+      if (typeof parameters.angle === "number") { this._angle = parameters.angle; }
+      this._parameters.animateTo = (typeof parameters.animateTo === "number") ? (parameters.animateTo) : (this._angle);
+
+      this._parameters.step = parameters.step || this._parameters.step || null;
+      this._parameters.easing = parameters.easing || this._parameters.easing || this._defaultEasing;
+      this._parameters.duration = 'duration' in parameters ? parameters.duration : parameters.duration || this._parameters.duration || 1000;
+      this._parameters.callback = parameters.callback || this._parameters.callback || this._emptyFunction;
+      this._parameters.center = parameters.center || this._parameters.center || ["50%", "50%"];
+      if (typeof this._parameters.center[0] == "string") {
+        this._rotationCenterX = (parseInt(this._parameters.center[0], 10) / 100) * this._imgWidth * this._aspectW;
+      } else {
+        this._rotationCenterX = this._parameters.center[0];
+      }
+      if (typeof this._parameters.center[1] == "string") {
+        this._rotationCenterY = (parseInt(this._parameters.center[1], 10) / 100) * this._imgHeight * this._aspectH;
+      } else {
+        this._rotationCenterY = this._parameters.center[1];
+      }
+
+      if (parameters.bind && parameters.bind != this._parameters.bind) { this._BindEvents(parameters.bind); }
+    },
+    _emptyFunction: function() {},
+    _defaultEasing: function(x, t, b, c, d) { return -c * ((t = t / d - 1) * t * t * t - 1) + b },
+    _handleRotation: function(parameters, dontcheck) {
+      if (!supportedCSS && !this._img.complete && !dontcheck) {
+        this._onLoadDelegate.push(parameters);
+        return;
+      }
+      this._setupParameters(parameters);
+      if (this._angle == this._parameters.animateTo) {
+        this._rotate(this._angle);
+      } else {
+        this._animateStart();
+      }
+    },
+
+    _BindEvents: function(events) {
+      if (events && this._eventObj) {
+        // Unbinding previous Events
+        if (this._parameters.bind) {
+          var oldEvents = this._parameters.bind;
+          for (var a in oldEvents)
+            if (oldEvents.hasOwnProperty(a))
+              // TODO: Remove jQuery dependency
+              jQuery(this._eventObj).unbind(a, oldEvents[a]);
+        }
+
+        this._parameters.bind = events;
+        for (var a in events)
+          if (events.hasOwnProperty(a))
+            // TODO: Remove jQuery dependency
+            jQuery(this._eventObj).bind(a, events[a]);
+      }
+    },
+
+    _Loader: (function() {
+      if (IE)
+        return function() {
+          var width = this._img.width;
+          var height = this._img.height;
+          this._imgWidth = width;
+          this._imgHeight = height;
+          this._img.parentNode.removeChild(this._img);
+
+          this._vimage = this.createVMLNode('image');
+          this._vimage.src = this._img.src;
+          this._vimage.style.height = height + "px";
+          this._vimage.style.width = width + "px";
+          this._vimage.style.position = "absolute"; // FIXES IE PROBLEM - its only rendered if its on absolute position!
+          this._vimage.style.top = "0px";
+          this._vimage.style.left = "0px";
+          this._aspectW = this._aspectH = 1;
+
+          /* Group minifying a small 1px precision problem when rotating object */
+          this._container = this.createVMLNode('group');
+          this._container.style.width = width;
+          this._container.style.height = height;
+          this._container.style.position = "absolute";
+          this._container.style.top = "0px";
+          this._container.style.left = "0px";
+          this._container.setAttribute('coordsize', width - 1 + ',' + (height - 1)); // This -1, -1 trying to fix ugly problem with small displacement on IE
+          this._container.appendChild(this._vimage);
+
+          this._rootObj.appendChild(this._container);
+          this._rootObj.style.position = "relative"; // FIXES IE PROBLEM
+          this._rootObj.style.width = width + "px";
+          this._rootObj.style.height = height + "px";
+          this._rootObj.setAttribute('id', this._img.getAttribute('id'));
+          this._rootObj.className = this._img.className;
+          this._eventObj = this._rootObj;
+          var parameters;
+          while (parameters = this._onLoadDelegate.shift()) {
+            this._handleRotation(parameters, true);
+          }
+        }
+      else return function() {
+        this._rootObj.setAttribute('id', this._img.getAttribute('id'));
+        this._rootObj.className = this._img.className;
+
+        this._imgWidth = this._img.naturalWidth;
+        this._imgHeight = this._img.naturalHeight;
+        var _widthMax = Math.sqrt((this._imgHeight) * (this._imgHeight) + (this._imgWidth) * (this._imgWidth));
+        this._width = _widthMax * 3;
+        this._height = _widthMax * 3;
+
+        this._aspectW = this._img.offsetWidth / this._img.naturalWidth;
+        this._aspectH = this._img.offsetHeight / this._img.naturalHeight;
+
+        this._img.parentNode.removeChild(this._img);
+
+
+        this._canvas = document.createElement('canvas');
+        this._canvas.setAttribute('width', this._width);
+        this._canvas.style.position = "relative";
+        this._canvas.style.left = -this._img.height * this._aspectW + "px";
+        this._canvas.style.top = -this._img.width * this._aspectH + "px";
+        this._canvas.Wilq32 = this._rootObj.Wilq32;
+
+        this._rootObj.appendChild(this._canvas);
+        this._rootObj.style.width = this._img.width * this._aspectW + "px";
+        this._rootObj.style.height = this._img.height * this._aspectH + "px";
+        this._eventObj = this._canvas;
+
+        this._cnv = this._canvas.getContext('2d');
+        var parameters;
+        while (parameters = this._onLoadDelegate.shift()) {
+          this._handleRotation(parameters, true);
+        }
+      }
+    })(),
+
+    _animateStart: function() {
+      if (this._timer) {
+        clearTimeout(this._timer);
+      }
+      this._animateStartTime = +new Date;
+      this._animateStartAngle = this._angle;
+      this._animate();
+    },
+    _animate: function() {
+      var actualTime = +new Date;
+      var checkEnd = actualTime - this._animateStartTime > this._parameters.duration;
+
+      // TODO: Bug for animatedGif for static rotation ? (to test)
+      if (checkEnd && !this._parameters.animatedGif) {
+        clearTimeout(this._timer);
+      } else {
+        if (this._canvas || this._vimage || this._img) {
+          var angle = this._parameters.easing(0, actualTime - this._animateStartTime, this._animateStartAngle, this._parameters.animateTo - this._animateStartAngle, this._parameters.duration);
+          this._rotate((~~(angle * 10)) / 10);
+        }
+        if (this._parameters.step) {
+          this._parameters.step(this._angle);
+        }
+        var self = this;
+        this._timer = setTimeout(function() {
+          self._animate.call(self);
+        }, 10);
+      }
+
+      // To fix Bug that prevents using recursive function in callback I moved this function to back
+      if (this._parameters.callback && checkEnd) {
+        this._angle = this._parameters.animateTo;
+        this._rotate(this._angle);
+        this._parameters.callback.call(this._rootObj);
+      }
+    },
+
+    _rotate: (function() {
+      var rad = Math.PI / 180;
+      if (IE)
+        return function(angle) {
+          this._angle = angle;
+          this._container.style.rotation = (angle % 360) + "deg";
+          this._vimage.style.top = -(this._rotationCenterY - this._imgHeight / 2) + "px";
+          this._vimage.style.left = -(this._rotationCenterX - this._imgWidth / 2) + "px";
+          this._container.style.top = this._rotationCenterY - this._imgHeight / 2 + "px";
+          this._container.style.left = this._rotationCenterX - this._imgWidth / 2 + "px";
+
+        }
+      else if (supportedCSS)
+        return function(angle) {
+          this._angle = angle;
+          this._img.style[supportedCSS] = "rotate(" + (angle % 360) + "deg)";
+          this._img.style[supportedCSSOrigin] = this._parameters.center.join(" ");
+        }
+      else
+        return function(angle) {
+          this._angle = angle;
+          angle = (angle % 360) * rad;
+          // clear canvas
+          this._canvas.width = this._width; //+this._widthAdd;
+          this._canvas.height = this._height; //+this._heightAdd;
+
+          // REMEMBER: all drawings are read from backwards.. so first function is translate, then rotate, then translate, translate..
+          this._cnv.translate(this._imgWidth * this._aspectW, this._imgHeight * this._aspectH); // at least center image on screen
+          this._cnv.translate(this._rotationCenterX, this._rotationCenterY); // we move image back to its orginal
+          this._cnv.rotate(angle); // rotate image
+          this._cnv.translate(-this._rotationCenterX, -this._rotationCenterY); // move image to its center, so we can rotate around its center
+          this._cnv.scale(this._aspectW, this._aspectH); // SCALE - if needed ;)
+          this._cnv.drawImage(this._img, 0, 0); // First - we draw image
+        }
+
+    })()
+  }
+
+  if (IE) {
+    Wilq32.PhotoEffect.prototype.createVMLNode = (function() {
+      document.createStyleSheet().addRule(".rvml", "behavior:url(#default#VML)");
+      try {
+        !document.namespaces.rvml && document.namespaces.add("rvml", "urn:schemas-microsoft-com:vml");
+        return function(tagName) {
+          return document.createElement('<rvml:' + tagName + ' class="rvml">');
+        };
+      } catch (e) {
+        return function(tagName) {
+          return document.createElement('<' + tagName + ' xmlns="urn:schemas-microsoft.com:vml" class="rvml">');
+        };
+      }
+    })();
+  }
+
+})(jQuery);

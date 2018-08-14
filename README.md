@@ -25,7 +25,7 @@ Magnify is a jQuery plugin to view images just like in windows.
 - Multiple instances.
 - Browser support.
 
-## Install
+## Installing
 
 You can install the plugin via npm
 

@@ -160,3 +160,12 @@ function setGrabCursor(imageData, stageData, stage, isRotated) {
 function supportTouch() {
   return !!(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch);
 }
+
+/**
+ * [isIE8]
+ * @return {[Boolean]}      [description]
+ */
+function isIE8() {
+  return (navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.indexOf('MSIE 8.0') > 0) ||
+    (navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.indexOf('MSIE 7.0') > 0)
+}

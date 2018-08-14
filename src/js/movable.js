@@ -34,8 +34,10 @@ var movable = function (stage, image) {
 
     e.preventDefault();
 
-    var imageWidth = $(image).width(),
-      imageHeight = $(image).height(),
+    var $image = isIE8() ? $(stage).find(image) : $(image);
+
+    var imageWidth = $image.width(),
+      imageHeight = $image.height(),
       stageWidth = $(stage).width(),
       stageHeight = $(stage).height();
 
@@ -55,8 +57,8 @@ var movable = function (stage, image) {
 
     // Reclac the element position when mousedown
     // Fixed the issue of stage with a border
-    left = $(image).position().left - δ;
-    top = $(image).position().top + δ;
+    left = $image.position().left - (isIE8() ? 0 : δ);
+    top = $image.position().top + (isIE8() ? 0 : δ);
 
     // Add grabbing cursor
     if (stage.hasClass('is-grab')) {
@@ -66,13 +68,15 @@ var movable = function (stage, image) {
     $D.on(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
       .on(TOUCH_END_EVENT + EVENT_NS, dragEnd);
 
-  };
+  }
 
   var dragMove = function (e) {
 
     var e = e || window.event;
 
     e.preventDefault();
+
+    var $image = isIE8() ? $(stage).find(image) : $(image);
 
     if (isDragging) {
 
@@ -110,7 +114,7 @@ var movable = function (stage, image) {
         newLeft = left;
       }
 
-      $(image).css({
+      $image.css({
         left: newLeft + 'px',
         top: newTop + 'px'
       });
@@ -123,7 +127,7 @@ var movable = function (stage, image) {
 
     }
 
-  };
+  }
 
   var dragEnd = function (e) {
 
@@ -136,11 +140,11 @@ var movable = function (stage, image) {
     // Remove grabbing cursor
     $('html,body,.magnify-modal,.magnify-stage,.magnify-button,.magnify-resizable-handle').removeClass('is-grabbing');
 
-  };
+  }
 
   $(stage).on(TOUCH_START_EVENT + EVENT_NS, dragStart);
 
-};
+}
 
 // Add to Magnify Prototype
 $.extend(Magnify.prototype, {
