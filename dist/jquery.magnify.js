@@ -6,7 +6,7 @@
  * |  |  |  |   _   |  \_/   |  |\   |_| |_|  |      |  |
  * |__|  |__|__| |__|\____/|_|__| \__|_____|__|      |__|
  *
- * jquery.magnify - v1.1.0
+ * jquery.magnify - v1.2.0
  * A jQuery plugin to view images just like in windows
  * https://github.com/nzbin/magnify#readme
  *
@@ -63,7 +63,7 @@ function throttle(fn, delay) {
     timer = setTimeout(function () {
       fn.apply(context, args);
     }, delay);
-  };
+  }
 
 }
 
@@ -79,11 +79,11 @@ function preloadImg(src, success, error) {
 
   img.onload = function () {
     success(img);
-  };
+  }
 
   img.onerror = function () {
     error(img);
-  };
+  }
 
   img.src = src;
 
@@ -1334,7 +1334,7 @@ var draggable = function (modal, dragHandle, dragCancel) {
     $D.on(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
       .on(TOUCH_END_EVENT + EVENT_NS, dragEnd);
 
-  };
+  }
 
   var dragMove = function (e) {
 
@@ -1357,7 +1357,7 @@ var draggable = function (modal, dragHandle, dragCancel) {
 
     }
 
-  };
+  }
 
   var dragEnd = function (e) {
 
@@ -1366,11 +1366,11 @@ var draggable = function (modal, dragHandle, dragCancel) {
 
     isDragging = false;
 
-  };
+  }
 
   $(dragHandle).on(TOUCH_START_EVENT + EVENT_NS, dragStart);
 
-};
+}
 
 // Add to Magnify Prototype
 $.extend(Magnify.prototype, {
