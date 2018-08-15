@@ -1545,7 +1545,7 @@ $.extend(Magnify.prototype, {
  * @param  {[Number]} minHeight   [the option of modalHeight]
  */
 
-var resizable = function (modal, stage, image, minWidth, minHeight) {
+var resizable = function(modal, stage, image, minWidth, minHeight) {
 
   var self = this;
 
@@ -1606,7 +1606,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
     direction = '';
 
   // modal CSS options
-  var getModalOpts = function (dir, offsetX, offsetY) {
+  var getModalOpts = function(dir, offsetX, offsetY) {
 
     // Modal should not move when its width to the minwidth
     var modalLeft = (-offsetX + modalData.w) > minWidth ? (offsetX + modalData.l) : (modalData.l + modalData.w - minWidth),
@@ -1653,9 +1653,15 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
   }
 
   // image CSS options
-  var getImageOpts = function (dir, offsetX, offsetY) {
+  var getImageOpts = function(dir, offsetX, offsetY) {
 
     var $image = isIE8() ? $(stage).find(image) : $(image);
+
+    // In modern browser, the width and height of image won't change after rotated.
+    // But its position top and left will get values from the image rotated.
+    // In IE8 browser, due to the type of rotating, all the value will be the same.
+    var imgPosLeft = isIE8() ? ($image.position().left + δ) : $image.position().left,
+      imgPosTop = isIE8() ? ($image.position().top - δ) : $image.position().top;
 
     // Image should not move when modal width to the min width
     // The minwidth is modal width, so we should clac the stage minwidth
@@ -1666,11 +1672,11 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
       heightDiff2 = (-offsetY + modalData.h) > minHeight ? (stageData.h - imgHeight - offsetY + δ) : (minHeight - (modalData.h - stageData.h) - imgHeight + δ);
 
     // Get image position in dragging
-    var imgLeft = (widthDiff > 0 ? $image.position().left : ($image.position().left < 0 ? $image.position().left : 0)) - δ,
-      imgTop = (heightDiff > 0 ? $image.position().top : ($image.position().top < 0 ? $image.position().top : 0)) + δ,
+    var imgLeft = (widthDiff > 0 ? imgPosLeft : (imgPosLeft < 0 ? imgPosLeft : 0)) - δ,
+      imgTop = (heightDiff > 0 ? imgPosTop : (imgPosTop < 0 ? imgPosTop : 0)) + δ,
 
-      imgLeft2 = (widthDiff2 > 0 ? $image.position().left : ($image.position().left < 0 ? $image.position().left : 0)) - δ,
-      imgTop2 = (heightDiff2 > 0 ? $image.position().top : ($image.position().top < 0 ? $image.position().top : 0)) + δ;
+      imgLeft2 = (widthDiff2 > 0 ? imgPosLeft : (imgPosLeft < 0 ? imgPosLeft : 0)) - δ,
+      imgTop2 = (heightDiff2 > 0 ? imgPosTop : (imgPosTop < 0 ? imgPosTop : 0)) + δ;
 
     var opts = {
       'e': {
@@ -1706,7 +1712,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
     return opts[dir];
   }
 
-  var dragStart = function (dir, e) {
+  var dragStart = function(dir, e) {
 
     var e = e || window.event;
 
@@ -1757,7 +1763,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
 
   }
 
-  var dragMove = function (e) {
+  var dragMove = function(e) {
 
     var e = e || window.event;
 
@@ -1785,7 +1791,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
 
   }
 
-  var dragEnd = function (e) {
+  var dragEnd = function(e) {
 
     $D.off(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
       .off(TOUCH_END_EVENT + EVENT_NS, dragEnd);
@@ -1805,8 +1811,8 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
 
   };
 
-  $.each(resizableHandles, function (dir, handle) {
-    handle.on(TOUCH_START_EVENT + EVENT_NS, function (e) {
+  $.each(resizableHandles, function(dir, handle) {
+    handle.on(TOUCH_START_EVENT + EVENT_NS, function(e) {
       dragStart(dir, e);
     });
   });
