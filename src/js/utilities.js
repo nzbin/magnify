@@ -31,7 +31,7 @@ function throttle(fn, delay) {
     timer = setTimeout(function () {
       fn.apply(context, args);
     }, delay);
-  };
+  }
 
 }
 
@@ -47,11 +47,11 @@ function preloadImg(src, success, error) {
 
   img.onload = function () {
     success(img);
-  };
+  }
 
   img.onerror = function () {
     error(img);
-  };
+  }
 
   img.src = src;
 

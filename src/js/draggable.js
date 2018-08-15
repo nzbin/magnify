@@ -46,7 +46,7 @@ var draggable = function (modal, dragHandle, dragCancel) {
     $D.on(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
       .on(TOUCH_END_EVENT + EVENT_NS, dragEnd);
 
-  };
+  }
 
   var dragMove = function (e) {
 
@@ -69,7 +69,7 @@ var draggable = function (modal, dragHandle, dragCancel) {
 
     }
 
-  };
+  }
 
   var dragEnd = function (e) {
 
@@ -78,11 +78,11 @@ var draggable = function (modal, dragHandle, dragCancel) {
 
     isDragging = false;
 
-  };
+  }
 
   $(dragHandle).on(TOUCH_START_EVENT + EVENT_NS, dragStart);
 
-};
+}
 
 // Add to Magnify Prototype
 $.extend(Magnify.prototype, {
