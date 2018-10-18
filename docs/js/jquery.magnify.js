@@ -283,17 +283,125 @@ var $W = $(window),
 
     // Customize button icon
     icons: {
-      minimize: 'fa fa-window-minimize',
-      maximize: 'fa fa-window-maximize',
-      close: 'fa fa-close',
-      zoomIn: 'fa fa-search-plus',
-      zoomOut: 'fa fa-search-minus',
-      prev: 'fa fa-arrow-left',
-      next: 'fa fa-arrow-right',
-      fullscreen: 'fa fa-photo',
-      actualSize: 'fa fa-arrows-alt',
-      rotateLeft: 'fa fa-rotate-left',
-      rotateRight: 'fa fa-rotate-right'
+      minimize: '<svg viewBox="0 0 1024 1024" class="svg-inline-icon">\
+      <path fill="currentColor" d="M1024 749.714v109.714c0 50.286-41.143 91.429-91.429 91.429\
+      h-841.143c-50.286 0-91.429-41.143-91.429-91.429\
+      v-109.714c0-50.286 41.143-91.429 91.429-91.429\
+      h841.143c50.286 0 91.429 41.143 91.429 91.429z"></path>\
+      </svg>',
+      maximize: '<svg viewBox="0 0 1024 1024" class="svg-inline-icon">\
+      <path fill="currentColor" d="M146.286 804.571\
+      h731.429v-438.857h-731.429v438.857zM1024 164.571\
+      v694.857c0 50.286-41.143 91.429-91.429 91.429\
+      h-841.143c-50.286 0-91.429-41.143-91.429-91.429\
+      v-694.857c0-50.286 41.143-91.429 91.429-91.429\
+      h841.143c50.286 0 91.429 41.143 91.429 91.429z"></path>\
+      </svg>',
+      close: '<svg viewBox="0 0 804.5714285714286 1024" class="svg-inline-icon">\
+      <path fill="currentColor" d="M741.714 755.429c0 14.286-5.714 28.571-16 38.857\
+      l-77.714 77.714c-10.286 10.286-24.571 16-38.857 16s-28.571-5.714-38.857-16l-168-168-168 168\
+      c-10.286 10.286-24.571 16-38.857 16s-28.571-5.714-38.857-16\
+      l-77.714-77.714c-10.286-10.286-16-24.571-16-38.857s5.714-28.571 16-38.857\
+      l168-168-168-168c-10.286-10.286-16-24.571-16-38.857s5.714-28.571 16-38.857l77.714-77.714\
+      c10.286-10.286 24.571-16 38.857-16s28.571 5.714 38.857 16l168 168 168-168\
+      c10.286-10.286 24.571-16 38.857-16s28.571 5.714 38.857 16l77.714 77.714\
+      c10.286 10.286 16 24.571 16 38.857\
+      s-5.714 28.571-16 38.857l-168 168 168 168c10.286 10.286 16 24.571 16 38.857z"></path>\
+      </svg>',
+      zoomIn: '<svg viewBox="0 0 950.8571428571428 1024" class="svg-inline-icon">\
+      <path fill="currentColor" d="M585.143 457.143\
+      v36.571c0 9.714-8.571 18.286-18.286 18.286h-128\
+      v128c0 9.714-8.571 18.286-18.286 18.286h-36.571\
+      c-9.714 0-18.286-8.571-18.286-18.286\
+      v-128h-128c-9.714 0-18.286-8.571-18.286-18.286\
+      v-36.571c0-9.714 8.571-18.286 18.286-18.286h128\
+      v-128c0-9.714 8.571-18.286 18.286-18.286\
+      h36.571c9.714 0 18.286 8.571 18.286 18.286\
+      v128h128c9.714 0 18.286 8.571 18.286 18.286z\
+      M658.286 475.429c0-141.143-114.857-256-256-256s-256 114.857-256 256 114.857 256 256 256 256-114.857 256-256z\
+      M950.857 950.857c0 40.571-32.571 73.143-73.143 73.143-19.429 0-38.286-8-51.429-21.714l-196-195.429\
+      c-66.857 46.286-146.857 70.857-228 70.857-222.286 0-402.286-180-402.286-402.286\
+      s180-402.286 402.286-402.286 402.286 180 402.286 402.286c0 81.143-24.571 161.143-70.857 228l196 196\
+      c13.143 13.143 21.143 32 21.143 51.429z"></path>\
+      </svg>',
+      zoomOut: '<svg viewBox="0 0 950.8571428571428 1024" class="svg-inline-icon">\
+      <path fill="currentColor" d="M585.143 457.143v36.571c0 9.714-8.571 18.286-18.286 18.286\
+      h-329.143c-9.714 0-18.286-8.571-18.286-18.286\
+      v-36.571c0-9.714 8.571-18.286 18.286-18.286\
+      h329.143c9.714 0 18.286 8.571 18.286 18.286z\
+      M658.286 475.429c0-141.143-114.857-256-256-256s-256 114.857-256 256 114.857 256 256 256 256-114.857 256-256z\
+      M950.857 950.857c0 40.571-32.571 73.143-73.143 73.143-19.429 0-38.286-8-51.429-21.714l-196-195.429\
+      c-66.857 46.286-146.857 70.857-228 70.857-222.286 0-402.286-180-402.286-402.286s180-402.286 402.286-402.286 402.286 180 402.286 402.286\
+      c0 81.143-24.571 161.143-70.857 228l196 196c13.143 13.143 21.143 32 21.143 51.429z"></path>\
+      </svg>',
+      prev: '<svg viewBox="0 0 914.2857142857142 1024" class="svg-inline-icon">\
+      <path fill="currentColor" d="M877.714 512v73.143c0 38.857-25.714 73.143-66.857 73.143\
+      h-402.286l167.429 168c13.714 13.143 21.714 32 21.714 51.429\
+      s-8 38.286-21.714 51.429l-42.857 43.429c-13.143 13.143-32 21.143-51.429 21.143\
+      s-38.286-8-52-21.143l-372-372.571c-13.143-13.143-21.143-32-21.143-51.429s8-38.286 21.143-52\
+      l372-371.429c13.714-13.714 32.571-21.714 52-21.714s37.714 8 51.429 21.714\
+      l42.857 42.286c13.714 13.714 21.714 32.571 21.714 52s-8 38.286-21.714 52l-167.429 167.429\
+      h402.286c41.143 0 66.857 34.286 66.857 73.143z"></path>\
+      </svg>',
+      next: '<svg viewBox="0 0 841.1428571428571 1024" class="svg-inline-icon">\
+      <path fill="currentColor" d="M841.143 548.571c0 19.429-7.429 38.286-21.143 52l-372 372\
+      c-13.714 13.143-32.571 21.143-52 21.143s-37.714-8-51.429-21.143l-42.857-42.857\
+      c-13.714-13.714-21.714-32.571-21.714-52\
+      s8-38.286 21.714-52l167.429-167.429h-402.286\
+      c-41.143 0-66.857-34.286-66.857-73.143\
+      v-73.143c0-38.857 25.714-73.143 66.857-73.143\
+      h402.286l-167.429-168c-13.714-13.143-21.714-32-21.714-51.429s8-38.286 21.714-51.429l42.857-42.857\
+      c13.714-13.714 32-21.714 51.429-21.714s38.286 8 52 21.714l372 372c13.714 13.143 21.143 32 21.143 51.429z"></path>\
+      </svg>',
+      fullscreen: '<svg viewBox="0 0 1097.142857142857 1024" class="svg-inline-icon">\
+      <path fill="currentColor" d="M365.714 329.143c0 60.571-49.143 109.714-109.714 109.714\
+      s-109.714-49.143-109.714-109.714 49.143-109.714 109.714-109.714 109.714 49.143 109.714 109.714z\
+      M950.857 548.571v256h-804.571v-109.714l182.857-182.857 91.429 91.429 292.571-292.571z\
+      M1005.714 146.286h-914.286c-9.714 0-18.286 8.571-18.286 18.286v694.857\
+      c0 9.714 8.571 18.286 18.286 18.286h914.286c9.714 0 18.286-8.571 18.286-18.286\
+      v-694.857c0-9.714-8.571-18.286-18.286-18.286z\
+      M1097.143 164.571v694.857c0 50.286-41.143 91.429-91.429 91.429\
+      h-914.286c-50.286 0-91.429-41.143-91.429-91.429v-694.857\
+      c0-50.286 41.143-91.429 91.429-91.429h914.286\
+      c50.286 0 91.429 41.143 91.429 91.429z"></path>\
+      </svg>',
+      actualSize: '<svg viewBox="0 0 877.7142857142857 1024" class="svg-inline-icon">\
+      <path fill="currentColor" d="M733.143 309.143l-202.857 202.857 202.857 202.857 82.286-82.286\
+      c10.286-10.857 26.286-13.714 40-8 13.143 5.714 22.286 18.857 22.286 33.714\
+      v256c0 20-16.571 36.571-36.571 36.571\
+      h-256c-14.857 0-28-9.143-33.714-22.857-5.714-13.143-2.857-29.143 8-39.429l82.286-82.286-202.857-202.857-202.857 202.857 82.286 82.286\
+      c10.857 10.286 13.714 26.286 8 39.429-5.714 13.714-18.857 22.857-33.714 22.857h-256c-20 0-36.571-16.571-36.571-36.571\
+      v-256c0-14.857 9.143-28 22.857-33.714 13.143-5.714 29.143-2.857 39.429 8l82.286 82.286 202.857-202.857-202.857-202.857-82.286 82.286\
+      c-6.857 6.857-16 10.857-25.714 10.857-4.571 0-9.714-1.143-13.714-2.857-13.714-5.714-22.857-18.857-22.857-33.714\
+      v-256c0-20 16.571-36.571 36.571-36.571h256\
+      c14.857 0 28 9.143 33.714 22.857 5.714 13.143 2.857 29.143-8 39.429\
+      l-82.286 82.286 202.857 202.857 202.857-202.857-82.286-82.286\
+      c-10.857-10.286-13.714-26.286-8-39.429 5.714-13.714 18.857-22.857 33.714-22.857\
+      h256c20 0 36.571 16.571 36.571 36.571\
+      v256c0 14.857-9.143 28-22.286 33.714-4.571 1.714-9.714 2.857-14.286 2.857-9.714 0-18.857-4-25.714-10.857z"></path>\
+      </svg>',
+      rotateLeft: '<svg viewBox="0 0 877.7142857142857 1024" class="svg-inline-icon">\
+      <path fill="currentColor" d="M877.714 512\
+      c0 241.714-197.143 438.857-438.857 438.857-130.857 0-254.286-57.714-337.714-158.286-5.714-7.429-5.143-18.286 1.143-24.571\
+      l78.286-78.857\
+      c4-3.429 9.143-5.143 14.286-5.143 5.143 0.571 10.286 2.857 13.143 6.857 56 72.571 140 113.714 230.857 113.714 161.143 0 292.571-131.429 292.571-292.571\
+      s-131.429-292.571-292.571-292.571\
+      c-74.857 0-145.714 28.571-198.857 78.286l78.286 78.857\
+      c10.857 10.286 13.714 26.286 8 39.429-5.714 13.714-18.857 22.857-33.714 22.857h-256\
+      c-20 0-36.571-16.571-36.571-36.571\
+      v-256c0-14.857 9.143-28 22.857-33.714 13.143-5.714 29.143-2.857 39.429 8l74.286 73.714\
+      c80.571-76 189.714-121.143 302.286-121.143 241.714 0 438.857 197.143 438.857 438.857z"></path>\
+      </svg>',
+      rotateRight: '<svg viewBox="0 0 877.7142857142857 1024" class="svg-inline-icon">\
+      <path fill="currentColor" d="M877.714 146.286v256c0 20-16.571 36.571-36.571 36.571\
+      h-256c-14.857 0-28-9.143-33.714-22.857-5.714-13.143-2.857-29.143 8-39.429\
+      l78.857-78.857c-53.714-49.714-124.571-78.286-199.429-78.286-161.143 0-292.571 131.429-292.571 292.571s131.429 292.571 292.571 292.571\
+      c90.857 0 174.857-41.143 230.857-113.714 2.857-4 8-6.286 13.143-6.857 5.143 0 10.286 1.714 14.286 5.143l78.286 78.857\
+      c6.857 6.286 6.857 17.143 1.143 24.571-83.429 100.571-206.857 158.286-337.714 158.286-241.714 0-438.857-197.143-438.857-438.857\
+      s197.143-438.857 438.857-438.857\
+      c112.571 0 221.714 45.143 302.286 121.143l74.286-73.714\
+      c10.286-10.857 26.286-13.714 40-8 13.143 5.714 22.286 18.857 22.286 33.714z"></path>\
+      </svg>'
     },
 
     // Customize language of button title
@@ -459,39 +567,17 @@ Magnify.prototype = {
   creatDOM: function () {
 
     var btnsTpl = {
-      minimize: '<button class="magnify-button magnify-button-minimize" title="' + this.options.i18n.minimize + '">\
-                      <i class="' + this.options.icons.minimize + '" aria-hidden="true"></i>\
-                    </button>',
-      maximize: '<button class="magnify-button magnify-button-maximize" title="' + this.options.i18n.maximize + '">\
-                      <i class="' + this.options.icons.maximize + '" aria-hidden="true"></i>\
-                    </button>',
-      close: '<button class="magnify-button magnify-button-close" title="' + this.options.i18n.close + '">\
-                      <i class="' + this.options.icons.close + '" aria-hidden="true"></i>\
-                    </button>',
-      zoomIn: '<button class="magnify-button magnify-button-zoom-in" title="' + this.options.i18n.zoomIn + '">\
-                      <i class="' + this.options.icons.zoomIn + '" aria-hidden="true"></i>\
-                    </button>',
-      zoomOut: '<button class="magnify-button magnify-button-zoom-out" title="' + this.options.i18n.zoomOut + '">\
-                      <i class="' + this.options.icons.zoomOut + '" aria-hidden="true"></i>\
-                    </button>',
-      prev: '<button class="magnify-button magnify-button-prev" title="' + this.options.i18n.prev + '">\
-                      <i class="' + this.options.icons.prev + '" aria-hidden="true"></i>\
-                    </button>',
-      next: '<button class="magnify-button magnify-button-next" title="' + this.options.i18n.next + '">\
-                      <i class="' + this.options.icons.next + '" aria-hidden="true"></i>\
-                    </button>',
-      fullscreen: '<button class="magnify-button magnify-button-fullscreen" title="' + this.options.i18n.fullscreen + '">\
-                      <i class="' + this.options.icons.fullscreen + '" aria-hidden="true"></i>\
-                    </button>',
-      actualSize: '<button class="magnify-button magnify-button-actual-size" title="' + this.options.i18n.actualSize + '">\
-                      <i class="' + this.options.icons.actualSize + '" aria-hidden="true"></i>\
-                    </button>',
-      rotateLeft: '<button class="magnify-button magnify-button-rotate-left" title="' + this.options.i18n.rotateLeft + '">\
-                      <i class="' + this.options.icons.rotateLeft + '" aria-hidden="true"></i>\
-                    </button>',
-      rotateRight: '<button class="magnify-button magnify-button-rotate-right" title="' + this.options.i18n.rotateRight + '">\
-                      <i class="' + this.options.icons.rotateRight + '" aria-hidden="true"></i>\
-                    </button>'
+      minimize: '<button class="magnify-button magnify-button-minimize" title="' + this.options.i18n.minimize + '">' + this.options.icons.minimize + '</button>',
+      maximize: '<button class="magnify-button magnify-button-maximize" title="' + this.options.i18n.maximize + '">' + this.options.icons.maximize + '</button>',
+      close: '<button class="magnify-button magnify-button-close" title="' + this.options.i18n.close + '">' + this.options.icons.close + '</button>',
+      zoomIn: '<button class="magnify-button magnify-button-zoom-in" title="' + this.options.i18n.zoomIn + '">' + this.options.icons.zoomIn + '</button>',
+      zoomOut: '<button class="magnify-button magnify-button-zoom-out" title="' + this.options.i18n.zoomOut + '">' + this.options.icons.zoomOut + '</button>',
+      prev: '<button class="magnify-button magnify-button-prev" title="' + this.options.i18n.prev + '">' + this.options.icons.prev + '</button>',
+      next: '<button class="magnify-button magnify-button-next" title="' + this.options.i18n.next + '">' + this.options.icons.next + '</button>',
+      fullscreen: '<button class="magnify-button magnify-button-fullscreen" title="' + this.options.i18n.fullscreen + '">' + this.options.icons.fullscreen + '</button>',
+      actualSize: '<button class="magnify-button magnify-button-actual-size" title="' + this.options.i18n.actualSize + '">' + this.options.icons.actualSize + '</button>',
+      rotateLeft: '<button class="magnify-button magnify-button-rotate-left" title="' + this.options.i18n.rotateLeft + '">' + this.options.icons.rotateLeft + '</button>',
+      rotateRight: '<button class="magnify-button magnify-button-rotate-right" title="' + this.options.i18n.rotateRight + '">' + this.options.icons.rotateRight + '</button>'
     };
 
     // magnify base HTML
