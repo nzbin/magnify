@@ -50,11 +50,7 @@ The usage of magnify is very simple.
 <script src="/path/to/jquery.js"></script>
 <script src="/path/to/jquery.magnify.js"></script>
 ```
-The icons in magnify use font-awesome default, you can customize them in options. If you use default options, you should link font-awesome css.
-
-```html
-<link href="https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
-```
+The icons in magnify use svg default, you can customize them in options.
 
 ### 2.Html structure
 
