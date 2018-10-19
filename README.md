@@ -143,27 +143,27 @@ $("[data-magnify=gallery]").magnify();
 - **icons** 
   > You can customize the icons class in following key.
   
-  - **minimize** `fa fa-window-minimize`
+  - **minimize** `svg`
 
-  - **maximize** `fa fa-window-maximize`
+  - **maximize** `svg`
 
-  - **close** `fa fa-close`
+  - **close** `svg`
 
-  - **zoomIn** `fa fa-search-plus`
+  - **zoomIn** `svg`
 
-  - **zoomOut** `fa fa-search-minus`
+  - **zoomOut** `svg`
 
-  - **prev** `fa fa-arrow-left`
+  - **prev** `svg`
 
-  - **next** `fa fa-arrow-right`
+  - **next** `svg`
 
-  - **fullscreen** `fa fa-photo`
+  - **fullscreen** `svg`
 
-  - **actualSize** `fa fa-arrows-alt`
+  - **actualSize** `svg`
  
-  - **rotateLeft** `fa fa-rotate-left`
+  - **rotateLeft** `svg`
 
-  - **rotateRight** `fa fa-rotate-right`
+  - **rotateRight** `svg`
 
     
 - **headToolbar** `['maximize','close']`
