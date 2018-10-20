@@ -380,11 +380,7 @@
 &lt;script src=&quot;/path/to/jquery.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;/path/to/jquery.magnify.js&quot;&gt;&lt;/script&gt;
 </pre>
-    <p>The icons in magnify use font-awesome default, you can customize them in options. If you use default options, you should
-      link font-awesome css.</p>
-    <pre class="prettyprint">
-&lt;link href=&quot;https://cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css&quot; rel=&quot;stylesheet&quot;&gt;
-</pre>
+    <p>The icons in magnify use svg default, you can customize them in options.</p>
     <h4>2.Html structure</h4>
     <p>The default structure as below:</p>
     <pre class="prettyprint">
@@ -561,89 +557,89 @@ $('[data-magnify=gallery]').magnify(options);
             <td class="p-l-30">minimize</td>
             <td>string</td>
             <td>
-              <code>fa fa-window-minimize</code>
+              <code>svg</code>
             </td>
-            <td>The minimize icon class</td>
+            <td>The minimize icon.</td>
           </tr>
           <tr>
             <td class="p-l-30">maximize</td>
             <td>string</td>
             <td>
-              <code>fa fa-window-maximize</code>
+              <code>svg</code>
             </td>
-            <td>The maximize icon class</td>
+            <td>The maximize icon.</td>
           </tr>
           <tr>
             <td class="p-l-30">close</td>
             <td>string</td>
             <td>
-              <code>fa fa-close</code>
+              <code>svg</code>
             </td>
-            <td>The close icon class</td>
+            <td>The close icon.</td>
           </tr>
           <tr>
             <td class="p-l-30">zoomIn</td>
             <td>string</td>
             <td>
-              <code>fa fa-search-plus</code>
+              <code>svg</code>
             </td>
-            <td>The zoomIn icon class</td>
+            <td>The zoomIn icon.</td>
           </tr>
           <tr>
             <td class="p-l-30">zoomOut</td>
             <td>string</td>
             <td>
-              <code>fa fa-search-minus</code>
+              <code>svg</code>
             </td>
-            <td>The zoomOut icon class</td>
+            <td>The zoomOut icon.</td>
           </tr>
           <tr>
             <td class="p-l-30">prev</td>
             <td>string</td>
             <td>
-              <code>fa fa-arrow-left</code>
+              <code>svg</code>
             </td>
-            <td>The prev icon class</td>
+            <td>The prev icon.</td>
           </tr>
           <tr>
             <td class="p-l-30">next</td>
             <td>string</td>
             <td>
-              <code>fa fa-arrow-right</code>
+              <code>svg</code>
             </td>
-            <td>The next icon class</td>
+            <td>The next icon.</td>
           </tr>
           <tr>
             <td class="p-l-30">fullscreen</td>
             <td>string</td>
             <td>
-              <code>fa fa-photo</code>
+              <code>svg</code>
             </td>
-            <td>The fullscreen icon class</td>
+            <td>The fullscreen icon.</td>
           </tr>
           <tr>
             <td class="p-l-30">actualSize</td>
             <td>string</td>
             <td>
-              <code>fa fa-arrows-alt</code>
+              <code>svg</code>
             </td>
-            <td>The actualSize icon class</td>
+            <td>The actualSize icon.</td>
           </tr>
           <tr>
             <td class="p-l-30">rotateLeft</td>
             <td>string</td>
             <td>
-              <code>fa fa-rotate-left</code>
+              <code>svg</code>
             </td>
-            <td>The rotateLeft icon class</td>
+            <td>The rotateLeft icon.</td>
           </tr>
           <tr>
             <td class="p-l-30">rotateRight</td>
             <td>string</td>
             <td>
-              <code>fa fa-rotate-right</code>
+              <code>svg</code>
             </td>
-            <td>The rotateRight icon class</td>
+            <td>The rotateRight icon.</td>
           </tr>
           <tr>
             <td colspan="4">}</td>
@@ -692,7 +688,7 @@ $('[data-magnify=gallery]').magnify(options);
             <td>
               <code>minimize</code>
             </td>
-            <td>The minimize button title text</td>
+            <td>The minimize button title text.</td>
           </tr>
           <tr>
             <td class="p-l-30">maximize</td>
@@ -700,7 +696,7 @@ $('[data-magnify=gallery]').magnify(options);
             <td>
               <code>maximize</code>
             </td>
-            <td>The maximize button title text</td>
+            <td>The maximize button title text.</td>
           </tr>
           <tr>
             <td class="p-l-30">close</td>
@@ -708,7 +704,7 @@ $('[data-magnify=gallery]').magnify(options);
             <td>
               <code>close</code>
             </td>
-            <td>The close button title text</td>
+            <td>The close button title text.</td>
           </tr>
           <tr>
             <td class="p-l-30">zoomIn</td>
@@ -716,7 +712,7 @@ $('[data-magnify=gallery]').magnify(options);
             <td>
               <code>zoom-in</code>
             </td>
-            <td>The zoomIn button title text</td>
+            <td>The zoomIn button title text.</td>
           </tr>
           <tr>
             <td class="p-l-30">zoomOut</td>
@@ -724,7 +720,7 @@ $('[data-magnify=gallery]').magnify(options);
             <td>
               <code>zoom-out</code>
             </td>
-            <td>The zoomOut button title text</td>
+            <td>The zoomOut button title text.</td>
           </tr>
           <tr>
             <td class="p-l-30">prev</td>
@@ -732,7 +728,7 @@ $('[data-magnify=gallery]').magnify(options);
             <td>
               <code>prev</code>
             </td>
-            <td>The prev button title text</td>
+            <td>The prev button title text.</td>
           </tr>
           <tr>
             <td class="p-l-30">next</td>
@@ -740,7 +736,7 @@ $('[data-magnify=gallery]').magnify(options);
             <td>
               <code>next</code>
             </td>
-            <td>The next button title text</td>
+            <td>The next button title text.</td>
           </tr>
           <tr>
             <td class="p-l-30">fullscreen</td>
@@ -748,7 +744,7 @@ $('[data-magnify=gallery]').magnify(options);
             <td>
               <code>fullscreen</code>
             </td>
-            <td>The fullscreen button title text</td>
+            <td>The fullscreen button title text.</td>
           </tr>
           <tr>
             <td class="p-l-30">actualSize</td>
@@ -756,7 +752,7 @@ $('[data-magnify=gallery]').magnify(options);
             <td>
               <code>actual-size</code>
             </td>
-            <td>The actualSize button title text</td>
+            <td>The actualSize button title text.</td>
           </tr>
           <tr>
             <td class="p-l-30">rotateLeft</td>
@@ -764,7 +760,7 @@ $('[data-magnify=gallery]').magnify(options);
             <td>
               <code>rotate-left</code>
             </td>
-            <td>The rotateLeft button title text</td>
+            <td>The rotateLeft button title text.</td>
           </tr>
           <tr>
             <td class="p-l-30">rotateRight</td>
@@ -772,7 +768,7 @@ $('[data-magnify=gallery]').magnify(options);
             <td>
               <code>rotate-right</code>
             </td>
-            <td>The rotateRight button title text</td>
+            <td>The rotateRight button title text.</td>
           </tr>
           <tr>
             <td colspan="4">}</td>
