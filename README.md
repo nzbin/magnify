@@ -141,7 +141,7 @@ $("[data-magnify=gallery]").magnify();
   > The max ratio to show image.
 
 - **icons** 
-  > You can customize the icons class in following key.
+  > You can customize the icons in following key.
   
   - **minimize** `svg`
 
