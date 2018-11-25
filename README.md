@@ -134,7 +134,7 @@ $("[data-magnify=gallery]").magnify();
 - **ratioThreshold** `0.01`
   > Image zoom ratio threshold.
 
-- **minRatio** `0.1` (10%)
+- **minRatio** `0.05` (5%)
   > The min ratio to show image.
 
 - **maxRatio** `16` (1600%)
