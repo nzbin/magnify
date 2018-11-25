@@ -8,7 +8,9 @@
  */
 function getImgSrc(el) {
   // Get data-src as image src at first
-  var src = $(el).attr('data-src') ? $(el).attr('data-src') : $(el).attr('href');
+  var src = $(el).attr('data-src')
+    ? $(el).attr('data-src')
+    : $(el).attr('href');
   return src;
 }
 
@@ -31,7 +33,7 @@ function throttle(fn, delay) {
     timer = setTimeout(function () {
       fn.apply(context, args);
     }, delay);
-  }
+  };
 
 }
 
@@ -47,11 +49,11 @@ function preloadImg(src, success, error) {
 
   img.onload = function () {
     success(img);
-  }
+  };
 
   img.onerror = function () {
     error(img);
-  }
+  };
 
   img.src = src;
 
@@ -166,6 +168,6 @@ function supportTouch() {
  * @return {[Boolean]}      [description]
  */
 function isIE8() {
-  return (navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.indexOf('MSIE 8.0') > 0) ||
-    (navigator.appName == "Microsoft Internet Explorer" && navigator.appVersion.indexOf('MSIE 7.0') > 0)
+  return (navigator.appName == 'Microsoft Internet Explorer' && navigator.appVersion.indexOf('MSIE 8.0') > 0) ||
+    (navigator.appName == 'Microsoft Internet Explorer' && navigator.appVersion.indexOf('MSIE 7.0') > 0);
 }

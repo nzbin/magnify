@@ -55,7 +55,7 @@ var $W = $(window),
     ratioThreshold: 0.1,
 
     // Min ratio of image when zoom out
-    minRatio: 0.1,
+    minRatio: 0.05,
 
     // Max ratio of image when zoom in
     maxRatio: 16,
@@ -80,102 +80,140 @@ var $W = $(window),
     // Customize button icon
     icons: {
       minimize: '<svg viewBox="0 0 1024 1024" class="svg-inline-icon">\
-      <path fill="currentColor" d="M1024 749.714v109.714c0 50.286-41.143 91.429-91.429 91.429h-841.143\
-      c-50.286 0-91.429-41.143-91.429-91.429v-109.714c0-50.286 41.143-91.429 91.429-91.429h841.143c\
-      50.286 0 91.429 41.143 91.429 91.429z"></path>\
-      </svg>',
+                <path fill="currentColor" d="M1024 749.714v109.714c0 50.286\
+                -41.143 91.429-91.429 91.429h-841.143c-50.286 0-91.429-41.143\
+                -91.429-91.429v-109.714c0-50.286 41.143-91.429 91.429-91.429\
+                h841.143c50.286 0 91.429 41.143 91.429 91.429z"></path>\
+                </svg>',
       maximize: '<svg viewBox="0 0 1024 1024" class="svg-inline-icon">\
-      <path fill="currentColor" d="M146.286 804.571h731.429v-438.857h-731.429v438.857zM1024 164.571\
-      v694.857c0 50.286-41.143 91.429-91.429 91.429h-841.143c-50.286 0-91.429-41.143-91.429-91.429v\
-      -694.857c0-50.286 41.143-91.429 91.429-91.429h841.143c50.286 0 91.429 41.143 91.429 91.429z"></path>\
-      </svg>',
+                <path fill="currentColor" d="M146.286 804.571h731.429v-438.857\
+                h-731.429v438.857zM1024 164.571v694.857c0 50.286-41.143 91.429\
+                -91.429 91.429h-841.143c-50.286 0-91.429-41.143-91.429-91.429v\
+                -694.857c0-50.286 41.143-91.429 91.429-91.429h841.143c50.286 0 \
+                91.429 41.143 91.429 91.429z"></path>\
+                </svg>',
       close: '<svg viewBox="0 0 804.5714285714286 1024" class="svg-inline-icon">\
-      <path fill="currentColor" d="M741.714 755.429c0 14.286-5.714 28.571-16 38.857l-77.714 77.714c\
-      -10.286 10.286-24.571 16-38.857 16s-28.571-5.714-38.857-16l-168-168-168 168c-10.286 10.286\
-      -24.571 16-38.857 16s-28.571-5.714-38.857-16l-77.714-77.714c-10.286-10.286-16-24.571-16-38.857\
-      s5.714-28.571 16-38.857l168-168-168-168c-10.286-10.286-16-24.571-16-38.857s5.714-28.571 16\
-      -38.857l77.714-77.714c10.286-10.286 24.571-16 38.857-16s28.571 5.714 38.857 16l168 168 168-168\
-      c10.286-10.286 24.571-16 38.857-16s28.571 5.714 38.857 16l77.714 77.714c10.286 10.286 16 \
-      24.571 16 38.857s-5.714 28.571-16 38.857l-168 168 168 168c10.286 10.286 16 24.571 16 38.857z"></path>\
-      </svg>',
+              <path fill="currentColor" d="M741.714 755.429c0 14.286-5.714 \
+              28.571-16 38.857l-77.714 77.714c-10.286 10.286-24.571 16-38.857 16\
+              s-28.571-5.714-38.857-16l-168-168-168 168c-10.286 10.286-24.571 16\
+              -38.857 16s-28.571-5.714-38.857-16l-77.714-77.714c-10.286-10.286\
+              -16-24.571-16-38.857s5.714-28.571 16-38.857l168-168-168-168c-10.286\
+              -10.286-16-24.571-16-38.857s5.714-28.571 16-38.857l77.714-77.714\
+              c10.286-10.286 24.571-16 38.857-16s28.571 5.714 38.857 16l168 168 \
+              168-168c10.286-10.286 24.571-16 38.857-16s28.571 5.714 38.857 \
+              16l77.714 77.714c10.286 10.286 16 24.571 16 38.857s-5.714 28.571\
+              -16 38.857l-168 168 168 168c10.286 10.286 16 24.571 16 38.857z"></path>\
+              </svg>',
       zoomIn: '<svg viewBox="0 0 950.8571428571428 1024" class="svg-inline-icon">\
-      <path fill="currentColor" d="M585.143 457.143v36.571c0 9.714-8.571 18.286-18.286 18.286h-128v128\
-      c0 9.714-8.571 18.286-18.286 18.286h-36.571c-9.714 0-18.286-8.571-18.286-18.286v-128h-128c-9.714 0\
-      -18.286-8.571-18.286-18.286v-36.571c0-9.714 8.571-18.286 18.286-18.286h128v-128c0-9.714 8.571\
-      -18.286 18.286-18.286h36.571c9.714 0 18.286 8.571 18.286 18.286v128h128c9.714 0 18.286 8.571 18.286 \
-      18.286zM658.286 475.429c0-141.143-114.857-256-256-256s-256 114.857-256 256 114.857 256 256 256 256\
-      -114.857 256-256zM950.857 950.857c0 40.571-32.571 73.143-73.143 73.143-19.429 0-38.286-8-51.429\
-      -21.714l-196-195.429c-66.857 46.286-146.857 70.857-228 70.857-222.286 0-402.286-180-402.286\
-      -402.286s180-402.286 402.286-402.286 402.286 180 402.286 402.286c0 81.143-24.571 161.143-70.857 228\
-      l196 196c13.143 13.143 21.143 32 21.143 51.429z"></path>\
-      </svg>',
+              <path fill="currentColor" d="M585.143 457.143v36.571c0 9.714-8.571 \
+              18.286-18.286 18.286h-128v128c0 9.714-8.571 18.286-18.286 18.286\
+              h-36.571c-9.714 0-18.286-8.571-18.286-18.286v-128h-128c-9.714 0\
+              -18.286-8.571-18.286-18.286v-36.571c0-9.714 8.571-18.286 18.286\
+              -18.286h128v-128c0-9.714 8.571-18.286 18.286-18.286h36.571c9.714 0 \
+              18.286 8.571 18.286 18.286v128h128c9.714 0 18.286 8.571 18.286 \
+              18.286zM658.286 475.429c0-141.143-114.857-256-256-256s-256 114.857\
+              -256 256 114.857 256 256 256 256-114.857 256-256zM950.857 950.857\
+              c0 40.571-32.571 73.143-73.143 73.143-19.429 0-38.286-8-51.429\
+              -21.714l-196-195.429c-66.857 46.286-146.857 70.857-228 70.857\
+              -222.286 0-402.286-180-402.286-402.286s180-402.286 402.286-402.286 \
+              402.286 180 402.286 402.286c0 81.143-24.571 161.143-70.857 228\
+              l196 196c13.143 13.143 21.143 32 21.143 51.429z"></path>\
+              </svg>',
       zoomOut: '<svg viewBox="0 0 950.8571428571428 1024" class="svg-inline-icon">\
-      <path fill="currentColor" d="M585.143 457.143v36.571c0 9.714-8.571 18.286-18.286 18.286h-329.143\
-      c-9.714 0-18.286-8.571-18.286-18.286v-36.571c0-9.714 8.571-18.286 18.286-18.286h329.143c9.714 0 \
-      18.286 8.571 18.286 18.286zM658.286 475.429c0-141.143-114.857-256-256-256s-256 114.857-256 256 \
-      114.857 256 256 256 256-114.857 256-256zM950.857 950.857c0 40.571-32.571 73.143-73.143 73.143\
-      -19.429 0-38.286-8-51.429-21.714l-196-195.429c-66.857 46.286-146.857 70.857-228 70.857-222.286 0\
-      -402.286-180-402.286-402.286s180-402.286 402.286-402.286 402.286 180 402.286 402.286c0 81.143\
-      -24.571 161.143-70.857 228l196 196c13.143 13.143 21.143 32 21.143 51.429z"></path>\
-      </svg>',
+              <path fill="currentColor" d="M585.143 457.143v36.571c0 9.714-8.571 \
+              18.286-18.286 18.286h-329.143c-9.714 0-18.286-8.571-18.286-18.286\
+              v-36.571c0-9.714 8.571-18.286 18.286-18.286h329.143c9.714 0 18.286 \
+              8.571 18.286 18.286zM658.286 475.429c0-141.143-114.857-256-256-256\
+              s-256 114.857-256 256 114.857 256 256 256 256-114.857 256-256z\
+              M950.857 950.857c0 40.571-32.571 73.143-73.143 73.143-19.429 0\
+              -38.286-8-51.429-21.714l-196-195.429c-66.857 46.286-146.857 70.857\
+              -228 70.857-222.286 0-402.286-180-402.286-402.286s180-402.286 \
+              402.286-402.286 402.286 180 402.286 402.286c0 81.143-24.571 161.143\
+              -70.857 228l196 196c13.143 13.143 21.143 32 21.143 51.429z"></path>\
+              </svg>',
       prev: '<svg viewBox="0 0 914.2857142857142 1024" class="svg-inline-icon">\
-      <path fill="currentColor" d="M877.714 512v73.143c0 38.857-25.714 73.143-66.857 73.143h-402.286\
-      l167.429 168c13.714 13.143 21.714 32 21.714 51.429s-8 38.286-21.714 51.429l-42.857 43.429c\
-      -13.143 13.143-32 21.143-51.429 21.143s-38.286-8-52-21.143l-372-372.571c-13.143-13.143-21.143\
-      -32-21.143-51.429s8-38.286 21.143-52l372-371.429c13.714-13.714 32.571-21.714 52-21.714s37.714 8 \
-      51.429 21.714l42.857 42.286c13.714 13.714 21.714 32.571 21.714 52s-8 38.286-21.714 52l-167.429 \
-      167.429h402.286c41.143 0 66.857 34.286 66.857 73.143z"></path>\
-      </svg>',
+            <path fill="currentColor" d="M877.714 512v73.143c0 38.857-25.714 \
+            73.143-66.857 73.143h-402.286l167.429 168c13.714 13.143 21.714 32 \
+            21.714 51.429s-8 38.286-21.714 51.429l-42.857 43.429c-13.143 13.143\
+            -32 21.143-51.429 21.143s-38.286-8-52-21.143l-372-372.571c-13.143\
+            -13.143-21.143-32-21.143-51.429s8-38.286 21.143-52l372-371.429c13.714\
+            -13.714 32.571-21.714 52-21.714s37.714 8 51.429 21.714l42.857 42.286\
+            c13.714 13.714 21.714 32.571 21.714 52s-8 38.286-21.714 52l-167.429 \
+            167.429h402.286c41.143 0 66.857 34.286 66.857 73.143z"></path>\
+            </svg>',
       next: '<svg viewBox="0 0 841.1428571428571 1024" class="svg-inline-icon">\
-      <path fill="currentColor" d="M841.143 548.571c0 19.429-7.429 38.286-21.143 52l-372 372c-13.714 \
-      13.143-32.571 21.143-52 21.143s-37.714-8-51.429-21.143l-42.857-42.857c-13.714-13.714-21.714\
-      -32.571-21.714-52s8-38.286 21.714-52l167.429-167.429h-402.286c-41.143 0-66.857-34.286-66.857-73.143\
-      v-73.143c0-38.857 25.714-73.143 66.857-73.143h402.286l-167.429-168c-13.714-13.143-21.714-32-21.714\
-      -51.429s8-38.286 21.714-51.429l42.857-42.857c13.714-13.714 32-21.714 51.429-21.714s38.286 8 52 \
-      21.714l372 372c13.714 13.143 21.143 32 21.143 51.429z"></path>\
-      </svg>',
+            <path fill="currentColor" d="M841.143 548.571c0 19.429-7.429 38.286\
+            -21.143 52l-372 372c-13.714 13.143-32.571 21.143-52 21.143s-37.714\
+            -8-51.429-21.143l-42.857-42.857c-13.714-13.714-21.714-32.571-21.714\
+            -52s8-38.286 21.714-52l167.429-167.429h-402.286c-41.143 0-66.857\
+            -34.286-66.857-73.143v-73.143c0-38.857 25.714-73.143 66.857-73.143\
+            h402.286l-167.429-168c-13.714-13.143-21.714-32-21.714-51.429s8\
+            -38.286 21.714-51.429l42.857-42.857c13.714-13.714 32-21.714 51.429\
+            -21.714s38.286 8 52 21.714l372 372c13.714 13.143 21.143 32 21.143 \
+            51.429z"></path>\
+            </svg>',
       fullscreen: '<svg viewBox="0 0 1097.142857142857 1024" class="svg-inline-icon">\
-      <path fill="currentColor" d="M365.714 329.143c0 60.571-49.143 109.714-109.714 109.714s-109.714\
-      -49.143-109.714-109.714 49.143-109.714 109.714-109.714 109.714 49.143 109.714 109.714zM950.857 \
-      548.571v256h-804.571v-109.714l182.857-182.857 91.429 91.429 292.571-292.571zM1005.714 146.286\
-      h-914.286c-9.714 0-18.286 8.571-18.286 18.286v694.857c0 9.714 8.571 18.286 18.286 18.286h914.286\
-      c9.714 0 18.286-8.571 18.286-18.286v-694.857c0-9.714-8.571-18.286-18.286-18.286zM1097.143 164.571\
-      v694.857c0 50.286-41.143 91.429-91.429 91.429h-914.286c-50.286 0-91.429-41.143-91.429-91.429v\
-      -694.857c0-50.286 41.143-91.429 91.429-91.429h914.286c50.286 0 91.429 41.143 91.429 91.429z"></path>\
-      </svg>',
+                  <path fill="currentColor" d="M365.714 329.143c0 60.571-49.143 \
+                  109.714-109.714 109.714s-109.714-49.143-109.714-109.714 49.143\
+                  -109.714 109.714-109.714 109.714 49.143 109.714 109.714z\
+                  M950.857 548.571v256h-804.571v-109.714l182.857-182.857 91.429 \
+                  91.429 292.571-292.571zM1005.714 146.286h-914.286c-9.714 0\
+                  -18.286 8.571-18.286 18.286v694.857c0 9.714 8.571 18.286 \
+                  18.286 18.286h914.286c9.714 0 18.286-8.571 18.286-18.286\
+                  v-694.857c0-9.714-8.571-18.286-18.286-18.286zM1097.143 164.571\
+                  v694.857c0 50.286-41.143 91.429-91.429 91.429h-914.286c-50.286 \
+                  0-91.429-41.143-91.429-91.429v-694.857c0-50.286 41.143-91.429 \
+                  91.429-91.429h914.286c50.286 0 91.429 41.143 91.429 91.429z"></path>\
+                  </svg>',
       actualSize: '<svg viewBox="0 0 877.7142857142857 1024" class="svg-inline-icon">\
-      <path fill="currentColor" d="M733.143 309.143l-202.857 202.857 202.857 202.857 82.286-82.286c10.286\
-      -10.857 26.286-13.714 40-8 13.143 5.714 22.286 18.857 22.286 33.714v256c0 20-16.571 36.571-36.571 \
-      36.571h-256c-14.857 0-28-9.143-33.714-22.857-5.714-13.143-2.857-29.143 8-39.429l82.286-82.286-202.857\
-      -202.857-202.857 202.857 82.286 82.286c10.857 10.286 13.714 26.286 8 39.429-5.714 13.714-18.857 22.857\
-      -33.714 22.857h-256c-20 0-36.571-16.571-36.571-36.571v-256c0-14.857 9.143-28 22.857-33.714 13.143\
-      -5.714 29.143-2.857 39.429 8l82.286 82.286 202.857-202.857-202.857-202.857-82.286 82.286c-6.857 6.857\
-      -16 10.857-25.714 10.857-4.571 0-9.714-1.143-13.714-2.857-13.714-5.714-22.857-18.857-22.857-33.714\
-      v-256c0-20 16.571-36.571 36.571-36.571h256c14.857 0 28 9.143 33.714 22.857 5.714 13.143 2.857 29.143\
-      -8 39.429l-82.286 82.286 202.857 202.857 202.857-202.857-82.286-82.286c-10.857-10.286-13.714-26.286\
-      -8-39.429 5.714-13.714 18.857-22.857 33.714-22.857h256c20 0 36.571 16.571 36.571 36.571v256c0 14.857\
-      -9.143 28-22.286 33.714-4.571 1.714-9.714 2.857-14.286 2.857-9.714 0-18.857-4-25.714-10.857z"></path>\
-      </svg>',
+                  <path fill="currentColor" d="M733.143 309.143l-202.857 202.857 \
+                  202.857 202.857 82.286-82.286c10.286-10.857 26.286-13.714 40-8 \
+                  13.143 5.714 22.286 18.857 22.286 33.714v256c0 20-16.571 36.571\
+                  -36.571 36.571h-256c-14.857 0-28-9.143-33.714-22.857-5.714\
+                  -13.143-2.857-29.143 8-39.429l82.286-82.286-202.857-202.857\
+                  -202.857 202.857 82.286 82.286c10.857 10.286 13.714 26.286 8 \
+                  39.429-5.714 13.714-18.857 22.857-33.714 22.857h-256c-20 0\
+                  -36.571-16.571-36.571-36.571v-256c0-14.857 9.143-28 22.857\
+                  -33.714 13.143-5.714 29.143-2.857 39.429 8l82.286 82.286 \
+                  202.857-202.857-202.857-202.857-82.286 82.286c-6.857 6.857\
+                  -16 10.857-25.714 10.857-4.571 0-9.714-1.143-13.714-2.857\
+                  -13.714-5.714-22.857-18.857-22.857-33.714v-256c0-20 16.571\
+                  -36.571 36.571-36.571h256c14.857 0 28 9.143 33.714 22.857 \
+                  5.714 13.143 2.857 29.143-8 39.429l-82.286 82.286 202.857 \
+                  202.857 202.857-202.857-82.286-82.286c-10.857-10.286-13.714\
+                  -26.286-8-39.429 5.714-13.714 18.857-22.857 33.714-22.857h256\
+                  c20 0 36.571 16.571 36.571 36.571v256c0 14.857-9.143 28-22.286 \
+                  33.714-4.571 1.714-9.714 2.857-14.286 2.857-9.714 0-18.857-4\
+                  -25.714-10.857z"></path>\
+                  </svg>',
       rotateLeft: '<svg viewBox="0 0 877.7142857142857 1024" class="svg-inline-icon">\
-      <path fill="currentColor" d="M877.714 512c0 241.714-197.143 438.857-438.857 438.857-130.857 0\
-      -254.286-57.714-337.714-158.286-5.714-7.429-5.143-18.286 1.143-24.571l78.286-78.857c4-3.429 9.143\
-      -5.143 14.286-5.143 5.143 0.571 10.286 2.857 13.143 6.857 56 72.571 140 113.714 230.857 113.714 \
-      161.143 0 292.571-131.429 292.571-292.571s-131.429-292.571-292.571-292.571c-74.857 0-145.714 28.571\
-      -198.857 78.286l78.286 78.857c10.857 10.286 13.714 26.286 8 39.429-5.714 13.714-18.857 22.857\
-      -33.714 22.857h-256c-20 0-36.571-16.571-36.571-36.571v-256c0-14.857 9.143-28 22.857-33.714 13.143\
-      -5.714 29.143-2.857 39.429 8l74.286 73.714c80.571-76 189.714-121.143 302.286-121.143 241.714 0 \
-      438.857 197.143 438.857 438.857z"></path>\
-      </svg>',
+                  <path fill="currentColor" d="M877.714 512c0 241.714-197.143 \
+                  438.857-438.857 438.857-130.857 0-254.286-57.714-337.714-158.286\
+                  -5.714-7.429-5.143-18.286 1.143-24.571l78.286-78.857c4-3.429 \
+                  9.143-5.143 14.286-5.143 5.143 0.571 10.286 2.857 13.143 6.857 \
+                  56 72.571 140 113.714 230.857 113.714 161.143 0 292.571-131.429 \
+                  292.571-292.571s-131.429-292.571-292.571-292.571c-74.857 0\
+                  -145.714 28.571-198.857 78.286l78.286 78.857c10.857 10.286 \
+                  13.714 26.286 8 39.429-5.714 13.714-18.857 22.857-33.714 22.857\
+                  h-256c-20 0-36.571-16.571-36.571-36.571v-256c0-14.857 9.143-28 \
+                  22.857-33.714 13.143-5.714 29.143-2.857 39.429 8l74.286 73.714\
+                  c80.571-76 189.714-121.143 302.286-121.143 241.714 0 438.857 \
+                  197.143 438.857 438.857z"></path>\
+                  </svg>',
       rotateRight: '<svg viewBox="0 0 877.7142857142857 1024" class="svg-inline-icon">\
-      <path fill="currentColor" d="M877.714 146.286v256c0 20-16.571 36.571-36.571 36.571h-256c-14.857 0\
-      -28-9.143-33.714-22.857-5.714-13.143-2.857-29.143 8-39.429l78.857-78.857c-53.714-49.714-124.571\
-      -78.286-199.429-78.286-161.143 0-292.571 131.429-292.571 292.571s131.429 292.571 292.571 292.571\
-      c90.857 0 174.857-41.143 230.857-113.714 2.857-4 8-6.286 13.143-6.857 5.143 0 10.286 1.714 14.286 \
-      5.143l78.286 78.857c6.857 6.286 6.857 17.143 1.143 24.571-83.429 100.571-206.857 158.286-337.714 \
-      158.286-241.714 0-438.857-197.143-438.857-438.857s197.143-438.857 438.857-438.857c112.571 0 \
-      221.714 45.143 302.286 121.143l74.286-73.714c10.286-10.857 26.286-13.714 40-8 13.143 5.714 \
-      22.286 18.857 22.286 33.714z"></path>\
-      </svg>'
+                    <path fill="currentColor" d="M877.714 146.286v256c0 20-16.571 \
+                    36.571-36.571 36.571h-256c-14.857 0-28-9.143-33.714-22.857\
+                    -5.714-13.143-2.857-29.143 8-39.429l78.857-78.857c-53.714\
+                    -49.714-124.571-78.286-199.429-78.286-161.143 0-292.571 \
+                    131.429-292.571 292.571s131.429 292.571 292.571 292.571\
+                    c90.857 0 174.857-41.143 230.857-113.714 2.857-4 8-6.286 \
+                    13.143-6.857 5.143 0 10.286 1.714 14.286 5.143l78.286 78.857\
+                    c6.857 6.286 6.857 17.143 1.143 24.571-83.429 100.571-206.857 \
+                    158.286-337.714 158.286-241.714 0-438.857-197.143-438.857\
+                    -438.857s197.143-438.857 438.857-438.857c112.571 0 221.714 \
+                    45.143 302.286 121.143l74.286-73.714c10.286-10.857 26.286\
+                    -13.714 40-8 13.143 5.714 22.286 18.857 22.286 33.714z"></path>\
+                    </svg>'
     },
 
     // Customize language of button title
@@ -267,6 +305,9 @@ var Magnify = function (el, options) {
   // image rotate angle
   this.rotateAngle = 0;
 
+  // if modal do resize
+  this.isDoResize = false;
+
   // Store image data in every instance
   this.imageData = {};
   // Store modal data in every instance
@@ -279,7 +320,7 @@ var Magnify = function (el, options) {
 
   this.init(el, self.options);
 
-}
+};
 
 /**
  * Mangify Prototype
@@ -320,7 +361,11 @@ Magnify.prototype = {
       this.movable(this.$stage, isIE8() ? '.magnify-image' : this.$image);
     }
     if (opts.resizable) {
-      this.resizable(this.$magnify, this.$stage, isIE8() ? '.magnify-image' : this.$image, opts.modalWidth, opts.modalHeight);
+      this.resizable(
+        this.$magnify,
+        this.$stage, isIE8() ? '.magnify-image' : this.$image,
+        opts.modalWidth,
+        opts.modalHeight);
     }
 
   },
@@ -341,31 +386,70 @@ Magnify.prototype = {
   creatDOM: function () {
 
     var btnsTpl = {
-      minimize: '<button class="magnify-button magnify-button-minimize" title="' + this.options.i18n.minimize + '">' + this.options.icons.minimize + '</button>',
-      maximize: '<button class="magnify-button magnify-button-maximize" title="' + this.options.i18n.maximize + '">' + this.options.icons.maximize + '</button>',
-      close: '<button class="magnify-button magnify-button-close" title="' + this.options.i18n.close + '">' + this.options.icons.close + '</button>',
-      zoomIn: '<button class="magnify-button magnify-button-zoom-in" title="' + this.options.i18n.zoomIn + '">' + this.options.icons.zoomIn + '</button>',
-      zoomOut: '<button class="magnify-button magnify-button-zoom-out" title="' + this.options.i18n.zoomOut + '">' + this.options.icons.zoomOut + '</button>',
-      prev: '<button class="magnify-button magnify-button-prev" title="' + this.options.i18n.prev + '">' + this.options.icons.prev + '</button>',
-      next: '<button class="magnify-button magnify-button-next" title="' + this.options.i18n.next + '">' + this.options.icons.next + '</button>',
-      fullscreen: '<button class="magnify-button magnify-button-fullscreen" title="' + this.options.i18n.fullscreen + '">' + this.options.icons.fullscreen + '</button>',
-      actualSize: '<button class="magnify-button magnify-button-actual-size" title="' + this.options.i18n.actualSize + '">' + this.options.icons.actualSize + '</button>',
-      rotateLeft: '<button class="magnify-button magnify-button-rotate-left" title="' + this.options.i18n.rotateLeft + '">' + this.options.icons.rotateLeft + '</button>',
-      rotateRight: '<button class="magnify-button magnify-button-rotate-right" title="' + this.options.i18n.rotateRight + '">' + this.options.icons.rotateRight + '</button>'
+      minimize: '<button class="magnify-button magnify-button-minimize" title="' +
+        this.options.i18n.minimize + '">' +
+        this.options.icons.minimize +
+        '</button>',
+      maximize: '<button class="magnify-button magnify-button-maximize" title="' +
+        this.options.i18n.maximize + '">' +
+        this.options.icons.maximize +
+        '</button>',
+      close: '<button class="magnify-button magnify-button-close" title="' +
+        this.options.i18n.close + '">' +
+        this.options.icons.close +
+        '</button>',
+      zoomIn: '<button class="magnify-button magnify-button-zoom-in" title="' +
+        this.options.i18n.zoomIn + '">' +
+        this.options.icons.zoomIn +
+        '</button>',
+      zoomOut: '<button class="magnify-button magnify-button-zoom-out" title="' +
+        this.options.i18n.zoomOut + '">' +
+        this.options.icons.zoomOut +
+        '</button>',
+      prev: '<button class="magnify-button magnify-button-prev" title="' +
+        this.options.i18n.prev + '">' +
+        this.options.icons.prev +
+        '</button>',
+      next: '<button class="magnify-button magnify-button-next" title="' +
+        this.options.i18n.next + '">' +
+        this.options.icons.next +
+        '</button>',
+      fullscreen: '<button class="magnify-button magnify-button-fullscreen" title="' +
+        this.options.i18n.fullscreen + '">' +
+        this.options.icons.fullscreen +
+        '</button>',
+      actualSize: '<button class="magnify-button magnify-button-actual-size" title="' +
+        this.options.i18n.actualSize + '">' +
+        this.options.icons.actualSize +
+        '</button>',
+      rotateLeft: '<button class="magnify-button magnify-button-rotate-left" title="' +
+        this.options.i18n.rotateLeft + '">' +
+        this.options.icons.rotateLeft +
+        '</button>',
+      rotateRight: '<button class="magnify-button magnify-button-rotate-right" title="' +
+        this.options.i18n.rotateRight + '">' +
+        this.options.icons.rotateRight +
+        '</button>'
     };
 
     // magnify base HTML
-    var magnifyHTML = '<div class="magnify-modal">\
-                        <div class="magnify-header">\
-                          <div class="magnify-toolbar magnify-head-toolbar">' + this._creatBtns(this.options.headToolbar, btnsTpl) + '</div>' + this._creatTitle() + '\
-                        </div>\
-                        <div class="magnify-stage">\
-                          <img class="magnify-image" src="" alt="" />\
-                        </div>\
-                        <div class="magnify-footer">\
-                          <div class="magnify-toolbar magnify-foot-toolbar">' + this._creatBtns(this.options.footToolbar, btnsTpl) + '</div>\
-                        </div>\
-                      </div>';
+    var magnifyHTML =
+      '<div class="magnify-modal">\
+        <div class="magnify-header">\
+          <div class="magnify-toolbar magnify-head-toolbar">' +
+      this._creatBtns(this.options.headToolbar, btnsTpl) + '\
+          </div>' +
+      this._creatTitle() + '\
+        </div>\
+        <div class="magnify-stage">\
+          <img class="magnify-image" src="" alt="" />\
+        </div>\
+        <div class="magnify-footer">\
+          <div class="magnify-toolbar magnify-foot-toolbar">' +
+      this._creatBtns(this.options.footToolbar, btnsTpl) + '\
+          </div>\
+        </div>\
+      </div>';
 
     return magnifyHTML;
 
@@ -540,14 +624,24 @@ Magnify.prototype = {
     };
 
     // Modal size should calc with stage css value
-    var modalWidth = img.width + getNumFromCSSValue(stageCSS.left) + getNumFromCSSValue(stageCSS.right) +
-      getNumFromCSSValue(stageCSS.borderLeft) + getNumFromCSSValue(stageCSS.borderRight),
-      modalHeight = img.height + getNumFromCSSValue(stageCSS.top) + getNumFromCSSValue(stageCSS.bottom) +
-        getNumFromCSSValue(stageCSS.borderTop) + getNumFromCSSValue(stageCSS.borderBottom);
+    var modalWidth = img.width +
+      getNumFromCSSValue(stageCSS.left) +
+      getNumFromCSSValue(stageCSS.right) +
+      getNumFromCSSValue(stageCSS.borderLeft) +
+      getNumFromCSSValue(stageCSS.borderRight),
+      modalHeight = img.height +
+        getNumFromCSSValue(stageCSS.top) +
+        getNumFromCSSValue(stageCSS.bottom) +
+        getNumFromCSSValue(stageCSS.borderTop) +
+        getNumFromCSSValue(stageCSS.borderBottom);
 
     var gapThreshold = (this.options.gapThreshold > 0 ? this.options.gapThreshold : 0) + 1,
       // modal scale to window
-      scale = Math.min(winWidth / (modalWidth * gapThreshold), winHeight / (modalHeight * gapThreshold), 1);
+      scale = Math.min(
+        winWidth / (modalWidth * gapThreshold),
+        winHeight / (modalHeight * gapThreshold),
+        1
+      );
 
     var minWidth = Math.max(modalWidth * scale, this.options.modalWidth),
       minHeight = Math.max(modalHeight * scale, this.options.modalHeight);
@@ -579,6 +673,18 @@ Magnify.prototype = {
     this.isOpened = true;
 
   },
+  getImageScaleToStage: function(stageWidth, stageHeight) {
+
+    var scale = 1;
+
+    if (!this.isRotated) {
+      scale = Math.min(stageWidth / this.img.width, stageHeight / this.img.height, 1);
+    } else {
+      scale = Math.min(stageWidth / this.img.height, stageHeight / this.img.width, 1);
+    }
+
+    return scale;
+  },
   setImageSize: function (img) {
 
     var $image = isIE8() ? this.$stage.find('.magnify-image') : this.$image;
@@ -588,14 +694,10 @@ Magnify.prototype = {
       h: this.$stage.height()
     };
 
-    // image scale to stage
-    var scale = 1;
-
-    if (!this.isRotated) {
-      scale = Math.min(stageData.w / img.width, stageData.h / img.height, 1);
-    } else {
-      scale = Math.min(stageData.w / img.height, stageData.h / img.width, 1);
-    }
+    var scale = this.getImageScaleToStage(
+      stageData.w,
+      stageData.h
+    );
 
     $image.css({
       width: Math.ceil(img.width * scale) + 'px',
@@ -613,6 +715,10 @@ Magnify.prototype = {
 
     // Store image initial data
     $.extend(this.imageData, {
+      initWidth: img.width * scale,
+      initHeight: img.height * scale,
+      initLeft: (stageData.w - img.width * scale) / 2,
+      initTop: (stageData.h - img.height * scale) / 2,
       width: img.width * scale,
       height: img.height * scale,
       left: (stageData.w - img.width * scale) / 2,
@@ -620,7 +726,9 @@ Magnify.prototype = {
     });
 
     // Set grab cursor
-    setGrabCursor({ w: $image.width(), h: $image.height() }, { w: this.$stage.width(), h: this.$stage.height() },
+    setGrabCursor(
+      { w: $image.width(), h: $image.height() },
+      { w: this.$stage.width(), h: this.$stage.height() },
       this.$stage,
       this.isRotated
     );
@@ -648,18 +756,20 @@ Magnify.prototype = {
     }
 
     if (isIE8()) {
-      this.$stage.html('<img class="magnify-image" id="magnify-image" src="' + imgSrc + '" alt="" />')
+      this.$stage.html('<img class="magnify-image" id="magnify-image" src="' + imgSrc + '" alt="" />');
     } else {
       this.$image.attr('src', imgSrc);
     }
 
     preloadImg(imgSrc, function (img) {
+      // Store HTMLImageElement
+      self.img = img;
 
       // Store original data
       self.imageData = {
         originalWidth: img.width,
         originalHeight: img.height
-      }
+      };
 
       if (self.isMaximized || (self.isOpened && self.options.fixedModalPos)) {
         self.setImageSize(img);
@@ -767,19 +877,20 @@ Magnify.prototype = {
 
     this.$image = isIE8() ? this.$stage.find('.magnify-image') : this.$image;
 
-    // zoom out & zoom in
+    // zoom out ratio & zoom in ratio
     ratio = ratio < 0 ? (1 / (1 - ratio)) : (1 + ratio);
 
-    if (ratio > 0.95 && ratio < 1.05) {
-      ratio = 1;
-    }
-
+    // image ratio
     ratio = this.$image.width() / this.imageData.originalWidth * ratio;
 
-    // min image size
-    ratio = Math.max(ratio, this.options.minRatio);
-    // max image size
-    ratio = Math.min(ratio, this.options.maxRatio);
+    // Fixed digital error
+    // if (ratio > 0.95 && ratio < 1.05) {
+    //   ratio = 1;
+    // }
+
+    if (ratio > this.options.maxRatio || ratio < this.options.minRatio) {
+      return;
+    }
 
     this.zoomTo(ratio, origin, e);
 
@@ -802,11 +913,11 @@ Magnify.prototype = {
       h: $stage.height(),
       x: $stage.offset().left,
       y: $stage.offset().top
-    }
+    };
 
     var newWidth = this.imageData.originalWidth * ratio,
       newHeight = this.imageData.originalHeight * ratio,
-      // Think about it for a while ~~~
+      // Think about it for a while
       newLeft = origin.x - (origin.x - imgData.x) / imgData.w * newWidth,
       newTop = origin.y - (origin.y - imgData.y) / imgData.h * newHeight;
 
@@ -824,27 +935,47 @@ Magnify.prototype = {
     if (imgNewHeight <= stageData.h) {
       newTop = (stageData.h - newHeight) / 2;
     } else {
-      newTop = newTop > δ ? δ : (newTop > (offsetY - δ) ? newTop : (offsetY - δ));
+      newTop = newTop > δ
+        ? δ
+        : (newTop > (offsetY - δ)
+          ? newTop
+          : (offsetY - δ));
     }
 
     if (imgNewWidth <= stageData.w) {
       newLeft = (stageData.w - newWidth) / 2;
     } else {
-      newLeft = newLeft > -δ ? -δ : (newLeft > (offsetX + δ) ? newLeft : (offsetX + δ));
+      newLeft = newLeft > -δ
+        ? -δ
+        : (newLeft > (offsetX + δ)
+          ? newLeft
+          : (offsetX + δ));
     }
 
-    $image.css({
-      width: Math.round(newWidth) + 'px',
-      height: Math.round(newHeight) + 'px',
-      left: Math.round(newLeft) + 'px',
-      top: Math.round(newTop) + 'px'
-    });
-
-    if (isIE8()) {
-      $image.find('group').css({
-        width: Math.ceil(newWidth) + 'px',
-        height: Math.ceil(newHeight) + 'px'
+    // if the image scale get to the critical point
+    if (Math.abs(this.imageData.initWidth - newWidth) < Math.abs(this.imageData.initWidth * 0.05)) {
+      this.setImageSize(this.img);
+    } else {
+      $image.css({
+        width: Math.round(newWidth) + 'px',
+        height: Math.round(newHeight) + 'px',
+        left: Math.round(newLeft) + 'px',
+        top: Math.round(newTop) + 'px'
       });
+
+      if (isIE8()) {
+        $image.find('group').css({
+          width: Math.ceil(newWidth) + 'px',
+          height: Math.ceil(newHeight) + 'px'
+        });
+      }
+
+      // Set grab cursor
+      setGrabCursor(
+        { w: Math.round(imgNewWidth), h: Math.round(imgNewHeight) },
+        { w: stageData.w, h: stageData.h },
+        this.$stage
+      );
     }
 
     // Update image initial data
@@ -854,11 +985,6 @@ Magnify.prototype = {
       left: newLeft,
       top: newTop
     });
-
-    // Set grab cursor
-    setGrabCursor({ w: Math.round(imgNewWidth), h: Math.round(imgNewHeight) }, { w: stageData.w, h: stageData.h },
-      this.$stage
-    );
 
   },
   rotate: function (angle) {
@@ -884,7 +1010,10 @@ Magnify.prototype = {
       angle: angle
     });
 
-    this.setImageSize({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
+    this.setImageSize({
+      width: this.imageData.originalWidth,
+      height: this.imageData.originalHeight
+    });
 
     // Remove grab cursor when rotate
     this.$stage.removeClass('is-grab');
@@ -899,9 +1028,15 @@ Magnify.prototype = {
       if (self.isOpened) {
 
         if (self.isMaximized) {
-          self.setImageSize({ width: self.imageData.originalWidth, height: self.imageData.originalHeight });
+          self.setImageSize({
+            width: self.imageData.originalWidth,
+            height: self.imageData.originalHeight
+          });
         } else {
-          self.setModalSize({ width: self.imageData.originalWidth, height: self.imageData.originalHeight });
+          self.setModalSize({
+            width: self.imageData.originalWidth,
+            height: self.imageData.originalHeight
+          });
         }
 
       }
@@ -940,16 +1075,27 @@ Magnify.prototype = {
       this.$magnify.removeClass('magnify-maximize');
 
       this.$magnify.css({
-        width: this.modalData.width ? this.modalData.width : this.options.modalWidth,
-        height: this.modalData.height ? this.modalData.height : this.options.modalHeight,
-        left: this.modalData.left ? this.modalData.left : ($W.width() - this.options.modalWidth) / 2 + $D.scrollLeft(),
-        top: this.modalData.top ? this.modalData.top : ($W.height() - this.options.modalHeight) / 2 + $D.scrollTop()
+        width: this.modalData.width
+          ? this.modalData.width
+          : this.options.modalWidth,
+        height: this.modalData.height
+          ? this.modalData.height
+          : this.options.modalHeight,
+        left: this.modalData.left
+          ? this.modalData.left
+          : ($W.width() - this.options.modalWidth) / 2 + $D.scrollLeft(),
+        top: this.modalData.top
+          ? this.modalData.top
+          : ($W.height() - this.options.modalHeight) / 2 + $D.scrollTop()
       });
 
       this.isMaximized = false;
     }
 
-    this.setImageSize({ width: this.imageData.originalWidth, height: this.imageData.originalHeight });
+    this.setImageSize({
+      width: this.imageData.originalWidth,
+      height: this.imageData.originalHeight
+    });
 
   },
   fullscreen: function () {
@@ -970,49 +1116,69 @@ Magnify.prototype = {
       altKey = e.altKey || e.metaKey;
 
     switch (keyCode) {
-      // ←
-      case 37:
-        self.jump(-1);
-        break;
+    // ←
+    case 37:
+      self.jump(-1);
+      break;
       // →
-      case 39:
-        self.jump(1);
-        break;
+    case 39:
+      self.jump(1);
+      break;
       // +
-      case 187:
-        self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-        break;
+    case 187:
+      self.zoom(
+        self.options.ratioThreshold * 3,
+        { x: self.$stage.width() / 2, y: self.$stage.height() / 2 },
+        e
+      );
+      break;
       // -
-      case 189:
-        self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-        break;
+    case 189:
+      self.zoom(
+        -self.options.ratioThreshold * 3,
+        { x: self.$stage.width() / 2, y: self.$stage.height() / 2 },
+        e
+      );
+      break;
       // + Firefox
-      case 61:
-        self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-        break;
+    case 61:
+      self.zoom(
+        self.options.ratioThreshold * 3,
+        { x: self.$stage.width() / 2, y: self.$stage.height() / 2 },
+        e
+      );
+      break;
       // - Firefox
-      case 173:
-        self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-        break;
+    case 173:
+      self.zoom(
+        -self.options.ratioThreshold * 3,
+        { x: self.$stage.width() / 2, y: self.$stage.height() / 2 },
+        e
+      );
+      break;
       // ctrl + alt + 0
-      case 48:
-        if (ctrlKey && altKey) {
-          self.zoomTo(1, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
-        }
-        break;
+    case 48:
+      if (ctrlKey && altKey) {
+        self.zoomTo(
+          1,
+          { x: self.$stage.width() / 2, y: self.$stage.height() / 2 },
+          e
+        );
+      }
+      break;
       // ctrl + ,
-      case 188:
-        if (ctrlKey) {
-          self.rotate(-90);
-        }
-        break;
+    case 188:
+      if (ctrlKey) {
+        self.rotate(-90);
+      }
+      break;
       // ctrl + .
-      case 190:
-        if (ctrlKey) {
-          self.rotate(90);
-        }
-        break;
-      default:
+    case 190:
+      if (ctrlKey) {
+        self.rotate(90);
+      }
+      break;
+    default:
     }
 
   },
@@ -1029,15 +1195,27 @@ Magnify.prototype = {
     });
 
     this.$zoomIn.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
-      self.zoom(self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+      self.zoom(
+        self.options.ratioThreshold * 3,
+        { x: self.$stage.width() / 2, y: self.$stage.height() / 2 },
+        e
+      );
     });
 
     this.$zoomOut.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
-      self.zoom(-self.options.ratioThreshold * 3, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+      self.zoom(
+        -self.options.ratioThreshold * 3,
+        { x: self.$stage.width() / 2, y: self.$stage.height() / 2 },
+        e
+      );
     });
 
     this.$actualSize.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
-      self.zoomTo(1, { x: self.$stage.width() / 2, y: self.$stage.height() / 2 }, e);
+      self.zoomTo(
+        1,
+        { x: self.$stage.width() / 2, y: self.$stage.height() / 2 },
+        e
+      );
     });
 
     this.$prev.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
@@ -1076,7 +1254,7 @@ Magnify.prototype = {
       this.options.callbacks[e].apply(this, $.isArray(data) ? data : [data]);
     }
   }
-}
+};
 
 /**
  * jQuery plugin
@@ -1089,7 +1267,7 @@ $.fn.magnify = function (options) {
   // Convert a numeric string into a number
   for (var key in options) {
     if (typeof (options[key]) === 'string' && !isNaN(options[key])) {
-      options[key] = parseFloat(options[key])
+      options[key] = parseFloat(options[key]);
     }
   }
 
@@ -1131,7 +1309,7 @@ $.fn.magnify = function (options) {
 
   return jqEl;
 
-}
+};
 
 /**
  * MAGNIFY DATA-API

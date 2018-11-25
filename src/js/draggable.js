@@ -37,8 +37,12 @@ var draggable = function (modal, dragHandle, dragCancel) {
 
     isDragging = true;
 
-    startX = e.type === 'touchstart' ? e.originalEvent.targetTouches[0].pageX : e.clientX;
-    startY = e.type === 'touchstart' ? e.originalEvent.targetTouches[0].pageY : e.clientY;
+    startX = e.type === 'touchstart'
+      ? e.originalEvent.targetTouches[0].pageX
+      : e.clientX;
+    startY = e.type === 'touchstart'
+      ? e.originalEvent.targetTouches[0].pageY
+      : e.clientY;
 
     left = $(modal).offset().left;
     top = $(modal).offset().top;
@@ -46,7 +50,7 @@ var draggable = function (modal, dragHandle, dragCancel) {
     $D.on(TOUCH_MOVE_EVENT + EVENT_NS, dragMove)
       .on(TOUCH_END_EVENT + EVENT_NS, dragEnd);
 
-  }
+  };
 
   var dragMove = function (e) {
 
@@ -56,8 +60,12 @@ var draggable = function (modal, dragHandle, dragCancel) {
 
     if (isDragging && !PUBLIC_VARS['isMoving'] && !PUBLIC_VARS['isResizing'] && !self.isMaximized) {
 
-      var endX = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageX : e.clientX,
-        endY = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageY : e.clientY,
+      var endX = e.type === 'touchmove'
+          ? e.originalEvent.targetTouches[0].pageX
+          : e.clientX,
+        endY = e.type === 'touchmove'
+          ? e.originalEvent.targetTouches[0].pageY
+          : e.clientY,
 
         relativeX = endX - startX,
         relativeY = endY - startY;
@@ -69,7 +77,7 @@ var draggable = function (modal, dragHandle, dragCancel) {
 
     }
 
-  }
+  };
 
   var dragEnd = function (e) {
 
@@ -78,11 +86,11 @@ var draggable = function (modal, dragHandle, dragCancel) {
 
     isDragging = false;
 
-  }
+  };
 
   $(dragHandle).on(TOUCH_START_EVENT + EVENT_NS, dragStart);
 
-}
+};
 
 // Add to Magnify Prototype
 $.extend(Magnify.prototype, {
