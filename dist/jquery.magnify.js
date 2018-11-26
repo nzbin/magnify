@@ -6,7 +6,7 @@
  * |  |  |  |   _   |  \_/   |  |\   |_| |_|  |      |  |
  * |__|  |__|__| |__|\____/|_|__| \__|_____|__|      |__|
  *
- * jquery.magnify - v1.3.0
+ * jquery.magnify - v1.3.1
  * A jQuery plugin to view images just like in windows
  * https://github.com/nzbin/magnify#readme
  *
@@ -1158,8 +1158,8 @@ Magnify.prototype = {
           : (offsetX + δ));
     }
 
-    // if the image get to the critical point
-    if (Math.abs(this.imageData.initWidth - newWidth) < Math.abs(this.imageData.initWidth * 0.05)) {
+    // if the image scale get to the critical point
+    if (Math.abs(this.imageData.initWidth - newWidth) < this.imageData.initWidth * 0.05) {
       this.setImageSize(this.img);
     } else {
       $image.css({

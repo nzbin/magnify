@@ -953,7 +953,7 @@ Magnify.prototype = {
     }
 
     // if the image scale get to the critical point
-    if (Math.abs(this.imageData.initWidth - newWidth) < Math.abs(this.imageData.initWidth * 0.05)) {
+    if (Math.abs(this.imageData.initWidth - newWidth) < this.imageData.initWidth * 0.05) {
       this.setImageSize(this.img);
     } else {
       $image.css({
