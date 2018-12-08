@@ -223,6 +223,9 @@ $("[data-magnify=gallery]").magnify();
 - **dragHandle** ` `
   > The handle of draggable.
 
+- **progressiveLoading** `true`
+  > If true, the image will be rendered progressively.
+
 ## Events
 
 You can define callbacks in `callbacks` option. In each callback `this` is  the `Magnify` instance. You can also get the element clicked of plugin's init from arguments `el` of Function.

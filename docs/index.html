@@ -365,6 +365,17 @@
                   {...}
                 </div>
               </div>
+              <div class="form-item">
+                <label for="" class="col-4 form-label">
+                  progressiveLoading
+                </label>
+                <div class="col-8">
+                  <div class="checkbox inline">
+                    <input type="checkbox" id="progressiveLoading" name="progressiveLoading" v-model="options.progressiveLoading">
+                    <label for="progressiveLoading">{{options.progressiveLoading}}</label>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -845,6 +856,16 @@ $('[data-magnify=gallery]').magnify(options);
               <p>The handle of draggable.</p>
             </td>
           </tr>
+          <tr>
+            <td>progressiveLoading</td>
+            <td>boolean</td>
+            <td>
+              <code>true</code>
+            </td>
+            <td>
+              <p>If true, the image will be rendered progressively.</p>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -926,6 +947,7 @@ $("[data-magnify=gallery]").magnify({
       fixedModalPos: false,
       zIndex: 1090,
       dragHandle: '.magnify-modal',
+      progressiveLoading: true
     };
 
     var vm = new Vue({

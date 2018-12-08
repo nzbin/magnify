@@ -6,7 +6,7 @@
  * |  |  |  |   _   |  \_/   |  |\   |_| |_|  |      |  |
  * |__|  |__|__| |__|\____/|_|__| \__|_____|__|      |__|
  *
- * jquery.magnify - v1.3.2
+ * jquery.magnify - v1.4.0
  * A jQuery plugin to view images just like in windows
  * https://github.com/nzbin/magnify#readme
  *
@@ -463,7 +463,10 @@ var $W = $(window),
       closed: $.noop,
       beforeChange: $.noop,
       changed: $.noop
-    }
+    },
+
+    // Load the image progressively
+    progressiveLoading: true
   },
 
   PUBLIC_VARS = {
@@ -939,11 +942,15 @@ Magnify.prototype = {
       this.isRotated
     );
 
+    // Remove class must when image setting end
+    this.$stage.removeClass('stage-ready');
+    this.$image.removeClass('image-ready');
+
     // loader end
     this.$magnify.find('.magnify-loader').remove();
 
     // Add image init animation
-    if (this.options.initAnimation) {
+    if (this.options.initAnimation && !this.options.progressiveLoading) {
       $image.fadeIn();
     }
 
@@ -957,7 +964,14 @@ Magnify.prototype = {
     // loader start
     this.$magnify.append(loaderHTML);
 
-    if (this.options.initAnimation) {
+    // Add class before image loaded
+    this.$stage.addClass('stage-ready');
+    this.$image.addClass('image-ready');
+
+    // Reset image
+    this.$image.removeAttr('style').attr('src', '');
+
+    if (this.options.initAnimation && !this.options.progressiveLoading) {
       this.$image.hide();
     }
 
@@ -982,9 +996,6 @@ Magnify.prototype = {
       } else {
         self.setModalSize(img);
       }
-
-      self.$stage.removeClass('stage-ready');
-      self.$image.removeClass('image-ready');
 
       // callback of image loaded successfully
       if(fn){
