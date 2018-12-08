@@ -244,11 +244,11 @@ $("[data-magnify=gallery]").magnify({
     },
     beforeChange: function(index){
       // Will fire before image is changed
-      // The arguments is the index of image group
+      // The arguments is the current image index of image group
     },
     changed: function(index){
       // Will fire after image is changed
-      // The arguments is the index of image group
+      // The arguments is the next image index of image group
     }
   }
 });
