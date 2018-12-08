@@ -6,7 +6,7 @@
  * |  |  |  |   _   |  \_/   |  |\   |_| |_|  |      |  |
  * |__|  |__|__| |__|\____/|_|__| \__|_____|__|      |__|
  *
- * jquery.magnify - v1.3.2
+ * jquery.magnify - v1.4.0
  * A jQuery plugin to view images just like in windows
  * https://github.com/nzbin/magnify#readme
  *
@@ -75,6 +75,15 @@
 
 .magnify-stage.stage-ready {
   text-align: center;
+  font-size: 0;
+}
+
+.magnify-stage.stage-ready:before {
+  content: '';
+  display: inline-block;
+  height: 100%;
+  vertical-align: middle;
+  overflow: hidden;
 }
 
 .magnify-image {
@@ -85,6 +94,7 @@
 .magnify-image.image-ready {
   max-width: 100%;
   max-height: 100%;
+  vertical-align: middle;
 }
 
 .magnify-footer {
