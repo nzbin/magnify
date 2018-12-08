@@ -6,7 +6,7 @@
  * |  |  |  |   _   |  \_/   |  |\   |_| |_|  |      |  |
  * |__|  |__|__| |__|\____/|_|__| \__|_____|__|      |__|
  *
- * jquery.magnify - v1.3.1
+ * jquery.magnify - v1.3.2
  * A jQuery plugin to view images just like in windows
  * https://github.com/nzbin/magnify#readme
  *
@@ -948,7 +948,7 @@ Magnify.prototype = {
     }
 
   },
-  loadImg: function (imgSrc) {
+  loadImg: function (imgSrc, fn, err) {
 
     var self = this;
 
@@ -986,9 +986,19 @@ Magnify.prototype = {
       self.$stage.removeClass('stage-ready');
       self.$image.removeClass('image-ready');
 
+      // callback of image loaded successfully
+      if(fn){
+        fn.call();
+      }
+
     }, function () {
       // loader end
       self.$magnify.find('.magnify-loader').remove();
+
+      // callback of image loading failed
+      if(err){
+        err.call();
+      }
     });
 
     if (this.options.title) {
@@ -1027,14 +1037,18 @@ Magnify.prototype = {
     this.$title.html(caption);
 
   },
-  jump: function (index) {
+  jump: function (step) {
 
-    this.groupIndex = this.groupIndex + index;
+    this._triggerHook('beforeChange', this.groupIndex);
+
+    this.groupIndex = this.groupIndex + step;
 
     this.jumpTo(this.groupIndex);
 
   },
   jumpTo: function (index) {
+
+    var self = this;
 
     index = index % this.groupData.length;
 
@@ -1046,11 +1060,11 @@ Magnify.prototype = {
 
     this.groupIndex = index;
 
-    this._triggerHook('beforeChange', index);
-
-    this.loadImg(this.groupData[index].src);
-
-    this._triggerHook('changed', index);
+    this.loadImg(this.groupData[index].src, function () {
+      self._triggerHook('changed', index);
+    }, function () {
+      self._triggerHook('changed', index);
+    });
 
   },
   wheel: function (e) {
