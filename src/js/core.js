@@ -821,9 +821,11 @@ Magnify.prototype = {
     this.$title.html(caption);
 
   },
-  jump: function (index) {
+  jump: function (step) {
 
-    this.groupIndex = this.groupIndex + index;
+    this._triggerHook('beforeChange', this.groupIndex);
+
+    this.groupIndex = this.groupIndex + step;
 
     this.jumpTo(this.groupIndex);
 
@@ -839,8 +841,6 @@ Magnify.prototype = {
     }
 
     this.groupIndex = index;
-
-    this._triggerHook('beforeChange', index);
 
     this.loadImg(this.groupData[index].src);
 
