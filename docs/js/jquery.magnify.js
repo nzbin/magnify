@@ -6,7 +6,7 @@
  * |  |  |  |   _   |  \_/   |  |\   |_| |_|  |      |  |
  * |__|  |__|__| |__|\____/|_|__| \__|_____|__|      |__|
  *
- * jquery.magnify - v1.4.0
+ * jquery.magnify - v1.4.1
  * A jQuery plugin to view images just like in windows
  * https://github.com/nzbin/magnify#readme
  *
@@ -970,6 +970,8 @@ Magnify.prototype = {
 
     // Reset image
     this.$image.removeAttr('style').attr('src', '');
+    this.isRotated = false;
+    this.rotateAngle = 0;
 
     if (this.options.initAnimation && !this.options.progressiveLoading) {
       this.$image.hide();
