@@ -764,6 +764,8 @@ Magnify.prototype = {
 
     // Reset image
     this.$image.removeAttr('style').attr('src', '');
+    this.isRotated = false;
+    this.rotateAngle = 0;
 
     if (this.options.initAnimation && !this.options.progressiveLoading) {
       this.$image.hide();
