@@ -2,7 +2,11 @@
   "name": "jquery.magnify",
   "version": "1.4.1",
   "description": "A jQuery plugin to view images just like in Windows",
-  "main": "magnify.js",
+  "main": "dist/jquery.magnify.js",
+  "files": [
+    "dist",
+    "src"
+  ],
   "homepage": "https://github.com/nzbin/magnify#readme",
   "author": "nzbin",
   "license": "MIT",
@@ -24,7 +28,7 @@
     "resizable",
     "zoomable",
     "image-gallery",
-	  "photoviewer"
+    "photoviewer"
   ],
   "bugs": {
     "url": "https://github.com/nzbin/magnify/issues"
@@ -32,22 +36,23 @@
   "scripts": {
     "sass": "node-sass --output-style expanded src/sass/magnify.scss dist/jquery.magnify.css",
     "sassmin": "node-sass --output-style compressed src/sass/magnify.scss dist/jquery.magnify.min.css",
-    "autoprefixer": "postcss -u autoprefixer --no-map.inline --autoprefixer.browsers \"last 1 versions\" -r dist/*.css",
+    "autoprefixer": "postcss -u autoprefixer --no-map --autoprefixer.browsers \"last 1 versions\" -r dist/*.css",
     "build": "run-s build:css build:js",
     "build:css": "run-s sass",
     "build:js": "concat -o dist/jquery.magnify.js  src/js/intro.js src/js/utilities.js src/js/core.js src/js/draggable.js src/js/movable.js src/js/resizable.js src/js/outro.js src/js/rotate.js",
     "compress": "run-s compress:css compress:js",
-    "compress:css": "run-s sassmin autoprefixer",
+    "compress:css": "run-s sassmin",
     "compress:js": "uglifyjs dist/jquery.magnify.js -o dist/jquery.magnify.min.js -c -m --comments /^!/",
     "copy": "run-s copy:css copy:js",
     "copy:css": "cpy dist/jquery.magnify.css docs/css",
     "copy:js": "cpy dist/jquery.magnify.js docs/js",
-    "release": "run-s build compress copy",
+    "release": "run-s clean build compress autoprefixer copy",
     "release:css": "run-s build:css compress:css",
     "release:js": "run-s build:js compress:js",
     "lint": "run-s lint:css lint:js",
     "lint:css": "stylelint --syntax scss \"src/**/*.scss\" --fix",
-    "lint:js": "eslint src/js --fix"
+    "lint:js": "eslint src/js --fix",
+    "clean": "rimraf dist"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.6",
@@ -58,6 +63,7 @@
     "npm-run-all": "^4.1.2",
     "onchange": "^3.2.1",
     "postcss-cli": "^4.1.1",
+    "rimraf": "^2.6.3",
     "stylelint": "^9.2.1",
     "stylelint-config-recommended-scss": "^3.2.0",
     "stylelint-config-standard": "^18.2.0",
