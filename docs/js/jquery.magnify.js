@@ -6,7 +6,7 @@
  * |  |  |  |   _   |  \_/   |  |\   |_| |_|  |      |  |
  * |__|  |__|__| |__|\____/|_|__| \__|_____|__|      |__|
  *
- * jquery.magnify - v1.4.1
+ * jquery.magnify - v1.4.2
  * A jQuery plugin to view images just like in windows
  * https://github.com/nzbin/magnify#readme
  *
@@ -129,18 +129,6 @@ function getImageNameFromUrl(url) {
   var reg = /^.*?\/*([^/?]*)\.[a-z]+(\?.+|$)/ig,
     txt = url.replace(reg, '$1');
   return txt;
-}
-
-/**
- * [getNumFromCSSValue]
- * @param  {[String]} value [description]
- * @return {[Number]}       [description]
- */
-function getNumFromCSSValue(value) {
-  var reg = /\d+/g,
-    arr = value.match(reg),
-    num = parseFloat(arr[0]);
-  return num;
 }
 
 /**
@@ -834,15 +822,15 @@ Magnify.prototype = {
 
     // Modal size should calc with stage css value
     var modalWidth = img.width +
-      getNumFromCSSValue(stageCSS.left) +
-      getNumFromCSSValue(stageCSS.right) +
-      getNumFromCSSValue(stageCSS.borderLeft) +
-      getNumFromCSSValue(stageCSS.borderRight),
+      parseFloat(stageCSS.left) +
+      parseFloat(stageCSS.right) +
+      parseFloat(stageCSS.borderLeft) +
+      parseFloat(stageCSS.borderRight),
       modalHeight = img.height +
-        getNumFromCSSValue(stageCSS.top) +
-        getNumFromCSSValue(stageCSS.bottom) +
-        getNumFromCSSValue(stageCSS.borderTop) +
-        getNumFromCSSValue(stageCSS.borderBottom);
+        parseFloat(stageCSS.top) +
+        parseFloat(stageCSS.bottom) +
+        parseFloat(stageCSS.borderTop) +
+        parseFloat(stageCSS.borderBottom);
 
     var gapThreshold = (this.options.gapThreshold > 0 ? this.options.gapThreshold : 0) + 1,
       // modal scale to window
