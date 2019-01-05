@@ -628,15 +628,15 @@ Magnify.prototype = {
 
     // Modal size should calc with stage css value
     var modalWidth = img.width +
-      getNumFromCSSValue(stageCSS.left) +
-      getNumFromCSSValue(stageCSS.right) +
-      getNumFromCSSValue(stageCSS.borderLeft) +
-      getNumFromCSSValue(stageCSS.borderRight),
+      parseFloat(stageCSS.left) +
+      parseFloat(stageCSS.right) +
+      parseFloat(stageCSS.borderLeft) +
+      parseFloat(stageCSS.borderRight),
       modalHeight = img.height +
-        getNumFromCSSValue(stageCSS.top) +
-        getNumFromCSSValue(stageCSS.bottom) +
-        getNumFromCSSValue(stageCSS.borderTop) +
-        getNumFromCSSValue(stageCSS.borderBottom);
+        parseFloat(stageCSS.top) +
+        parseFloat(stageCSS.bottom) +
+        parseFloat(stageCSS.borderTop) +
+        parseFloat(stageCSS.borderBottom);
 
     var gapThreshold = (this.options.gapThreshold > 0 ? this.options.gapThreshold : 0) + 1,
       // modal scale to window
