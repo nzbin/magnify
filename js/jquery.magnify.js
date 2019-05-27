@@ -6,7 +6,7 @@
  * |  |  |  |   _   |  \_/   |  |\   |_| |_|  |      |  |
  * |__|  |__|__| |__|\____/|_|__| \__|_____|__|      |__|
  *
- * jquery.magnify - v1.4.2
+ * jquery.magnify - v1.4.3
  * A jQuery plugin to view images just like in windows
  * https://github.com/nzbin/magnify#readme
  *
@@ -566,7 +566,7 @@ Magnify.prototype = {
     }
 
   },
-  _creatBtns: function (toolbar, btns) {
+  _createBtns: function (toolbar, btns) {
 
     var btnsStr = '';
 
@@ -577,10 +577,10 @@ Magnify.prototype = {
     return btnsStr;
 
   },
-  _creatTitle: function () {
+  _createTitle: function () {
     return (this.options.title ? '<div class="magnify-title"></div>' : '');
   },
-  creatDOM: function () {
+  render: function () {
 
     var btnsTpl = {
       minimize: '<button class="magnify-button magnify-button-minimize" title="' +
@@ -634,16 +634,16 @@ Magnify.prototype = {
       '<div class="magnify-modal">\
         <div class="magnify-header">\
           <div class="magnify-toolbar magnify-head-toolbar">' +
-      this._creatBtns(this.options.headToolbar, btnsTpl) + '\
+      this._createBtns(this.options.headToolbar, btnsTpl) + '\
           </div>' +
-      this._creatTitle() + '\
+      this._createTitle() + '\
         </div>\
         <div class="magnify-stage">\
           <img class="magnify-image" src="" alt="" />\
         </div>\
         <div class="magnify-footer">\
           <div class="magnify-toolbar magnify-foot-toolbar">' +
-      this._creatBtns(this.options.footToolbar, btnsTpl) + '\
+      this._createBtns(this.options.footToolbar, btnsTpl) + '\
           </div>\
         </div>\
       </div>';
@@ -654,7 +654,7 @@ Magnify.prototype = {
   build: function () {
 
     // Create magnify HTML string
-    var magnifyHTML = this.creatDOM();
+    var magnifyHTML = this.render();
 
     // Make magnify HTML string to jQuery element
     var $magnify = $(magnifyHTML);
@@ -930,16 +930,21 @@ Magnify.prototype = {
       this.isRotated
     );
 
-    // Remove class must when image setting end
-    this.$stage.removeClass('stage-ready');
-    this.$image.removeClass('image-ready');
+    // Just execute before image loaded
+    if(!this.imgLoaded){
+      // loader end
+      this.$magnify.find('.magnify-loader').remove();
 
-    // loader end
-    this.$magnify.find('.magnify-loader').remove();
+      // Remove class must when image setting end
+      this.$stage.removeClass('stage-ready');
+      this.$image.removeClass('image-ready');
+  
+      // Add image init animation
+      if (this.options.initAnimation && !this.options.progressiveLoading) {
+        $image.fadeIn();
+      }
 
-    // Add image init animation
-    if (this.options.initAnimation && !this.options.progressiveLoading) {
-      $image.fadeIn();
+      this.imgLoaded = true;
     }
 
   },
@@ -947,19 +952,19 @@ Magnify.prototype = {
 
     var self = this;
 
-    var loaderHTML = '<div class="magnify-loader"></div>';
-
-    // loader start
-    this.$magnify.append(loaderHTML);
-
-    // Add class before image loaded
-    this.$stage.addClass('stage-ready');
-    this.$image.addClass('image-ready');
-
     // Reset image
     this.$image.removeAttr('style').attr('src', '');
     this.isRotated = false;
     this.rotateAngle = 0;
+
+    this.imgLoaded = false;
+
+    // loader start
+    this.$magnify.append('<div class="magnify-loader"></div>');
+
+    // Add class before image loaded
+    this.$stage.addClass('stage-ready');
+    this.$image.addClass('image-ready');
 
     if (this.options.initAnimation && !this.options.progressiveLoading) {
       this.$image.hide();
