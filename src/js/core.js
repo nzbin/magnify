@@ -372,7 +372,7 @@ Magnify.prototype = {
     }
 
   },
-  _creatBtns: function (toolbar, btns) {
+  _createBtns: function (toolbar, btns) {
 
     var btnsStr = '';
 
@@ -383,10 +383,10 @@ Magnify.prototype = {
     return btnsStr;
 
   },
-  _creatTitle: function () {
+  _createTitle: function () {
     return (this.options.title ? '<div class="magnify-title"></div>' : '');
   },
-  creatDOM: function () {
+  render: function () {
 
     var btnsTpl = {
       minimize: '<button class="magnify-button magnify-button-minimize" title="' +
@@ -440,16 +440,16 @@ Magnify.prototype = {
       '<div class="magnify-modal">\
         <div class="magnify-header">\
           <div class="magnify-toolbar magnify-head-toolbar">' +
-      this._creatBtns(this.options.headToolbar, btnsTpl) + '\
+      this._createBtns(this.options.headToolbar, btnsTpl) + '\
           </div>' +
-      this._creatTitle() + '\
+      this._createTitle() + '\
         </div>\
         <div class="magnify-stage">\
           <img class="magnify-image" src="" alt="" />\
         </div>\
         <div class="magnify-footer">\
           <div class="magnify-toolbar magnify-foot-toolbar">' +
-      this._creatBtns(this.options.footToolbar, btnsTpl) + '\
+      this._createBtns(this.options.footToolbar, btnsTpl) + '\
           </div>\
         </div>\
       </div>';
@@ -460,7 +460,7 @@ Magnify.prototype = {
   build: function () {
 
     // Create magnify HTML string
-    var magnifyHTML = this.creatDOM();
+    var magnifyHTML = this.render();
 
     // Make magnify HTML string to jQuery element
     var $magnify = $(magnifyHTML);
