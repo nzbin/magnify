@@ -736,16 +736,21 @@ Magnify.prototype = {
       this.isRotated
     );
 
-    // Remove class must when image setting end
-    this.$stage.removeClass('stage-ready');
-    this.$image.removeClass('image-ready');
+    // Just execute before image loaded
+    if(!this.imgLoaded){
+      // loader end
+      this.$magnify.find('.magnify-loader').remove();
 
-    // loader end
-    this.$magnify.find('.magnify-loader').remove();
+      // Remove class must when image setting end
+      this.$stage.removeClass('stage-ready');
+      this.$image.removeClass('image-ready');
+  
+      // Add image init animation
+      if (this.options.initAnimation && !this.options.progressiveLoading) {
+        $image.fadeIn();
+      }
 
-    // Add image init animation
-    if (this.options.initAnimation && !this.options.progressiveLoading) {
-      $image.fadeIn();
+      this.imgLoaded = true;
     }
 
   },
@@ -753,19 +758,19 @@ Magnify.prototype = {
 
     var self = this;
 
-    var loaderHTML = '<div class="magnify-loader"></div>';
-
-    // loader start
-    this.$magnify.append(loaderHTML);
-
-    // Add class before image loaded
-    this.$stage.addClass('stage-ready');
-    this.$image.addClass('image-ready');
-
     // Reset image
     this.$image.removeAttr('style').attr('src', '');
     this.isRotated = false;
     this.rotateAngle = 0;
+
+    this.imgLoaded = false;
+
+    // loader start
+    this.$magnify.append('<div class="magnify-loader"></div>');
+
+    // Add class before image loaded
+    this.$stage.addClass('stage-ready');
+    this.$image.addClass('image-ready');
 
     if (this.options.initAnimation && !this.options.progressiveLoading) {
       this.$image.hide();
