@@ -3,8 +3,8 @@
  */
 
 /**
- * [getImgSrc]
- * @param {[Object]}  el    [description]
+ * Get image src from `data-src`
+ * @param {Object} el - image
  */
 function getImgSrc(el) {
   // Get data-src as image src at first
@@ -15,53 +15,49 @@ function getImgSrc(el) {
 }
 
 /**
- * [throttle]
- * @param  {Function} fn    [description]
- * @param  {[Number]} delay [description]
- * @return {Function}       [description]
+ * Throttle function
+ * @param {Function} fn - The function will be triggered
+ * @param {Number} delay - The throttle delay time
+ * @return {Function}
  */
 function throttle(fn, delay) {
-
   var timer = null;
 
-  return function () {
+  return function() {
     var context = this,
       args = arguments;
 
     clearTimeout(timer);
 
-    timer = setTimeout(function () {
+    timer = setTimeout(function() {
       fn.apply(context, args);
     }, delay);
   };
-
 }
 
 /**
- * [preloadImg]
- * @param  {[String]}  src      [image src]
- * @param  {Function}  success  [callbacks]
- * @param  {Function}  error    [callbacks]
+ * Preload a image
+ * @param {String} src - The image src
+ * @param {Function} success - The callback of success
+ * @param {Function} error - The callback of error
  */
 function preloadImg(src, success, error) {
-
   var img = new Image();
 
-  img.onload = function () {
+  img.onload = function() {
     success(img);
   };
 
-  img.onerror = function () {
+  img.onerror = function() {
     error(img);
   };
 
   img.src = src;
-
 }
 
 /**
- * [requestFullscreen]
- * @param  {[type]} element [description]
+ * Request fullscreen
+ * @param {type} element
  */
 function requestFullscreen(element) {
   if (element.requestFullscreen) {
@@ -76,7 +72,7 @@ function requestFullscreen(element) {
 }
 
 /**
- * [exitFullscreen]
+ * Exit fullscreen
  */
 function exitFullscreen() {
   if (document.exitFullscreen) {
@@ -89,49 +85,50 @@ function exitFullscreen() {
 }
 
 /**
- * [getImageNameFromUrl]
- * @param  {[String]} url [description]
- * @return {[String]}     [description]
+ * Get the image name from its url
+ * @param {String} url- The image src
+ * @return {String}
  */
 function getImageNameFromUrl(url) {
-  var reg = /^.*?\/*([^/?]*)\.[a-z]+(\?.+|$)/ig,
+  var reg = /^.*?\/*([^/?]*)\.[a-z]+(\?.+|$)/gi,
     txt = url.replace(reg, '$1');
   return txt;
 }
 
 /**
- * [hasScrollbar]
- * @return {[Boolean]}       [description]
+ * Check if the document has a scrollbar
+ * @return {Boolean}
  */
 function hasScrollbar() {
-  return document.body.scrollHeight > (window.innerHeight || document.documentElement.clientHeight);
+  return (
+    document.body.scrollHeight >
+    (window.innerHeight || document.documentElement.clientHeight)
+  );
 }
 
 /**
- * [getScrollbarWidth]
- * @return {[Number]}       [description]
+ * Get the scrollbar width
+ * @return {Number}
  */
 function getScrollbarWidth() {
-
   var scrollDiv = document.createElement('div');
-  scrollDiv.style.cssText = 'width: 99px; height: 99px; overflow: scroll; position: absolute; top: -9999px;';
+  scrollDiv.style.cssText =
+    'width: 99px; height: 99px; overflow: scroll; position: absolute; top: -9999px;';
   document.body.appendChild(scrollDiv);
   var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
   document.body.removeChild(scrollDiv);
 
   return scrollbarWidth;
-
 }
 
 /**
- * [setGrabCursor]
- * @param {[Object]}  imageData    [description]
- * @param {[Object]}  stageData    [description]
- * @param {[Object]}  stage        [description]
- * @param {[Boolean]} isRotate     [description]
+ * Set grab cursor when move image
+ * @param {Object} imageData - The image data
+ * @param {Object} stageData - The stage data
+ * @param {Object} stage - The stage element
+ * @param {Boolean} isRotate - The image rotated flag
  */
 function setGrabCursor(imageData, stageData, stage, isRotated) {
-
   var imageWidth = !isRotated ? imageData.w : imageData.h,
     imageHeight = !isRotated ? imageData.h : imageData.w;
 
@@ -144,18 +141,25 @@ function setGrabCursor(imageData, stageData, stage, isRotated) {
 }
 
 /**
- * [supportTouch]
- * @return {[Boolean]}     [description]
+ * Check if browser support touch event
+ * @return {Boolean}
  */
 function supportTouch() {
-  return !!(('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch);
+  return !!(
+    'ontouchstart' in window ||
+    (window.DocumentTouch && document instanceof DocumentTouch)
+  );
 }
 
 /**
- * [isIE8]
- * @return {[Boolean]}      [description]
+ * Check if the browser is IE8
+ * @return {Boolean}
  */
 function isIE8() {
-  return (navigator.appName == 'Microsoft Internet Explorer' && navigator.appVersion.indexOf('MSIE 8.0') > 0) ||
-    (navigator.appName == 'Microsoft Internet Explorer' && navigator.appVersion.indexOf('MSIE 7.0') > 0);
+  return (
+    (navigator.appName == 'Microsoft Internet Explorer' &&
+      navigator.appVersion.indexOf('MSIE 8.0') > 0) ||
+    (navigator.appName == 'Microsoft Internet Explorer' &&
+      navigator.appVersion.indexOf('MSIE 7.0') > 0)
+  );
 }

@@ -1,10 +1,9 @@
 /**
- * Private Static Constants
+ * Private static constants
  */
 
 var $W = $(window),
   $D = $(document),
-
   CLICK_EVENT = 'click',
   RESIZE_EVENT = 'resize',
   KEYDOWN_EVENT = 'keydown',
@@ -12,11 +11,9 @@ var $W = $(window),
   TOUCH_START_EVENT = supportTouch() ? 'touchstart' : 'mousedown',
   TOUCH_MOVE_EVENT = supportTouch() ? 'touchmove' : 'mousemove',
   TOUCH_END_EVENT = supportTouch() ? 'touchend' : 'mouseup',
-
   NS = 'magnify',
   EVENT_NS = '.' + NS,
-
-  // plugin default options
+  // Plugin default options
   DEFAULTS = {
     // Enable modal to drag
     draggable: true,
@@ -61,10 +58,7 @@ var $W = $(window),
     maxRatio: 16,
 
     // Toolbar options in header
-    headToolbar: [
-      'maximize',
-      'close'
-    ],
+    headToolbar: ['maximize', 'close'],
 
     // Toolbar options in footer
     footToolbar: [
@@ -79,20 +73,23 @@ var $W = $(window),
 
     // Customize button icon
     icons: {
-      minimize: '<svg viewBox="0 0 1024 1024" class="svg-inline-icon">\
+      minimize:
+        '<svg viewBox="0 0 1024 1024" class="svg-inline-icon">\
                 <path fill="currentColor" d="M1024 749.714v109.714c0 50.286\
                 -41.143 91.429-91.429 91.429h-841.143c-50.286 0-91.429-41.143\
                 -91.429-91.429v-109.714c0-50.286 41.143-91.429 91.429-91.429\
                 h841.143c50.286 0 91.429 41.143 91.429 91.429z"></path>\
                 </svg>',
-      maximize: '<svg viewBox="0 0 1024 1024" class="svg-inline-icon">\
+      maximize:
+        '<svg viewBox="0 0 1024 1024" class="svg-inline-icon">\
                 <path fill="currentColor" d="M146.286 804.571h731.429v-438.857\
                 h-731.429v438.857zM1024 164.571v694.857c0 50.286-41.143 91.429\
                 -91.429 91.429h-841.143c-50.286 0-91.429-41.143-91.429-91.429v\
                 -694.857c0-50.286 41.143-91.429 91.429-91.429h841.143c50.286 0 \
                 91.429 41.143 91.429 91.429z"></path>\
                 </svg>',
-      close: '<svg viewBox="0 0 804.5714285714286 1024" class="svg-inline-icon">\
+      close:
+        '<svg viewBox="0 0 804.5714285714286 1024" class="svg-inline-icon">\
               <path fill="currentColor" d="M741.714 755.429c0 14.286-5.714 \
               28.571-16 38.857l-77.714 77.714c-10.286 10.286-24.571 16-38.857 16\
               s-28.571-5.714-38.857-16l-168-168-168 168c-10.286 10.286-24.571 16\
@@ -104,7 +101,8 @@ var $W = $(window),
               16l77.714 77.714c10.286 10.286 16 24.571 16 38.857s-5.714 28.571\
               -16 38.857l-168 168 168 168c10.286 10.286 16 24.571 16 38.857z"></path>\
               </svg>',
-      zoomIn: '<svg viewBox="0 0 950.8571428571428 1024" class="svg-inline-icon">\
+      zoomIn:
+        '<svg viewBox="0 0 950.8571428571428 1024" class="svg-inline-icon">\
               <path fill="currentColor" d="M585.143 457.143v36.571c0 9.714-8.571 \
               18.286-18.286 18.286h-128v128c0 9.714-8.571 18.286-18.286 18.286\
               h-36.571c-9.714 0-18.286-8.571-18.286-18.286v-128h-128c-9.714 0\
@@ -119,7 +117,8 @@ var $W = $(window),
               402.286 180 402.286 402.286c0 81.143-24.571 161.143-70.857 228\
               l196 196c13.143 13.143 21.143 32 21.143 51.429z"></path>\
               </svg>',
-      zoomOut: '<svg viewBox="0 0 950.8571428571428 1024" class="svg-inline-icon">\
+      zoomOut:
+        '<svg viewBox="0 0 950.8571428571428 1024" class="svg-inline-icon">\
               <path fill="currentColor" d="M585.143 457.143v36.571c0 9.714-8.571 \
               18.286-18.286 18.286h-329.143c-9.714 0-18.286-8.571-18.286-18.286\
               v-36.571c0-9.714 8.571-18.286 18.286-18.286h329.143c9.714 0 18.286 \
@@ -131,7 +130,8 @@ var $W = $(window),
               402.286-402.286 402.286 180 402.286 402.286c0 81.143-24.571 161.143\
               -70.857 228l196 196c13.143 13.143 21.143 32 21.143 51.429z"></path>\
               </svg>',
-      prev: '<svg viewBox="0 0 914.2857142857142 1024" class="svg-inline-icon">\
+      prev:
+        '<svg viewBox="0 0 914.2857142857142 1024" class="svg-inline-icon">\
             <path fill="currentColor" d="M877.714 512v73.143c0 38.857-25.714 \
             73.143-66.857 73.143h-402.286l167.429 168c13.714 13.143 21.714 32 \
             21.714 51.429s-8 38.286-21.714 51.429l-42.857 43.429c-13.143 13.143\
@@ -141,7 +141,8 @@ var $W = $(window),
             c13.714 13.714 21.714 32.571 21.714 52s-8 38.286-21.714 52l-167.429 \
             167.429h402.286c41.143 0 66.857 34.286 66.857 73.143z"></path>\
             </svg>',
-      next: '<svg viewBox="0 0 841.1428571428571 1024" class="svg-inline-icon">\
+      next:
+        '<svg viewBox="0 0 841.1428571428571 1024" class="svg-inline-icon">\
             <path fill="currentColor" d="M841.143 548.571c0 19.429-7.429 38.286\
             -21.143 52l-372 372c-13.714 13.143-32.571 21.143-52 21.143s-37.714\
             -8-51.429-21.143l-42.857-42.857c-13.714-13.714-21.714-32.571-21.714\
@@ -152,7 +153,8 @@ var $W = $(window),
             -21.714s38.286 8 52 21.714l372 372c13.714 13.143 21.143 32 21.143 \
             51.429z"></path>\
             </svg>',
-      fullscreen: '<svg viewBox="0 0 1097.142857142857 1024" class="svg-inline-icon">\
+      fullscreen:
+        '<svg viewBox="0 0 1097.142857142857 1024" class="svg-inline-icon">\
                   <path fill="currentColor" d="M365.714 329.143c0 60.571-49.143 \
                   109.714-109.714 109.714s-109.714-49.143-109.714-109.714 49.143\
                   -109.714 109.714-109.714 109.714 49.143 109.714 109.714z\
@@ -165,7 +167,8 @@ var $W = $(window),
                   0-91.429-41.143-91.429-91.429v-694.857c0-50.286 41.143-91.429 \
                   91.429-91.429h914.286c50.286 0 91.429 41.143 91.429 91.429z"></path>\
                   </svg>',
-      actualSize: '<svg viewBox="0 0 877.7142857142857 1024" class="svg-inline-icon">\
+      actualSize:
+        '<svg viewBox="0 0 877.7142857142857 1024" class="svg-inline-icon">\
                   <path fill="currentColor" d="M733.143 309.143l-202.857 202.857 \
                   202.857 202.857 82.286-82.286c10.286-10.857 26.286-13.714 40-8 \
                   13.143 5.714 22.286 18.857 22.286 33.714v256c0 20-16.571 36.571\
@@ -186,7 +189,8 @@ var $W = $(window),
                   33.714-4.571 1.714-9.714 2.857-14.286 2.857-9.714 0-18.857-4\
                   -25.714-10.857z"></path>\
                   </svg>',
-      rotateLeft: '<svg viewBox="0 0 877.7142857142857 1024" class="svg-inline-icon">\
+      rotateLeft:
+        '<svg viewBox="0 0 877.7142857142857 1024" class="svg-inline-icon">\
                   <path fill="currentColor" d="M877.714 512c0 241.714-197.143 \
                   438.857-438.857 438.857-130.857 0-254.286-57.714-337.714-158.286\
                   -5.714-7.429-5.143-18.286 1.143-24.571l78.286-78.857c4-3.429 \
@@ -200,7 +204,8 @@ var $W = $(window),
                   c80.571-76 189.714-121.143 302.286-121.143 241.714 0 438.857 \
                   197.143 438.857 438.857z"></path>\
                   </svg>',
-      rotateRight: '<svg viewBox="0 0 877.7142857142857 1024" class="svg-inline-icon">\
+      rotateRight:
+        '<svg viewBox="0 0 877.7142857142857 1024" class="svg-inline-icon">\
                     <path fill="currentColor" d="M877.714 146.286v256c0 20-16.571 \
                     36.571-36.571 36.571h-256c-14.857 0-28-9.143-33.714-22.857\
                     -5.714-13.143-2.857-29.143 8-39.429l78.857-78.857c-53.714\
@@ -262,25 +267,22 @@ var $W = $(window),
     // Load the image progressively
     progressiveLoading: true
   },
-
   PUBLIC_VARS = {
-    // image moving flag
+    // Image moving flag
     isMoving: false,
-    // modal resizing flag
+    // Modal resizing flag
     isResizing: false,
-    // modal z-index setting
+    // Modal z-index setting
     zIndex: DEFAULTS.zIndex
   };
 
-// jquery element of calling plugin
+// jQuery element of calling plugin
 var jqEl = null;
-
 
 /**
  * Magnify Class
  */
-var Magnify = function (el, options) {
-
+var Magnify = function(el, options) {
   var self = this;
 
   this.options = $.extend(true, {}, DEFAULTS, options);
@@ -322,16 +324,13 @@ var Magnify = function (el, options) {
   };
 
   this.init(el, self.options);
-
 };
 
 /**
  * Mangify Prototype
  */
 Magnify.prototype = {
-
-  init: function (el, opts) {
-
+  init: function(el, opts) {
     // Get image src
     var imgSrc = getImgSrc(el);
 
@@ -342,21 +341,17 @@ Magnify.prototype = {
       groupList = $D.find('[data-group="' + currentGroupName + '"]');
 
     if (currentGroupName !== undefined) {
-
       this.groupName = currentGroupName;
       this.getImgGroup(groupList, imgSrc);
-
     } else {
-
       this.getImgGroup(jqEl.not('[data-group]'), imgSrc);
-
     }
 
     this.open();
 
     this.loadImg(imgSrc);
 
-    // draggable & movable & resizable
+    // Draggable & Movable & Resizable
     if (opts.draggable) {
       this.draggable(this.$magnify, this.dragHandle, '.magnify-button');
     }
@@ -366,99 +361,120 @@ Magnify.prototype = {
     if (opts.resizable) {
       this.resizable(
         this.$magnify,
-        this.$stage, isIE8() ? '.magnify-image' : this.$image,
+        this.$stage,
+        isIE8() ? '.magnify-image' : this.$image,
         opts.modalWidth,
-        opts.modalHeight);
+        opts.modalHeight
+      );
     }
-
   },
-  _createBtns: function (toolbar, btns) {
-
+  _createBtns: function(toolbar, btns) {
     var btnsStr = '';
 
-    $.each(toolbar, function (index, item) {
+    $.each(toolbar, function(index, item) {
       btnsStr += btns[item];
     });
 
     return btnsStr;
-
   },
-  _createTitle: function () {
-    return (this.options.title ? '<div class="magnify-title"></div>' : '');
+  _createTitle: function() {
+    return this.options.title ? '<div class="magnify-title"></div>' : '';
   },
-  render: function () {
-
+  render: function() {
     var btnsTpl = {
-      minimize: '<button class="magnify-button magnify-button-minimize" title="' +
-        this.options.i18n.minimize + '">' +
+      minimize:
+        '<button class="magnify-button magnify-button-minimize" title="' +
+        this.options.i18n.minimize +
+        '">' +
         this.options.icons.minimize +
         '</button>',
-      maximize: '<button class="magnify-button magnify-button-maximize" title="' +
-        this.options.i18n.maximize + '">' +
+      maximize:
+        '<button class="magnify-button magnify-button-maximize" title="' +
+        this.options.i18n.maximize +
+        '">' +
         this.options.icons.maximize +
         '</button>',
-      close: '<button class="magnify-button magnify-button-close" title="' +
-        this.options.i18n.close + '">' +
+      close:
+        '<button class="magnify-button magnify-button-close" title="' +
+        this.options.i18n.close +
+        '">' +
         this.options.icons.close +
         '</button>',
-      zoomIn: '<button class="magnify-button magnify-button-zoom-in" title="' +
-        this.options.i18n.zoomIn + '">' +
+      zoomIn:
+        '<button class="magnify-button magnify-button-zoom-in" title="' +
+        this.options.i18n.zoomIn +
+        '">' +
         this.options.icons.zoomIn +
         '</button>',
-      zoomOut: '<button class="magnify-button magnify-button-zoom-out" title="' +
-        this.options.i18n.zoomOut + '">' +
+      zoomOut:
+        '<button class="magnify-button magnify-button-zoom-out" title="' +
+        this.options.i18n.zoomOut +
+        '">' +
         this.options.icons.zoomOut +
         '</button>',
-      prev: '<button class="magnify-button magnify-button-prev" title="' +
-        this.options.i18n.prev + '">' +
+      prev:
+        '<button class="magnify-button magnify-button-prev" title="' +
+        this.options.i18n.prev +
+        '">' +
         this.options.icons.prev +
         '</button>',
-      next: '<button class="magnify-button magnify-button-next" title="' +
-        this.options.i18n.next + '">' +
+      next:
+        '<button class="magnify-button magnify-button-next" title="' +
+        this.options.i18n.next +
+        '">' +
         this.options.icons.next +
         '</button>',
-      fullscreen: '<button class="magnify-button magnify-button-fullscreen" title="' +
-        this.options.i18n.fullscreen + '">' +
+      fullscreen:
+        '<button class="magnify-button magnify-button-fullscreen" title="' +
+        this.options.i18n.fullscreen +
+        '">' +
         this.options.icons.fullscreen +
         '</button>',
-      actualSize: '<button class="magnify-button magnify-button-actual-size" title="' +
-        this.options.i18n.actualSize + '">' +
+      actualSize:
+        '<button class="magnify-button magnify-button-actual-size" title="' +
+        this.options.i18n.actualSize +
+        '">' +
         this.options.icons.actualSize +
         '</button>',
-      rotateLeft: '<button class="magnify-button magnify-button-rotate-left" title="' +
-        this.options.i18n.rotateLeft + '">' +
+      rotateLeft:
+        '<button class="magnify-button magnify-button-rotate-left" title="' +
+        this.options.i18n.rotateLeft +
+        '">' +
         this.options.icons.rotateLeft +
         '</button>',
-      rotateRight: '<button class="magnify-button magnify-button-rotate-right" title="' +
-        this.options.i18n.rotateRight + '">' +
+      rotateRight:
+        '<button class="magnify-button magnify-button-rotate-right" title="' +
+        this.options.i18n.rotateRight +
+        '">' +
         this.options.icons.rotateRight +
         '</button>'
     };
 
-    // magnify base HTML
+    // Magnify base HTML
     var magnifyHTML =
       '<div class="magnify-modal">\
         <div class="magnify-header">\
           <div class="magnify-toolbar magnify-head-toolbar">' +
-      this._createBtns(this.options.headToolbar, btnsTpl) + '\
+      this._createBtns(this.options.headToolbar, btnsTpl) +
+      '\
           </div>' +
-      this._createTitle() + '\
+      this._createTitle() +
+      '\
         </div>\
         <div class="magnify-stage">\
           <img class="magnify-image" src="" alt="" />\
         </div>\
         <div class="magnify-footer">\
           <div class="magnify-toolbar magnify-foot-toolbar">' +
-      this._createBtns(this.options.footToolbar, btnsTpl) + '\
+      this._createBtns(this.options.footToolbar, btnsTpl) +
+      '\
           </div>\
         </div>\
       </div>';
 
     return magnifyHTML;
-
   },
-  build: function () {
-
+  build: function() {
     // Create magnify HTML string
     var magnifyHTML = this.render();
 
@@ -494,23 +510,25 @@ Magnify.prototype = {
     this.$magnify.css('z-index', PUBLIC_VARS['zIndex']);
 
     // Set handle element of draggable
-    if (!this.options.dragHandle || this.options.dragHandle === '.magnify-modal') {
+    if (
+      !this.options.dragHandle ||
+      this.options.dragHandle === '.magnify-modal'
+    ) {
       this.dragHandle = this.$magnify;
     } else {
       this.dragHandle = this.$magnify.find(this.options.dragHandle);
     }
-
   },
-  open: function () {
-
+  open: function() {
     if (!this.options.multiInstances) {
-      $('.magnify-modal').eq(0).remove();
+      $('.magnify-modal')
+        .eq(0)
+        .remove();
     }
 
     // Fixed modal position bug
     if (!$('.magnify-modal').length && this.options.fixedContent) {
-
-      $('html').css({ 'overflow': 'hidden' });
+      $('html').css({ overflow: 'hidden' });
 
       if (hasScrollbar()) {
         var scrollbarWidth = getScrollbarWidth();
@@ -518,7 +536,6 @@ Magnify.prototype = {
           $('html').css({ 'padding-right': scrollbarWidth });
         }
       }
-
     }
 
     this.build();
@@ -533,10 +550,8 @@ Magnify.prototype = {
     this.setModalPos(this.$magnify);
 
     this._triggerHook('opened', this.$el);
-
   },
-  close: function (el) {
-
+  close: function(el) {
     this._triggerHook('beforeClose', this.$el);
 
     // Remove instance
@@ -551,7 +566,7 @@ Magnify.prototype = {
 
     // Fixed modal position bug
     if (zeroModal && this.options.fixedContent) {
-      $('html').css({ 'overflow': '', 'padding-right': '' });
+      $('html').css({ overflow: '', 'padding-right': '' });
     }
 
     // Reset zIndex after close
@@ -566,10 +581,8 @@ Magnify.prototype = {
     }
 
     this._triggerHook('closed', this.$el);
-
   },
-  setModalPos: function (modal) {
-
+  setModalPos: function(modal) {
     var winWidth = $W.width(),
       winHeight = $W.height(),
       scrollLeft = $D.scrollLeft(),
@@ -580,7 +593,6 @@ Magnify.prototype = {
 
     // Set modal maximized when init
     if (this.options.initMaximized) {
-
       modal.addClass('magnify-maximize');
 
       modal.css({
@@ -592,9 +604,7 @@ Magnify.prototype = {
 
       this.isOpened = true;
       this.isMaximized = true;
-
     } else {
-
       // Make the modal in windows center
       modal.css({
         width: modalWidth,
@@ -602,19 +612,16 @@ Magnify.prototype = {
         left: (winWidth - modalWidth) / 2 + scrollLeft + 'px',
         top: (winHeight - modalHeight) / 2 + scrollTop + 'px'
       });
-
     }
-
   },
-  setModalSize: function (img) {
-
+  setModalSize: function(img) {
     var self = this,
       winWidth = $W.width(),
       winHeight = $W.height(),
       scrollLeft = $D.scrollLeft(),
       scrollTop = $D.scrollTop();
 
-    // stage css value
+    // Stage css value
     var stageCSS = {
       left: this.$stage.css('left'),
       right: this.$stage.css('right'),
@@ -627,19 +634,22 @@ Magnify.prototype = {
     };
 
     // Modal size should calc with stage css value
-    var modalWidth = img.width +
-      parseFloat(stageCSS.left) +
-      parseFloat(stageCSS.right) +
-      parseFloat(stageCSS.borderLeft) +
-      parseFloat(stageCSS.borderRight),
-      modalHeight = img.height +
+    var modalWidth =
+        img.width +
+        parseFloat(stageCSS.left) +
+        parseFloat(stageCSS.right) +
+        parseFloat(stageCSS.borderLeft) +
+        parseFloat(stageCSS.borderRight),
+      modalHeight =
+        img.height +
         parseFloat(stageCSS.top) +
         parseFloat(stageCSS.bottom) +
         parseFloat(stageCSS.borderTop) +
         parseFloat(stageCSS.borderBottom);
 
-    var gapThreshold = (this.options.gapThreshold > 0 ? this.options.gapThreshold : 0) + 1,
-      // modal scale to window
+    var gapThreshold =
+        (this.options.gapThreshold > 0 ? this.options.gapThreshold : 0) + 1,
+      // Modal scale to window
       scale = Math.min(
         winWidth / (modalWidth * gapThreshold),
         winHeight / (modalHeight * gapThreshold),
@@ -649,8 +659,12 @@ Magnify.prototype = {
     var minWidth = Math.max(modalWidth * scale, this.options.modalWidth),
       minHeight = Math.max(modalHeight * scale, this.options.modalHeight);
 
-    minWidth = this.options.fixedModalSize ? this.options.modalWidth : Math.round(minWidth);
-    minHeight = this.options.fixedModalSize ? this.options.modalHeight : Math.round(minHeight);
+    minWidth = this.options.fixedModalSize
+      ? this.options.modalWidth
+      : Math.round(minWidth);
+    minHeight = this.options.fixedModalSize
+      ? this.options.modalHeight
+      : Math.round(minHeight);
 
     var modalCSSObj = {
       width: minWidth + 'px',
@@ -661,35 +675,36 @@ Magnify.prototype = {
 
     // Add modal init animation
     if (this.options.initAnimation) {
-
-      this.$magnify.animate(modalCSSObj, function () {
+      this.$magnify.animate(modalCSSObj, function() {
         self.setImageSize(img);
       });
-
     } else {
-
       this.$magnify.css(modalCSSObj);
       this.setImageSize(img);
-
     }
 
     this.isOpened = true;
-
   },
   getImageScaleToStage: function(stageWidth, stageHeight) {
-
     var scale = 1;
 
     if (!this.isRotated) {
-      scale = Math.min(stageWidth / this.img.width, stageHeight / this.img.height, 1);
+      scale = Math.min(
+        stageWidth / this.img.width,
+        stageHeight / this.img.height,
+        1
+      );
     } else {
-      scale = Math.min(stageWidth / this.img.height, stageHeight / this.img.width, 1);
+      scale = Math.min(
+        stageWidth / this.img.height,
+        stageHeight / this.img.width,
+        1
+      );
     }
 
     return scale;
   },
-  setImageSize: function (img) {
-
+  setImageSize: function(img) {
     var $image = isIE8() ? this.$stage.find('.magnify-image') : this.$image;
 
     var stageData = {
@@ -697,10 +712,7 @@ Magnify.prototype = {
       h: this.$stage.height()
     };
 
-    var scale = this.getImageScaleToStage(
-      stageData.w,
-      stageData.h
-    );
+    var scale = this.getImageScaleToStage(stageData.w, stageData.h);
 
     $image.css({
       width: Math.ceil(img.width * scale) + 'px',
@@ -737,14 +749,14 @@ Magnify.prototype = {
     );
 
     // Just execute before image loaded
-    if(!this.imgLoaded){
+    if (!this.imgLoaded) {
       // loader end
       this.$magnify.find('.magnify-loader').remove();
 
       // Remove class must when image setting end
       this.$stage.removeClass('stage-ready');
       this.$image.removeClass('image-ready');
-  
+
       // Add image init animation
       if (this.options.initAnimation && !this.options.progressiveLoading) {
         $image.fadeIn();
@@ -752,10 +764,8 @@ Magnify.prototype = {
 
       this.imgLoaded = true;
     }
-
   },
-  loadImg: function (imgSrc, fn, err) {
-
+  loadImg: function(imgSrc, fn, err) {
     var self = this;
 
     // Reset image
@@ -765,7 +775,7 @@ Magnify.prototype = {
 
     this.imgLoaded = false;
 
-    // loader start
+    // Loader start
     this.$magnify.append('<div class="magnify-loader"></div>');
 
     // Add class before image loaded
@@ -777,55 +787,59 @@ Magnify.prototype = {
     }
 
     if (isIE8()) {
-      this.$stage.html('<img class="magnify-image" id="magnify-image" src="' + imgSrc + '" alt="" />');
+      this.$stage.html(
+        '<img class="magnify-image" id="magnify-image" src="' +
+          imgSrc +
+          '" alt="" />'
+      );
     } else {
       this.$image.attr('src', imgSrc);
     }
 
-    preloadImg(imgSrc, function (img) {
-      // Store HTMLImageElement
-      self.img = img;
+    preloadImg(
+      imgSrc,
+      function(img) {
+        // Store HTMLImageElement
+        self.img = img;
 
-      // Store original data
-      self.imageData = {
-        originalWidth: img.width,
-        originalHeight: img.height
-      };
+        // Store original data
+        self.imageData = {
+          originalWidth: img.width,
+          originalHeight: img.height
+        };
 
-      if (self.isMaximized || (self.isOpened && self.options.fixedModalPos)) {
-        self.setImageSize(img);
-      } else {
-        self.setModalSize(img);
+        if (self.isMaximized || (self.isOpened && self.options.fixedModalPos)) {
+          self.setImageSize(img);
+        } else {
+          self.setModalSize(img);
+        }
+
+        // Callback of image loaded successfully
+        if (fn) {
+          fn.call();
+        }
+      },
+      function() {
+        // Loader end
+        self.$magnify.find('.magnify-loader').remove();
+
+        // Callback of image loading failed
+        if (err) {
+          err.call();
+        }
       }
-
-      // callback of image loaded successfully
-      if(fn){
-        fn.call();
-      }
-
-    }, function () {
-      // loader end
-      self.$magnify.find('.magnify-loader').remove();
-
-      // callback of image loading failed
-      if(err){
-        err.call();
-      }
-    });
+    );
 
     if (this.options.title) {
       this.setImgTitle(imgSrc);
     }
-
   },
-  getImgGroup: function (list, imgSrc) {
-
+  getImgGroup: function(list, imgSrc) {
     var self = this;
 
     self.groupData = [];
 
-    $(list).each(function (index, item) {
-
+    $(list).each(function(index, item) {
       var src = getImgSrc(this);
 
       self.groupData.push({
@@ -836,30 +850,23 @@ Magnify.prototype = {
       if (imgSrc === src) {
         self.groupIndex = index;
       }
-
     });
-
   },
-  setImgTitle: function (url) {
-
+  setImgTitle: function(url) {
     var index = this.groupIndex,
       caption = this.groupData[index].caption,
       caption = caption ? caption : getImageNameFromUrl(url);
 
     this.$title.html(caption);
-
   },
-  jump: function (step) {
-
+  jump: function(step) {
     this._triggerHook('beforeChange', this.groupIndex);
 
     this.groupIndex = this.groupIndex + step;
 
     this.jumpTo(this.groupIndex);
-
   },
-  jumpTo: function (index) {
-
+  jumpTo: function(index) {
     var self = this;
 
     index = index % this.groupData.length;
@@ -872,15 +879,17 @@ Magnify.prototype = {
 
     this.groupIndex = index;
 
-    this.loadImg(this.groupData[index].src, function () {
-      self._triggerHook('changed', index);
-    }, function () {
-      self._triggerHook('changed', index);
-    });
-
+    this.loadImg(
+      this.groupData[index].src,
+      function() {
+        self._triggerHook('changed', index);
+      },
+      function() {
+        self._triggerHook('changed', index);
+      }
+    );
   },
-  wheel: function (e) {
-
+  wheel: function(e) {
     e.preventDefault();
 
     var delta = 1;
@@ -893,27 +902,25 @@ Magnify.prototype = {
       delta = e.originalEvent.detail > 0 ? 1 : -1;
     }
 
-    // ratio threshold
+    // Ratio threshold
     var ratio = -delta * this.options.ratioThreshold;
 
-    // mouse point position relative to stage
+    // Mouse point position relative to stage
     var pointer = {
       x: e.originalEvent.clientX - this.$stage.offset().left + $D.scrollLeft(),
       y: e.originalEvent.clientY - this.$stage.offset().top + $D.scrollTop()
     };
 
     this.zoom(ratio, pointer, e);
-
   },
-  zoom: function (ratio, origin, e) {
-
+  zoom: function(ratio, origin, e) {
     this.$image = isIE8() ? this.$stage.find('.magnify-image') : this.$image;
 
-    // zoom out ratio & zoom in ratio
-    ratio = ratio < 0 ? (1 / (1 - ratio)) : (1 + ratio);
+    // Zoom out ratio & Zoom in ratio
+    ratio = ratio < 0 ? 1 / (1 - ratio) : 1 + ratio;
 
-    // image ratio
-    ratio = this.$image.width() / this.imageData.originalWidth * ratio;
+    // Image ratio
+    ratio = (this.$image.width() / this.imageData.originalWidth) * ratio;
 
     // Fixed digital error
     // if (ratio > 0.95 && ratio < 1.05) {
@@ -925,10 +932,8 @@ Magnify.prototype = {
     }
 
     this.zoomTo(ratio, origin, e);
-
   },
-  zoomTo: function (ratio, origin, e) {
-
+  zoomTo: function(ratio, origin, e) {
     var $image = isIE8() ? this.$stage.find('.magnify-image') : this.$image,
       $stage = this.$stage,
       imgData = {
@@ -938,7 +943,7 @@ Magnify.prototype = {
         y: this.imageData.top
       };
 
-    // image stage position
+    // Image stage position
     // We will use it to calc the relative position of image
     var stageData = {
       w: $stage.width(),
@@ -950,8 +955,8 @@ Magnify.prototype = {
     var newWidth = this.imageData.originalWidth * ratio,
       newHeight = this.imageData.originalHeight * ratio,
       // Think about it for a while
-      newLeft = origin.x - (origin.x - imgData.x) / imgData.w * newWidth,
-      newTop = origin.y - (origin.y - imgData.y) / imgData.h * newHeight;
+      newLeft = origin.x - ((origin.x - imgData.x) / imgData.w) * newWidth,
+      newTop = origin.y - ((origin.y - imgData.y) / imgData.h) * newHeight;
 
     // δ is the difference between image new width and new height
     var δ = !this.isRotated ? 0 : (newWidth - newHeight) / 2,
@@ -961,31 +966,27 @@ Magnify.prototype = {
     var offsetX = stageData.w - newWidth,
       offsetY = stageData.h - newHeight;
 
-    // zoom out & zoom in condition
+    // Zoom out & Zoom in condition
     // It's important and it takes me a lot of time to get it
     // The conditions with image rotate 90 degree drive me crazy alomst!
     if (imgNewHeight <= stageData.h) {
       newTop = (stageData.h - newHeight) / 2;
     } else {
-      newTop = newTop > δ
-        ? δ
-        : (newTop > (offsetY - δ)
-          ? newTop
-          : (offsetY - δ));
+      newTop = newTop > δ ? δ : newTop > offsetY - δ ? newTop : offsetY - δ;
     }
 
     if (imgNewWidth <= stageData.w) {
       newLeft = (stageData.w - newWidth) / 2;
     } else {
-      newLeft = newLeft > -δ
-        ? -δ
-        : (newLeft > (offsetX + δ)
-          ? newLeft
-          : (offsetX + δ));
+      newLeft =
+        newLeft > -δ ? -δ : newLeft > offsetX + δ ? newLeft : offsetX + δ;
     }
 
-    // if the image scale get to the critical point
-    if (Math.abs(this.imageData.initWidth - newWidth) < this.imageData.initWidth * 0.05) {
+    // If the image scale get to the critical point
+    if (
+      Math.abs(this.imageData.initWidth - newWidth) <
+      this.imageData.initWidth * 0.05
+    ) {
       this.setImageSize(this.img);
     } else {
       $image.css({
@@ -1017,10 +1018,8 @@ Magnify.prototype = {
       left: newLeft,
       top: newTop
     });
-
   },
-  rotate: function (angle) {
-
+  rotate: function(angle) {
     this.rotateAngle = this.rotateAngle + angle;
 
     if ((this.rotateAngle / 90) % 2 === 0) {
@@ -1030,14 +1029,12 @@ Magnify.prototype = {
     }
 
     this.rotateTo(this.rotateAngle);
-
   },
-  rotateTo: function (angle) {
-
+  rotateTo: function(angle) {
     var self = this,
       $image = isIE8() ? this.$stage.find('.magnify-image') : this.$image;
 
-    // depend on jQueryRotate.js
+    // Depend on jQueryRotate.js
     $image.rotate({
       angle: angle
     });
@@ -1049,16 +1046,12 @@ Magnify.prototype = {
 
     // Remove grab cursor when rotate
     this.$stage.removeClass('is-grab');
-
   },
-  resize: function () {
-
+  resize: function() {
     var self = this;
 
-    var resizeHandler = throttle(function () {
-
+    var resizeHandler = throttle(function() {
       if (self.isOpened) {
-
         if (self.isMaximized) {
           self.setImageSize({
             width: self.imageData.originalWidth,
@@ -1070,16 +1063,12 @@ Magnify.prototype = {
             height: self.imageData.originalHeight
           });
         }
-
       }
-
     }, 500);
 
     return resizeHandler;
-
   },
-  maximize: function () {
-
+  maximize: function() {
     var self = this;
 
     if (!this.isMaximized) {
@@ -1101,9 +1090,7 @@ Magnify.prototype = {
       });
 
       this.isMaximized = true;
-
     } else {
-
       this.$magnify.removeClass('magnify-maximize');
 
       this.$magnify.css({
@@ -1128,15 +1115,11 @@ Magnify.prototype = {
       width: this.imageData.originalWidth,
       height: this.imageData.originalHeight
     });
-
   },
-  fullscreen: function () {
-
+  fullscreen: function() {
     requestFullscreen(this.$magnify[0]);
-
   },
-  keydown: function (e) {
-
+  keydown: function(e) {
     var self = this;
 
     if (!this.options.keyboard) {
@@ -1148,140 +1131,163 @@ Magnify.prototype = {
       altKey = e.altKey || e.metaKey;
 
     switch (keyCode) {
-    // ←
-    case 37:
-      self.jump(-1);
-      break;
+      // ←
+      case 37:
+        self.jump(-1);
+        break;
       // →
-    case 39:
-      self.jump(1);
-      break;
+      case 39:
+        self.jump(1);
+        break;
       // +
-    case 187:
-      self.zoom(
-        self.options.ratioThreshold * 3,
-        { x: self.$stage.width() / 2, y: self.$stage.height() / 2 },
-        e
-      );
-      break;
+      case 187:
+        self.zoom(
+          self.options.ratioThreshold * 3,
+          { x: self.$stage.width() / 2, y: self.$stage.height() / 2 },
+          e
+        );
+        break;
       // -
-    case 189:
-      self.zoom(
-        -self.options.ratioThreshold * 3,
-        { x: self.$stage.width() / 2, y: self.$stage.height() / 2 },
-        e
-      );
-      break;
+      case 189:
+        self.zoom(
+          -self.options.ratioThreshold * 3,
+          { x: self.$stage.width() / 2, y: self.$stage.height() / 2 },
+          e
+        );
+        break;
       // + Firefox
-    case 61:
-      self.zoom(
-        self.options.ratioThreshold * 3,
-        { x: self.$stage.width() / 2, y: self.$stage.height() / 2 },
-        e
-      );
-      break;
+      case 61:
+        self.zoom(
+          self.options.ratioThreshold * 3,
+          { x: self.$stage.width() / 2, y: self.$stage.height() / 2 },
+          e
+        );
+        break;
       // - Firefox
-    case 173:
-      self.zoom(
-        -self.options.ratioThreshold * 3,
-        { x: self.$stage.width() / 2, y: self.$stage.height() / 2 },
-        e
-      );
-      break;
-      // ctrl + alt + 0
-    case 48:
-      if (ctrlKey && altKey) {
+      case 173:
+        self.zoom(
+          -self.options.ratioThreshold * 3,
+          { x: self.$stage.width() / 2, y: self.$stage.height() / 2 },
+          e
+        );
+        break;
+      // Ctrl + Alt + 0
+      case 48:
+        if (ctrlKey && altKey) {
+          self.zoomTo(
+            1,
+            { x: self.$stage.width() / 2, y: self.$stage.height() / 2 },
+            e
+          );
+        }
+        break;
+      // Ctrl + ,
+      case 188:
+        if (ctrlKey) {
+          self.rotate(-90);
+        }
+        break;
+      // Ctrl + .
+      case 190:
+        if (ctrlKey) {
+          self.rotate(90);
+        }
+        break;
+      // Q
+      case 81:
+        this.close();
+        break;
+      default:
+    }
+  },
+  addEvents: function() {
+    var self = this;
+
+    this.$close
+      .off(CLICK_EVENT + EVENT_NS)
+      .on(CLICK_EVENT + EVENT_NS, function(e) {
+        self.close();
+      });
+
+    this.$stage
+      .off(WHEEL_EVENT + EVENT_NS)
+      .on(WHEEL_EVENT + EVENT_NS, function(e) {
+        self.wheel(e);
+      });
+
+    this.$zoomIn
+      .off(CLICK_EVENT + EVENT_NS)
+      .on(CLICK_EVENT + EVENT_NS, function(e) {
+        self.zoom(
+          self.options.ratioThreshold * 3,
+          { x: self.$stage.width() / 2, y: self.$stage.height() / 2 },
+          e
+        );
+      });
+
+    this.$zoomOut
+      .off(CLICK_EVENT + EVENT_NS)
+      .on(CLICK_EVENT + EVENT_NS, function(e) {
+        self.zoom(
+          -self.options.ratioThreshold * 3,
+          { x: self.$stage.width() / 2, y: self.$stage.height() / 2 },
+          e
+        );
+      });
+
+    this.$actualSize
+      .off(CLICK_EVENT + EVENT_NS)
+      .on(CLICK_EVENT + EVENT_NS, function(e) {
         self.zoomTo(
           1,
           { x: self.$stage.width() / 2, y: self.$stage.height() / 2 },
           e
         );
-      }
-      break;
-      // ctrl + ,
-    case 188:
-      if (ctrlKey) {
+      });
+
+    this.$prev
+      .off(CLICK_EVENT + EVENT_NS)
+      .on(CLICK_EVENT + EVENT_NS, function() {
+        self.jump(-1);
+      });
+
+    this.$fullscreen
+      .off(CLICK_EVENT + EVENT_NS)
+      .on(CLICK_EVENT + EVENT_NS, function() {
+        self.fullscreen();
+      });
+
+    this.$next
+      .off(CLICK_EVENT + EVENT_NS)
+      .on(CLICK_EVENT + EVENT_NS, function() {
+        self.jump(1);
+      });
+
+    this.$rotateLeft
+      .off(CLICK_EVENT + EVENT_NS)
+      .on(CLICK_EVENT + EVENT_NS, function() {
         self.rotate(-90);
-      }
-      break;
-      // ctrl + .
-    case 190:
-      if (ctrlKey) {
+      });
+
+    this.$rotateRight
+      .off(CLICK_EVENT + EVENT_NS)
+      .on(CLICK_EVENT + EVENT_NS, function() {
         self.rotate(90);
-      }
-      break;
-    default:
-    }
+      });
 
-  },
-  addEvents: function () {
+    this.$maximize
+      .off(CLICK_EVENT + EVENT_NS)
+      .on(CLICK_EVENT + EVENT_NS, function() {
+        self.maximize();
+      });
 
-    var self = this;
-
-    this.$close.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
-      self.close();
-    });
-
-    this.$stage.off(WHEEL_EVENT + EVENT_NS).on(WHEEL_EVENT + EVENT_NS, function (e) {
-      self.wheel(e);
-    });
-
-    this.$zoomIn.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
-      self.zoom(
-        self.options.ratioThreshold * 3,
-        { x: self.$stage.width() / 2, y: self.$stage.height() / 2 },
-        e
-      );
-    });
-
-    this.$zoomOut.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
-      self.zoom(
-        -self.options.ratioThreshold * 3,
-        { x: self.$stage.width() / 2, y: self.$stage.height() / 2 },
-        e
-      );
-    });
-
-    this.$actualSize.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
-      self.zoomTo(
-        1,
-        { x: self.$stage.width() / 2, y: self.$stage.height() / 2 },
-        e
-      );
-    });
-
-    this.$prev.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
-      self.jump(-1);
-    });
-
-    this.$fullscreen.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
-      self.fullscreen();
-    });
-
-    this.$next.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
-      self.jump(1);
-    });
-
-    this.$rotateLeft.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
-      self.rotate(-90);
-    });
-
-    this.$rotateRight.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
-      self.rotate(90);
-    });
-
-    this.$maximize.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
-      self.maximize();
-    });
-
-    $D.off(KEYDOWN_EVENT + EVENT_NS).on(KEYDOWN_EVENT + EVENT_NS, function (e) {
+    $D.off(KEYDOWN_EVENT + EVENT_NS).on(KEYDOWN_EVENT + EVENT_NS, function(e) {
       self.keydown(e);
     });
 
     $W.on(RESIZE_EVENT + EVENT_NS, self.resize());
-
   },
-  _triggerHook: function (e, data) {
+  _triggerHook: function(e, data) {
     if (this.options.callbacks[e]) {
       this.options.callbacks[e].apply(this, $.isArray(data) ? data : [data]);
     }
@@ -1292,13 +1298,12 @@ Magnify.prototype = {
  * jQuery plugin
  */
 
-$.fn.magnify = function (options) {
-
+$.fn.magnify = function(options) {
   jqEl = $(this);
 
   // Convert a numeric string into a number
   for (var key in options) {
-    if (typeof (options[key]) === 'string' && !isNaN(options[key])) {
+    if (typeof options[key] === 'string' && !isNaN(options[key])) {
       options[key] = parseFloat(options[key]);
     }
   }
@@ -1310,48 +1315,37 @@ $.fn.magnify = function (options) {
   PUBLIC_VARS['zIndex'] = opts.zIndex;
 
   if (typeof options === 'string') {
-
     // $(this).data('magnify')[options]();
-
   } else {
-
     if (opts.initEvent === 'dblclick') {
+      jqEl.off('click' + EVENT_NS).on('click' + EVENT_NS, function(e) {
+        e.preventDefault();
+        // This will stop triggering data-api event
+        e.stopPropagation();
+      });
+    }
 
-      jqEl.off('click' + EVENT_NS).on('click' + EVENT_NS, function (e) {
-
+    jqEl
+      .off(opts.initEvent + EVENT_NS)
+      .on(opts.initEvent + EVENT_NS, function(e) {
         e.preventDefault();
         // This will stop triggering data-api event
         e.stopPropagation();
 
+        $(this).data('magnify', new Magnify(this, options));
       });
-
-    }
-
-    jqEl.off(opts.initEvent + EVENT_NS).on(opts.initEvent + EVENT_NS, function (e) {
-
-      e.preventDefault();
-      // This will stop triggering data-api event
-      e.stopPropagation();
-
-      $(this).data('magnify', new Magnify(this, options));
-
-    });
-
   }
 
   return jqEl;
-
 };
 
 /**
  * MAGNIFY DATA-API
  */
-$D.on(CLICK_EVENT + EVENT_NS, '[data-magnify]', function (e) {
-
+$D.on(CLICK_EVENT + EVENT_NS, '[data-magnify]', function(e) {
   jqEl = $('[data-magnify]');
 
   e.preventDefault();
 
   $(this).data('magnify', new Magnify(this, DEFAULTS));
-
 });
