@@ -112,6 +112,7 @@ $("[data-magnify=gallery]").magnify();
   - <kbd>ctrl</kbd> + <kbd>alt</kbd> + <kbd>0</kbd> image autual size
   - <kbd>ctrl</kbd> + <kbd>,</kbd> rotate image left
   - <kbd>ctrl</kbd> + <kbd>.</kbd> rotate image right
+  - <kbd>Q</kbd> close the Magnify modal
 
 
 - **title** `true`
