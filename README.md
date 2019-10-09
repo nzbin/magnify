@@ -1,10 +1,11 @@
-> ⚠️ Attention! This repository will not be maintained. The plugin is easy to use, but its customization can be troublesome. To improve plugin's flexibility, I made another repository [PhotoViewer](https://github.com/nzbin/photoviewer) which is the enhanced version of Magnify.
+> ⚠️ Attention! This repository will be maintained just in small iteration. The plugin is easy to use, but its customization can be troublesome. To improve plugin's flexibility, I made another repository [PhotoViewer](https://github.com/nzbin/photoviewer) which is the enhanced version of Magnify.
 
 # Magnify
 
 [![Travis](https://img.shields.io/travis/nzbin/magnify.svg)](https://travis-ci.org/nzbin/magnify)
 [![npm](https://img.shields.io/npm/v/jquery.magnify.svg)](https://www.npmjs.com/package/jquery.magnify)
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/nzbin/magnify)
+[![Bower](https://img.shields.io/bower/v/jquery.magnify)](https://github.com/nzbin/magnify)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/nzbin/magnify/blob/master/LICENSE)
 
 Magnify is a jQuery plugin to view images just like in windows. 
 
