@@ -1,18 +1,16 @@
 /*!
- *  ___  ___  _____   ______  __   __ _____ ______ __    __
- * |   \/   |/  _  \ /  __  \|  \ |  |_   _|   ___|  \  /  |
- * |        |  / \  |  |  \__|   \|  | | | |  |__  \  \/  /
- * |  |\/|  |  |_|  |  |  ___        | | | |   __|  \    /
- * |  |  |  |   _   |  \_/   |  |\   |_| |_|  |      |  |
- * |__|  |__|__| |__|\____/|_|__| \__|_____|__|      |__|
+ *  __  __    _    ____ _   _ ___ _______   __
+ * |  \/  |  / \  / ___| \ | |_ _|  ___\ \ / /
+ * | |\/| | / _ \| |  _|  \| || || |_   \ V / 
+ * | |  | |/ ___ \ |_| | |\  || ||  _|   | |  
+ * |_|  |_/_/   \_\____|_| \_|___|_|     |_|  
  *
- * jquery.magnify - v1.4.4
+ * jquery.magnify - v1.5.0
  * A jQuery plugin to view images just like in windows
  * https://github.com/nzbin/magnify#readme
  *
  * Copyright (c) 2017 nzbin
  * Released under the MIT License
- *
  */
 .magnify-modal {
   position: absolute;
@@ -49,6 +47,10 @@
   float: right;
 }
 
+[dir='rtl'] .magnify-header .magnify-toolbar {
+  float: left;
+}
+
 .magnify-title {
   padding: 13px 10px;
   font-size: 14px;
@@ -78,7 +80,7 @@
   font-size: 0;
 }
 
-.magnify-stage.stage-ready:before {
+.magnify-stage.stage-ready::before {
   content: '';
   display: inline-block;
   height: 100%;
@@ -87,11 +89,12 @@
 }
 
 .magnify-image {
-  position: relative;
+  position: absolute;
   display: inline-block;
 }
 
 .magnify-image.image-ready {
+  position: static;
   max-width: 100%;
   max-height: 100%;
   vertical-align: middle;
@@ -153,66 +156,6 @@
 
 .magnify-button-minimize:hover {
   background-color: #525252;
-}
-
-.magnify-loader {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 2;
-  text-align: center;
-  background-color: rgba(0, 0, 0, 0.3);
-  color: #333;
-}
-
-.magnify-loader::before {
-  content: '';
-  display: inline-block;
-  position: relative;
-  width: 36px;
-  height: 36px;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  border-width: 5px;
-  border-style: solid;
-  border-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.5) rgba(255, 255, 255, 0.5);
-  border-radius: 100%;
-  vertical-align: middle;
-  -webkit-animation: magnifyLoading 1s infinite linear;
-          animation: magnifyLoading 1s infinite linear;
-}
-
-.magnify-loader::after {
-  content: '';
-  display: inline-block;
-  width: 0;
-  height: 100%;
-  vertical-align: middle;
-  overflow: hidden;
-}
-
-@-webkit-keyframes magnifyLoading {
-  0% {
-    -webkit-transform: rotateZ(0deg) translate3d(0, 0, 0);
-            transform: rotateZ(0deg) translate3d(0, 0, 0);
-  }
-  100% {
-    -webkit-transform: rotateZ(360deg) translate3d(0, 0, 0);
-            transform: rotateZ(360deg) translate3d(0, 0, 0);
-  }
-}
-
-@keyframes magnifyLoading {
-  0% {
-    -webkit-transform: rotateZ(0deg) translate3d(0, 0, 0);
-            transform: rotateZ(0deg) translate3d(0, 0, 0);
-  }
-  100% {
-    -webkit-transform: rotateZ(360deg) translate3d(0, 0, 0);
-            transform: rotateZ(360deg) translate3d(0, 0, 0);
-  }
 }
 
 .magnify-resizable-handle {
@@ -494,4 +437,64 @@
   cursor: move;
   cursor: -webkit-grabbing;
   cursor: grabbing;
+}
+
+.magnify-loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: #333;
+}
+
+.magnify-loader::before {
+  content: '';
+  display: inline-block;
+  position: relative;
+  width: 36px;
+  height: 36px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0.5) rgba(255, 255, 255, 0.5);
+  border-radius: 100%;
+  vertical-align: middle;
+  -webkit-animation: magnifyLoading 1s infinite linear;
+          animation: magnifyLoading 1s infinite linear;
+}
+
+.magnify-loader::after {
+  content: '';
+  display: inline-block;
+  width: 0;
+  height: 100%;
+  vertical-align: middle;
+  overflow: hidden;
+}
+
+@-webkit-keyframes magnifyLoading {
+  0% {
+    -webkit-transform: rotateZ(0deg) translate3d(0, 0, 0);
+            transform: rotateZ(0deg) translate3d(0, 0, 0);
+  }
+  100% {
+    -webkit-transform: rotateZ(360deg) translate3d(0, 0, 0);
+            transform: rotateZ(360deg) translate3d(0, 0, 0);
+  }
+}
+
+@keyframes magnifyLoading {
+  0% {
+    -webkit-transform: rotateZ(0deg) translate3d(0, 0, 0);
+            transform: rotateZ(0deg) translate3d(0, 0, 0);
+  }
+  100% {
+    -webkit-transform: rotateZ(360deg) translate3d(0, 0, 0);
+            transform: rotateZ(360deg) translate3d(0, 0, 0);
+  }
 }

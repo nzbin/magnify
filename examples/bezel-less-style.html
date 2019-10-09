@@ -17,50 +17,53 @@
     <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
   <![endif]-->
   <style>
-  .magnify-modal {
-    box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.3);
-  }
+    .magnify-modal {
+      box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.3);
+    }
 
-  .magnify-header .magnify-toolbar {
-    background-color: rgba(0, 0, 0, .5);
-  }
+    .magnify-header .magnify-toolbar {
+      background-color: rgba(0, 0, 0, .5);
+    }
 
-  .magnify-stage {
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    border-width: 0;
-  }
+    .magnify-stage {
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      border-width: 0;
+    }
 
-  .magnify-footer .magnify-toolbar {
-    background-color: rgba(0, 0, 0, .5);
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-  }
+    .magnify-footer .magnify-toolbar {
+      background-color: rgba(0, 0, 0, .5);
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
 
-  .magnify-header,
-  .magnify-footer {
-    pointer-events: none;
-  }
+    .magnify-header,
+    .magnify-footer {
+      pointer-events: none;
+    }
 
-  .magnify-button {
-    pointer-events: auto;
-  }
-
+    .magnify-button {
+      pointer-events: auto;
+    }
   </style>
 </head>
 
-<body>
+<body dir="ltr">
   <div class="container">
     <div class="image-set">
-      <a data-magnify="gallery" data-caption="Rémi Bizouard triple champion du monde by malainxx24" href="https://farm5.staticflickr.com/4267/34162425794_1430f38362_z.jpg">
+      <a data-magnify="gallery" data-caption="Rémi Bizouard triple champion du monde by malainxx24"
+         href="https://farm5.staticflickr.com/4267/34162425794_1430f38362_z.jpg">
         <img src="https://farm5.staticflickr.com/4267/34162425794_1430f38362_s.jpg" alt="">
       </a>
-      <a data-magnify="gallery" data-caption="A SELFROOME by MASSILIA JMMC" href="https://farm5.staticflickr.com/4304/35957594681_187d1eab44_z.jpg">
-        <img src="https://farm5.staticflickr.com/4304/35957594681_187d1eab44_s.jpg" alt="">
+      <a data-magnify="gallery" data-caption="Audi RS 5 DTM by Lyudmila Izmaylova"
+         href="https://farm1.staticflickr.com/4160/34418397675_18de1f7b9f_z.jpg">
+        <img src="https://farm1.staticflickr.com/4160/34418397675_18de1f7b9f_s.jpg" alt="">
       </a>
-      <a data-magnify="gallery" data-caption="Paraglider flying over Aurlandfjord, Norway by framedbythomas" href="https://farm1.staticflickr.com/512/32967783396_a6b4babd92_z.jpg">
+      <a data-magnify="gallery"
+         data-caption="Paraglider flying over Aurlandfjord, Norway by framedbythomas"
+         href="https://farm1.staticflickr.com/512/32967783396_a6b4babd92_z.jpg">
         <img src="https://farm1.staticflickr.com/512/32967783396_a6b4babd92_s.jpg" alt="">
       </a>
     </div>
@@ -71,21 +74,21 @@
   <!-- Include all compiled plugins (below), or include individual files as needed -->
   <script src="../dist/jquery.magnify.js"></script>
   <script>
-  $('[data-magnify]').magnify({
-    headToolbar: [
-      'close'
-    ],
-    footToolbar: [
-      'zoomIn',
-      'zoomOut',
-      'prev',
-      'fullscreen',
-      'next',
-      'actualSize',
-      'rotateRight'
-    ],
-    title: false
-  });
+    $('[data-magnify]').magnify({
+      headToolbar: [
+        'close'
+      ],
+      footToolbar: [
+        'zoomIn',
+        'zoomOut',
+        'prev',
+        'fullscreen',
+        'next',
+        'actualSize',
+        'rotateRight'
+      ],
+      title: false
+    });
 
   </script>
 </body>
