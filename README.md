@@ -11,19 +11,19 @@ Magnify is a jQuery plugin to view images just like in windows.
 
 [[ website ]](https://nzbin.github.io/magnify/)
 
+## Features
 
-## Main Features
-
-- Modal draggable.
-- Modal resizable.
-- Modal maximizable.
-- Image movable.
-- Image zoomable.
-- Image rotatable.
-- Keyboard control.
-- Fullscreen showing.
-- Multiple instances.
-- Browser support (IE7+).
+- Modal draggable
+- Modal resizable
+- Modal maximizable
+- Image movable
+- Image zoomable
+- Image rotatable
+- Keyboard control
+- Fullscreen showing
+- Multiple instances
+- Browser support IE7+
+- RTL support
 
 ## Installation
 
@@ -110,9 +110,9 @@ $("[data-magnify=gallery]").magnify();
   - <kbd>→</kbd> next image
   - <kbd>+</kbd> zoom in image
   - <kbd>-</kbd> zoom out image
-  - <kbd>ctrl</kbd> + <kbd>alt</kbd> + <kbd>0</kbd> image autual size
-  - <kbd>ctrl</kbd> + <kbd>,</kbd> rotate image left
-  - <kbd>ctrl</kbd> + <kbd>.</kbd> rotate image right
+  - <kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>0</kbd> image autual size
+  - <kbd>Ctrl</kbd> + <kbd>,</kbd> rotate image left
+  - <kbd>Ctrl</kbd> + <kbd>.</kbd> rotate image right
   - <kbd>Q</kbd> close the Magnify modal
 
 
