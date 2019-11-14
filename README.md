@@ -2,7 +2,7 @@
 
 # Magnify
 
-[![Travis](https://img.shields.io/travis/nzbin/magnify.svg)](https://travis-ci.org/nzbin/magnify)
+[![Financial Contributors on Open Collective](https://opencollective.com/magnify/all/badge.svg?label=financial+contributors)](https://opencollective.com/magnify) [![Travis](https://img.shields.io/travis/nzbin/magnify.svg)](https://travis-ci.org/nzbin/magnify)
 [![npm](https://img.shields.io/npm/v/jquery.magnify.svg)](https://www.npmjs.com/package/jquery.magnify)
 [![Bower](https://img.shields.io/bower/v/jquery.magnify)](https://github.com/nzbin/magnify)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/nzbin/magnify/blob/master/LICENSE)
@@ -258,6 +258,36 @@ $("[data-magnify=gallery]").magnify({
   }
 });
 ```
+
+## Contributors
+
+### Code Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/nzbin/magnify/graphs/contributors"><img src="https://opencollective.com/magnify/contributors.svg?width=890&button=false" /></a>
+
+### Financial Contributors
+
+Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/magnify/contribute)]
+
+#### Individuals
+
+<a href="https://opencollective.com/magnify"><img src="https://opencollective.com/magnify/individuals.svg?width=890"></a>
+
+#### Organizations
+
+Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/magnify/contribute)]
+
+<a href="https://opencollective.com/magnify/organization/0/website"><img src="https://opencollective.com/magnify/organization/0/avatar.svg"></a>
+<a href="https://opencollective.com/magnify/organization/1/website"><img src="https://opencollective.com/magnify/organization/1/avatar.svg"></a>
+<a href="https://opencollective.com/magnify/organization/2/website"><img src="https://opencollective.com/magnify/organization/2/avatar.svg"></a>
+<a href="https://opencollective.com/magnify/organization/3/website"><img src="https://opencollective.com/magnify/organization/3/avatar.svg"></a>
+<a href="https://opencollective.com/magnify/organization/4/website"><img src="https://opencollective.com/magnify/organization/4/avatar.svg"></a>
+<a href="https://opencollective.com/magnify/organization/5/website"><img src="https://opencollective.com/magnify/organization/5/avatar.svg"></a>
+<a href="https://opencollective.com/magnify/organization/6/website"><img src="https://opencollective.com/magnify/organization/6/avatar.svg"></a>
+<a href="https://opencollective.com/magnify/organization/7/website"><img src="https://opencollective.com/magnify/organization/7/avatar.svg"></a>
+<a href="https://opencollective.com/magnify/organization/8/website"><img src="https://opencollective.com/magnify/organization/8/avatar.svg"></a>
+<a href="https://opencollective.com/magnify/organization/9/website"><img src="https://opencollective.com/magnify/organization/9/avatar.svg"></a>
 
 ## License
 
