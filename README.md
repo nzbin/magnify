@@ -2,10 +2,10 @@
 
 # Magnify
 
-[![Financial Contributors on Open Collective](https://opencollective.com/magnify/all/badge.svg?label=financial+contributors)](https://opencollective.com/magnify) [![Travis](https://img.shields.io/travis/nzbin/magnify.svg)](https://travis-ci.org/nzbin/magnify)
 [![npm](https://img.shields.io/npm/v/jquery.magnify.svg)](https://www.npmjs.com/package/jquery.magnify)
 [![Bower](https://img.shields.io/bower/v/jquery.magnify)](https://github.com/nzbin/magnify)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/nzbin/magnify/blob/master/LICENSE)
+[![Financial Contributors on Open Collective](https://opencollective.com/magnify/all/badge.svg?label=financial+contributors)](https://opencollective.com/magnify) [![Travis](https://img.shields.io/travis/nzbin/magnify.svg)](https://travis-ci.org/nzbin/magnify)
 
 Magnify is a jQuery plugin to view images just like in windows. 
 
