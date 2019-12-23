@@ -496,9 +496,7 @@ Magnify.prototype = {
   },
   open: function () {
     if (!this.options.multiInstances) {
-      $('.magnify-modal')
-        .eq(0)
-        .remove();
+      $('.magnify-modal').eq(0).remove();
     }
 
     // Fixed modal position bug
@@ -819,11 +817,11 @@ Magnify.prototype = {
     });
   },
   setImgTitle: function (url) {
-    var index = this.groupIndex,
-      caption = this.groupData[index].caption,
-      caption = caption ? caption : getImageNameFromUrl(url);
+    var title = this.groupData[this.groupIndex].title
+      ? this.groupData[this.groupIndex].title
+      : getImageNameFromUrl(url);
 
-    this.$title.html(caption);
+    this.$title.html(title);
   },
   jump: function (step) {
     this._triggerHook('beforeChange', this.groupIndex);
@@ -1029,7 +1027,6 @@ Magnify.prototype = {
     return resizeHandler;
   },
   maximize: function () {
-
     if (!this.isMaximized) {
       // Store modal data before maximize
       this.modalData = {

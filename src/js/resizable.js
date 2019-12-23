@@ -352,10 +352,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
     PUBLIC_VARS['isResizing'] = false;
 
     // Remove resizable cursor
-    $('html,body,.magnify-modal,.magnify-stage,.magnify-button').css(
-      'cursor',
-      ''
-    );
+    $('html, body, .magnify-modal, .magnify-stage, .magnify-button').css('cursor', '');
 
     // Update image initial data
     var scale = self.getImageScaleToStage($(stage).width(), $(stage).height());
