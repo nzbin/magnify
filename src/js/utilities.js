@@ -8,9 +8,7 @@
  */
 function getImgSrc(el) {
   // Get data-src as image src at first
-  var src = $(el).attr('data-src')
-    ? $(el).attr('data-src')
-    : $(el).attr('href');
+  var src = $(el).attr('data-src') ? $(el).attr('data-src') : $(el).attr('href');
   return src;
 }
 
@@ -23,13 +21,12 @@ function getImgSrc(el) {
 function throttle(fn, delay) {
   var timer = null;
 
-  return function() {
-    var context = this,
-      args = arguments;
+  return function () {
+    var context = this, args = arguments;
 
     clearTimeout(timer);
 
-    timer = setTimeout(function() {
+    timer = setTimeout(function () {
       fn.apply(context, args);
     }, delay);
   };
@@ -44,11 +41,11 @@ function throttle(fn, delay) {
 function preloadImg(src, success, error) {
   var img = new Image();
 
-  img.onload = function() {
+  img.onload = function () {
     success(img);
   };
 
-  img.onerror = function() {
+  img.onerror = function () {
     error(img);
   };
 
@@ -90,8 +87,7 @@ function exitFullscreen() {
  * @return {String}
  */
 function getImageNameFromUrl(url) {
-  var reg = /^.*?\/*([^/?]*)\.[a-z]+(\?.+|$)/gi,
-    txt = url.replace(reg, '$1');
+  var reg = /^.*?\/*([^/?]*)\.[a-z]+(\?.+|$)/gi, txt = url.replace(reg, '$1');
   return txt;
 }
 
@@ -101,8 +97,7 @@ function getImageNameFromUrl(url) {
  */
 function hasScrollbar() {
   return (
-    document.body.scrollHeight >
-    (window.innerHeight || document.documentElement.clientHeight)
+    document.body.scrollHeight > (window.innerHeight || document.documentElement.clientHeight)
   );
 }
 
@@ -112,8 +107,7 @@ function hasScrollbar() {
  */
 function getScrollbarWidth() {
   var scrollDiv = document.createElement('div');
-  scrollDiv.style.cssText =
-    'width: 99px; height: 99px; overflow: scroll; position: absolute; top: -9999px;';
+  scrollDiv.style.cssText = 'width: 99px; height: 99px; overflow: scroll; position: absolute; top: -9999px;';
   document.body.appendChild(scrollDiv);
   var scrollbarWidth = scrollDiv.offsetWidth - scrollDiv.clientWidth;
   document.body.removeChild(scrollDiv);
@@ -129,8 +123,8 @@ function getScrollbarWidth() {
  * @param {Boolean} isRotate - The image rotated flag
  */
 function setGrabCursor(imageData, stageData, stage, isRotated) {
-  var imageWidth = !isRotated ? imageData.w : imageData.h,
-    imageHeight = !isRotated ? imageData.h : imageData.w;
+  var imageWidth = !isRotated ? imageData.w : imageData.h;
+  var imageHeight = !isRotated ? imageData.h : imageData.w;
 
   if (imageHeight > stageData.h || imageWidth > stageData.w) {
     stage.addClass('is-grab');
@@ -146,8 +140,7 @@ function setGrabCursor(imageData, stageData, stage, isRotated) {
  */
 function supportTouch() {
   return !!(
-    'ontouchstart' in window ||
-    (window.DocumentTouch && document instanceof DocumentTouch)
+    'ontouchstart' in window || (window.DocumentTouch && document instanceof window.DocumentTouch)
   );
 }
 
@@ -157,9 +150,7 @@ function supportTouch() {
  */
 function isIE8() {
   return (
-    (navigator.appName == 'Microsoft Internet Explorer' &&
-      navigator.appVersion.indexOf('MSIE 8.0') > 0) ||
-    (navigator.appName == 'Microsoft Internet Explorer' &&
-      navigator.appVersion.indexOf('MSIE 7.0') > 0)
+    (navigator.appName == 'Microsoft Internet Explorer' && navigator.appVersion.indexOf('MSIE 8.0') > 0) ||
+    (navigator.appName == 'Microsoft Internet Explorer' && navigator.appVersion.indexOf('MSIE 7.0') > 0)
   );
 }

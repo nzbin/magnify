@@ -5,7 +5,7 @@
  * @param {Object} dragCancel - The cancel element when dragging
  */
 
-var draggable = function(modal, dragHandle, dragCancel) {
+var draggable = function (modal, dragHandle, dragCancel) {
   var self = this;
 
   var isDragging = false;
@@ -15,7 +15,7 @@ var draggable = function(modal, dragHandle, dragCancel) {
     left = 0,
     top = 0;
 
-  var dragStart = function(e) {
+  var dragStart = function (e) {
     var e = e || window.event;
 
     // Must be removed
@@ -34,14 +34,8 @@ var draggable = function(modal, dragHandle, dragCancel) {
 
     isDragging = true;
 
-    startX =
-      e.type === 'touchstart'
-        ? e.originalEvent.targetTouches[0].pageX
-        : e.clientX;
-    startY =
-      e.type === 'touchstart'
-        ? e.originalEvent.targetTouches[0].pageY
-        : e.clientY;
+    startX = e.type === 'touchstart' ? e.originalEvent.targetTouches[0].pageX : e.clientX;
+    startY = e.type === 'touchstart' ? e.originalEvent.targetTouches[0].pageY : e.clientY;
 
     left = $(modal).offset().left;
     top = $(modal).offset().top;
@@ -52,25 +46,14 @@ var draggable = function(modal, dragHandle, dragCancel) {
     );
   };
 
-  var dragMove = function(e) {
+  var dragMove = function (e) {
     var e = e || window.event;
 
     e.preventDefault();
 
-    if (
-      isDragging &&
-      !PUBLIC_VARS['isMoving'] &&
-      !PUBLIC_VARS['isResizing'] &&
-      !self.isMaximized
-    ) {
-      var endX =
-          e.type === 'touchmove'
-            ? e.originalEvent.targetTouches[0].pageX
-            : e.clientX,
-        endY =
-          e.type === 'touchmove'
-            ? e.originalEvent.targetTouches[0].pageY
-            : e.clientY,
+    if (isDragging && !PUBLIC_VARS['isMoving'] && !PUBLIC_VARS['isResizing'] && !self.isMaximized) {
+      var endX = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageX : e.clientX,
+        endY = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageY : e.clientY,
         relativeX = endX - startX,
         relativeY = endY - startY;
 
@@ -81,7 +64,7 @@ var draggable = function(modal, dragHandle, dragCancel) {
     }
   };
 
-  var dragEnd = function(e) {
+  var dragEnd = function (e) {
     $D.off(TOUCH_MOVE_EVENT + EVENT_NS, dragMove).off(
       TOUCH_END_EVENT + EVENT_NS,
       dragEnd

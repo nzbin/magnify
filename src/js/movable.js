@@ -11,7 +11,7 @@
  * @param {Object} image - The image element
  */
 
-var movable = function(stage, image) {
+var movable = function (stage, image) {
   var self = this;
 
   var isDragging = false;
@@ -24,7 +24,7 @@ var movable = function(stage, image) {
     heightDiff = 0,
     δ = 0;
 
-  var dragStart = function(e) {
+  var dragStart = function (e) {
     var e = e || window.event;
 
     e.preventDefault();
@@ -36,25 +36,15 @@ var movable = function(stage, image) {
       stageWidth = $(stage).width(),
       stageHeight = $(stage).height();
 
-    startX =
-      e.type === 'touchstart'
-        ? e.originalEvent.targetTouches[0].pageX
-        : e.clientX;
-    startY =
-      e.type === 'touchstart'
-        ? e.originalEvent.targetTouches[0].pageY
-        : e.clientY;
+    startX = e.type === 'touchstart' ? e.originalEvent.targetTouches[0].pageX : e.clientX;
+    startY = e.type === 'touchstart' ? e.originalEvent.targetTouches[0].pageY : e.clientY;
 
     // δ is the difference between image width and height
     δ = !self.isRotated ? 0 : (imageWidth - imageHeight) / 2;
 
     // Width or height difference can be use to limit image right or top position
-    widthDiff = !self.isRotated
-      ? imageWidth - stageWidth
-      : imageHeight - stageWidth;
-    heightDiff = !self.isRotated
-      ? imageHeight - stageHeight
-      : imageWidth - stageHeight;
+    widthDiff = !self.isRotated ? imageWidth - stageWidth : imageHeight - stageWidth;
+    heightDiff = !self.isRotated ? imageHeight - stageHeight : imageWidth - stageHeight;
 
     // Modal can be dragging if image is smaller to stage
     isDragging = widthDiff > 0 || heightDiff > 0 ? true : false;
@@ -78,7 +68,7 @@ var movable = function(stage, image) {
     );
   };
 
-  var dragMove = function(e) {
+  var dragMove = function (e) {
     var e = e || window.event;
 
     e.preventDefault();
@@ -86,14 +76,8 @@ var movable = function(stage, image) {
     var $image = isIE8() ? $(stage).find(image) : $(image);
 
     if (isDragging) {
-      var endX =
-          e.type === 'touchmove'
-            ? e.originalEvent.targetTouches[0].pageX
-            : e.clientX,
-        endY =
-          e.type === 'touchmove'
-            ? e.originalEvent.targetTouches[0].pageY
-            : e.clientY,
+      var endX = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageX : e.clientX,
+        endY = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageY : e.clientY,
         relativeX = endX - startX,
         relativeY = endY - startY,
         newLeft = relativeX + left,
@@ -133,7 +117,7 @@ var movable = function(stage, image) {
     }
   };
 
-  var dragEnd = function(e) {
+  var dragEnd = function (e) {
     $D.off(TOUCH_MOVE_EVENT + EVENT_NS, dragMove).off(
       TOUCH_END_EVENT + EVENT_NS,
       dragEnd
@@ -143,9 +127,7 @@ var movable = function(stage, image) {
     PUBLIC_VARS['isMoving'] = false;
 
     // Remove grabbing cursor
-    $(
-      'html,body,.magnify-modal,.magnify-stage,.magnify-button,.magnify-resizable-handle'
-    ).removeClass('is-grabbing');
+    $('html, body, .magnify-modal, .magnify-stage, .magnify-button, .magnify-resizable-handle').removeClass('is-grabbing');
   };
 
   $(stage).on(TOUCH_START_EVENT + EVENT_NS, dragStart);
