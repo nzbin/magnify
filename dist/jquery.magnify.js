@@ -1004,9 +1004,7 @@ Magnify.prototype = {
     });
   },
   setImgTitle: function (url) {
-    var title = this.groupData[this.groupIndex].title
-      ? this.groupData[this.groupIndex].title
-      : getImageNameFromUrl(url);
+    var title = this.groupData[this.groupIndex].caption || getImageNameFromUrl(url);
 
     this.$title.html(title);
   },
@@ -2041,10 +2039,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
     PUBLIC_VARS['isResizing'] = false;
 
     // Remove resizable cursor
-    $('html,body,.magnify-modal,.magnify-stage,.magnify-button').css(
-      'cursor',
-      ''
-    );
+    $('html, body, .magnify-modal, .magnify-stage, .magnify-button').css('cursor', '');
 
     // Update image initial data
     var scale = self.getImageScaleToStage($(stage).width(), $(stage).height());

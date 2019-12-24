@@ -817,9 +817,7 @@ Magnify.prototype = {
     });
   },
   setImgTitle: function (url) {
-    var title = this.groupData[this.groupIndex].title
-      ? this.groupData[this.groupIndex].title
-      : getImageNameFromUrl(url);
+    var title = this.groupData[this.groupIndex].caption || getImageNameFromUrl(url);
 
     this.$title.html(title);
   },
