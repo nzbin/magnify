@@ -16,40 +16,24 @@
 var resizable = function (modal, stage, image, minWidth, minHeight) {
   var self = this;
 
-  var resizableHandleE = $(
-    '<div class="magnify-resizable-handle magnify-resizable-handle-e"></div>'
-  );
-  var resizableHandleW = $(
-    '<div class="magnify-resizable-handle magnify-resizable-handle-w"></div>'
-  );
-  var resizableHandleS = $(
-    '<div class="magnify-resizable-handle magnify-resizable-handle-s"></div>'
-  );
-  var resizableHandleN = $(
-    '<div class="magnify-resizable-handle magnify-resizable-handle-n"></div>'
-  );
-  var resizableHandleSE = $(
-    '<div class="magnify-resizable-handle magnify-resizable-handle-se"></div>'
-  );
-  var resizableHandleSW = $(
-    '<div class="magnify-resizable-handle magnify-resizable-handle-sw"></div>'
-  );
-  var resizableHandleNE = $(
-    '<div class="magnify-resizable-handle magnify-resizable-handle-ne"></div>'
-  );
-  var resizableHandleNW = $(
-    '<div class="magnify-resizable-handle magnify-resizable-handle-nw"></div>'
-  );
+  var resizableHandleE = $('<div class="magnify-resizable-handle magnify-resizable-handle-e"></div>'),
+    resizableHandleW = $('<div class="magnify-resizable-handle magnify-resizable-handle-w"></div>'),
+    resizableHandleS = $('<div class="magnify-resizable-handle magnify-resizable-handle-s"></div>'),
+    resizableHandleN = $('<div class="magnify-resizable-handle magnify-resizable-handle-n"></div>'),
+    resizableHandleSE = $('<div class="magnify-resizable-handle magnify-resizable-handle-se"></div>'),
+    resizableHandleSW = $('<div class="magnify-resizable-handle magnify-resizable-handle-sw"></div>'),
+    resizableHandleNE = $('<div class="magnify-resizable-handle magnify-resizable-handle-ne"></div>'),
+    resizableHandleNW = $('<div class="magnify-resizable-handle magnify-resizable-handle-nw"></div>');
 
   var resizableHandles = {
     e: resizableHandleE,
-    s: resizableHandleS,
-    se: resizableHandleSE,
-    n: resizableHandleN,
     w: resizableHandleW,
-    nw: resizableHandleNW,
+    s: resizableHandleS,
+    n: resizableHandleN,
+    se: resizableHandleSE,
+    sw: resizableHandleSW,
     ne: resizableHandleNE,
-    sw: resizableHandleSW
+    nw: resizableHandleNW
   };
 
   $(modal).append(
@@ -65,31 +49,28 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
 
   var isDragging = false;
 
-  var startX = 0;
-  var startY = 0;
-  var modalData = {
-    w: 0,
-    h: 0,
-    l: 0,
-    t: 0
-  };
-  var stageData = {
-    w: 0,
-    h: 0,
-    l: 0,
-    t: 0
-  };
-  var imageData = {
-    w: 0,
-    h: 0,
-    l: 0,
-    t: 0
-  };
+  var startX = 0,
+    startY = 0,
+    modalData = {
+      w: 0,
+      h: 0,
+      l: 0,
+      t: 0
+    },
+    stageData = {
+      w: 0,
+      h: 0,
+      l: 0,
+      t: 0
+    },
+    imageData = {
+      w: 0,
+      h: 0,
+      l: 0,
+      t: 0
+    };
   // δ is the difference between image width and height
-  var δ = 0;
-  var imgWidth = 0;
-  var imgHeight = 0;
-  var direction = '';
+  var δ = 0, imgWidth = 0, imgHeight = 0, direction = '';
 
   // Modal CSS options
   var getModalOpts = function (dir, offsetX, offsetY) {
@@ -255,7 +236,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
   };
 
   var dragStart = function (dir, e) {
-    var e = e || window.event;
+    e = e || window.event;
 
     e.preventDefault();
 
@@ -309,17 +290,17 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
   };
 
   var dragMove = function (e) {
-    var e = e || window.event;
+    e = e || window.event;
 
     e.preventDefault();
 
     var $image = isIE8() ? $(stage).find(image) : $(image);
 
     if (isDragging && !self.isMaximized) {
-      var endX = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageX : e.clientX,
-        endY = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageY : e.clientY,
-        relativeX = endX - startX,
-        relativeY = endY - startY;
+      var endX = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageX : e.clientX;
+      var endY = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageY : e.clientY;
+      var relativeX = endX - startX;
+      var relativeY = endY - startY;
 
       var modalOpts = getModalOpts(direction, relativeX, relativeY);
 

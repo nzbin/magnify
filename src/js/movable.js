@@ -25,7 +25,7 @@ var movable = function (stage, image) {
     δ = 0;
 
   var dragStart = function (e) {
-    var e = e || window.event;
+    e = e || window.event;
 
     e.preventDefault();
 
@@ -57,9 +57,8 @@ var movable = function (stage, image) {
 
     // Add grabbing cursor
     if (stage.hasClass('is-grab')) {
-      $(
-        'html,body,.magnify-modal,.magnify-stage,.magnify-button,.magnify-resizable-handle'
-      ).addClass('is-grabbing');
+      $('html, body, .magnify-modal, .magnify-stage, .magnify-button, .magnify-resizable-handle')
+        .addClass('is-grabbing');
     }
 
     $D.on(TOUCH_MOVE_EVENT + EVENT_NS, dragMove).on(
@@ -69,19 +68,19 @@ var movable = function (stage, image) {
   };
 
   var dragMove = function (e) {
-    var e = e || window.event;
+    e = e || window.event;
 
     e.preventDefault();
 
     var $image = isIE8() ? $(stage).find(image) : $(image);
 
     if (isDragging) {
-      var endX = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageX : e.clientX,
-        endY = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageY : e.clientY,
-        relativeX = endX - startX,
-        relativeY = endY - startY,
-        newLeft = relativeX + left,
-        newTop = relativeY + top;
+      var endX = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageX : e.clientX;
+      var endY = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageY : e.clientY;
+      var relativeX = endX - startX;
+      var relativeY = endY - startY;
+      var newLeft = relativeX + left;
+      var newTop = relativeY + top;
 
       // Vertical limit
       if (heightDiff > 0) {
@@ -127,7 +126,8 @@ var movable = function (stage, image) {
     PUBLIC_VARS['isMoving'] = false;
 
     // Remove grabbing cursor
-    $('html, body, .magnify-modal, .magnify-stage, .magnify-button, .magnify-resizable-handle').removeClass('is-grabbing');
+    $('html, body, .magnify-modal, .magnify-stage, .magnify-button, .magnify-resizable-handle')
+      .removeClass('is-grabbing');
   };
 
   $(stage).on(TOUCH_START_EVENT + EVENT_NS, dragStart);

@@ -10,13 +10,10 @@ var draggable = function (modal, dragHandle, dragCancel) {
 
   var isDragging = false;
 
-  var startX = 0,
-    startY = 0,
-    left = 0,
-    top = 0;
+  var startX = 0, startY = 0, left = 0, top = 0;
 
   var dragStart = function (e) {
-    var e = e || window.event;
+    e = e || window.event;
 
     // Must be removed
     // e.preventDefault();
@@ -47,15 +44,15 @@ var draggable = function (modal, dragHandle, dragCancel) {
   };
 
   var dragMove = function (e) {
-    var e = e || window.event;
+    e = e || window.event;
 
     e.preventDefault();
 
     if (isDragging && !PUBLIC_VARS['isMoving'] && !PUBLIC_VARS['isResizing'] && !self.isMaximized) {
-      var endX = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageX : e.clientX,
-        endY = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageY : e.clientY,
-        relativeX = endX - startX,
-        relativeY = endY - startY;
+      var endX = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageX : e.clientX;
+      var endY = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageY : e.clientY;
+      var relativeX = endX - startX;
+      var relativeY = endY - startY;
 
       $(modal).css({
         left: relativeX + left + 'px',

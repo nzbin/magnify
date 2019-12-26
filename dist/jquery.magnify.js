@@ -262,150 +262,125 @@ var $W = $(window),
     icons: {
       minimize:
         '<svg viewBox="0 0 1024 1024" class="svg-inline-icon">\
-                <path fill="currentColor" d="M1024 749.714v109.714c0 50.286\
-                -41.143 91.429-91.429 91.429h-841.143c-50.286 0-91.429-41.143\
-                -91.429-91.429v-109.714c0-50.286 41.143-91.429 91.429-91.429\
-                h841.143c50.286 0 91.429 41.143 91.429 91.429z"></path>\
-                </svg>',
+          <path fill="currentColor" d="M1024 749.714v109.714c0 50.286-41.143 91.429-91.429 91.429\
+          h-841.143c-50.286 0-91.429-41.143-91.429-91.429v-109.714c0-50.286 41.143-91.429 91.429\
+          -91.429h841.143c50.286 0 91.429 41.143 91.429 91.429z"></path>\
+        </svg>',
       maximize:
         '<svg viewBox="0 0 1024 1024" class="svg-inline-icon">\
-                <path fill="currentColor" d="M146.286 804.571h731.429v-438.857\
-                h-731.429v438.857zM1024 164.571v694.857c0 50.286-41.143 91.429\
-                -91.429 91.429h-841.143c-50.286 0-91.429-41.143-91.429-91.429v\
-                -694.857c0-50.286 41.143-91.429 91.429-91.429h841.143c50.286 0 \
-                91.429 41.143 91.429 91.429z"></path>\
-                </svg>',
+          <path fill="currentColor" d="M146.286 804.571h731.429v-438.857h-731.429v438.857z\
+          M1024 164.571v694.857c0 50.286-41.143 91.429-91.429 91.429h-841.143c-50.286 0\
+          -91.429-41.143-91.429-91.429v-694.857c0-50.286 41.143-91.429 91.429-91.429\
+          h841.143c50.286 0 91.429 41.143 91.429 91.429z"></path>\
+        </svg>',
       close:
         '<svg viewBox="0 0 804.5714285714286 1024" class="svg-inline-icon">\
-              <path fill="currentColor" d="M741.714 755.429c0 14.286-5.714 \
-              28.571-16 38.857l-77.714 77.714c-10.286 10.286-24.571 16-38.857 16\
-              s-28.571-5.714-38.857-16l-168-168-168 168c-10.286 10.286-24.571 16\
-              -38.857 16s-28.571-5.714-38.857-16l-77.714-77.714c-10.286-10.286\
-              -16-24.571-16-38.857s5.714-28.571 16-38.857l168-168-168-168c-10.286\
-              -10.286-16-24.571-16-38.857s5.714-28.571 16-38.857l77.714-77.714\
-              c10.286-10.286 24.571-16 38.857-16s28.571 5.714 38.857 16l168 168 \
-              168-168c10.286-10.286 24.571-16 38.857-16s28.571 5.714 38.857 \
-              16l77.714 77.714c10.286 10.286 16 24.571 16 38.857s-5.714 28.571\
-              -16 38.857l-168 168 168 168c10.286 10.286 16 24.571 16 38.857z"></path>\
-              </svg>',
+          <path fill="currentColor" d="M741.714 755.429c0 14.286-5.714 28.571-16 38.857\
+          l-77.714 77.714c-10.286 10.286-24.571 16-38.857 16s-28.571-5.714-38.857-16l-168-168\
+          -168 168c-10.286 10.286-24.571 16-38.857 16s-28.571-5.714-38.857-16l-77.714-77.714\
+          c-10.286-10.286-16-24.571-16-38.857s5.714-28.571 16-38.857l168-168-168-168c-10.286-10.286\
+          -16-24.571-16-38.857s5.714-28.571 16-38.857l77.714-77.714c10.286-10.286 24.571-16 38.857\
+          -16s28.571 5.714 38.857 16l168 168 168-168c10.286-10.286 24.571-16 38.857-16\
+          s28.571 5.714 38.857 16l77.714 77.714c10.286 10.286 16 24.571 16 38.857s-5.714 28.571\
+          -16 38.857l-168 168 168 168c10.286 10.286 16 24.571 16 38.857z"></path>\
+        </svg>',
       zoomIn:
         '<svg viewBox="0 0 950.8571428571428 1024" class="svg-inline-icon">\
-              <path fill="currentColor" d="M585.143 457.143v36.571c0 9.714-8.571 \
-              18.286-18.286 18.286h-128v128c0 9.714-8.571 18.286-18.286 18.286\
-              h-36.571c-9.714 0-18.286-8.571-18.286-18.286v-128h-128c-9.714 0\
-              -18.286-8.571-18.286-18.286v-36.571c0-9.714 8.571-18.286 18.286\
-              -18.286h128v-128c0-9.714 8.571-18.286 18.286-18.286h36.571c9.714 0 \
-              18.286 8.571 18.286 18.286v128h128c9.714 0 18.286 8.571 18.286 \
-              18.286zM658.286 475.429c0-141.143-114.857-256-256-256s-256 114.857\
-              -256 256 114.857 256 256 256 256-114.857 256-256zM950.857 950.857\
-              c0 40.571-32.571 73.143-73.143 73.143-19.429 0-38.286-8-51.429\
-              -21.714l-196-195.429c-66.857 46.286-146.857 70.857-228 70.857\
-              -222.286 0-402.286-180-402.286-402.286s180-402.286 402.286-402.286 \
-              402.286 180 402.286 402.286c0 81.143-24.571 161.143-70.857 228\
-              l196 196c13.143 13.143 21.143 32 21.143 51.429z"></path>\
-              </svg>',
+          <path fill="currentColor" d="M585.143 457.143v36.571c0 9.714-8.571 18.286-18.286 18.286\
+          h-128v128c0 9.714-8.571 18.286-18.286 18.286h-36.571c-9.714 0-18.286-8.571-18.286-18.286\
+          v-128h-128c-9.714 0-18.286-8.571-18.286-18.286v-36.571c0-9.714 8.571-18.286 18.286-18.286\
+          h128v-128c0-9.714 8.571-18.286 18.286-18.286h36.571c9.714 0 18.286 8.571 18.286 18.286\
+          v128h128c9.714 0 18.286 8.571 18.286 18.286zM658.286 475.429c0-141.143-114.857-256-256\
+          -256s-256 114.857-256 256 114.857 256 256 256 256-114.857 256-256zM950.857 950.857\
+          c0 40.571-32.571 73.143-73.143 73.143-19.429 0-38.286-8-51.429-21.714l-196-195.429\
+          c-66.857 46.286-146.857 70.857-228 70.857-222.286 0-402.286-180-402.286-402.286s180\
+          -402.286 402.286-402.286 402.286 180 402.286 402.286c0 81.143-24.571 161.143-70.857 228\
+          l196 196c13.143 13.143 21.143 32 21.143 51.429z"></path>\
+        </svg>',
       zoomOut:
         '<svg viewBox="0 0 950.8571428571428 1024" class="svg-inline-icon">\
-              <path fill="currentColor" d="M585.143 457.143v36.571c0 9.714-8.571 \
-              18.286-18.286 18.286h-329.143c-9.714 0-18.286-8.571-18.286-18.286\
-              v-36.571c0-9.714 8.571-18.286 18.286-18.286h329.143c9.714 0 18.286 \
-              8.571 18.286 18.286zM658.286 475.429c0-141.143-114.857-256-256-256\
-              s-256 114.857-256 256 114.857 256 256 256 256-114.857 256-256z\
-              M950.857 950.857c0 40.571-32.571 73.143-73.143 73.143-19.429 0\
-              -38.286-8-51.429-21.714l-196-195.429c-66.857 46.286-146.857 70.857\
-              -228 70.857-222.286 0-402.286-180-402.286-402.286s180-402.286 \
-              402.286-402.286 402.286 180 402.286 402.286c0 81.143-24.571 161.143\
-              -70.857 228l196 196c13.143 13.143 21.143 32 21.143 51.429z"></path>\
-              </svg>',
+          <path fill="currentColor" d="M585.143 457.143v36.571c0 9.714-8.571 18.286-18.286 18.286\
+          h-329.143c-9.714 0-18.286-8.571-18.286-18.286v-36.571c0-9.714 8.571-18.286 18.286-18.286\
+          h329.143c9.714 0 18.286 8.571 18.286 18.286zM658.286 475.429c0-141.143-114.857-256-256\
+          -256s-256 114.857-256 256 114.857 256 256 256 256-114.857 256-256zM950.857 950.857\
+          c0 40.571-32.571 73.143-73.143 73.143-19.429 0-38.286-8-51.429-21.714l-196-195.429\
+          c-66.857 46.286-146.857 70.857-228 70.857-222.286 0-402.286-180-402.286-402.286s180\
+          -402.286 402.286-402.286 402.286 180 402.286 402.286c0 81.143-24.571 161.143-70.857 228\
+          l196 196c13.143 13.143 21.143 32 21.143 51.429z"></path>\
+        </svg>',
       prev:
         '<svg viewBox="0 0 914.2857142857142 1024" class="svg-inline-icon">\
-            <path fill="currentColor" d="M877.714 512v73.143c0 38.857-25.714 \
-            73.143-66.857 73.143h-402.286l167.429 168c13.714 13.143 21.714 32 \
-            21.714 51.429s-8 38.286-21.714 51.429l-42.857 43.429c-13.143 13.143\
-            -32 21.143-51.429 21.143s-38.286-8-52-21.143l-372-372.571c-13.143\
-            -13.143-21.143-32-21.143-51.429s8-38.286 21.143-52l372-371.429c13.714\
-            -13.714 32.571-21.714 52-21.714s37.714 8 51.429 21.714l42.857 42.286\
-            c13.714 13.714 21.714 32.571 21.714 52s-8 38.286-21.714 52l-167.429 \
-            167.429h402.286c41.143 0 66.857 34.286 66.857 73.143z"></path>\
-            </svg>',
+          <path fill="currentColor" d="M877.714 512v73.143c0 38.857-25.714 73.143-66.857 73.143\
+          h-402.286l167.429 168c13.714 13.143 21.714 32 21.714 51.429s-8 38.286-21.714 51.429\
+          l-42.857 43.429c-13.143 13.143-32 21.143-51.429 21.143s-38.286-8-52-21.143l-372-372.571\
+          c-13.143-13.143-21.143-32-21.143-51.429s8-38.286 21.143-52l372-371.429c13.714\
+          -13.714 32.571-21.714 52-21.714s37.714 8 51.429 21.714l42.857 42.286\
+          c13.714 13.714 21.714 32.571 21.714 52s-8 38.286-21.714 52l-167.429 167.429h402.286\
+          c41.143 0 66.857 34.286 66.857 73.143z"></path>\
+        </svg>',
       next:
         '<svg viewBox="0 0 841.1428571428571 1024" class="svg-inline-icon">\
-            <path fill="currentColor" d="M841.143 548.571c0 19.429-7.429 38.286\
-            -21.143 52l-372 372c-13.714 13.143-32.571 21.143-52 21.143s-37.714\
-            -8-51.429-21.143l-42.857-42.857c-13.714-13.714-21.714-32.571-21.714\
-            -52s8-38.286 21.714-52l167.429-167.429h-402.286c-41.143 0-66.857\
-            -34.286-66.857-73.143v-73.143c0-38.857 25.714-73.143 66.857-73.143\
-            h402.286l-167.429-168c-13.714-13.143-21.714-32-21.714-51.429s8\
-            -38.286 21.714-51.429l42.857-42.857c13.714-13.714 32-21.714 51.429\
-            -21.714s38.286 8 52 21.714l372 372c13.714 13.143 21.143 32 21.143 \
-            51.429z"></path>\
-            </svg>',
+          <path fill="currentColor" d="M841.143 548.571c0 19.429-7.429 38.286-21.143 52l-372 372\
+          c-13.714 13.143-32.571 21.143-52 21.143s-37.714-8-51.429-21.143l-42.857-42.857c-13.714\
+          -13.714-21.714-32.571-21.714-52s8-38.286 21.714-52l167.429-167.429h-402.286c-41.143 0\
+          -66.857-34.286-66.857-73.143v-73.143c0-38.857 25.714-73.143 66.857-73.143h402.286\
+          l-167.429-168c-13.714-13.143-21.714-32-21.714-51.429s8-38.286 21.714-51.429l42.857\
+          -42.857c13.714-13.714 32-21.714 51.429-21.714s38.286 8 52 21.714l372 372\
+          c13.714 13.143 21.143 32 21.143 51.429z"></path>\
+        </svg>',
       fullscreen:
         '<svg viewBox="0 0 1097.142857142857 1024" class="svg-inline-icon">\
-                  <path fill="currentColor" d="M365.714 329.143c0 60.571-49.143 \
-                  109.714-109.714 109.714s-109.714-49.143-109.714-109.714 49.143\
-                  -109.714 109.714-109.714 109.714 49.143 109.714 109.714z\
-                  M950.857 548.571v256h-804.571v-109.714l182.857-182.857 91.429 \
-                  91.429 292.571-292.571zM1005.714 146.286h-914.286c-9.714 0\
-                  -18.286 8.571-18.286 18.286v694.857c0 9.714 8.571 18.286 \
-                  18.286 18.286h914.286c9.714 0 18.286-8.571 18.286-18.286\
-                  v-694.857c0-9.714-8.571-18.286-18.286-18.286zM1097.143 164.571\
-                  v694.857c0 50.286-41.143 91.429-91.429 91.429h-914.286c-50.286 \
-                  0-91.429-41.143-91.429-91.429v-694.857c0-50.286 41.143-91.429 \
-                  91.429-91.429h914.286c50.286 0 91.429 41.143 91.429 91.429z"></path>\
-                  </svg>',
+          <path fill="currentColor" d="M365.714 329.143c0 60.571-49.143 109.714-109.714 109.714\
+          s-109.714-49.143-109.714-109.714 49.143-109.714 109.714\
+          -109.714 109.714 49.143 109.714 109.714zM950.857 548.571v256h-804.571v-109.714l182.857\
+          -182.857 91.429 91.429 292.571-292.571zM1005.714 146.286h-914.286c-9.714 0-18.286 8.571\
+          -18.286 18.286v694.857c0 9.714 8.571 18.286 18.286 18.286h914.286c9.714 0 18.286\
+          -8.571 18.286-18.286v-694.857c0-9.714-8.571-18.286-18.286-18.286zM1097.143 164.571\
+          v694.857c0 50.286-41.143 91.429-91.429 91.429h-914.286c-50.286 0-91.429-41.143-91.429\
+          -91.429v-694.857c0-50.286 41.143-91.429 91.429-91.429h914.286\
+          c50.286 0 91.429 41.143 91.429 91.429z"></path>\
+        </svg>',
       actualSize:
         '<svg viewBox="0 0 877.7142857142857 1024" class="svg-inline-icon">\
-                  <path fill="currentColor" d="M733.143 309.143l-202.857 202.857 \
-                  202.857 202.857 82.286-82.286c10.286-10.857 26.286-13.714 40-8 \
-                  13.143 5.714 22.286 18.857 22.286 33.714v256c0 20-16.571 36.571\
-                  -36.571 36.571h-256c-14.857 0-28-9.143-33.714-22.857-5.714\
-                  -13.143-2.857-29.143 8-39.429l82.286-82.286-202.857-202.857\
-                  -202.857 202.857 82.286 82.286c10.857 10.286 13.714 26.286 8 \
-                  39.429-5.714 13.714-18.857 22.857-33.714 22.857h-256c-20 0\
-                  -36.571-16.571-36.571-36.571v-256c0-14.857 9.143-28 22.857\
-                  -33.714 13.143-5.714 29.143-2.857 39.429 8l82.286 82.286 \
-                  202.857-202.857-202.857-202.857-82.286 82.286c-6.857 6.857\
-                  -16 10.857-25.714 10.857-4.571 0-9.714-1.143-13.714-2.857\
-                  -13.714-5.714-22.857-18.857-22.857-33.714v-256c0-20 16.571\
-                  -36.571 36.571-36.571h256c14.857 0 28 9.143 33.714 22.857 \
-                  5.714 13.143 2.857 29.143-8 39.429l-82.286 82.286 202.857 \
-                  202.857 202.857-202.857-82.286-82.286c-10.857-10.286-13.714\
-                  -26.286-8-39.429 5.714-13.714 18.857-22.857 33.714-22.857h256\
-                  c20 0 36.571 16.571 36.571 36.571v256c0 14.857-9.143 28-22.286 \
-                  33.714-4.571 1.714-9.714 2.857-14.286 2.857-9.714 0-18.857-4\
-                  -25.714-10.857z"></path>\
-                  </svg>',
+          <path fill="currentColor" d="M733.143 309.143l-202.857 202.857 202.857 202.857 82.286\
+          -82.286c10.286-10.857 26.286-13.714 40-8 13.143 5.714 22.286 18.857 22.286 33.714v256\
+          c0 20-16.571 36.571-36.571 36.571h-256c-14.857 0-28-9.143-33.714-22.857-5.714-13.143\
+          -2.857-29.143 8-39.429l82.286-82.286-202.857-202.857-202.857 202.857 82.286 82.286\
+          c10.857 10.286 13.714 26.286 8 39.429-5.714 13.714-18.857 22.857-33.714 22.857h-256\
+          c-20 0-36.571-16.571-36.571-36.571v-256c0-14.857 9.143-28 22.857-33.714 13.143\
+          -5.714 29.143-2.857 39.429 8l82.286 82.286 202.857-202.857-202.857-202.857-82.286 82.286\
+          c-6.857 6.857-16 10.857-25.714 10.857-4.571 0-9.714-1.143-13.714-2.857-13.714-5.714\
+          -22.857-18.857-22.857-33.714v-256c0-20 16.571-36.571 36.571-36.571h256\
+          c14.857 0 28 9.143 33.714 22.857 5.714 13.143 2.857 29.143-8 39.429\
+          l-82.286 82.286 202.857 202.857 202.857-202.857-82.286-82.286c-10.857-10.286-13.714\
+          -26.286-8-39.429 5.714-13.714 18.857-22.857 33.714-22.857h256\
+          c20 0 36.571 16.571 36.571 36.571v256c0 14.857-9.143 28-22.286 33.714-4.571 1.714\
+          -9.714 2.857-14.286 2.857-9.714 0-18.857-4-25.714-10.857z"></path>\
+        </svg>',
       rotateLeft:
         '<svg viewBox="0 0 877.7142857142857 1024" class="svg-inline-icon">\
-                  <path fill="currentColor" d="M877.714 512c0 241.714-197.143 \
-                  438.857-438.857 438.857-130.857 0-254.286-57.714-337.714-158.286\
-                  -5.714-7.429-5.143-18.286 1.143-24.571l78.286-78.857c4-3.429 \
-                  9.143-5.143 14.286-5.143 5.143 0.571 10.286 2.857 13.143 6.857 \
-                  56 72.571 140 113.714 230.857 113.714 161.143 0 292.571-131.429 \
-                  292.571-292.571s-131.429-292.571-292.571-292.571c-74.857 0\
-                  -145.714 28.571-198.857 78.286l78.286 78.857c10.857 10.286 \
-                  13.714 26.286 8 39.429-5.714 13.714-18.857 22.857-33.714 22.857\
-                  h-256c-20 0-36.571-16.571-36.571-36.571v-256c0-14.857 9.143-28 \
-                  22.857-33.714 13.143-5.714 29.143-2.857 39.429 8l74.286 73.714\
-                  c80.571-76 189.714-121.143 302.286-121.143 241.714 0 438.857 \
-                  197.143 438.857 438.857z"></path>\
-                  </svg>',
+          <path fill="currentColor" d="M877.714 512c0 241.714-197.143 438.857-438.857 438.857\
+          -130.857 0-254.286-57.714-337.714-158.286-5.714-7.429-5.143-18.286 1.143-24.571l78.286\
+          -78.857c4-3.429 9.143-5.143 14.286\
+          -5.143 5.143 0.571 10.286 2.857 13.143 6.857 56 72.571 140 113.714 230.857 113.714 161.143 0 292.571\
+          -131.429 292.571-292.571s-131.429-292.571-292.571-292.571c-74.857 0-145.714 28.571\
+          -198.857 78.286l78.286 78.857c10.857 10.286 13.714 26.286 8 39.429-5.714 13.714\
+          -18.857 22.857-33.714 22.857h-256c-20 0-36.571-16.571-36.571-36.571v-256\
+          c0-14.857 9.143-28 22.857-33.714 13.143-5.714 29.143-2.857 39.429 8l74.286 73.714\
+          c80.571-76 189.714-121.143 302.286-121.143 241.714 0 438.857 197.143 438.857 438.857z"></path>\
+        </svg>',
       rotateRight:
         '<svg viewBox="0 0 877.7142857142857 1024" class="svg-inline-icon">\
-                    <path fill="currentColor" d="M877.714 146.286v256c0 20-16.571 \
-                    36.571-36.571 36.571h-256c-14.857 0-28-9.143-33.714-22.857\
-                    -5.714-13.143-2.857-29.143 8-39.429l78.857-78.857c-53.714\
-                    -49.714-124.571-78.286-199.429-78.286-161.143 0-292.571 \
-                    131.429-292.571 292.571s131.429 292.571 292.571 292.571\
-                    c90.857 0 174.857-41.143 230.857-113.714 2.857-4 8-6.286 \
-                    13.143-6.857 5.143 0 10.286 1.714 14.286 5.143l78.286 78.857\
-                    c6.857 6.286 6.857 17.143 1.143 24.571-83.429 100.571-206.857 \
-                    158.286-337.714 158.286-241.714 0-438.857-197.143-438.857\
-                    -438.857s197.143-438.857 438.857-438.857c112.571 0 221.714 \
-                    45.143 302.286 121.143l74.286-73.714c10.286-10.857 26.286\
-                    -13.714 40-8 13.143 5.714 22.286 18.857 22.286 33.714z"></path>\
-                    </svg>'
+          <path fill="currentColor" d="M877.714 146.286v256c0 20-16.571 36.571-36.571 36.571h-256\
+          c-14.857 0-28-9.143-33.714-22.857-5.714-13.143-2.857-29.143 8-39.429l78.857-78.857\
+          c-53.714-49.714-124.571-78.286-199.429-78.286-161.143 0-292.571 131.429-292.571 292.571\
+          s131.429 292.571 292.571 292.571c90.857 0 174.857-41.143 230.857-113.714 2.857-4 8\
+          -6.286 13.143-6.857 5.143 0 10.286 1.714 14.286 5.143l78.286 78.857\
+          c6.857 6.286 6.857 17.143 1.143 24.571-83.429 100.571-206.857 158.286-337.714 158.286\
+          -241.714 0-438.857-197.143-438.857-438.857s197.143-438.857 438.857-438.857\
+          c112.571 0 221.714 45.143 302.286 121.143l74.286-73.714c10.286-10.857 26.286-13.714 40\
+          -8 13.143 5.714 22.286 18.857 22.286 33.714z"></path>\
+        </svg>'
     },
 
     // Customize language of button title
@@ -1234,8 +1209,8 @@ Magnify.prototype = {
     } else {
       this.$magnify.removeClass('magnify-maximize');
 
-      var initModalLeft = ($W.width() - this.options.modalWidth) / 2 + $D.scrollLeft(),
-        initModalTop = ($W.height() - this.options.modalHeight) / 2 + $D.scrollTop();
+      var initModalLeft = ($W.width() - this.options.modalWidth) / 2 + $D.scrollLeft();
+      var initModalTop = ($W.height() - this.options.modalHeight) / 2 + $D.scrollTop();
 
       this.$magnify.css({
         width: this.modalData.width ? this.modalData.width : this.options.modalWidth,
@@ -1474,13 +1449,10 @@ var draggable = function (modal, dragHandle, dragCancel) {
 
   var isDragging = false;
 
-  var startX = 0,
-    startY = 0,
-    left = 0,
-    top = 0;
+  var startX = 0, startY = 0, left = 0, top = 0;
 
   var dragStart = function (e) {
-    var e = e || window.event;
+    e = e || window.event;
 
     // Must be removed
     // e.preventDefault();
@@ -1511,15 +1483,15 @@ var draggable = function (modal, dragHandle, dragCancel) {
   };
 
   var dragMove = function (e) {
-    var e = e || window.event;
+    e = e || window.event;
 
     e.preventDefault();
 
     if (isDragging && !PUBLIC_VARS['isMoving'] && !PUBLIC_VARS['isResizing'] && !self.isMaximized) {
-      var endX = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageX : e.clientX,
-        endY = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageY : e.clientY,
-        relativeX = endX - startX,
-        relativeY = endY - startY;
+      var endX = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageX : e.clientX;
+      var endY = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageY : e.clientY;
+      var relativeX = endX - startX;
+      var relativeY = endY - startY;
 
       $(modal).css({
         left: relativeX + left + 'px',
@@ -1572,7 +1544,7 @@ var movable = function (stage, image) {
     δ = 0;
 
   var dragStart = function (e) {
-    var e = e || window.event;
+    e = e || window.event;
 
     e.preventDefault();
 
@@ -1604,9 +1576,8 @@ var movable = function (stage, image) {
 
     // Add grabbing cursor
     if (stage.hasClass('is-grab')) {
-      $(
-        'html,body,.magnify-modal,.magnify-stage,.magnify-button,.magnify-resizable-handle'
-      ).addClass('is-grabbing');
+      $('html, body, .magnify-modal, .magnify-stage, .magnify-button, .magnify-resizable-handle')
+        .addClass('is-grabbing');
     }
 
     $D.on(TOUCH_MOVE_EVENT + EVENT_NS, dragMove).on(
@@ -1616,19 +1587,19 @@ var movable = function (stage, image) {
   };
 
   var dragMove = function (e) {
-    var e = e || window.event;
+    e = e || window.event;
 
     e.preventDefault();
 
     var $image = isIE8() ? $(stage).find(image) : $(image);
 
     if (isDragging) {
-      var endX = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageX : e.clientX,
-        endY = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageY : e.clientY,
-        relativeX = endX - startX,
-        relativeY = endY - startY,
-        newLeft = relativeX + left,
-        newTop = relativeY + top;
+      var endX = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageX : e.clientX;
+      var endY = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageY : e.clientY;
+      var relativeX = endX - startX;
+      var relativeY = endY - startY;
+      var newLeft = relativeX + left;
+      var newTop = relativeY + top;
 
       // Vertical limit
       if (heightDiff > 0) {
@@ -1674,7 +1645,8 @@ var movable = function (stage, image) {
     PUBLIC_VARS['isMoving'] = false;
 
     // Remove grabbing cursor
-    $('html, body, .magnify-modal, .magnify-stage, .magnify-button, .magnify-resizable-handle').removeClass('is-grabbing');
+    $('html, body, .magnify-modal, .magnify-stage, .magnify-button, .magnify-resizable-handle')
+      .removeClass('is-grabbing');
   };
 
   $(stage).on(TOUCH_START_EVENT + EVENT_NS, dragStart);
@@ -1703,40 +1675,24 @@ $.extend(Magnify.prototype, {
 var resizable = function (modal, stage, image, minWidth, minHeight) {
   var self = this;
 
-  var resizableHandleE = $(
-    '<div class="magnify-resizable-handle magnify-resizable-handle-e"></div>'
-  );
-  var resizableHandleW = $(
-    '<div class="magnify-resizable-handle magnify-resizable-handle-w"></div>'
-  );
-  var resizableHandleS = $(
-    '<div class="magnify-resizable-handle magnify-resizable-handle-s"></div>'
-  );
-  var resizableHandleN = $(
-    '<div class="magnify-resizable-handle magnify-resizable-handle-n"></div>'
-  );
-  var resizableHandleSE = $(
-    '<div class="magnify-resizable-handle magnify-resizable-handle-se"></div>'
-  );
-  var resizableHandleSW = $(
-    '<div class="magnify-resizable-handle magnify-resizable-handle-sw"></div>'
-  );
-  var resizableHandleNE = $(
-    '<div class="magnify-resizable-handle magnify-resizable-handle-ne"></div>'
-  );
-  var resizableHandleNW = $(
-    '<div class="magnify-resizable-handle magnify-resizable-handle-nw"></div>'
-  );
+  var resizableHandleE = $('<div class="magnify-resizable-handle magnify-resizable-handle-e"></div>'),
+    resizableHandleW = $('<div class="magnify-resizable-handle magnify-resizable-handle-w"></div>'),
+    resizableHandleS = $('<div class="magnify-resizable-handle magnify-resizable-handle-s"></div>'),
+    resizableHandleN = $('<div class="magnify-resizable-handle magnify-resizable-handle-n"></div>'),
+    resizableHandleSE = $('<div class="magnify-resizable-handle magnify-resizable-handle-se"></div>'),
+    resizableHandleSW = $('<div class="magnify-resizable-handle magnify-resizable-handle-sw"></div>'),
+    resizableHandleNE = $('<div class="magnify-resizable-handle magnify-resizable-handle-ne"></div>'),
+    resizableHandleNW = $('<div class="magnify-resizable-handle magnify-resizable-handle-nw"></div>');
 
   var resizableHandles = {
     e: resizableHandleE,
-    s: resizableHandleS,
-    se: resizableHandleSE,
-    n: resizableHandleN,
     w: resizableHandleW,
-    nw: resizableHandleNW,
+    s: resizableHandleS,
+    n: resizableHandleN,
+    se: resizableHandleSE,
+    sw: resizableHandleSW,
     ne: resizableHandleNE,
-    sw: resizableHandleSW
+    nw: resizableHandleNW
   };
 
   $(modal).append(
@@ -1752,31 +1708,28 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
 
   var isDragging = false;
 
-  var startX = 0;
-  var startY = 0;
-  var modalData = {
-    w: 0,
-    h: 0,
-    l: 0,
-    t: 0
-  };
-  var stageData = {
-    w: 0,
-    h: 0,
-    l: 0,
-    t: 0
-  };
-  var imageData = {
-    w: 0,
-    h: 0,
-    l: 0,
-    t: 0
-  };
+  var startX = 0,
+    startY = 0,
+    modalData = {
+      w: 0,
+      h: 0,
+      l: 0,
+      t: 0
+    },
+    stageData = {
+      w: 0,
+      h: 0,
+      l: 0,
+      t: 0
+    },
+    imageData = {
+      w: 0,
+      h: 0,
+      l: 0,
+      t: 0
+    };
   // δ is the difference between image width and height
-  var δ = 0;
-  var imgWidth = 0;
-  var imgHeight = 0;
-  var direction = '';
+  var δ = 0, imgWidth = 0, imgHeight = 0, direction = '';
 
   // Modal CSS options
   var getModalOpts = function (dir, offsetX, offsetY) {
@@ -1942,7 +1895,7 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
   };
 
   var dragStart = function (dir, e) {
-    var e = e || window.event;
+    e = e || window.event;
 
     e.preventDefault();
 
@@ -1996,17 +1949,17 @@ var resizable = function (modal, stage, image, minWidth, minHeight) {
   };
 
   var dragMove = function (e) {
-    var e = e || window.event;
+    e = e || window.event;
 
     e.preventDefault();
 
     var $image = isIE8() ? $(stage).find(image) : $(image);
 
     if (isDragging && !self.isMaximized) {
-      var endX = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageX : e.clientX,
-        endY = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageY : e.clientY,
-        relativeX = endX - startX,
-        relativeY = endY - startY;
+      var endX = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageX : e.clientX;
+      var endY = e.type === 'touchmove' ? e.originalEvent.targetTouches[0].pageY : e.clientY;
+      var relativeX = endX - startX;
+      var relativeY = endY - startY;
 
       var modalOpts = getModalOpts(direction, relativeX, relativeY);
 
