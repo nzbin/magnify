@@ -912,6 +912,38 @@ $('[data-magnify=gallery]').magnify(options);
               <p>If true, the image will be rendered progressively.</p>
             </td>
           </tr>
+          <tr>
+            <td>customButtons</td>
+            <td>object</td>
+            <td>
+              <code>{}</code>
+            </td>
+            <td>
+              <pre class="prettyprint">
+$('[data-magnify=gallery]').magnify({
+  footerToolbar: [
+    ...
+    'myCustomButton'
+  ],
+  customButtons: {
+    myCustomButton: {
+      text: 'custom!',
+      title: 'custom!',
+      click: function (e) {
+        alert('clicked the custom button!');
+      }
+    }
+  }
+});
+</pre>
+              <p>Each <code>customButton</code> entry accepts the following properties:</p>
+              <ul>
+                <li><code>text</code> - the text to be display on the button itself.</li>
+                <li><code>title</code> - the title to be display when hover the button.</li>
+                <li><code>click</code> - a callback function that is called when the button is clicked.</li>
+              </ul>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
