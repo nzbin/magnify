@@ -1,6 +1,6 @@
 {
   "name": "jquery.magnify",
-  "version": "1.5.1",
+  "version": "1.6.0",
   "description": "A jQuery plugin to view images just like in Windows",
   "main": "dist/jquery.magnify.js",
   "files": [
