@@ -229,6 +229,34 @@ $("[data-magnify=gallery]").magnify();
 - **progressiveLoading** `true`
   > If true, the image will be rendered progressively.
 
+- **customButtons** `{}`
+
+  ```js
+  $('[data-magnify=gallery]').magnify({
+    footerToolbar: [
+      ...
+      'myCustomButton'
+    ],
+    customButtons: {
+      myCustomButton: {
+        text: 'custom!',
+        title: 'custom!',
+        click: function (e) {
+          alert('clicked the custom button!');
+        }
+      }
+    }
+  });
+  ```
+
+  Each `customButton` entry accepts the following properties:
+
+  - `text` - the text to be display on the button itself.
+ 
+  - `title` - the title to be display when hover the button.
+
+  - `click` - a callback function that is called when the button is clicked.
+
 ## Events
 
 You can define callbacks in `callbacks` option. In each callback `this` is  the `Magnify` instance. You can also get the element clicked of plugin's init from arguments `el` of Function.
