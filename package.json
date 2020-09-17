@@ -52,7 +52,8 @@
     "lint": "run-s lint:css lint:js",
     "lint:css": "stylelint --syntax scss \"src/**/*.scss\" --fix",
     "lint:js": "eslint src/js --fix",
-    "clean": "rimraf dist"
+    "clean": "rimraf dist",
+    "watch": "onchange src -- run-p build:js build:css"
   },
   "devDependencies": {
     "autoprefixer": "^9.8.6",
