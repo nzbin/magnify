@@ -169,10 +169,10 @@ $("[data-magnify=gallery]").magnify();
   - **rotateRight** `svg`
 
     
-- **headToolbar** `['maximize','close']`
+- **headerToolbar** `['maximize','close']`
   > The buttons display in header toolbar.
 
-- **footToolbar** `['zoomIn','zoomOut','prev','fullscreen','next','actualSize','rotateRight']`
+- **footerToolbar** `['zoomIn','zoomOut','prev','fullscreen','next','actualSize','rotateRight']`
   >	The buttons display in footer toolbar.
 
 - **fixedContent** `true`

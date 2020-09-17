@@ -204,51 +204,36 @@ var $W = $(window),
   DEFAULTS = {
     // Enable modal to drag
     draggable: true,
-
     // Enable modal to resize
     resizable: true,
-
     // Enable image to move
     movable: true,
-
     // Enable keyboard navigation
     keyboard: true,
-
     // Shows the title
     title: true,
-
     // Min width of modal
     modalWidth: 320,
-
     // Min height of modal
     modalHeight: 320,
-
     // Enable the page content fixed
     fixedContent: true,
-
     // Disable the modal size fixed
     fixedModalSize: false,
-
     // Disable the image viewer maximized on init
     initMaximized: false,
-
     // Threshold of modal to browser window
     gapThreshold: 0.02,
-
     // Threshold of image ratio
     ratioThreshold: 0.1,
-
     // Min ratio of image when zoom out
     minRatio: 0.05,
-
     // Max ratio of image when zoom in
     maxRatio: 16,
-
     // Toolbar options in header
-    headToolbar: ['maximize', 'close'],
-
+    headerToolbar: ['maximize', 'close'],
     // Toolbar options in footer
-    footToolbar: [
+    footerToolbar: [
       'zoomIn',
       'zoomOut',
       'prev',
@@ -257,7 +242,6 @@ var $W = $(window),
       'actualSize',
       'rotateRight'
     ],
-
     // Customize button icon
     icons: {
       minimize:
@@ -382,7 +366,6 @@ var $W = $(window),
           -8 13.143 5.714 22.286 18.857 22.286 33.714z"></path>\
         </svg>'
     },
-
     // Customize language of button title
     i18n: {
       minimize: 'minimize',
@@ -397,25 +380,18 @@ var $W = $(window),
       rotateLeft: 'rotate-left(Ctrl+,)',
       rotateRight: 'rotate-right(Ctrl+.)'
     },
-
     // Enable multiple instances
     multiInstances: true,
-
     // Init trigger event
     initEvent: 'click',
-
     // Enable animation
     initAnimation: true,
-
     // Disable modal position fixed when change images
     fixedModalPos: false,
-
     // Modal z-index
     zIndex: 1090,
-
     // Selector of drag handler
     dragHandle: false,
-
     // Callback events
     callbacks: {
       beforeOpen: $.noop,
@@ -425,9 +401,10 @@ var $W = $(window),
       beforeChange: $.noop,
       changed: $.noop
     },
-
     // Load the image progressively
-    progressiveLoading: true
+    progressiveLoading: true,
+    // Custom Buttons
+    customButtons: {}
   },
   PUBLIC_VARS = {
     // Image moving flag
@@ -449,12 +426,12 @@ var Magnify = function (el, options) {
 
   this.options = $.extend(true, {}, DEFAULTS, options);
 
-  if (options && $.isArray(options.footToolbar)) {
-    this.options.footToolbar = options.footToolbar;
+  if (options && $.isArray(options.footerToolbar)) {
+    this.options.footerToolbar = options.footerToolbar;
   }
 
-  if (options && $.isArray(options.headToolbar)) {
-    this.options.headToolbar = options.headToolbar;
+  if (options && $.isArray(options.headerToolbar)) {
+    this.options.headerToolbar = options.headerToolbar;
   }
 
   // Store element of clicked
@@ -530,72 +507,41 @@ Magnify.prototype = {
       );
     }
   },
-  _createBtns: function (toolbar, btns) {
-    var btnsStr = '';
+  _createBtns: function (toolbar) {
+    var self = this;
+
+    var btns = [
+      'minimize', 'maximize', 'close',
+      'zoomIn', 'zoomOut', 'prev', 'next', 'fullscreen', 'actualSize', 'rotateLeft', 'rotateRight'
+    ];
+    var btnsHTML = '';
 
     $.each(toolbar, function (index, item) {
-      btnsStr += btns[item];
+      if ($.inArray(item, btns) >= 0) {
+        btnsHTML +=
+          '<button class="magnify-button magnify-button-' + item + '" title="' + self.options.i18n[item] + '">' +
+          self.options.icons[item] +
+          '</button>';
+      } else if (self.options.customButtons[item]) {
+        btnsHTML +=
+          '<button class="magnify-button magnify-button-' + item + '" title="' + (self.options.customButtons[item].title || '') + '">' +
+          self.options.customButtons[item].text +
+          '</button>';
+      }
     });
 
-    return btnsStr;
+    return btnsHTML;
   },
   _createTitle: function () {
     return this.options.title ? '<div class="magnify-title"></div>' : '';
   },
   render: function () {
-    var btnsTpl = {
-      minimize:
-        '<button class="magnify-button magnify-button-minimize" title="' + this.options.i18n.minimize + '">' +
-        this.options.icons.minimize +
-        '</button>',
-      maximize:
-        '<button class="magnify-button magnify-button-maximize" title="' + this.options.i18n.maximize + '">' +
-        this.options.icons.maximize +
-        '</button>',
-      close:
-        '<button class="magnify-button magnify-button-close" title="' + this.options.i18n.close + '">' +
-        this.options.icons.close +
-        '</button>',
-      zoomIn:
-        '<button class="magnify-button magnify-button-zoom-in" title="' + this.options.i18n.zoomIn + '">' +
-        this.options.icons.zoomIn +
-        '</button>',
-      zoomOut:
-        '<button class="magnify-button magnify-button-zoom-out" title="' + this.options.i18n.zoomOut + '">' +
-        this.options.icons.zoomOut +
-        '</button>',
-      prev:
-        '<button class="magnify-button magnify-button-prev" title="' + this.options.i18n.prev + '">' +
-        this.options.icons.prev +
-        '</button>',
-      next:
-        '<button class="magnify-button magnify-button-next" title="' + this.options.i18n.next + '">' +
-        this.options.icons.next +
-        '</button>',
-      fullscreen:
-        '<button class="magnify-button magnify-button-fullscreen" title="' + this.options.i18n.fullscreen + '">' +
-        this.options.icons.fullscreen +
-        '</button>',
-      actualSize:
-        '<button class="magnify-button magnify-button-actual-size" title="' + this.options.i18n.actualSize + '">' +
-        this.options.icons.actualSize +
-        '</button>',
-      rotateLeft:
-        '<button class="magnify-button magnify-button-rotate-left" title="' + this.options.i18n.rotateLeft + '">' +
-        this.options.icons.rotateLeft +
-        '</button>',
-      rotateRight:
-        '<button class="magnify-button magnify-button-rotate-right" title="' + this.options.i18n.rotateRight + '">' +
-        this.options.icons.rotateRight +
-        '</button>'
-    };
-
     // Magnify base HTML
     var magnifyHTML =
       '<div class="magnify-modal">\
         <div class="magnify-header">\
-          <div class="magnify-toolbar magnify-head-toolbar">' +
-      this._createBtns(this.options.headToolbar, btnsTpl) + '\
+          <div class="magnify-toolbar">' +
+      this._createBtns(this.options.headerToolbar) + '\
           </div>' +
       this._createTitle() + '\
         </div>\
@@ -603,8 +549,8 @@ Magnify.prototype = {
           <img class="magnify-image" src="" alt="" />\
         </div>\
         <div class="magnify-footer">\
-          <div class="magnify-toolbar magnify-foot-toolbar">' +
-      this._createBtns(this.options.footToolbar, btnsTpl) + '\
+          <div class="magnify-toolbar">' +
+      this._createBtns(this.options.footerToolbar) + '\
           </div>\
         </div>\
       </div>';
@@ -620,22 +566,18 @@ Magnify.prototype = {
 
     // Get all magnify element
     this.$magnify = $magnify;
-    this.$header = $magnify.find('.magnify-header');
-    this.$headToolbar = $magnify.find('.magnify-head-toolbar');
-    this.$footer = $magnify.find('.magnify-footer');
-    this.$footToolbar = $magnify.find('.magnify-foot-toolbar');
     this.$stage = $magnify.find('.magnify-stage');
     this.$title = $magnify.find('.magnify-title');
     this.$image = $magnify.find('.magnify-image');
     this.$close = $magnify.find('.magnify-button-close');
     this.$maximize = $magnify.find('.magnify-button-maximize');
     this.$minimize = $magnify.find('.magnify-button-minimize');
-    this.$zoomIn = $magnify.find('.magnify-button-zoom-in');
-    this.$zoomOut = $magnify.find('.magnify-button-zoom-out');
-    this.$actualSize = $magnify.find('.magnify-button-actual-size');
+    this.$zoomIn = $magnify.find('.magnify-button-zoomIn');
+    this.$zoomOut = $magnify.find('.magnify-button-zoomOut');
+    this.$actualSize = $magnify.find('.magnify-button-actualSize');
     this.$fullscreen = $magnify.find('.magnify-button-fullscreen');
-    this.$rotateLeft = $magnify.find('.magnify-button-rotate-left');
-    this.$rotateRight = $magnify.find('.magnify-button-rotate-right');
+    this.$rotateLeft = $magnify.find('.magnify-button-rotateLeft');
+    this.$rotateRight = $magnify.find('.magnify-button-rotateRight');
     this.$prev = $magnify.find('.magnify-button-prev');
     this.$next = $magnify.find('.magnify-button-next');
 
@@ -681,6 +623,7 @@ Magnify.prototype = {
     $('body').append(this.$magnify);
 
     this.addEvents();
+    this.addCustomButtonEvents();
 
     this.setModalPos(this.$magnify);
 
@@ -1375,6 +1318,16 @@ Magnify.prototype = {
     });
 
     $W.on(RESIZE_EVENT + EVENT_NS, self.resize());
+  },
+  addCustomButtonEvents: function () {
+    var self = this;
+
+    for (var btnKey in self.options.customButtons) {
+      this.$magnify.find('.magnify-button-' + btnKey)
+        .off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
+          self.options.customButtons[btnKey].click(self);
+        });
+    }
   },
   _triggerHook: function (e, data) {
     if (this.options.callbacks[e]) {

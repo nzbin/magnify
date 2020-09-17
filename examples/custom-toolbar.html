@@ -43,12 +43,12 @@
   <script src="../dist/jquery.magnify.js"></script>
   <script>
     $('[data-magnify]').magnify({
-      headToolbar: [
+      headerToolbar: [
         'minimize',
         'maximize',
         'close'
       ],
-      footToolbar: [
+      footerToolbar: [
         'prev',
         'next',
         'zoomIn',
@@ -56,8 +56,18 @@
         'fullscreen',
         'actualSize',
         'rotateLeft',
-        'rotateRight'
+        'rotateRight',
+        'myCustomButton'
       ],
+      customButtons: {
+        myCustomButton: {
+          text: 'custom!',
+          title: 'custom!',
+          click: function (e) {
+            alert('clicked the custom button!');
+          }
+        }
+      },
       modalWidth: 400,
       modalHeight: 400
     });

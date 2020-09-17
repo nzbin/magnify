@@ -269,7 +269,7 @@
 
               <div class="form-item">
                 <label for="" class="col-4 form-label">
-                  headToolbar
+                  headerToolbar
                   <span data-balloon="Pay attention to the order of choice." data-balloon-pos="up">
                     <i class="fa fa-info-circle text-danger"></i>
                   </span>
@@ -277,24 +277,24 @@
                 <div class="col-8">
                   <div class="checkbox inline m-r-10">
                     <input type="checkbox" name="minimize" id="minimize" value="minimize"
-                           v-model="options.headToolbar">
+                           v-model="options.headerToolbar">
                     <label for="minimize">minimize</label>
                   </div>
                   <div class="checkbox inline m-r-10 m-l-0">
                     <input type="checkbox" name="maximize" id="maximize" value="maximize"
-                           v-model="options.headToolbar">
+                           v-model="options.headerToolbar">
                     <label for="maximize">maximize</label>
                   </div>
                   <div class="checkbox inline m-l-0">
                     <input type="checkbox" name="close" id="close" value="close"
-                           v-model="options.headToolbar">
+                           v-model="options.headerToolbar">
                     <label for="close">close</label>
                   </div>
                 </div>
               </div>
               <div class="form-item">
                 <label for="" class="col-4 form-label">
-                  footToolbar
+                  footerToolbar
                   <span data-balloon="Pay attention to the order of choice." data-balloon-pos="up">
                     <i class="fa fa-info-circle text-danger"></i>
                   </span>
@@ -302,42 +302,42 @@
                 <div class="col-8">
                   <div class="checkbox inline m-r-10">
                     <input type="checkbox" name="zoomIn" id="zoomIn" value="zoomIn"
-                           v-model="options.footToolbar">
+                           v-model="options.footerToolbar">
                     <label for="zoomIn">zoomIn</label>
                   </div>
                   <div class="checkbox inline m-r-10 m-l-0">
                     <input type="checkbox" name="zoomOut" id="zoomOut" value="zoomOut"
-                           v-model="options.footToolbar">
+                           v-model="options.footerToolbar">
                     <label for="zoomOut">zoomOut</label>
                   </div>
                   <div class="checkbox inline m-r-10 m-l-0">
                     <input type="checkbox" name="prev" id="prev" value="prev"
-                           v-model="options.footToolbar">
+                           v-model="options.footerToolbar">
                     <label for="prev">prev</label>
                   </div>
                   <div class="checkbox inline m-r-10 m-l-0">
                     <input type="checkbox" name="fullscreen" id="fullscreen" value="fullscreen"
-                           v-model="options.footToolbar">
+                           v-model="options.footerToolbar">
                     <label for="fullscreen">fullscreen</label>
                   </div>
                   <div class="checkbox inline m-r-10 m-l-0">
                     <input type="checkbox" name="next" id="next" value="next"
-                           v-model="options.footToolbar">
+                           v-model="options.footerToolbar">
                     <label for="next">next</label>
                   </div>
                   <div class="checkbox inline m-r-10 m-l-0">
                     <input type="checkbox" name="actualSize" id="actualSize" value="actualSize"
-                           v-model="options.footToolbar">
+                           v-model="options.footerToolbar">
                     <label for="actualSize">actualSize</label>
                   </div>
                   <div class="checkbox inline m-r-10 m-l-0">
                     <input type="checkbox" name="rotateRight" id="rotateRight" value="rotateRight"
-                           v-model="options.footToolbar">
+                           v-model="options.footerToolbar">
                     <label for="rotateRight">rotateRight</label>
                   </div>
                   <div class="checkbox inline m-l-0">
                     <input type="checkbox" name="rotateLeft" id="rotateLeft" value="rotateLeft"
-                           v-model="options.footToolbar">
+                           v-model="options.footerToolbar">
                     <label for="rotateLeft">rotateLeft</label>
                   </div>
                 </div>
@@ -702,7 +702,7 @@ $('[data-magnify=gallery]').magnify(options);
             <td colspan="4">}</td>
           </tr>
           <tr>
-            <td>headToolbar</td>
+            <td>headerToolbar</td>
             <td>array</td>
             <td>
               <code>[ <br>
@@ -713,7 +713,7 @@ $('[data-magnify=gallery]').magnify(options);
             <td>The buttons display in header toolbar.</td>
           </tr>
           <tr>
-            <td>footToolbar</td>
+            <td>footerToolbar</td>
             <td>array</td>
             <td>
               <code>[ <br>
@@ -994,8 +994,8 @@ $("[data-magnify=gallery]").magnify({
       ratioThreshold: 0.1,
       minRatio: 0.05,
       maxRatio: 16,
-      headToolbar: ['maximize', 'close'],
-      footToolbar: ['zoomIn', 'zoomOut', 'prev', 'fullscreen', 'next', 'actualSize', 'rotateRight'],
+      headerToolbar: ['maximize', 'close'],
+      footerToolbar: ['zoomIn', 'zoomOut', 'prev', 'fullscreen', 'next', 'actualSize', 'rotateRight'],
       multiInstances: true,
       initEvent: 'click',
       initAnimation: true,
