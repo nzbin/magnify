@@ -430,7 +430,7 @@ Magnify.prototype = {
 
     this.build();
 
-    this._triggerHook('beforeOpen', this.$el);
+    this._triggerHook('beforeOpen', this);
 
     // Add Magnify to DOM
     $('body').append(this.$magnify);
@@ -440,10 +440,10 @@ Magnify.prototype = {
 
     this.setModalPos(this.$magnify);
 
-    this._triggerHook('opened', this.$el);
+    this._triggerHook('opened', this);
   },
   close: function (el) {
-    this._triggerHook('beforeClose', this.$el);
+    this._triggerHook('beforeClose', this);
 
     // Remove instance
     this.$magnify.remove();
@@ -471,7 +471,7 @@ Magnify.prototype = {
       $W.off(RESIZE_EVENT + EVENT_NS);
     }
 
-    this._triggerHook('closed', this.$el);
+    this._triggerHook('closed', this);
   },
   setModalPos: function (modal) {
     var winWidth = $W.width(),
@@ -740,7 +740,7 @@ Magnify.prototype = {
     this.$title.html(title);
   },
   jump: function (step) {
-    this._triggerHook('beforeChange', this.groupIndex);
+    this._triggerHook('beforeChange', [this, this.groupIndex]);
 
     this.groupIndex = this.groupIndex + step;
 
@@ -762,10 +762,10 @@ Magnify.prototype = {
     this.loadImg(
       this.groupData[index].src,
       function () {
-        self._triggerHook('changed', index);
+        self._triggerHook('changed', [self, index]);
       },
       function () {
-        self._triggerHook('changed', index);
+        self._triggerHook('changed', [self, index]);
       }
     );
   },
@@ -1137,8 +1137,8 @@ Magnify.prototype = {
 
     for (var btnKey in self.options.customButtons) {
       this.$magnify.find('.magnify-button-' + btnKey)
-        .off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function () {
-          self.options.customButtons[btnKey].click(self);
+        .off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
+          self.options.customButtons[btnKey].click.apply(self, [self, e]);
         });
     }
   },
