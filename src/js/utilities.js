@@ -6,7 +6,7 @@
  * Get image src from `data-src`
  * @param {Object} el - image
  */
-function getImgSrc(el) {
+function getImageSrc(el) {
   // Get data-src as image src at first
   var src = $(el).attr('data-src') ? $(el).attr('data-src') : $(el).attr('href');
   return src;
@@ -38,7 +38,7 @@ function throttle(fn, delay) {
  * @param {Function} success - The callback of success
  * @param {Function} error - The callback of error
  */
-function preloadImg(src, success, error) {
+function preloadImage(src, success, error) {
   var img = new Image();
 
   img.onload = function () {

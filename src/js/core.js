@@ -284,7 +284,7 @@ var Magnify = function (el, options) {
 Magnify.prototype = {
   init: function (el, opts) {
     // Get image src
-    var imgSrc = getImgSrc(el);
+    var imgSrc = getImageSrc(el);
 
     // Get image group
     this.groupName = null;
@@ -294,14 +294,14 @@ Magnify.prototype = {
 
     if (currentGroupName !== undefined) {
       this.groupName = currentGroupName;
-      this.getImgGroup(groupList, imgSrc);
+      this.getImageGroup(groupList, imgSrc);
     } else {
-      this.getImgGroup(jqEl.not('[data-group]'), imgSrc);
+      this.getImageGroup(jqEl.not('[data-group]'), imgSrc);
     }
 
     this.open();
 
-    this.loadImg(imgSrc);
+    this.loadImage(imgSrc);
 
     // Draggable & Movable & Resizable
     if (opts.draggable) {
@@ -348,7 +348,7 @@ Magnify.prototype = {
   _createTitle: function () {
     return this.options.title ? '<div class="magnify-title"></div>' : '';
   },
-  render: function () {
+  _createTemplate: function () {
     // Magnify base HTML
     var magnifyHTML =
       '<div class="magnify-modal">\
@@ -372,7 +372,7 @@ Magnify.prototype = {
   },
   build: function () {
     // Create magnify HTML string
-    var magnifyHTML = this.render();
+    var magnifyHTML = this._createTemplate();
 
     // Make magnify HTML string to jQuery element
     var $magnify = $(magnifyHTML);
@@ -410,8 +410,16 @@ Magnify.prototype = {
     } else {
       this.dragHandle = this.$magnify.find(this.options.dragHandle);
     }
+
+    // Add Magnify to DOM
+    $('body').append(this.$magnify);
+
+    this._addEvents();
+    this._addCustomButtonEvents();
   },
   open: function () {
+    this._triggerHook('beforeOpen', this);
+
     if (!this.options.multiInstances) {
       $('.magnify-modal').eq(0).remove();
     }
@@ -429,14 +437,6 @@ Magnify.prototype = {
     }
 
     this.build();
-
-    this._triggerHook('beforeOpen', this);
-
-    // Add Magnify to DOM
-    $('body').append(this.$magnify);
-
-    this.addEvents();
-    this.addCustomButtonEvents();
 
     this.setModalPos(this.$magnify);
 
@@ -633,7 +633,7 @@ Magnify.prototype = {
     );
 
     // Just execute before image loaded
-    if (!this.imgLoaded) {
+    if (!this.imageLoaded) {
       // loader end
       this.$magnify.find('.magnify-loader').remove();
 
@@ -646,10 +646,10 @@ Magnify.prototype = {
         $image.fadeIn();
       }
 
-      this.imgLoaded = true;
+      this.imageLoaded = true;
     }
   },
-  loadImg: function (imgSrc, fn, err) {
+  loadImage: function (imgSrc, fn, err) {
     var self = this;
 
     // Reset image
@@ -657,7 +657,7 @@ Magnify.prototype = {
     this.isRotated = false;
     this.rotateAngle = 0;
 
-    this.imgLoaded = false;
+    this.imageLoaded = false;
 
     // Loader start
     this.$magnify.append('<div class="magnify-loader"></div>');
@@ -678,7 +678,7 @@ Magnify.prototype = {
       this.$image.attr('src', imgSrc);
     }
 
-    preloadImg(
+    preloadImage(
       imgSrc,
       function (img) {
         // Store HTMLImageElement
@@ -713,28 +713,28 @@ Magnify.prototype = {
     );
 
     if (this.options.title) {
-      this.setImgTitle(imgSrc);
+      this.setImageTitle(imgSrc);
     }
   },
-  getImgGroup: function (list, imgSrc) {
+  getImageGroup: function (list, imgSrc) {
     var self = this;
 
     self.groupData = [];
 
     $(list).each(function (index, item) {
-      var src = getImgSrc(this);
+      var _imgSrc = getImageSrc(this);
 
       self.groupData.push({
-        src: src,
+        src: _imgSrc,
         caption: $(this).attr('data-caption')
       });
       // Get image index
-      if (imgSrc === src) {
+      if (imgSrc === _imgSrc) {
         self.groupIndex = index;
       }
     });
   },
-  setImgTitle: function (url) {
+  setImageTitle: function (url) {
     var title = this.groupData[this.groupIndex].caption || getImageNameFromUrl(url);
 
     this.$title.html(title);
@@ -759,7 +759,7 @@ Magnify.prototype = {
 
     this.groupIndex = index;
 
-    this.loadImg(
+    this.loadImage(
       this.groupData[index].src,
       function () {
         self._triggerHook('changed', [self, index]);
@@ -986,7 +986,7 @@ Magnify.prototype = {
   fullscreen: function () {
     requestFullscreen(this.$magnify[0]);
   },
-  keydown: function (e) {
+  _keydown: function (e) {
     var self = this;
 
     if (!this.options.keyboard) {
@@ -1067,7 +1067,7 @@ Magnify.prototype = {
       default:
     }
   },
-  addEvents: function () {
+  _addEvents: function () {
     var self = this;
 
     this.$close.off(CLICK_EVENT + EVENT_NS).on(CLICK_EVENT + EVENT_NS, function (e) {
@@ -1127,12 +1127,12 @@ Magnify.prototype = {
     });
 
     $D.off(KEYDOWN_EVENT + EVENT_NS).on(KEYDOWN_EVENT + EVENT_NS, function (e) {
-      self.keydown(e);
+      self._keydown(e);
     });
 
     $W.on(RESIZE_EVENT + EVENT_NS, self.resize());
   },
-  addCustomButtonEvents: function () {
+  _addCustomButtonEvents: function () {
     var self = this;
 
     for (var btnKey in self.options.customButtons) {
