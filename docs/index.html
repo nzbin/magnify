@@ -929,7 +929,7 @@ $('[data-magnify=gallery]').magnify({
     myCustomButton: {
       text: 'custom!',
       title: 'custom!',
-      click: function (e) {
+      click: function (context, e) {
         alert('clicked the custom button!');
       }
     }
@@ -940,7 +940,8 @@ $('[data-magnify=gallery]').magnify({
               <ul>
                 <li><code>text</code> - the text to be display on the button itself.</li>
                 <li><code>title</code> - the title to be display when hover the button.</li>
-                <li><code>click</code> - a callback function that is called when the button is clicked.</li>
+                <li><code>click</code> - a callback function that is called when the button is
+                  clicked.</li>
               </ul>
             </td>
           </tr>
@@ -950,34 +951,31 @@ $('[data-magnify=gallery]').magnify({
 
     <h2 class="b-b-1 p-b-10 p-t-10 m-t-30" id="Events">Events</h2>
     <p>
-      You can define callbacks in <code>callbacks</code> option. In each callback <code>this</code>
-      is the
-      <code>Magnify</code> instance. You can also get the element clicked of plugin's init from
-      arguments
-      <code>el</code> of Function.
+      You can define callbacks in <code>callbacks</code> option. In each callback you can get the
+      <code>Magnify</code> instance with <code>this</code> or <code>context</code>.
     </p>
     <pre class="prettyprint">
 $("[data-magnify=gallery]").magnify({
   callbacks: {
-    beforeOpen: function(el){
+    beforeOpen: function(context){
       // Will fire before modal is opened
     },
-    opened: function(el){
+    opened: function(context){
       // Will fire after modal is opened
     },
-    beforeClose: function(el){
+    beforeClose: function(context){
       // Will fire before modal is closed
     },
-    closed: function(el){
+    closed: function(context){
       // Will fire after modal is closed
     },
-    beforeChange: function(index){
+    beforeChange: function(context, index){
       // Will fire before image is changed
-      // The arguments is the current image index of image group
+      // The argument index is the current image index of image group
     },
-    changed: function(index){
+    changed: function(context, index){
       // Will fire after image is changed
-      // The arguments is the next image index of image group
+      // The argument index is the next image index of image group
     }
   }
 });
