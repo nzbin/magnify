@@ -18,7 +18,7 @@
   <![endif]-->
   <style>
     .magnify-modal {
-      box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 0 6px 2px rgba(0, 0, 0, .3);
     }
 
     .magnify-header .magnify-toolbar {
@@ -82,10 +82,11 @@
   <script src="../dist/jquery.magnify.js"></script>
   <script>
     $('[data-magnify]').magnify({
+      resizable: false,
+      initMaximized: true,
       headerToolbar: [
         'close'
       ],
-      initMaximized: true
     });
 
   </script>

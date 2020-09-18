@@ -63,13 +63,21 @@
         myCustomButton: {
           text: 'custom!',
           title: 'custom!',
-          click: function (e) {
+          click: function (context, e) {
             alert('clicked the custom button!');
           }
         }
       },
       modalWidth: 400,
-      modalHeight: 400
+      modalHeight: 400,
+      callbacks: {
+        beforeChange: function (context, index) {
+          console.log(context, index)
+        },
+        changed: function (context, index) {
+          console.log(context, index)
+        }
+      }
     });
 
   </script>

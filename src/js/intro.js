@@ -5,7 +5,7 @@
  * | |  | |/ ___ \ |_| | |\  || ||  _|   | |
  * |_|  |_/_/   \_\____|_| \_|___|_|     |_|
  *
- * jquery.magnify - v1.6.0
+ * jquery.magnify - v1.6.1
  * A jQuery plugin to view images just like in windows
  * https://github.com/nzbin/magnify#readme
  *
