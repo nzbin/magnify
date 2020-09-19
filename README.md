@@ -105,7 +105,7 @@ $("[data-magnify=gallery]").magnify();
   > If ture, it allow image moving.
 - **keyboard** `true`
 
-  >     If ture, it allow keyboard control. It is similar to Windows photo viewer.
+  > If ture, it allow keyboard control. It is similar to Windows photo viewer.
 
   - <kbd>←</kbd> prev image
   - <kbd>→</kbd> next image
@@ -182,7 +182,7 @@ $("[data-magnify=gallery]").magnify();
 
 - **footerToolbar** `['zoomIn','zoomOut','prev','fullscreen','next','actualSize','rotateRight']`
 
-  >     The buttons display in footer toolbar.
+  > The buttons display in footer toolbar.
 
 - **fixedContent** `true`
 
@@ -257,7 +257,7 @@ $("[data-magnify=gallery]").magnify();
       myCustomButton: {
         text: "custom!",
         title: "custom!",
-        click: function (e) {
+        click: function (context, e) {
           alert("clicked the custom button!");
         },
       },
