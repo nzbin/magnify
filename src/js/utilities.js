@@ -83,7 +83,7 @@ function exitFullscreen() {
 
 /**
  * Get the image name from its url
- * @param {String} url- The image src
+ * @param {String} url - The image src
  * @return {String}
  */
 function getImageNameFromUrl(url) {
