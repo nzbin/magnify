@@ -5,7 +5,7 @@
  * | |  | |/ ___ \ |_| | |\  || ||  _|   | |
  * |_|  |_/_/   \_\____|_| \_|___|_|     |_|
  *
- * jquery.magnify - v1.6.1
+ * jquery.magnify - v1.6.2
  * A jQuery plugin to view images just like in windows
  * https://github.com/nzbin/magnify#readme
  *
@@ -113,7 +113,7 @@ function exitFullscreen() {
 
 /**
  * Get the image name from its url
- * @param {String} url- The image src
+ * @param {String} url - The image src
  * @return {String}
  */
 function getImageNameFromUrl(url) {
@@ -538,7 +538,7 @@ Magnify.prototype = {
   _createTemplate: function () {
     // Magnify base HTML
     var magnifyHTML =
-      '<div class="magnify-modal">\
+      '<div class="magnify-modal" tabindex="0">\
         <div class="magnify-header">\
           <div class="magnify-toolbar">' +
       this._createBtns(this.options.headerToolbar) + '\
@@ -627,6 +627,8 @@ Magnify.prototype = {
 
     this.setModalPos(this.$magnify);
 
+    this.$magnify.focus();
+
     this._triggerHook('opened', this);
   },
   close: function (el) {
@@ -640,21 +642,18 @@ Magnify.prototype = {
     this.isRotated = false;
     this.rotateAngle = 0;
 
-    var zeroModal = !$('.magnify-modal').length;
-
-    // Fixed modal position bug
-    if (zeroModal && this.options.fixedContent) {
-      $('html').css({ overflow: '', 'padding-right': '' });
-    }
-
-    // Reset zIndex after close
-    if (zeroModal && this.options.multiInstances) {
-      PUBLIC_VARS['zIndex'] = this.options.zIndex;
-    }
-
-    // off events
     if (!$('.magnify-modal').length) {
-      $D.off(KEYDOWN_EVENT + EVENT_NS);
+      // Fixed modal position bug
+      if (this.options.fixedContent) {
+        $('html').css({ overflow: '', 'padding-right': '' });
+      }
+
+      // Reset zIndex after close
+      if (this.options.multiInstances) {
+        PUBLIC_VARS['zIndex'] = this.options.zIndex;
+      }
+
+      // off resize events
       $W.off(RESIZE_EVENT + EVENT_NS);
     }
 
@@ -1130,6 +1129,8 @@ Magnify.prototype = {
     return resizeHandler;
   },
   maximize: function () {
+    this.$magnify.focus();
+
     if (!this.isMaximized) {
       // Store modal data before maximize
       this.modalData = {
@@ -1171,6 +1172,7 @@ Magnify.prototype = {
     });
   },
   fullscreen: function () {
+    this.$magnify.focus();
     requestFullscreen(this.$magnify[0]);
   },
   _keydown: function (e) {
@@ -1313,7 +1315,7 @@ Magnify.prototype = {
       self.maximize();
     });
 
-    $D.off(KEYDOWN_EVENT + EVENT_NS).on(KEYDOWN_EVENT + EVENT_NS, function (e) {
+    this.$magnify.off(KEYDOWN_EVENT + EVENT_NS).on(KEYDOWN_EVENT + EVENT_NS, function (e) {
       self._keydown(e);
     });
 
@@ -1409,6 +1411,8 @@ var draggable = function (modal, dragHandle, dragCancel) {
 
     // Must be removed
     // e.preventDefault();
+
+    modal.focus();
 
     // Get clicked button
     var elemCancel = $(e.target).closest(dragCancel);
