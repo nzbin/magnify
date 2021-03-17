@@ -18,6 +18,8 @@ var draggable = function (modal, dragHandle, dragCancel) {
     // Must be removed
     // e.preventDefault();
 
+    modal.focus();
+
     // Get clicked button
     var elemCancel = $(e.target).closest(dragCancel);
     // Stop modal moving when click buttons
