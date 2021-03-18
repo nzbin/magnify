@@ -5,7 +5,7 @@
  * | |  | |/ ___ \ |_| | |\  || ||  _|   | |
  * |_|  |_/_/   \_\____|_| \_|___|_|     |_|
  *
- * jquery.magnify - v1.6.2
+ * jquery.magnify - v1.6.3
  * A jQuery plugin to view images just like in windows
  * https://github.com/nzbin/magnify#readme
  *
@@ -71,7 +71,7 @@
   bottom: 40px;
   left: 10px;
   z-index: 1;
-  border: 1px solid #ccc;
+  border: 1px solid rgba(255, 255, 255, 0.64);
   overflow: hidden;
 }
 
@@ -119,19 +119,23 @@
   height: 40px;
   box-sizing: border-box;
   margin: 0;
-  padding: 10px;
   font-size: 14px;
   line-height: 1;
   text-align: center;
   background: none;
   border-width: 0;
   border-radius: 0;
+  color: inherit;
   cursor: pointer;
   outline: none;
 }
 
 .magnify-button:hover {
   color: #fff;
+}
+
+.magnify-button:focus {
+  background-color: rgba(255, 255, 255, 0.08);
 }
 
 .magnify-button svg {
