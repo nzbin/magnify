@@ -58,7 +58,7 @@
   bottom: 40px;
   left: 10px;
   z-index: 1;
-  border: 1px solid #ccc;
+  border: 1px solid rgba(255, 255, 255, .64);
   overflow: hidden;
 
   &.stage-ready {
@@ -106,18 +106,22 @@
   height: 40px;
   box-sizing: border-box;
   margin: 0;
-  padding: 10px;
   font-size: 14px;
   line-height: 1;
   text-align: center;
   background: none;
   border-width: 0;
   border-radius: 0;
+  color: inherit;
   cursor: pointer;
   outline: none;
 
   &:hover {
     color: #fff;
+  }
+
+  &:focus {
+    background-color: rgba(255, 255, 255, .08);
   }
 
   svg {
