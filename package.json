@@ -59,17 +59,17 @@
     "autoprefixer": "^10.2.5",
     "concat": "^1.0.3",
     "cpy-cli": "^3.1.1",
-    "eslint": "^7.22.0",
+    "eslint": "^7.26.0",
     "node-sass": "^5.0.0",
     "npm-run-all": "^4.1.5",
     "onchange": "^7.1.0",
-    "postcss": "^8.2.8",
+    "postcss": "^8.2.15",
     "postcss-cli": "^8.3.1",
     "rimraf": "^3.0.2",
-    "stylelint": "^13.12.0",
+    "stylelint": "^13.13.1",
     "stylelint-config-recommended-scss": "^4.2.0",
     "stylelint-config-standard": "^21.0.0",
     "stylelint-scss": "^3.19.0",
-    "uglify-js": "^3.13.1"
+    "uglify-js": "^3.13.6"
   }
 }
