@@ -44,8 +44,8 @@
     "compress:css": "run-s sassmin",
     "compress:js": "uglifyjs dist/jquery.magnify.js -o dist/jquery.magnify.min.js -c -m --comments /^!/",
     "copy": "run-s copy:css copy:js",
-    "copy:css": "cpy dist/jquery.magnify.css docs/css",
-    "copy:js": "cpy dist/jquery.magnify.js docs/js",
+    "copy:css": "cp dist/jquery.magnify.css docs/css",
+    "copy:js": "cp dist/jquery.magnify.js docs/js",
     "release": "run-s clean build compress autoprefixer copy",
     "release:css": "run-s build:css compress:css",
     "release:js": "run-s build:js compress:js",
@@ -58,7 +58,6 @@
   "devDependencies": {
     "autoprefixer": "^10.3.7",
     "concat": "^1.0.3",
-    "cpy-cli": "^3.1.1",
     "eslint": "^8.0.1",
     "node-sass": "^6.0.1",
     "npm-run-all": "^4.1.5",
