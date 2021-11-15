@@ -6,6 +6,10 @@
     "es6": true,
     "jquery": true
   },
+  "ignorePatterns": [
+    "dist",
+    "docs"
+  ],
   "extends": "eslint:recommended",
   "rules": {
     "quotes": [
