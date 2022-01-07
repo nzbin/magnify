@@ -1,6 +1,6 @@
 /**
  *
- * snack.css v0.9.5
+ * snack.css v1.0.0
  *
  * https://nzbin.github.io/snack/
  *
@@ -9,6 +9,7 @@
  * Released under the MIT license
  *
  */
+
 html {
   font-family: sans-serif;
   line-height: 1.15;
@@ -31,7 +32,7 @@ section {
 
 h1 {
   font-size: 2em;
-  margin: 0.67em 0;
+  margin: .67em 0;
 }
 
 figcaption,
@@ -45,13 +46,14 @@ figure {
 }
 
 hr {
+  -webkit-box-sizing: content-box;
   box-sizing: content-box;
   height: 0;
   overflow: visible;
 }
 
 pre {
-  font-family: monospace, monospace;
+  font-family: monospace;
   font-size: 1em;
 }
 
@@ -68,23 +70,20 @@ a:hover {
 abbr[title] {
   border-bottom: none;
   text-decoration: underline;
+  -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
 }
 
 b,
 strong {
   font-weight: inherit;
-}
-
-b,
-strong {
   font-weight: bolder;
 }
 
 code,
 kbd,
 samp {
-  font-family: monospace, monospace;
+  font-family: monospace;
   font-size: 1em;
 }
 
@@ -110,11 +109,11 @@ sup {
 }
 
 sub {
-  bottom: -0.25em;
+  bottom: -.25em;
 }
 
 sup {
-  top: -0.5em;
+  top: -.5em;
 }
 
 audio,
@@ -181,10 +180,11 @@ button:-moz-focusring,
 fieldset {
   border: 1px solid #c0c0c0;
   margin: 0 2px;
-  padding: 0.35em 0.625em 0.75em;
+  padding: .35em .625em .75em;
 }
 
 legend {
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   color: inherit;
   display: table;
@@ -204,6 +204,7 @@ textarea {
 
 [type="checkbox"],
 [type="radio"] {
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   padding: 0;
 }
@@ -250,12 +251,14 @@ template {
 }
 
 *,
-*:before,
-*:after {
+*::before,
+*::after {
+  -webkit-box-sizing: inherit;
   box-sizing: inherit;
 }
 
 html {
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   font-size: 12px;
 }
@@ -288,6 +291,7 @@ pre {
   word-wrap: break-word;
   background-color: #f5f5f5;
   border: 1px solid #ccc;
+  -webkit-border-radius: 4px;
   border-radius: 4px;
   overflow: auto;
 }
@@ -297,6 +301,7 @@ code {
   font-size: 90%;
   color: #c7254e;
   background-color: #f9f2f4;
+  -webkit-border-radius: 3px;
   border-radius: 3px;
 }
 
@@ -305,6 +310,7 @@ kbd {
   font-size: 90%;
   color: #fff;
   background-color: #333;
+  -webkit-border-radius: 3px;
   border-radius: 3px;
 }
 
@@ -366,6 +372,7 @@ hr {
   line-height: 1.42858;
   font-size: 14px;
   border: 2px solid transparent;
+  -webkit-border-radius: 4px;
   border-radius: 4px;
   cursor: pointer;
   outline: none;
@@ -672,18 +679,23 @@ hr {
 .btns > .btn {
   position: relative;
   float: left;
+  -webkit-border-radius: 0;
   border-radius: 0;
   margin-left: -2px;
 }
 
 .btns > .btn:first-child {
   margin-left: 0;
+  -webkit-border-top-left-radius: 4px;
   border-top-left-radius: 4px;
+  -webkit-border-bottom-left-radius: 4px;
   border-bottom-left-radius: 4px;
 }
 
 .btns > .btn:last-child {
+  -webkit-border-top-right-radius: 4px;
   border-top-right-radius: 4px;
+  -webkit-border-bottom-right-radius: 4px;
   border-bottom-right-radius: 4px;
 }
 
@@ -691,6 +703,7 @@ hr {
   position: relative;
   display: block;
   float: none;
+  -webkit-border-radius: 0;
   border-radius: 0;
   width: 100%;
   max-width: 100%;
@@ -700,12 +713,16 @@ hr {
 
 .btns.vertical > .btn:first-child {
   margin-top: 0;
+  -webkit-border-top-left-radius: 4px;
   border-top-left-radius: 4px;
+  -webkit-border-top-right-radius: 4px;
   border-top-right-radius: 4px;
 }
 
 .btns.vertical > .btn:last-child {
+  -webkit-border-bottom-left-radius: 4px;
   border-bottom-left-radius: 4px;
+  -webkit-border-bottom-right-radius: 4px;
   border-bottom-right-radius: 4px;
 }
 
@@ -716,12 +733,12 @@ hr {
   padding-right: 15px;
 }
 
-.container:before, .container:after {
+.container::before, .container::after {
   content: " ";
   display: table;
 }
 
-.container:after {
+.container::after {
   clear: both;
 }
 
@@ -730,24 +747,27 @@ hr {
   margin-right: -15px;
 }
 
-.row:before, .row:after {
+.row::before, .row::after {
   content: " ";
   display: table;
 }
 
-.row:after {
+.row::after {
   clear: both;
 }
 
-.row.no-gutter {
-  margin-left: 0;
+.no-gutters {
   margin-right: 0;
+  margin-left: 0;
 }
 
-.row.no-gutter .col-1, .row.no-gutter .col-2, .row.no-gutter .col-3, .row.no-gutter .col-4, .row.no-gutter .col-5, .row.no-gutter .col-6, .row.no-gutter .col-7, .row.no-gutter .col-8, .row.no-gutter .col-9, .row.no-gutter .col-10, .row.no-gutter .col-11, .row.no-gutter .col-12 {
-  padding: 0;
+.no-gutters > .col,
+.no-gutters > [class*="col-"] {
+  padding-right: 0;
+  padding-left: 0;
 }
 
+.col,
 .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
   position: relative;
   min-height: 1px;
@@ -888,42 +908,40 @@ hr {
   .cols-10 > .col-offset-10 {
     margin-left: 100%;
   }
-  .cols-1 > .col-1 {
-    width: 100%;
-  }
-  .cols-2 > .col-1 {
+  .cols-2 > .col {
     width: 50%;
   }
-  .cols-3 > .col-1 {
+  .cols-3 > .col {
     width: 33.33333%;
   }
-  .cols-4 > .col-1 {
+  .cols-4 > .col {
     width: 25%;
   }
-  .cols-5 > .col-1 {
+  .cols-5 > .col {
     width: 20%;
   }
-  .cols-6 > .col-1 {
+  .cols-6 > .col {
     width: 16.66667%;
   }
-  .cols-7 > .col-1 {
+  .cols-7 > .col {
     width: 14.28571%;
   }
-  .cols-8 > .col-1 {
+  .cols-8 > .col {
     width: 12.5%;
   }
-  .cols-9 > .col-1 {
+  .cols-9 > .col {
     width: 11.11111%;
   }
-  .cols-10 > .col-1 {
+  .cols-10 > .col {
     width: 10%;
   }
-  .cols-11 > .col-1 {
+  .cols-11 > .col {
     width: 9.09091%;
   }
-  .cols-12 > .col-1 {
+  .cols-12 > .col {
     width: 8.33333%;
   }
+  .col,
   .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 {
     float: left;
   }
@@ -974,6 +992,7 @@ hr {
 
 .avatar {
   display: inline-block;
+  -webkit-border-radius: 100%;
   border-radius: 100%;
   overflow: hidden;
 }
@@ -1001,6 +1020,7 @@ label {
   width: 100%;
   padding: 4px 8px;
   border: 2px solid #ddd;
+  -webkit-border-radius: 4px;
   border-radius: 4px;
   background-color: #fff;
   font-size: 14px;
@@ -1043,12 +1063,12 @@ label {
   margin-left: -15px;
 }
 
-.form-horizontal .form-item:before, .form-horizontal .form-item:after {
+.form-horizontal .form-item::before, .form-horizontal .form-item::after {
   content: " ";
   display: table;
 }
 
-.form-horizontal .form-item:after {
+.form-horizontal .form-item::after {
   clear: both;
 }
 
@@ -1188,29 +1208,36 @@ table {
   padding: 10px 15px;
   margin-bottom: 15px;
   border: 1px solid #ddd;
+  -webkit-border-radius: 4px;
   border-radius: 4px;
   background-color: #fff;
 }
 
 .boxes {
   border: 2px solid transparent;
+  -webkit-border-radius: 5px;
   border-radius: 5px;
   margin-bottom: 15px;
 }
 
 .boxes > .box {
   border-width: 0;
+  -webkit-border-radius: 0;
   border-radius: 0;
   margin-bottom: 0;
 }
 
 .boxes > .box:first-child {
+  -webkit-border-top-left-radius: 3px !important;
   border-top-left-radius: 3px !important;
+  -webkit-border-top-right-radius: 3px !important;
   border-top-right-radius: 3px !important;
 }
 
 .boxes > .box:last-child {
+  -webkit-border-bottom-left-radius: 3px !important;
   border-bottom-left-radius: 3px !important;
+  -webkit-border-bottom-right-radius: 3px !important;
   border-bottom-right-radius: 3px !important;
 }
 
@@ -1237,6 +1264,7 @@ table {
 
 .boxes.raised {
   border-color: #ddd;
+  -webkit-box-shadow: 0 2px 10px 3px rgba(34, 36, 38, 0.12);
   box-shadow: 0 2px 10px 3px rgba(34, 36, 38, 0.12);
 }
 
@@ -1282,6 +1310,7 @@ table {
 
 .boxes.secondary > .box {
   border-width: 1px;
+  -webkit-border-radius: 4px;
   border-radius: 4px;
 }
 
@@ -1289,6 +1318,7 @@ table {
   background-color: transparent;
   margin-bottom: 0;
   border-width: 0;
+  -webkit-border-radius: 0 !important;
   border-radius: 0 !important;
 }
 
@@ -1301,6 +1331,7 @@ table {
 .boxes.secondary > .box.footed {
   background-color: transparent;
   border-width: 0;
+  -webkit-border-radius: 0 !important;
   border-radius: 0 !important;
 }
 
@@ -1368,12 +1399,12 @@ table {
   float: left;
 }
 
-.clearfix:before, .clearfix:after {
+.clearfix::before, .clearfix::after {
   content: " ";
   display: table;
 }
 
-.clearfix:after {
+.clearfix::after {
   clear: both;
 }
 
@@ -1410,11 +1441,10 @@ table {
 .text-ellipsis {
   overflow: hidden;
   white-space: nowrap;
+  -o-text-overflow: ellipsis;
   text-overflow: ellipsis;
 }
 
 .text-uppercase {
   text-transform: uppercase;
 }
-
-/*# sourceMappingURL=snack.css.map */
