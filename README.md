@@ -1,4 +1,5 @@
-> ⚠️ Attention! This repository will be maintained just in small iteration. The plugin is easy to use, but its customization can be troublesome. To improve plugin's flexibility, I made another repository [PhotoViewer](https://github.com/nzbin/photoviewer) which is the enhanced version of Magnify.
+> [!WARNING]
+> This repository will be maintained just in small iteration. The plugin is easy to use, but its customization can be troublesome. To improve the plugin's flexibility, I made another repository [PhotoViewer](https://github.com/nzbin/photoviewer) which is the enhanced version of Magnify.
 
 # Magnify
 
