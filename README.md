@@ -3,7 +3,7 @@
 
 # Magnify
 
-[![Travis](https://img.shields.io/travis/nzbin/magnify.svg)](https://travis-ci.org/nzbin/magnify)
+[![Travis](https://api.travis-ci.com/nzbin/magnify.svg)](https://travis-ci.org/nzbin/magnify)
 [![npm](https://img.shields.io/npm/v/jquery.magnify.svg)](https://www.npmjs.com/package/jquery.magnify)
 [![Bower](https://img.shields.io/bower/v/jquery.magnify)](https://github.com/nzbin/magnify)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/nzbin/magnify/blob/master/LICENSE)
